@@ -1,0 +1,265 @@
+/* ── Header ───────────────────────────────────── */
+.resumelist-section .header-part {
+  margin-bottom: 2.5rem;
+}
+
+.resumelist-section .tl-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #cc0000;
+  background: #fff0f0;
+  border: 1px solid #ffd0d0;
+  border-radius: 99px;
+  padding: 4px 12px;
+  margin-bottom: 14px;
+}
+
+.resumelist-section .tl-eyebrow i {
+  font-size: 12px;
+}
+
+.resumelist-section .header-part h1 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+
+.resumelist-section .header-sub {
+  font-size: 14px;
+  color: #999;
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ── Group ────────────────────────────────────── */
+.tl-group {
+  margin-bottom: 2.75rem;
+}
+
+.tl-group-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.tl-group-icon i {
+  font-size: 24px;
+  color: #cc0000;
+}
+
+.tl-group-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.tl-group-count {
+  font-size: 16px;
+  color: #bbb;
+  font-weight: 400;
+  margin-left: 8px;
+}
+
+.tl-group-line {
+  flex: 1;
+  height: 0.5px;
+  background: #e8e8e8;
+}
+
+/* ── Grid ─────────────────────────────────────── */
+.tl-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+/* ── Card ─────────────────────────────────────── */
+.tl-card {
+  background: #fff;
+  border: 0.5px solid #e8e8e8;
+  border-radius: 12px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+}
+
+.tl-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #cc0000;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.tl-card:hover {
+  border-color: #ffc0c0;
+  box-shadow: 0 2px 12px rgba(204, 0, 0, 0.07);
+}
+
+.tl-card:hover::before {
+  opacity: 1;
+}
+
+.tl-card--soon {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
+}
+
+/* ── Card Top ─────────────────────────────────── */
+.tl-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.tl-card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background: #fff0f0;
+  border: 1px solid #ffd0d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #cc0000;
+}
+
+.tl-card-icon i {
+  font-size: 20px;
+  color: #cc0000;
+}
+
+.tl-card--soon .tl-card-icon {
+  background: #f5f5f5;
+  border-color: #e8e8e8;
+}
+
+.tl-card--soon .tl-card-icon i {
+  color: #bbb;
+}
+
+/* ── Soon Badge ───────────────────────────────── */
+.tl-soon-badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #aaa;
+  background: #f5f5f5;
+  border: 0.5px solid #e8e8e8;
+  border-radius: 99px;
+  padding: 3px 9px;
+}
+
+/* ── Card Body ────────────────────────────────── */
+.tl-card-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+  margin: 0 0 5px;
+}
+
+.tl-card--soon .tl-card-title {
+  color: #aaa;
+}
+
+.tl-card-desc {
+  font-size: 14px;
+  color: #999;
+  margin: 0 0 14px;
+  line-height: 1.55;
+}
+
+/* ── Card Footer ──────────────────────────────── */
+.tl-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 12px;
+  border-top: 0.5px solid #f0f0f0;
+}
+
+.tl-card-tag {
+  font-size: 14px;
+  color: #bbb;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.tl-card-tag i {
+  font-size: 13px;
+}
+
+.tl-card-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 7px;
+  border: 0.5px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #bbb;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.tl-card:hover .tl-card-arrow {
+  background: #cc0000;
+  color: #fff;
+  border-color: #cc0000;
+}
+
+.tl-card-arrow i {
+  font-size: 13px;
+}
+
+/* ── Responsive ───────────────────────────────── */
+@media (max-width: 575px) {
+  .tl-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .tl-card {
+    padding: 14px;
+  }
+
+  .tl-card-desc {
+    display: none;
+  }
+
+  .tl-card-title {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 380px) {
+  .tl-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tl-card-desc {
+    display: block;
+  }
+}

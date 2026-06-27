@@ -1,0 +1,524 @@
+/* ─── MERGE PDF TOOL ─────────────────────────────────────────── */
+.merge-pdf-tool {
+  position: relative;
+  color: #1a1a1a;
+  width: 100%;
+
+  @media (max-width:991px) {
+    padding-bottom: 200px;
+  }
+}
+
+/* ─── HEADER ─────────────────────────────────────────────────── */
+.merge-pdf-tool .tool-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.merge-pdf-tool .tool-header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.merge-pdf-tool .tool-header h1 span {
+  color: #cc0000;
+}
+
+.merge-pdf-tool .tool-header p {
+  color: #555;
+    font-weight: 500;
+  font-size: 0.92rem;
+  margin: 0;
+
+  span {
+    color: #888;
+    font-weight: 400;
+    font-size: 0.95rem;
+  }
+}
+
+/* ─── DROP ZONE ──────────────────────────────────────────────── */
+.merge-pdf-tool .drop-zone {
+  border: 2px dashed #D1D5DB;
+  border-radius: 16px;
+  background: #fff;
+  padding: 56px 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.25s, background 0.25s, box-shadow 0.25s;
+  position: relative;
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto 32px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.merge-pdf-tool .drop-zone:hover,
+.merge-pdf-tool .drop-zone.drag-over {
+  border-color: #cc0000;
+  background: #fff8f8;
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.08);
+}
+
+/* Hidden file input — click only, no pointer events on drag */
+.merge-pdf-tool .drop-zone-input {
+  display: none;
+}
+
+.merge-pdf-tool .drop-zone-icon {
+  width: 64px;
+  height: 64px;
+  background: rgba(204, 0, 0, 0.08);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.merge-pdf-tool .drop-zone:hover .drop-zone-icon,
+.merge-pdf-tool .drop-zone.drag-over .drop-zone-icon {
+  transform: scale(1.1);
+  background: rgba(204, 0, 0, 0.14);
+}
+
+.merge-pdf-tool .drop-zone-icon svg {
+  width: 28px;
+  height: 28px;
+  color: #cc0000;
+}
+
+.merge-pdf-tool .drop-zone-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 6px;
+}
+
+.merge-pdf-tool .drop-zone-sub {
+  font-size: 0.82rem;
+  color: #9CA3AF;
+}
+
+.merge-pdf-tool .drop-zone-sub span {
+  color: #cc0000;
+  font-weight: 500;
+}
+
+.merge-pdf-tool .drop-zone-btn {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 9px 22px;
+  background: #cc0000;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  border: none;
+}
+
+.merge-pdf-tool .drop-zone-btn:hover {
+  background: #aa0000;
+  transform: translateY(-1px);
+}
+
+/* ─── FILES HEADER ───────────────────────────────────────────── */
+.merge-pdf-tool .files-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.merge-pdf-tool .files-count {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.merge-pdf-tool .files-count strong {
+  color: #111;
+}
+
+.merge-pdf-tool .files-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+
+
+/* ─── PDF GRID ───────────────────────────────────────────────── */
+.merge-pdf-tool .pdf-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+  gap: 16px;
+  margin: 0 auto;
+}
+
+/* ─── PDF CARD ───────────────────────────────────────────────── */
+.merge-pdf-tool .pdf-card {
+  background: #fff;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  user-select: none;
+}
+
+.merge-pdf-tool .pdf-card:hover {
+  border-color: #cc0000;
+  box-shadow: 0 4px 16px rgba(204, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.merge-pdf-tool .pdf-card.dragging {
+  opacity: 0.35;
+  transform: scale(0.96);
+  border-color: #cc0000;
+}
+
+.merge-pdf-tool .pdf-card.drag-target {
+  border-color: #16A34A;
+  box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.18);
+}
+
+/* Order badge */
+.merge-pdf-tool .pdf-order {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 22px;
+  height: 22px;
+  background: #ffffff;
+  color: #000000;
+  border-radius: 50%;
+  font-size: 0.68rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Remove button */
+.merge-pdf-tool .pdf-remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  background: rgba(220, 38, 38, 0.88);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.15s;
+  padding: 0;
+}
+
+.merge-pdf-tool .pdf-card:hover .pdf-remove {
+  opacity: 1;
+}
+
+/* Preview area — fixed height */
+.merge-pdf-tool .pdf-preview-wrap {
+  height: 190px;
+  background: #F3F4F6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.merge-pdf-tool .pdf-preview-wrap canvas {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.merge-pdf-tool .pdf-preview-wrap .react-pdf__Page {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+}
+
+.merge-pdf-tool .pdf-preview-wrap .react-pdf__Page__canvas {
+  max-width: 100% !important;
+  max-height: 190px !important;
+  height: auto !important;
+  width: auto !important;
+}
+
+/* Card footer */
+.merge-pdf-tool .pdf-info {
+  padding: 10px 10px 12px;
+}
+
+.merge-pdf-tool .pdf-name {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #222;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 3px;
+}
+
+.merge-pdf-tool .pdf-size {
+  font-size: 0.65rem;
+  color: #9CA3AF;
+}
+
+/* Drag hint */
+.merge-pdf-tool .drag-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #C4C4C4;
+  max-width: 980px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─── LOADER OVERLAY ─────────────────────────────────────────── */
+.merge-pdf-tool .loader-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.merge-pdf-tool .loader-overlay .loader-text {
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* ─── PAGE-LEVEL DROP OVERLAY (when files exist) ─────────────── */
+.merge-pdf-tool .page-drop-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(204, 0, 0, 0.06);
+  border: 3px dashed #cc0000;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.merge-pdf-tool .page-drop-inner {
+  background: #fff;
+  border-radius: 16px;
+  padding: 32px 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 32px rgba(204, 0, 0, 0.15);
+}
+
+.merge-pdf-tool .page-drop-inner svg {
+  width: 36px;
+  height: 36px;
+  color: #cc0000;
+}
+
+.merge-pdf-tool .page-drop-inner p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #cc0000;
+}
+
+/* ─── DRAG HANDLE ────────────────────────────────────────────── */
+.merge-pdf-tool .drag-handle {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: grab;
+  color: #bbb;
+  z-index: 3;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+  touch-action: none;
+  /* critical — prevents scroll on touch */
+}
+
+.merge-pdf-tool .drag-handle:active {
+  cursor: grabbing;
+}
+
+.merge-pdf-tool .drag-handle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.merge-pdf-tool .pdf-card:hover .drag-handle {
+  color: #cc0000;
+  background: rgba(204, 0, 0, 0.07);
+}
+
+/* drag hint — show right text per device */
+.merge-pdf-tool .drag-hint-desktop {
+  display: inline;
+}
+
+.merge-pdf-tool .drag-hint-mobile {
+  display: none;
+}
+
+@media (hover: none) and (pointer: coarse) {
+
+  /* touch device */
+  .merge-pdf-tool .drag-hint-desktop {
+    display: none;
+  }
+
+  .merge-pdf-tool .drag-hint-mobile {
+    display: inline;
+  }
+
+  /* always show remove button on touch (no hover) */
+  .merge-pdf-tool .pdf-remove {
+    opacity: 1;
+  }
+}
+
+.tools-bottom-button-div {
+  .btn-add-more {
+    position: relative;
+    background: #fff;
+    border: 1px solid #D1D5DB;
+    color: #444;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    .file-count{
+       position: absolute;
+  top: -5px;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background: rgba(220, 38, 38, 0.88);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+    }
+  }
+
+  .btn-add-more:hover {
+    border-color: #cc0000;
+    color: #cc0000;
+    background: #fff8f8;
+  }
+
+  .btn-merge {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border-radius: 8px;
+    border: 2px solid var(--rk-brand);
+    background: var(--rk-brand);
+    padding: 10px;
+    color: #fff;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .btn-merge:hover {
+    background: #aa0000;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 16px rgba(204, 0, 0, 0.3);
+  }
+
+  .btn-merge:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  @media (max-width:991px) {
+    button {
+      width: 100%;
+      border-radius: 0px;
+
+    }
+  }
+}
+
+.merge-pdf-tool .drag-hint {
+    margin: 20px auto 0;
+    max-width: 100%;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #15803d;
+    width: fit-content;
+}
+
+.merge-pdf-tool .drag-hint svg {
+    flex-shrink: 0;
+    color: #16a34a;
+}
+
+.merge-pdf-tool .drag-hint-desktop { display: inline; }
+.merge-pdf-tool .drag-hint-mobile  { display: none; }
+
+@media (hover: none) and (pointer: coarse) {
+    .merge-pdf-tool .drag-hint-desktop { display: none; }
+    .merge-pdf-tool .drag-hint-mobile  { display: inline; }
+}

@@ -1,0 +1,285 @@
+/* =========================================
+   ResumeTemplate2 — Clean Single Column
+   Centered header with icon contact row
+   Skills with proficiency badges
+   --templateColor for dynamic theming
+   ========================================= */
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+@media print {
+  @page { size: A4; margin: 0; }
+  html, body { margin: 0; padding: 0; width: 210mm; height: 297mm; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body * { visibility: hidden !important; }
+  .middle-resume-preview-div .review-resume-div, .middle-resume-preview-div .review-resume-div * { visibility: visible !important; }
+}
+
+.resume {
+  &.color-1 { --templateColor: #de21a2; }
+  &.color-2 { --templateColor: #5a21de; }
+  &.color-3 { --templateColor: #01cf27; }
+  &.color-4 { --templateColor: #de7921; }
+  &.color-5 { --templateColor: #de2124; }
+  &.color-6 { --templateColor: #585858; }
+  &.montserrat * { font-family: "Montserrat", sans-serif; }
+  &.open_san *   { font-family: "Open Sans", sans-serif; }
+  &.poppins *    { font-family: "Poppins", sans-serif; }
+  &.roboto *     { font-family: "Roboto", sans-serif; }
+}
+
+.resume.ResumeTemplate2 {
+  --templateColor: #c0392b;
+
+  width: 800px;
+  min-height: 1131px;
+  margin: 0 auto;
+  background: #ffffff;
+  color: #2d2d2d;
+  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+  box-sizing: border-box;
+  padding: 44px 56px;
+
+  * { box-sizing: border-box; }
+  p, ul, li, h1, h2, h3, h4 { margin: 0; padding: 0; }
+  ul { list-style: none; }
+
+  /* ── HEADER ───────────────────────────── */
+  .rt2_header {
+    text-align: center;
+    margin-bottom: 35px;
+
+    .rt2_name {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--templateColor);
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+    }
+
+    .rt2_contact_row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px 4px;
+    }
+
+    .rt2_contact_item {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #555;
+    }
+
+    .rt2_contact_sep {
+      color: #bbb;
+      font-size: 12px;
+      padding: 0 4px;
+    }
+
+    .rt2_icon {
+      display: inline-flex;
+      align-items: center;
+      color: var(--templateColor);
+      svg { display: block; }
+    }
+  }
+
+  /* ── SECTION ──────────────────────────── */
+  .rt2_section {
+    margin-bottom: 35px;
+  }
+
+  .rt2_section_title {
+    font-size: 12.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.8px;
+    color: var(--templateColor);
+    text-align: center;
+    padding-bottom: 8px;
+    margin-bottom: 14px;
+    margin-top: 20px;
+    border-bottom: 1.5px solid var(--templateColor);
+  }
+
+  /* ── BODY TEXT ────────────────────────── */
+  .rt2_text {
+    font-size: 12.5px;
+    color: #3a3a3a;
+    line-height: 1.75;
+    text-align: justify;
+  }
+
+  /* ── SKILLS GRID ──────────────────────── */
+  .rt2_skills_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+
+    ul {
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 12.5px;
+        color: #333;
+        padding: 5px 0;
+        border-bottom: 1px solid #f0f0f0;
+        gap: 8px;
+
+        &:last-child { border-bottom: none; }
+
+        .rt2_skill_name {
+          flex: 1;
+          color: #2d2d2d;
+        }
+
+        .rt2_skill_level {
+          font-size: 10.5px;
+          font-weight: 500;
+          color: var(--templateColor);
+            background: rgba(192, 57, 43, 0.1);
+          border-radius: 3px;
+          padding: 1px 7px;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+
+  /* ── ENTRIES ──────────────────────────── */
+  .rt2_entry {
+    margin-bottom: 16px;
+
+    &:last-child { margin-bottom: 0; }
+
+    .rt2_entry_head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 3px;
+
+      .rt2_entry_title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #1a1a1a;
+        flex: 1;
+      }
+
+      .rt2_entry_date {
+        font-size: 11.5px;
+        font-weight: 600;
+        color: var(--templateColor);
+        white-space: nowrap;
+      }
+    }
+
+    .rt2_entry_meta {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: #666;
+      font-style: italic;
+      margin-bottom: 6px;
+
+      .rt2_icon {
+        display: inline-flex;
+        align-items: center;
+        color: var(--templateColor);
+        flex-shrink: 0;
+        svg { display: block; }
+      }
+    }
+  }
+
+  /* ── BULLETS ──────────────────────────── */
+  .rt2_bullets {
+    padding-left: 16px;
+    margin-top: 6px;
+
+    li {
+      font-size: 12.5px;
+      color: #3a3a3a;
+      list-style: disc;
+      margin-bottom: 4px;
+      line-height: 1.65;
+
+      &:last-child { margin-bottom: 0; }
+    }
+  }
+
+  /* ── PLAIN LISTS ──────────────────────── */
+  .rt2_plain_list {
+    li {
+      font-size: 12.5px;
+      color: #333;
+      margin-bottom: 4px;
+
+      &:last-child { margin-bottom: 0; }
+
+      strong { color: #1a1a1a; font-weight: 700; }
+      a { color: #555; text-decoration: underline; &:hover { color: var(--templateColor); } }
+    }
+  }
+
+  /* Languages — inline flex */
+  .rt2_lang_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 28px;
+  }
+
+  /* Hobbies — with checkmark bullets */
+  .rt2_hobbies_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 24px;
+
+    li {
+      padding-left: 16px;
+      position: relative;
+
+      &::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--templateColor);
+        font-size: 12px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  /* Social — icon + link */
+  .rt2_social_list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      .rt2_social_icon {
+        display: inline-flex;
+        align-items: center;
+        color: var(--templateColor);
+        flex-shrink: 0;
+        svg { display: block; }
+      }
+    }
+  }
+}

@@ -1,0 +1,405 @@
+@media (max-width: 1200px) {
+    :root {
+        --review-resume-width: 350px;
+    }
+
+    :root {
+        --review-tools-width: 350px;
+    }
+}
+
+@media (max-width: 991px) {
+    .custom-container{
+        padding-inline: 35px;
+    
+    }
+    :root {
+        --review-resume-width: 300px;
+    }
+    /* Interchange propery of remive-sidebar screen less than 991px start*/
+    .resume-sidebar {
+        width: var(--collapsedResumeSidebarWidth);
+        .header {
+            .left-side {
+                width: 0;
+                visibility: hidden;
+                overflow: hidden;
+                transition: all 0.25s ease-in-out;
+            }
+
+            .right-side-btn {
+                position: relative;
+                left: -5px;
+            }
+        }
+        .each-sidebar-item {
+            span {
+                width: 0;
+                visibility: hidden;
+                overflow: hidden;
+                width: fit-content;
+                transition: all 0.25s ease-in-out;
+                white-space: nowrap;
+            }
+
+            & .step-done {
+                top: 5px !important;
+                transform: unset !important;
+                width: 18px;
+            }
+        }
+
+        & ~ .resume-form-div {
+            padding-left: calc(var(--collapsedResumeSidebarWidth) + 20px);
+        }
+    }
+
+    /* When collapsed added */
+    .resume-sidebar.collapsed {
+        width: var(--resumeSidebarWidth);
+
+        .header {
+            .left-side {
+                width: 150px;
+                visibility: visible;
+                overflow: hidden;
+                transition: all 0.25s ease-in-out;
+            }
+
+            .right-side-btn {
+                position: unset;
+                left: unset;
+            }
+        }
+
+        .each-sidebar-item {
+            span {
+                width: unset;
+                visibility: unset;
+                overflow: unset;
+                width: unset;
+                transition: all 0.25s ease-in-out;
+                white-space: unset;
+            }
+
+            & .step-done {
+                right: 5px;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+            }
+        }
+        & ~ .resume-form-div {
+            padding-left: 75px + 20px;
+        }
+    }
+
+    .show-resume-section {
+        --left-customize-and-resumes-width: 300px;
+        --right-download-resumes-width: 0px !important;
+        .right-download-div {
+            right: 0;
+            top: unset;
+            bottom: 0;
+            max-width: 100%;
+            width: calc(100% - var(--left-customize-and-resumes-width));
+            height: auto;
+            overflow-y: hidden;
+            z-index: 2;
+            border-left: none;
+            border-top: 1px solid #e4e7eb;
+            display: flex;
+            align-items: center;
+
+            .download-heading {
+                display: none;
+            }
+
+            .each-btn {
+                position: relative;
+                font-size: 18px;
+
+                img {
+                    width: 42px;
+                    height: 42px;
+                }
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
+                    width: 1px;
+                    height: calc(100% - 35px);
+                    background: #dedede;
+                }
+            }
+        }
+    }
+
+    :root {
+        --review-tools-width: 300px;
+    }
+
+    .tools-sidebar {
+        width: var(--collapsedToolsSidebarWidth);
+        .header {
+            .left-side {
+                width: 0;
+                visibility: hidden;
+                overflow: hidden;
+                transition: all 0.25s ease-in-out;
+            }
+
+            .right-side-btn {
+                position: relative;
+                left: -5px;
+            }
+        }
+        .each-sidebar-item {
+            &::after {
+                display: none;
+            }
+
+            span {
+                width: 0;
+                visibility: hidden;
+                overflow: hidden;
+                width: fit-content;
+                transition: all 0.25s ease-in-out;
+                white-space: nowrap;
+            }
+        }
+
+        & ~ .tools-right-div {
+            padding-left: calc(var(--collapsedToolsSidebarWidth) + 20px);
+        }
+
+        .each-sub-item {
+            span {
+                width: 0;
+                height: 0;
+                visibility: hidden;
+            }
+        }
+    }
+
+    /* When collapsed added */
+    .tools-sidebar.collapsed {
+        width: var(--toolsSidebarWidth);
+
+        .header {
+            .left-side {
+                width: unset;
+                visibility: visible;
+                overflow: hidden;
+                transition: all 0.25s ease-in-out;
+            }
+
+            .right-side-btn {
+                position: unset;
+                left: unset;
+            }
+        }
+
+        .each-sidebar-item {
+            &::after {
+                display: block;
+            }
+            span {
+                width: unset;
+                visibility: unset;
+                overflow: unset;
+                width: unset;
+                transition: all 0.25s ease-in-out;
+                white-space: unset;
+            }
+        }
+        & ~ .tools-right-div {
+            padding-left: 75px + 20px;
+        }
+
+        .each-sub-item {
+            span {
+                width: unset;
+                height: unset;
+                visibility: visible;
+            }
+        }
+    }
+    /* Interchange propery of remive-sidebar screen less than 991px end*/
+}
+
+@media (max-width: 991px) {
+    .pb-mob-100{
+        padding-bottom: 135px;
+    }
+    .custom-container {
+        padding-inline: 30px;
+    }
+
+    .resume-form-div {
+        padding-inline: 30px !important;
+    }
+    .tools-right-div {
+        padding-inline: 30px !important;
+    }
+    /* Different Font Sizes */
+    .fs-mob-10 {
+        font-size: 0.625rem !important;
+    }
+    .fs-mob-12 {
+        font-size: 0.75rem !important;
+    }
+    .fs-mob-14 {
+        font-size: 0.875rem !important;
+    }
+    .fs-mob-16 {
+        font-size: 1rem !important;
+    }
+    .fs-mob-18 {
+        font-size: 1.125rem !important;
+    }
+    .fs-mob-20 {
+        font-size: 1.25rem !important;
+    }
+    .fs-mob-22 {
+        font-size: 1.375rem !important;
+    }
+    .fs-mob-24 {
+        font-size: 1.5rem !important;
+    }
+    .fs-mob-26 {
+        font-size: 1.625rem !important;
+    }
+    .fs-mob-28 {
+        font-size: 1.75rem !important;
+    }
+    .fs-mob-30 {
+        font-size: 1.875rem !important;
+    }
+    .fs-mob-32 {
+        font-size: 2rem !important;
+    }
+    .fs-mob-34 {
+        font-size: 2.125rem !important;
+    }
+    .fs-mob-36 {
+        font-size: 2.25rem !important;
+    }
+    .fs-mob-38 {
+        font-size: 2.375rem !important;
+    }
+    .fs-mob-40 {
+        font-size: 2.5rem !important;
+    }
+    .fs-mob-42 {
+        font-size: 2.625rem !important;
+    }
+    .fs-mob-44 {
+        font-size: 2.75rem !important;
+    }
+    .fs-mob-46 {
+        font-size: 2.875rem !important;
+    }
+    .fs-mob-48 {
+        font-size: 3rem !important;
+    }
+    .fs-mob-50 {
+        font-size: 3.125rem !important;
+    }
+    .fs-mob-52 {
+        font-size: 3.25rem !important;
+    }
+    .fs-mob-54 {
+        font-size: 3.375rem !important;
+    }
+    .fs-mob-56 {
+        font-size: 3.5rem !important;
+    }
+    .fs-mob-58 {
+        font-size: 3.625rem !important;
+    }
+    .fs-mob-60 {
+        font-size: 3.75rem !important;
+    }
+    /*  */
+
+    .select-theme-area {
+        --customize-width: 0;
+
+        .right-side .resume-select-headings {
+            margin-bottom: 35px;
+        }
+
+        .use-template-btn-div {
+            border-radius: 24px 24px 0px 0px;
+            background: #fff;
+            filter: drop-shadow(0px -1px 20px rgba(0, 0, 0, 0.2));
+            padding-top: 15px !important;
+            .next-button {
+                position: relative;
+                width: 100%;
+                overflow: hidden;
+
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -35px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    width: 45px;
+                    height: 45px;
+                    border-radius: 50%;
+                    border: 1px solid var(--rk-brand);
+                }
+            }
+        }
+    }
+    .resume-sidebar {
+        display: none;
+    }
+
+    .tools-sidebar {
+        display: none;
+    }
+
+    .review-resume-div {
+        display: none;
+    }
+
+    .show-resume-section {
+        --left-customize-and-resumes-width: 0;
+        --right-download-resumes-width: 0px !important;
+        .right-download-div {
+            display: none;
+        }
+        .review-resume-div {
+            display: block;
+        }
+
+        .header-part-div {
+            .edit-btn {
+                display: none;
+            }
+        }
+    }
+}
+
+@media (max-width: 567px) {
+    .custom-container {
+        padding-inline: 15px;
+    }
+
+    .resume-form-div {
+        padding-inline: 15px !important;
+    }
+    .tools-right-div {
+        padding-inline: 15px !important;
+    }
+    .navbar {
+        .nav-logo {
+            max-width: 200px;
+        }
+    }
+}

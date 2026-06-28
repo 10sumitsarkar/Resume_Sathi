@@ -7,7 +7,9 @@ import {
   createTransform,
 } from 'redux-persist';
 
-import storage from 'redux-persist/lib/storage';
+import createIndexedDBStorage from 'redux-persist-indexeddb-storage';
+
+const storage = createIndexedDBStorage('ResumeBuilderDB');
 
 const normalizeResumes = (resumes) => {
   if (Array.isArray(resumes)) {
@@ -29,18 +31,7 @@ const normalizeResumes = (resumes) => {
 };
 
 const sanitizeResumeForStorage = (resume) => {
-  const photo = resume?.personal_infomation?.photo;
-  if (!photo) {
-    return resume;
-  }
-
-  return {
-    ...resume,
-    personal_infomation: {
-      ...resume.personal_infomation,
-      photo: '',
-    },
-  };
+  return resume;
 };
 
 const sanitizeResumesForStorage = (resumes) =>

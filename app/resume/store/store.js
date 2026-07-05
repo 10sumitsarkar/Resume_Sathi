@@ -74,7 +74,7 @@ const persistedReducer = persistReducer(
   persistConfig,
   resumeReducer
 );
-
+ 
 export const store = configureStore({
   reducer: {
     resume: persistedReducer,

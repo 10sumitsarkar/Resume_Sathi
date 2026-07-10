@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import { Suspense } from "react";
 import { useSearchParams } from 'next/navigation';
 import './blog.css';
 
@@ -100,7 +101,7 @@ function Sidebar({ latest, categories, selectedCategory, onSelectCategory, searc
   );
 }
 
-export default function BlogPage() {
+function BlogPageContent() {
   const searchParams = useSearchParams();
   const initialSearch = searchParams?.get('search') || searchParams?.get('q') || '';
 
@@ -259,5 +260,12 @@ export default function BlogPage() {
         />
       </div>
     </section>
+  );
+}
+export default function BlogPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BlogPageContent />
+    </Suspense>
   );
 }

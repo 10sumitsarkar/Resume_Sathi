@@ -3864,7 +3864,7 @@ body:has(.tools-sidebar.collapsed) .tooltip {
       color: #444;
       border-radius: 8px;
       padding: 10px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
       cursor: pointer;
       transition: border-color 0.2s, color 0.2s, background 0.2s;
@@ -3910,7 +3910,7 @@ body:has(.tools-sidebar.collapsed) .tooltip {
       padding: 10px;
       color: #fff;
       text-align: center;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
     }
 

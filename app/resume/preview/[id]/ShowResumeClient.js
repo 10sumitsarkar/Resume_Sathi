@@ -12,8 +12,7 @@ import { setResumeConfigration, setResumeName, setPreviewResumeSize } from '../.
 import ReviewResume from '../../components/ReviewResume'
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { createResumePdf } from '../../resume-pdf/createResumePdf';
 
 const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate1', component: ResumeTemplate1 },
@@ -44,6 +43,10 @@ export default function ShowResume() {
     const resumeName = useSelector(state => {
         const resumes = Array.isArray(state.resume.resumes) ? state.resume.resumes : [];
         return resumes.find(resume => resume.id === id)?.resume_name || 'Resume Name';
+    });
+    const selectedResume = useSelector(state => {
+        const resumes = Array.isArray(state.resume.resumes) ? state.resume.resumes : [];
+        return resumes.find(resume => resume.id === id) || null;
     });
 
     const [customizeData, setCustomizeData] = useState({
@@ -351,121 +354,22 @@ export default function ShowResume() {
 
     // ─── Download as PDF ────────────────────────────────────────────────────────
     const downloadPDF = async () => {
-        const element = getDownloadElement();
-
-        if (!element) {
-            console.error('Resume section not found!');
-            return;
-        }
-
         setLoading(true);
-        await new Promise(r => setTimeout(r, 80));
-
-        const offscreenWrapper = document.createElement('div');
-        offscreenWrapper.className = `print-wrapper ${customizeData?.color_palette || ''} ${customizeData?.font_style || ''}`;
-        offscreenWrapper.style.cssText = `
-            position: fixed;
-            left: -9999px;
-            top: 0;
-            width: 794px;
-            height: auto;
-            overflow: visible;
-            z-index: -1;
-            pointer-events: none;
-        `;
-
-        const clone = element.cloneNode(true);
-        clone.style.cssText = `
-            width: 794px !important;
-            height: auto !important;
-            max-height: none !important;
-            overflow: visible !important;
-            transform: none !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            padding-top: 0 !important;
-            position: static !important;
-            box-shadow: none !important;
-        `;
-
-        offscreenWrapper.appendChild(clone);
-        document.body.appendChild(offscreenWrapper);
-
-        await new Promise(r => setTimeout(r, 200));
-
-        // Ensure clone uses resolved color strings (rgb / rgba) to avoid
-        // unsupported `color(...)` values during canvas rendering.
-        sanitizeComputedColors(element, clone);
-
         try {
-            const cloneHeight = Math.max(clone.scrollHeight, clone.offsetHeight);
-            const cloneBounds = clone.getBoundingClientRect();
-            const captureHeight = Math.ceil(Math.max(cloneBounds.height, clone.scrollHeight, clone.offsetHeight));
-
-            const canvas = await html2canvas(clone, {
-                scale: 2,
-                useCORS: true,
-                allowTaint: true,
-                scrollX: 0,
-                scrollY: 0,
-                width: 794,
-                height: captureHeight,
-                windowWidth: 794,
-                windowHeight: captureHeight,
-                backgroundColor: '#ffffff',
+            await createResumePdf({
+                resume: selectedResume || {},
+                fileName: resumeName || 'resume',
+                selectedTheme: customizeData?.selected_theme || 'ResumeTemplate1',
+                palette: customizeData?.color_palette || 'color-1',
             });
-
-            const trimmedCanvas = trimCanvasWhiteSpace(canvas);
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            const pdfPageWidth = pdf.internal.pageSize.getWidth();
-            const pdfPageHeight = pdf.internal.pageSize.getHeight();
-            const margin = PDF_PAGE_MARGIN_MM;
-            const firstPageHeightMm = pdfPageHeight - margin;
-            const laterPageHeightMm = pdfPageHeight - margin * 2;
-            const sourceWidth = trimmedCanvas.width;
-            const sourceHeight = trimmedCanvas.height;
-            const pixelsPerMm = sourceWidth / pdfPageWidth;
-            const firstPageHeightPx = Math.floor(firstPageHeightMm * pixelsPerMm);
-            const laterPageHeightPx = Math.floor(laterPageHeightMm * pixelsPerMm);
-
-            let srcY = 0;
-            let pageIndex = 0;
-            while (srcY < sourceHeight) {
-                const currentPageMaxHeight = pageIndex === 0 ? firstPageHeightPx : laterPageHeightPx;
-                const currentTopMargin = pageIndex === 0 ? 0 : margin;
-                const maxSliceHeight = Math.min(currentPageMaxHeight, sourceHeight - srcY);
-                let sliceHeight = maxSliceHeight;
-
-                if (srcY + maxSliceHeight < sourceHeight) {
-                    const breakRow = findPageBreakRow(trimmedCanvas, srcY + maxSliceHeight, 180);
-                    const breakHeight = breakRow - srcY;
-                    const minAcceptableBreak = Math.floor(maxSliceHeight * 0.5);
-
-                    if (breakHeight > minAcceptableBreak && breakHeight < maxSliceHeight) {
-                        sliceHeight = breakHeight;
-                    }
-                }
-
-                const pageCanvas = document.createElement('canvas');
-                pageCanvas.width = sourceWidth;
-                pageCanvas.height = sliceHeight;
-                pageCanvas
-                    .getContext('2d')
-                    .drawImage(trimmedCanvas, 0, srcY, sourceWidth, sliceHeight, 0, 0, sourceWidth, sliceHeight);
-
-                const pageImg = pageCanvas.toDataURL('image/png');
-                if (pageIndex > 0) pdf.addPage();
-                pdf.addImage(pageImg, 'PNG', 0, currentTopMargin, pdfPageWidth, sliceHeight / pixelsPerMm);
-
-                srcY += sliceHeight;
-                pageIndex += 1;
-            }
-
-            pdf.save('resume.pdf');
         } catch (err) {
             console.error('PDF generation failed:', err);
+            toast.error('PDF download failed. Please try again.', {
+                position: 'top-right',
+                autoClose: 3000,
+                theme: 'light',
+            });
         } finally {
-            document.body.removeChild(offscreenWrapper);
             setLoading(false);
         }
     };
@@ -545,7 +449,6 @@ export default function ShowResume() {
 
         removeExistingPrintHelpers();
 
-        // Create a dedicated print-only container that takes over the whole page
         const printContainer = document.createElement('div');
         printContainer.id = '__resume_print_root__';
         printContainer.style.cssText = `
@@ -558,7 +461,6 @@ export default function ShowResume() {
             background: #fff;
         `;
 
-        // Wrap with correct color/font classes so styles apply
         const innerWrapper = document.createElement('div');
         innerWrapper.className = `print-wrapper ${customizeData?.color_palette || ''} ${customizeData?.font_style || ''}`;
         innerWrapper.style.cssText = `
@@ -567,7 +469,6 @@ export default function ShowResume() {
             padding: 0;
         `;
 
-        // Deep clone the resume — no references to the original DOM
         const clone = resumeContent.cloneNode(true);
         clone.style.cssText = `
             width: 100% !important;
@@ -580,7 +481,6 @@ export default function ShowResume() {
             position: static !important;
         `;
 
-        // Sanitize clone colors (same reason as PDF capture).
         try {
             sanitizeComputedColors(resumeContent, clone);
         } catch (e) {
@@ -591,7 +491,6 @@ export default function ShowResume() {
         printContainer.appendChild(innerWrapper);
         document.body.appendChild(printContainer);
 
-        // Inject a print-specific <style> tag that hides everything except our container
         const styleTag = document.createElement('style');
         styleTag.id = '__resume_print_style__';
         styleTag.innerHTML = `
@@ -633,7 +532,6 @@ export default function ShowResume() {
         `;
         document.head.appendChild(styleTag);
 
-        // Set title, print, then clean up
         const originalTitle = document.title;
         document.title = resumeName || 'Resume';
 
@@ -647,11 +545,31 @@ export default function ShowResume() {
         };
 
         window.addEventListener('afterprint', cleanup);
-        setTimeout(cleanup, 5000);
 
-        // Small delay so browser renders the container before print dialog
         setTimeout(() => {
-            window.print();
+            const printWindow = window.open('', '_blank', 'width=800,height=900');
+            if (printWindow) {
+                printWindow.document.write('<html><head><title>Resume</title></head><body></body></html>');
+                printWindow.document.close();
+                printWindow.focus();
+                printWindow.document.body.innerHTML = printContainer.innerHTML;
+                const printStyle = printWindow.document.createElement('style');
+                printStyle.innerHTML = `
+                    @page { size: A4 portrait; margin: 0; }
+                    html, body { margin: 0; padding: 0; background: #fff; }
+                    body { width: 210mm; }
+                    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+                `;
+                printWindow.document.head.appendChild(printStyle);
+                printWindow.print();
+                printWindow.addEventListener('afterprint', () => {
+                    cleanup();
+                    printWindow.close();
+                });
+            } else {
+                window.print();
+                setTimeout(cleanup, 1000);
+            }
         }, 150);
     };
     // ────────────────────────────────────────────────────────────────────────────

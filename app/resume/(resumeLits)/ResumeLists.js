@@ -11,8 +11,7 @@ import Link from 'next/link';
 import 'react-toastify/dist/ReactToastify.css';
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+import { createResumePdf } from '../resume-pdf/createResumePdf';
 import ResumeTemplate1 from '../templates/ResumeTemplate1';
 import ResumeTemplate2 from '../templates/ResumeTemplate2';
 import ResumeTemplate3 from '../templates/ResumeTemplate3';
@@ -211,54 +210,16 @@ export default function ResumeLists() {
   };
 
   const downloadPDF = async (resume) => {
-    const element = await waitForThemeElement(resume);
-    if (!element) {
-      toast.error('Resume preview not ready. Please try again.', { position: 'top-right', autoClose: 3000, theme: 'light' });
-      return;
-    }
-    const clone = element.cloneNode(true);
-    clone.style.cssText = `width:794px !important;height:auto !important;max-height:none !important;overflow:visible !important;transform:none !important;margin:0 !important;position:static !important;padding:0 !important;padding-top:0 !important;box-shadow:none !important;`;
-    const wrapper = document.createElement('div');
-    wrapper.className = `print-wrapper ${resume.configuration?.color_palette || ''} ${resume.configuration?.font_style || ''}`;
-    wrapper.style.cssText = 'position:fixed;left:-9999px;top:0;width:794px;background:#fff;z-index:-1;pointer-events:none;margin:0;padding:0;';
-    wrapper.appendChild(clone);
-    document.body.appendChild(wrapper);
     try {
-      const captureHeight = Math.ceil(Math.max(clone.getBoundingClientRect().height, clone.scrollHeight, clone.offsetHeight));
-      const canvas = await html2canvas(clone, { scale: 2, useCORS: true, allowTaint: true, scrollX: 0, scrollY: 0, width: 794, height: captureHeight, windowWidth: 794, windowHeight: captureHeight, backgroundColor: '#ffffff' });
-      const trimmedCanvas = trimCanvasWhiteSpace(canvas);
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const pdfPageWidth = pdf.internal.pageSize.getWidth();
-      const pdfPageHeight = pdf.internal.pageSize.getHeight();
-      const marginBottom = 10;
-      const marginTop = 10;
-      const sourceWidth = trimmedCanvas.width;
-      const sourceHeight = trimmedCanvas.height;
-      const pixelsPerMm = sourceWidth / pdfPageWidth;
-      const firstPageHeightPx = Math.floor((pdfPageHeight - marginBottom) * pixelsPerMm);
-      const nextPageHeightPx = Math.floor((pdfPageHeight - marginBottom - marginTop) * pixelsPerMm);
-      let srcY = 0;
-      let pageIndex = 0;
-      while (srcY < sourceHeight) {
-        let sliceHeight = pageIndex === 0 ? Math.min(firstPageHeightPx, sourceHeight - srcY) : Math.min(nextPageHeightPx, sourceHeight - srcY);
-        if (srcY + sliceHeight < sourceHeight) {
-          const breakRow = findPageBreakRow(trimmedCanvas, srcY + sliceHeight, 220);
-          if (breakRow > srcY + 40 && breakRow < srcY + sliceHeight) sliceHeight = breakRow - srcY;
-        }
-        const pageCanvas = document.createElement('canvas');
-        pageCanvas.width = sourceWidth;
-        pageCanvas.height = sliceHeight;
-        pageCanvas.getContext('2d').drawImage(trimmedCanvas, 0, srcY, sourceWidth, sliceHeight, 0, 0, sourceWidth, sliceHeight);
-        const pageImg = pageCanvas.toDataURL('image/png');
-        if (pageIndex > 0) pdf.addPage();
-        pdf.addImage(pageImg, 'PNG', 0, pageIndex === 0 ? 0 : marginTop, pdfPageWidth, sliceHeight / pixelsPerMm);
-        srcY += sliceHeight;
-        pageIndex += 1;
-      }
-      pdf.save(`${safeFileName(resume)}.pdf`);
-    } finally {
-      document.body.removeChild(wrapper);
-      setRenderResumeId(null);
+      await createResumePdf({
+        resume,
+        fileName: resume.resume_name || 'resume',
+        selectedTheme: resume.configuration?.selected_theme || 'ResumeTemplate1',
+        palette: resume.configuration?.color_palette || 'color-1',
+      });
+    } catch (err) {
+      console.error('PDF generation failed:', err);
+      toast.error('PDF download failed. Please try again.', { position: 'top-right', autoClose: 3000, theme: 'light' });
     }
   };
 

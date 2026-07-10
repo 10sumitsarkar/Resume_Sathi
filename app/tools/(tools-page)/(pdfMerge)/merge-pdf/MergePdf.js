@@ -403,7 +403,7 @@ export default function PdfMergePage() {
                             <path d="M16 6h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4" />
                             <line x1="12" y1="2" x2="12" y2="22" />
                         </svg>
-                        Merge &amp; Download
+                        Merge <span className="d-none d-sm-block"> &amp; Download</span> 
                     </button>
                 </div>
             )}

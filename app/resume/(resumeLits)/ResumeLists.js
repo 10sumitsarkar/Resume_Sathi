@@ -214,8 +214,9 @@ export default function ResumeLists() {
       await createResumePdf({
         resume,
         fileName: resume.resume_name || 'resume',
-        selectedTheme: resume.configuration?.selected_theme || 'ResumeTemplate1',
-        palette: resume.configuration?.color_palette || 'color-1',
+          selectedTheme: resume.configuration?.selected_theme || 'ResumeTemplate1',
+          palette: resume.configuration?.color_palette || 'color-1',
+          selectedFont: resume.configuration?.font_style,
       });
     } catch (err) {
       console.error('PDF generation failed:', err);

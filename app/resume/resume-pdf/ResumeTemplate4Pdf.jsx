@@ -1,6 +1,7 @@
 import React from 'react';
 import { Document, Page, View, Text, Image, StyleSheet } from '@react-pdf/renderer';
 import { PALETTE_COLORS, safeText, resolveProfileImage, formatDateRange } from './pdfHelpers';
+import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from './PdfCommon';
 
 const styles = StyleSheet.create({
   page: {
@@ -116,7 +117,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ResumeTemplate4Pdf = ({ resume, palette = 'color-1', forceFallbackFont = false }) => {
+const ResumeTemplate4Pdf = ({ resume, palette = 'color-1', forceFallbackFont = false, fontFamily = 'Poppins' }) => {
   const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS['color-1'];
   const personal = resume.personal_infomation || {};
   const fullName = [personal.firstName, personal.lastName].filter(Boolean).join(' ') || resume.resume_name || 'Your Name';
@@ -124,15 +125,21 @@ const ResumeTemplate4Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
   const profileSrc = resolveProfileImage(personal.photo);
   const initials = [personal.firstName, personal.lastName].filter(Boolean).map(x => x[0]).join('').slice(0, 2).toUpperCase();
 
-  const contactParts = [];
-  if (personal.city || personal.state || personal.country) {
-    contactParts.push([personal.city, personal.state, personal.country].filter(Boolean).join(', '));
-  }
-  if (personal.phone) contactParts.push(personal.phone);
-  if (personal.email) contactParts.push(personal.email);
-  if (personal.website) contactParts.push(personal.website);
+  const contactItems = [
+    personal.email ? { type: 'email', label: safeText(personal.email) } : null,
+    personal.phone ? { type: 'phone', label: safeText(personal.phone) } : null,
+    [personal.city, personal.state, personal.country].filter(Boolean).length > 0
+      ? { type: 'location', label: [personal.city, personal.state, personal.country].filter(Boolean).join(', ') }
+      : null,
+    personal.website ? { type: 'globe', label: safeText(personal.website) } : null,
+  ].filter(Boolean);
 
-  const pageStyle = { ...styles.page, fontFamily: forceFallbackFont ? 'Helvetica' : 'Poppins' };
+  const socialItems = resume.social_medias?.map((social) => ({
+    social_name: social.social_name || 'Other',
+    social_url: safeText(social.social_url),
+  })) || [];
+
+  const pageStyle = { ...styles.page, fontFamily: forceFallbackFont ? 'Helvetica' : (fontFamily || 'Poppins') };
 
   return (
     <Document>
@@ -142,10 +149,17 @@ const ResumeTemplate4Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
           <View style={styles.headerLeft}>
             <Text style={[styles.name, { color: accentColor }]}>{fullName}</Text>
             {jobTitle && <Text style={styles.jobTitle}>{jobTitle}</Text>}
-            {contactParts.length > 0 && (
-              <Text style={styles.contact}>
-                {contactParts.join(' | ')}
-              </Text>
+            {contactItems.length > 0 && (
+              <View style={{ marginTop: 8 }}>
+                {contactItems.map((item, idx) => (
+                  <View key={idx} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
+                    <View style={{ width: 14, height: 14, marginRight: 6, alignItems: 'center', justifyContent: 'center' }}>
+                      {item.type === 'email' ? <IconEmail color={accentColor} /> : item.type === 'phone' ? <IconPhone color={accentColor} /> : item.type === 'location' ? <IconLocation color={accentColor} /> : <IconGlobe color={accentColor} />}
+                    </View>
+                    <Text style={styles.additionalItem}>{item.label}</Text>
+                  </View>
+                ))}
+              </View>
             )}
           </View>
           {profileSrc && (
@@ -267,11 +281,20 @@ const ResumeTemplate4Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                 {resume.hobbies.map(h => safeText(h.hobbies || h)).join(', ')}
               </Text>
             )}
-            {resume.social_medias && resume.social_medias.length > 0 && (
-              <Text style={styles.additionalItem}>
-                <Text style={{ fontWeight: '700' }}>Social: </Text>
-                {resume.social_medias.map(s => safeText(s.social_url)).join(', ')}
-              </Text>
+            {socialItems.length > 0 && (
+              <View style={styles.additionalItem}>
+                <Text style={{ fontWeight: '700', marginBottom: 4 }}>Social:</Text>
+                <View style={styles.contactRow}>
+                  {socialItems.map((item, idx) => (
+                    <View key={idx} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
+                      <View style={{ width: 14, height: 14, marginRight: 6, alignItems: 'center', justifyContent: 'center' }}>
+                        {getSocialIcon(item.social_name, '#333333')}
+                      </View>
+                      <Text style={{ ...styles.additionalItem, color: '#333333', marginBottom: 0 }}>{item.social_url}</Text>
+                    </View>
+                  ))}
+                </View>
+              </View>
             )}
           </View>
         )}

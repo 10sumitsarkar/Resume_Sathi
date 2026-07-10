@@ -359,8 +359,9 @@ export default function ShowResume() {
             await createResumePdf({
                 resume: selectedResume || {},
                 fileName: resumeName || 'resume',
-                selectedTheme: customizeData?.selected_theme || 'ResumeTemplate1',
-                palette: customizeData?.color_palette || 'color-1',
+                    selectedTheme: customizeData?.selected_theme || 'ResumeTemplate1',
+                    palette: customizeData?.color_palette || 'color-1',
+                    selectedFont: customizeData?.font_style,
             });
         } catch (err) {
             console.error('PDF generation failed:', err);

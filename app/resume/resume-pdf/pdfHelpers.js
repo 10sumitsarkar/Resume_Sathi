@@ -11,20 +11,33 @@ export const PALETTE_COLORS = {
 
 const LOCAL_FONTS = {
   Poppins: [
-    { src: '/front-assets/fonts/Poppins-Regular.ttf' },
+    { src: '/front-assets/fonts/Poppins-Regular.ttf', fontWeight: '400' },
+    { src: '/front-assets/fonts/Poppins-Medium.ttf', fontWeight: '500' },
+    { src: '/front-assets/fonts/Poppins-SemiBold.ttf', fontWeight: '600' },
     { src: '/front-assets/fonts/Poppins-Bold.ttf', fontWeight: '700' },
+    { src: '/front-assets/fonts/Poppins-Italic.ttf', fontStyle: 'italic', fontWeight: '400' },
+    { src: '/front-assets/fonts/Poppins-BoldItalic.ttf', fontStyle: 'italic', fontWeight: '700' },
   ],
   Roboto: [
-    { src: '/front-assets/fonts/Roboto-Regular.ttf' },
+    { src: '/front-assets/fonts/Roboto-Regular.ttf', fontWeight: '400' },
+    { src: '/front-assets/fonts/Roboto-Medium.ttf', fontWeight: '500' },
+    { src: '/front-assets/fonts/Roboto-SemiBold.ttf', fontWeight: '600' },
     { src: '/front-assets/fonts/Roboto-Bold.ttf', fontWeight: '700' },
+    { src: '/front-assets/fonts/Roboto-Italic.ttf', fontStyle: 'italic', fontWeight: '400' },
+    { src: '/front-assets/fonts/Roboto-BoldItalic.ttf', fontStyle: 'italic', fontWeight: '700' },
   ],
   Montserrat: [
-    { src: '/front-assets/fonts/Montserrat-Regular.ttf' },
+    { src: '/front-assets/fonts/Montserrat-Regular.ttf', fontWeight: '400' },
+    { src: '/front-assets/fonts/Montserrat-Medium.ttf', fontWeight: '500' },
+    { src: '/front-assets/fonts/Montserrat-SemiBold.ttf', fontWeight: '600' },
     { src: '/front-assets/fonts/Montserrat-Bold.ttf', fontWeight: '700' },
   ],
   'Open Sans': [
-    { src: '/front-assets/fonts/OpenSans-Regular.ttf' },
+    { src: '/front-assets/fonts/OpenSans-Regular.ttf', fontWeight: '400' },
+    { src: '/front-assets/fonts/OpenSans-Medium.ttf', fontWeight: '500' },
+    { src: '/front-assets/fonts/OpenSans-SemiBold.ttf', fontWeight: '600' },
     { src: '/front-assets/fonts/OpenSans-Bold.ttf', fontWeight: '700' },
+    { src: '/front-assets/fonts/OpenSans-Italic.ttf', fontStyle: 'italic', fontWeight: '400' },
   ],
 };
 
@@ -72,14 +85,83 @@ export const registerAvailableFonts = async () => {
     if (availableFonts.length > 0) {
       try {
         Font.register({ family, fonts: availableFonts });
+        // Log what was registered for easier debugging in the client
+        try {
+          // eslint-disable-next-line no-console
+          console.info('[pdfHelpers] Registered local fonts for', family, availableFonts.map(f => f.src));
+        } catch (e) {}
         registeredOne = true;
       } catch (error) {
         // ignore failed registration for this family
+      }
+    } else {
+      // Try registering from Google Fonts as a fallback (client-side).
+      try {
+        const gf = await fetchGoogleFontsForFamily(family);
+        if (gf && gf.length > 0) {
+          Font.register({ family, fonts: gf });
+          try {
+            // eslint-disable-next-line no-console
+            console.info('[pdfHelpers] Registered remote Google fonts for', family, gf.map(f => f.src));
+          } catch (e) {}
+          registeredOne = true;
+        }
+      } catch (e) {
+        // ignore fetch/register errors
       }
     }
   }
 
   return registeredOne;
+};
+
+// Fetch Google Fonts CSS for a family and extract font file URLs (weights 400/700 preferred).
+const fetchGoogleFontsForFamily = async (family) => {
+  try {
+    // Request full weight + italic ranges so the fetched CSS includes all
+    // available font files (normal + italic, 100-900).
+    const familyQuery = encodeURIComponent(family.replace(/\s+/g, '+')) + ':ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900';
+    const cssUrl = `https://fonts.googleapis.com/css2?family=${familyQuery}&display=swap`;
+    const res = await fetch(cssUrl, { cache: 'no-store' });
+    if (!res.ok) return [];
+    const cssText = await res.text();
+
+    // Extract all url(...) occurrences within each @font-face block and
+    // capture their font-weight and font-style metadata.
+    const faces = cssText.split('@font-face').map((s) => s.trim()).filter(Boolean);
+    const fonts = [];
+    for (const face of faces) {
+      // find all URLs in the src declaration
+      const urlMatches = Array.from(face.matchAll(/url\(([^)]+)\)/ig));
+      if (!urlMatches.length) continue;
+      const weightMatch = face.match(/font-weight:\s*(\d+)/i);
+      const weight = weightMatch ? String(weightMatch[1]) : undefined;
+      const isItalic = /font-style:\s*italic/i.test(face);
+      for (const m of urlMatches) {
+        const raw = m[1] || '';
+        const url = raw.replace(/"|'/g, '').trim();
+        if (!url) continue;
+        const fontEntry = { src: url };
+        if (weight) fontEntry.fontWeight = weight;
+        if (isItalic) fontEntry.fontStyle = 'italic';
+        fonts.push(fontEntry);
+      }
+    }
+
+    // Deduplicate by src
+    const unique = [];
+    const seen = new Set();
+    for (const f of fonts) {
+      if (!seen.has(f.src)) {
+        seen.add(f.src);
+        unique.push(f);
+      }
+    }
+
+    return unique;
+  } catch (error) {
+    return [];
+  }
 };
 
 export const safeText = (value) => {

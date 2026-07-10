@@ -76,7 +76,18 @@ const processResumeImages = async (resume) => {
   return processedResume;
 };
 
-export const createResumePdf = async ({ resume, fileName, selectedTheme, palette }) => {
+const mapFontStyleToFamily = (style) => {
+  if (!style) return 'Poppins';
+  const s = String(style).toLowerCase();
+  if (s.includes('poppins')) return 'Poppins';
+  if (s.includes('roboto')) return 'Roboto';
+  if (s.includes('montserrat')) return 'Montserrat';
+  if (s.includes('open') || s.includes('sans')) return 'Open Sans';
+  if (s.includes('arial')) return 'Helvetica';
+  return 'Poppins';
+};
+
+export const createResumePdf = async ({ resume, fileName, selectedTheme, palette, selectedFont }) => {
   if (!resume || typeof resume !== 'object') {
     throw new Error('Resume data is required to generate the PDF.');
   }
@@ -85,6 +96,7 @@ export const createResumePdf = async ({ resume, fileName, selectedTheme, palette
   const SelectedPdfTemplate = PDF_TEMPLATE_MAP[templateKey] || ResumeTemplate1Pdf;
 
   const downloadName = `${sanitizeFileName(fileName || resume.resume_name || 'resume')}.pdf`;
+  const fontFamily = mapFontStyleToFamily(selectedFont || resume?.configuration?.font_style);
 
   let blob;
   const fontsRegistered = await registerAvailableFonts();
@@ -93,11 +105,11 @@ export const createResumePdf = async ({ resume, fileName, selectedTheme, palette
   const processedResume = await processResumeImages(resume);
 
   try {
-    blob = await pdf(<SelectedPdfTemplate resume={processedResume} palette={palette} />).toBlob();
+    blob = await pdf(<SelectedPdfTemplate resume={processedResume} palette={palette} fontFamily={fontFamily} />).toBlob();
   } catch (err) {
     console.warn('PDF render failed with custom fonts, retrying with fallback font.', err);
     try {
-      blob = await pdf(<SelectedPdfTemplate resume={processedResume} palette={palette} forceFallbackFont={true} />).toBlob();
+      blob = await pdf(<SelectedPdfTemplate resume={processedResume} palette={palette} forceFallbackFont={true} fontFamily={fontFamily} />).toBlob();
     } catch (err2) {
       console.error('Fallback PDF render failed.', err2);
       throw new Error('PDF generation failed after retry. Please try again or use a different browser.');

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Document, Page, View, Text, Image, StyleSheet } from '@react-pdf/renderer';
 import { PALETTE_COLORS, safeText, resolveProfileImage, formatDateRange } from './pdfHelpers';
+import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from './PdfCommon';
 
 /**
  * ResumeTemplate3Pdf — "Serene Centered"
@@ -216,7 +217,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const ResumeTemplate3Pdf = ({ resume, palette = 'color-1', forceFallbackFont = false }) => {
+const ResumeTemplate3Pdf = ({ resume, palette = 'color-1', forceFallbackFont = false, fontFamily = 'Poppins' }) => {
   const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS['color-1'];
   const bgColor = hexToRgba(accentColor, 0.16);
   const pillBg = hexToRgba(accentColor, 0.18);
@@ -227,13 +228,21 @@ const ResumeTemplate3Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
   const profileSrc = resolveProfileImage(personal.photo);
   const initials = [personal.firstName, personal.lastName].filter(Boolean).map(x => x[0]).join('').slice(0, 2).toUpperCase();
 
-  const pageStyle = { ...styles.page, fontFamily: forceFallbackFont ? 'Helvetica' : 'Poppins', backgroundColor: bgColor };
+  const pageStyle = { ...styles.page, fontFamily: forceFallbackFont ? 'Helvetica' : (fontFamily || 'Poppins'), backgroundColor: bgColor };
 
   const contactItems = [
-    personal.email,
-    personal.phone,
-    [personal.city, personal.state, personal.country].filter(Boolean).join(', '),
+    personal.email ? { type: 'email', label: safeText(personal.email) } : null,
+    personal.phone ? { type: 'phone', label: safeText(personal.phone) } : null,
+    [personal.city, personal.state, personal.country].filter(Boolean).length > 0
+      ? { type: 'location', label: [personal.city, personal.state, personal.country].filter(Boolean).join(', ') }
+      : null,
+    personal.website ? { type: 'globe', label: safeText(personal.website) } : null,
   ].filter(Boolean);
+
+  const socialItems = resume.social_medias?.map((social) => ({
+    social_name: social.social_name || 'Other',
+    social_url: safeText(social.social_url),
+  })) || [];
 
   const SectionTitle = ({ children }) => (
     <View style={styles.sectionTitleRow}>
@@ -281,10 +290,12 @@ const ResumeTemplate3Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
         {contactItems.length > 0 && (
           <View style={styles.contactRow}>
             {contactItems.map((item, idx) => (
-              <React.Fragment key={idx}>
-                {idx > 0 && <Text style={styles.contactSep}>|</Text>}
-                <Text style={styles.contactItem}>{item}</Text>
-              </React.Fragment>
+              <View key={idx} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4, flexWrap: 'wrap' }}>
+                <View style={{ width: 14, height: 14, marginRight: 6, alignItems: 'center', justifyContent: 'center' }}>
+                  {item.type === 'email' ? <IconEmail color={accentColor} /> : item.type === 'phone' ? <IconPhone color={accentColor} /> : item.type === 'location' ? <IconLocation color={accentColor} /> : <IconGlobe color={accentColor} />}
+                </View>
+                <Text style={{ ...styles.contactItem, color: accentColor }}>{item.label}</Text>
+              </View>
             ))}
           </View>
         )}
@@ -408,6 +419,22 @@ const ResumeTemplate3Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                 </Text>
               </View>
             ))}
+          </View>
+        )}
+
+        {socialItems.length > 0 && (
+          <View style={styles.section}>
+            <SectionTitle>Social Media</SectionTitle>
+            <View style={styles.contactRow}>
+              {socialItems.map((item, idx) => (
+                <View key={idx} style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 4 }}>
+                  <View style={{ width: 14, height: 14, marginRight: 6, alignItems: 'center', justifyContent: 'center' }}>
+                    {getSocialIcon(item.social_name, accentColor)}
+                  </View>
+                  <Text style={{ ...styles.contactItem, color: accentColor }}>{item.social_url}</Text>
+                </View>
+              ))}
+            </View>
           </View>
         )}
 

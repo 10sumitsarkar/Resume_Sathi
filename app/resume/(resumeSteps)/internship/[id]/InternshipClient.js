@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeAnyInternships, deleteAnyInternshipFromResume, reorderAnyInternships, markResumeStepSkipped } from '../../../reducer/resume-reducer';
 import MobProgressArea from '../../../components/MobProgressArea';
+import CustomInput from '../../../../components/CustomInput/CustomInput';
 
 export default function Internship() {
 
@@ -271,17 +272,20 @@ export default function Internship() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
                   <label htmlFor="employee_type">Employment Type</label>
-                  <select
-                    id="employee_type"
-                    {...register("employee_type", { required: "Employee type is required" })}
+                  <CustomInput
+                    type="select"
+                    register={register}
+                    registerName="employee_type"
+                    registerOptions={{ required: 'Employee type is required' }}
+                    options={[
+                      { value: 'Full time', label: 'Full time' },
+                      { value: 'Part time', label: 'Part time' },
+                      { value: 'Contract', label: 'Contract' },
+                      { value: 'Freelance', label: 'Freelance' },
+                    ]}
+                    placeholder="Full-time, Part-time, Contract, Freelance"
                     className={`form-control ${errors.employee_type ? 'is-invalid' : ''}`}
-                    defaultValue=""
-                  >
-                    <option value="" disabled className="d-none">Full-time, Part-time, Contract, Freelance</option>
-                    <option value="Full time">Full time</option>
-                    <option value="Part time">Part time</option>
-                    <option value="Contract">Contract</option>
-                  </select>
+                  />
                 </div>
                 {errors.employee_type && <p className="input-error">{errors.employee_type.message}</p>}
               </div>
@@ -303,41 +307,43 @@ export default function Internship() {
                 <div className="row">
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="start_month"
-                        {...register("start_month", {
-                          required: 'Month is required'
-                        })}
+                      <CustomInput
+                        type="select"
+                        register={register}
+                        registerName="start_month"
+                        registerOptions={{ required: 'Month is required' }}
+                        options={[
+                          { value: 'January', label: 'January' },
+                          { value: 'February', label: 'February' },
+                          { value: 'March', label: 'March' },
+                          { value: 'April', label: 'April' },
+                          { value: 'May', label: 'May' },
+                          { value: 'June', label: 'June' },
+                          { value: 'July', label: 'July' },
+                          { value: 'August', label: 'August' },
+                          { value: 'September', label: 'September' },
+                          { value: 'October', label: 'October' },
+                          { value: 'November', label: 'November' },
+                          { value: 'December', label: 'December' },
+                        ]}
+                        placeholder="Month"
                         className={`form-control ${errors.start_month ? 'is-invalid' : ''}`}
-                        defaultValue=""
-                      >
-                        <option value="" disabled className="d-none">Month</option>
-                        {[
-                          "January", "February", "March", "April", "May", "June",
-                          "July", "August", "September", "October", "November", "December"
-                        ].map((month) => (
-                          <option key={month} value={month}>{month}</option>
-                        ))}
-                      </select>
+                      />
                       {errors.start_month && <p className="input-error">{errors.start_month.message}</p>}
                     </div>
                   </div>
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="start_year"
-                        {...register("start_year", {
-                          required: 'Year is required'
-                        })}
+                      <CustomInput
+                        type="select"
+                        register={register}
+                        registerName="start_year"
+                        registerOptions={{ required: 'Year is required' }}
+                        options={Array.from({ length: 50 }, (_, i) => ({ value: new Date().getFullYear() - i, label: String(new Date().getFullYear() - i) }))}
+                        search={true}
+                        placeholder="Year"
                         className={`form-control ${errors.start_year ? 'is-invalid' : ''}`}
-                        defaultValue=""
-                      >
-                        <option value="" disabled className="d-none">Year</option>
-                        {Array.from({ length: 50 }, (_, i) => {
-                          const year = new Date().getFullYear() - i;
-                          return <option key={year} value={year}>{year}</option>;
-                        })}
-                      </select>
+                      />
                       {errors.start_year && <p className="input-error">{errors.start_year.message}</p>}
                     </div>
                   </div>
@@ -352,43 +358,45 @@ export default function Internship() {
                 <div className="row">
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="end_month"
-                        {...register("end_month", {
-                          required: !stillEnrolled ? 'Month is required' : false
-                        })}
+                      <CustomInput
+                        type="select"
+                        register={register}
+                        registerName="end_month"
+                        registerOptions={{ required: !stillEnrolled ? 'Month is required' : false }}
+                        options={[
+                          { value: 'January', label: 'January' },
+                          { value: 'February', label: 'February' },
+                          { value: 'March', label: 'March' },
+                          { value: 'April', label: 'April' },
+                          { value: 'May', label: 'May' },
+                          { value: 'June', label: 'June' },
+                          { value: 'July', label: 'July' },
+                          { value: 'August', label: 'August' },
+                          { value: 'September', label: 'September' },
+                          { value: 'October', label: 'October' },
+                          { value: 'November', label: 'November' },
+                          { value: 'December', label: 'December' },
+                        ]}
+                        placeholder="Month"
                         className={`form-control ${errors.end_month ? 'is-invalid' : ''}`}
                         disabled={stillEnrolled}
-                        defaultValue=""
-                      >
-                        <option value="" disabled className="d-none">Month</option>
-                        {[
-                          "January", "February", "March", "April", "May", "June",
-                          "July", "August", "September", "October", "November", "December"
-                        ].map((month) => (
-                          <option key={month} value={month}>{month}</option>
-                        ))}
-                      </select>
+                      />
                       {errors.end_month && <p className="input-error">{errors.end_month.message}</p>}
                     </div>
                   </div>
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="end_year"
-                        {...register("end_year", {
-                          required: !stillEnrolled ? 'Year is required' : false
-                        })}
+                      <CustomInput
+                        type="select"
+                        register={register}
+                        registerName="end_year"
+                        registerOptions={{ required: !stillEnrolled ? 'Year is required' : false }}
+                        options={Array.from({ length: 50 }, (_, i) => ({ value: new Date().getFullYear() - i, label: String(new Date().getFullYear() - i) }))}
+                        search={true}
+                        placeholder="Year"
                         className={`form-control ${errors.end_year ? 'is-invalid' : ''}`}
                         disabled={stillEnrolled}
-                        defaultValue=""
-                      >
-                        <option value="" disabled className="d-none">Year</option>
-                        {Array.from({ length: 50 }, (_, i) => {
-                          const year = new Date().getFullYear() - i;
-                          return <option key={year} value={year}>{year}</option>;
-                        })}
-                      </select>
+                      />
                       {errors.end_year && <p className="input-error">{errors.end_year.message}</p>}
                     </div>
                   </div>

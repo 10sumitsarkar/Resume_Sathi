@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeSocialMedias, deleteSocialMediaFromResume, reorderSocialMedias, markResumeStepSkipped } from '../../../reducer/resume-reducer';
 import MobProgressArea from '../../../components/MobProgressArea';
+import CustomInput from '../../../../components/CustomInput/CustomInput';
 
 export default function SocialMedia() {
 
@@ -217,31 +218,27 @@ export default function SocialMedia() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
                   <label htmlFor="social_name">Social Name</label>
-                  <select
-                    id="social_name"
-                    {...register("social_name", { required: "Social name is required" })}
+                  <CustomInput
+                    type="select"
+                    register={register}
+                    registerName="social_name"
+                    registerOptions={{ required: 'Social name is required' }}
+                    options={[
+                      { value: 'LinkedIn', label: 'LinkedIn' },
+                      { value: 'GitHub', label: 'GitHub' },
+                      { value: 'Stack Overflow', label: 'Stack Overflow' },
+                      { value: 'Medium', label: 'Medium' },
+                      { value: 'Twitter', label: 'Twitter' },
+                      { value: 'Facebook', label: 'Facebook' },
+                      { value: 'Instagram', label: 'Instagram' },
+                      { value: 'YouTube', label: 'YouTube' },
+                      { value: 'Dribbble', label: 'Dribbble' },
+                      { value: 'Behance', label: 'Behance' },
+                      { value: 'Other', label: 'Other' },
+                    ]}
+                    placeholder="Select Social Platform"
                     className={`form-control ${errors.social_name ? 'is-invalid' : ''}`}
-                  >
-                    <option value="" disabled className="d-none">Select Social Platform</option>
-
-                    <optgroup label="Professional Networks">
-                      <option value="LinkedIn">LinkedIn</option>
-                      <option value="GitHub">GitHub</option>
-                      <option value="Stack Overflow">Stack Overflow</option>
-                      <option value="Medium">Medium</option>
-                      <option value="Other">Other</option>
-                    </optgroup>
-
-                    <optgroup label="Social Media">
-                      <option value="Twitter">Twitter</option>
-                      <option value="Facebook">Facebook</option>
-                      <option value="Instagram">Instagram</option>
-                      <option value="YouTube">YouTube</option>
-                      <option value="Dribbble">Dribbble</option>
-                      <option value="Behance">Behance</option>
-                    </optgroup>
-
-                  </select>
+                  />
                 </div>
                 {errors.social_name && <p className="input-error">{errors.social_name.message}</p>}
               </div>

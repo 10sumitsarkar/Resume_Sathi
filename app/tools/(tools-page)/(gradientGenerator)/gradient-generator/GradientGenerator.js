@@ -7,6 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import '../../../tools-css/gradientGenerator.css';
 import Link from 'next/link';
+import CustomInput from '../../../../components/CustomInput/CustomInput';
 
 export default function GradientGenerator() {
   const [colorCount, setColorCount] = useState(2);
@@ -240,16 +241,22 @@ export default function GradientGenerator() {
                     </span>
                   </div>
                 </div>
-                <select disabled={gradientType !== "linear"} id="direction" value={direction} onChange={(e) => setDirection(e.target.value)}>
-                  <option value="to right">Right</option>
-                  <option value="to left">Left</option>
-                  <option value="to bottom">Bottom</option>
-                  <option value="to top">Top</option>
-                  <option value="to top right">Top Right</option>
-                  <option value="to bottom right">Bottom Right</option>
-                  <option value="to top left">Top Left</option>
-                  <option value="to bottom left">Bottom Left</option>
-                </select>
+                <CustomInput
+                  type="select"
+                  options={[
+                    { value: 'to right', label: 'Right' },
+                    { value: 'to left', label: 'Left' },
+                    { value: 'to bottom', label: 'Bottom' },
+                    { value: 'to top', label: 'Top' },
+                    { value: 'to top right', label: 'Top Right' },
+                    { value: 'to bottom right', label: 'Bottom Right' },
+                    { value: 'to top left', label: 'Top Left' },
+                    { value: 'to bottom left', label: 'Bottom Left' },
+                  ]}
+                  value={direction}
+                  onChange={(v) => setDirection(v)}
+                  disabled={gradientType !== 'linear'}
+                />
               </div>
             </div>
 

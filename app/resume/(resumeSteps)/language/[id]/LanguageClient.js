@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeLanguages, deleteLanguagesFromResume, reorderLanguages } from '../../../reducer/resume-reducer';
 import MobProgressArea from '../../../components/MobProgressArea';
+import CustomInput from '../../../../components/CustomInput/CustomInput';
 
 export default function Language() {
 
@@ -229,17 +230,15 @@ export default function Language() {
                 <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                   <div className="each-input-div">
                     <label htmlFor="proficiency_level">Proficiency Level</label>
-                    <select
-                      id="proficiency_level"
-                      {...register("proficiency_level", { required: "Proficiency level is required" })}
+                    <CustomInput
+                      type="select"
+                      register={register}
+                      registerName="proficiency_level"
+                      registerOptions={{ required: 'Proficiency level is required' }}
+                      options={[{ value: 'Beginner', label: 'Beginner' }, { value: 'Intermediate', label: 'Intermediate' }, { value: 'Fluent', label: 'Fluent' }]}
+                      placeholder="Beginner, Intermediate, Fluent"
                       className={`form-control ${errors.proficiency_level ? 'is-invalid' : ''}`}
-                      defaultValue=""
-                    >
-                      <option value="" disabled className="d-none">Beginner, Intermediate, Fluent</option>
-                      <option value="Beginner">Beginner</option>
-                      <option value="Intermediate">Intermediate</option>
-                      <option value="Fluent">Fluent</option>
-                    </select>
+                    />
                   </div>
                   {errors.proficiency_level && <p className="input-error">{errors.proficiency_level.message}</p>}
                 </div>

@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeCertifications, deleteCertificateFromResume, reorderCertificates, markResumeStepSkipped } from '../../../reducer/resume-reducer';
 import MobProgressArea from '../../../components/MobProgressArea';
+import CustomInput from '../../../../components/CustomInput/CustomInput';
 
 export default function Certifications() {
   const { id } = useParams();
@@ -236,7 +237,14 @@ export default function Certifications() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="issue_date">Issue Date</label>
-                  <input type="date" {...register("issue_date", { required: "Issue date is required" })} className={`form-control ${errors.issue_date ? 'is-invalid' : ''}`} id="issue_date" />
+                  <CustomInput
+                    type="date"
+                    register={register}
+                    registerName="issue_date"
+                    registerOptions={{ required: 'Issue date is required' }}
+                    className={`form-control ${errors.issue_date ? 'is-invalid' : ''}`}
+                    placeholder="Select date"
+                  />
                   {errors.issue_date && <p className="input-error">{errors.issue_date.message}</p>}
                 </div>
               </div>

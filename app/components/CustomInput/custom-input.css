@@ -1,0 +1,36 @@
+.rk-input-root { position: relative; font-family: inherit; }
+.rk-select, .rk-date { position: relative; }
+.rk-select-toggle, .rk-date-toggle { display:flex; align-items:center; justify-content:space-between; gap:8px; width:100%; padding:15px 15px; border-radius:10px; border:1.5px solid #e8e8f8; background:#fff; cursor:pointer; box-sizing:border-box; color:var(--text-color2); font-size:16px; font-weight:400; box-shadow:none !important; }
+.rk-select-value.placeholder, .rk-date-value.placeholder { color:#bfc6d8; }
+.rk-select-value { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; text-align:left; }
+.rk-date-value { flex: 1 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; text-align:left; }
+.rk-caret { color:#6b7280; }
+.rk-select-panel { position:absolute; right:0; left:0; margin-top:8px; background:#fff; border-radius:10px; box-shadow:0 8px 20px rgba(11,16,36,0.08); border:1px solid #eef2ff; max-height:260px; overflow:auto; z-index:60; }
+.rk-select-search { padding:8px; border-bottom:1px solid #f1f5f9; }
+.rk-select-search input { width:100%; padding:8px 10px; border-radius:8px; border:1px solid #eef2ff; box-sizing:border-box; }
+.rk-select-list { list-style:none; margin:0; padding:6px; }
+.rk-select-item { padding:8px 10px; border-radius:8px; cursor:pointer; color:#111827; white-space:normal; }
+
+/* Disabled appearance mirrors disabled inputs */
+.rk-select.disabled .rk-select-toggle, .rk-date.disabled .rk-date-toggle { background:#f8fafc; color:#9ca3af; cursor:not-allowed; }
+.rk-select-item:hover { background:#f8fafc; }
+.rk-empty { padding:10px; color:#9ca3af; }
+
+/* avatar-like use: keep compact */
+.rk-input-root.small { width:200px; }
+
+/* Date picker styles */
+.rk-date-panel { position:absolute; right:0; left:0; margin-top:8px; background:#fff; border-radius:12px; box-shadow:0 12px 36px rgba(11,16,36,0.12); border:1px solid #eef2ff; z-index:80; padding:10px; }
+.rk-date-header { display:flex; align-items:center; justify-content:space-between; padding:6px 8px; }
+.rk-month-title { font-weight:700; color:#0f172a; }
+.rk-month-nav { background:#fff; border:0; padding:6px 10px; border-radius:8px; cursor:pointer; color:#111827; }
+.rk-days { display:grid; grid-template-columns:repeat(7,1fr); gap:6px; padding:6px 4px; }
+.rk-day-name { color:#9aa4bb; text-align:center; font-size:12px; }
+.rk-day, .rk-day.blank { height:36px; display:flex; align-items:center; justify-content:center; border-radius:8px; border:0; background:transparent; cursor:pointer; }
+.rk-day { color:#111827; }
+.rk-day.selected { background:linear-gradient(180deg,#f3e8ff,#eef2ff); color:#6b21a8; font-weight:700; }
+.rk-day:disabled { color:#cbd5e1; cursor:not-allowed; }
+
+/* Small adjustments to match screenshot look */
+.rk-select-toggle, .rk-date-toggle { border-color:#efe8ff; }
+.rk-select-toggle:hover, .rk-date-toggle:hover { box-shadow:0 6px 12px rgba(18,13,51,0.04); }

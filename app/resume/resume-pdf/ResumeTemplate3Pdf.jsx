@@ -123,22 +123,29 @@ const styles = StyleSheet.create({
   // ---------- Skills grid ----------
   skillsGrid: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   skillsCol: {
     width: '50%',
   },
   skillRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start',
+    gap: 8,
     marginBottom: 8,
     paddingRight: 10,
   },
   skillName: {
+    flex: 1,
+    minWidth: 0,
     fontSize: 9.5,
     color: '#1f2937',
+    marginRight: 8,
   },
   pill: {
+    flexShrink: 0,
     fontSize: 7.5,
     fontWeight: '600',
     borderRadius: 8,

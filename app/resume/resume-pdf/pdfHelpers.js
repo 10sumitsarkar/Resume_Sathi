@@ -11,33 +11,33 @@ export const PALETTE_COLORS = {
 
 const LOCAL_FONTS = {
   Poppins: [
-    { src: '/front-assets/fonts/Poppins-Regular.ttf', fontWeight: '400' },
-    { src: '/front-assets/fonts/Poppins-Medium.ttf', fontWeight: '500' },
-    { src: '/front-assets/fonts/Poppins-SemiBold.ttf', fontWeight: '600' },
-    { src: '/front-assets/fonts/Poppins-Bold.ttf', fontWeight: '700' },
-    { src: '/front-assets/fonts/Poppins-Italic.ttf', fontStyle: 'italic', fontWeight: '400' },
-    { src: '/front-assets/fonts/Poppins-BoldItalic.ttf', fontStyle: 'italic', fontWeight: '700' },
+    { src: '/front-assets/fonts/Poppins-Regular.ttf', fontWeight: 400, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Poppins-Medium.ttf', fontWeight: 500, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Poppins-SemiBold.ttf', fontWeight: 600, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Poppins-Bold.ttf', fontWeight: 700, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Poppins-Italic.ttf', fontStyle: 'italic', fontWeight: 400 },
+    { src: '/front-assets/fonts/Poppins-BoldItalic.ttf', fontStyle: 'italic', fontWeight: 700 },
   ],
   Roboto: [
-    { src: '/front-assets/fonts/Roboto-Regular.ttf', fontWeight: '400' },
-    { src: '/front-assets/fonts/Roboto-Medium.ttf', fontWeight: '500' },
-    { src: '/front-assets/fonts/Roboto-SemiBold.ttf', fontWeight: '600' },
-    { src: '/front-assets/fonts/Roboto-Bold.ttf', fontWeight: '700' },
-    { src: '/front-assets/fonts/Roboto-Italic.ttf', fontStyle: 'italic', fontWeight: '400' },
-    { src: '/front-assets/fonts/Roboto-BoldItalic.ttf', fontStyle: 'italic', fontWeight: '700' },
+    { src: '/front-assets/fonts/Roboto-Regular.ttf', fontWeight: 400, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Roboto-Medium.ttf', fontWeight: 500, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Roboto-SemiBold.ttf', fontWeight: 600, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Roboto-Bold.ttf', fontWeight: 700, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Roboto-Italic.ttf', fontStyle: 'italic', fontWeight: 400 },
+    { src: '/front-assets/fonts/Roboto-BoldItalic.ttf', fontStyle: 'italic', fontWeight: 700 },
   ],
   Montserrat: [
-    { src: '/front-assets/fonts/Montserrat-Regular.ttf', fontWeight: '400' },
-    { src: '/front-assets/fonts/Montserrat-Medium.ttf', fontWeight: '500' },
-    { src: '/front-assets/fonts/Montserrat-SemiBold.ttf', fontWeight: '600' },
-    { src: '/front-assets/fonts/Montserrat-Bold.ttf', fontWeight: '700' },
+    { src: '/front-assets/fonts/Montserrat-Regular.ttf', fontWeight: 400, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Montserrat-Medium.ttf', fontWeight: 500, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Montserrat-SemiBold.ttf', fontWeight: 600, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/Montserrat-Bold.ttf', fontWeight: 700, fontStyle: 'normal' },
   ],
   'Open Sans': [
-    { src: '/front-assets/fonts/OpenSans-Regular.ttf', fontWeight: '400' },
-    { src: '/front-assets/fonts/OpenSans-Medium.ttf', fontWeight: '500' },
-    { src: '/front-assets/fonts/OpenSans-SemiBold.ttf', fontWeight: '600' },
-    { src: '/front-assets/fonts/OpenSans-Bold.ttf', fontWeight: '700' },
-    { src: '/front-assets/fonts/OpenSans-Italic.ttf', fontStyle: 'italic', fontWeight: '400' },
+    { src: '/front-assets/fonts/OpenSans-Regular.ttf', fontWeight: 400, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/OpenSans-Medium.ttf', fontWeight: 500, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/OpenSans-SemiBold.ttf', fontWeight: 600, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/OpenSans-Bold.ttf', fontWeight: 700, fontStyle: 'normal' },
+    { src: '/front-assets/fonts/OpenSans-Italic.ttf', fontStyle: 'italic', fontWeight: 400 },
   ],
 };
 
@@ -84,27 +84,49 @@ export const registerAvailableFonts = async () => {
 
     if (availableFonts.length > 0) {
       try {
-        Font.register({ family, fonts: availableFonts });
+        let fontsToRegister = availableFonts;
+        const hasItalic = availableFonts.some((font) => font.fontStyle === 'italic');
+
+        if (!hasItalic) {
+          try {
+            const googleFonts = await fetchGoogleFontsForFamily(family);
+            if (googleFonts && googleFonts.length > 0) {
+              const safeGoogleFonts = googleFonts.filter((font) => /\.(ttf|otf)$/i.test(font.src));
+              if (safeGoogleFonts.length > 0) {
+                fontsToRegister = availableFonts.concat(safeGoogleFonts);
+              }
+            }
+          } catch (e) {
+            // ignore remote fetch failures and keep local fonts only
+          }
+        }
+
+        Font.register({ family, fonts: fontsToRegister });
         // Log what was registered for easier debugging in the client
         try {
           // eslint-disable-next-line no-console
-          console.info('[pdfHelpers] Registered local fonts for', family, availableFonts.map(f => f.src));
+          console.info('[pdfHelpers] Registered local fonts for', family, fontsToRegister.map(f => f.src));
         } catch (e) {}
         registeredOne = true;
       } catch (error) {
         // ignore failed registration for this family
       }
     } else {
-      // Try registering from Google Fonts as a fallback (client-side).
+      // Try registering from Google Fonts as a fallback (client-side);
+      // only keep safe TTF/OTF URLs because @react-pdf may not support
+      // browser-served WOFF/WOFF2 files in this environment.
       try {
         const gf = await fetchGoogleFontsForFamily(family);
         if (gf && gf.length > 0) {
-          Font.register({ family, fonts: gf });
-          try {
-            // eslint-disable-next-line no-console
-            console.info('[pdfHelpers] Registered remote Google fonts for', family, gf.map(f => f.src));
-          } catch (e) {}
-          registeredOne = true;
+          const safeGoogleFonts = gf.filter((font) => /\.(ttf|otf)$/i.test(font.src));
+          if (safeGoogleFonts.length > 0) {
+            Font.register({ family, fonts: safeGoogleFonts });
+            try {
+              // eslint-disable-next-line no-console
+              console.info('[pdfHelpers] Registered remote Google fonts for', family, safeGoogleFonts.map(f => f.src));
+            } catch (e) {}
+            registeredOne = true;
+          }
         }
       } catch (e) {
         // ignore fetch/register errors

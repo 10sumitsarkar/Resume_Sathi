@@ -104,10 +104,13 @@ const styles = StyleSheet.create({
   },
   skillItem: {
     width: '45%',
+    minWidth: 0,
     fontSize: 9,
     color: '#333333',
     marginBottom: 4,
     lineHeight: 1.3,
+    overflowWrap: 'anywhere',
+    wordBreak: 'break-word',
   },
   additionalItem: {
     fontSize: 9,

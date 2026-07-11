@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   profileInitials: {
-    fontSize: 26,
+    fontSize: 28,
     fontWeight: '700',
     color: '#ffffff',
   },
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   jobTitle: {
-    fontSize: 10.5,
+    fontSize: 12,
     textAlign: 'center',
     color: '#6b7280',
     marginBottom: 12,
@@ -94,14 +94,13 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'center',
     alignItems: 'center',
+    rowGap: 10,
+    columnGap: 2,
     marginBottom: 4,
   },
   contactItemWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5,
-    marginLeft: 9,
-    marginRight: 9,
   },
   contactSeparator: {
     width: 1,
@@ -110,7 +109,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 7,
   },
   contactItem: {
-    fontSize: 9,
+    fontSize: 10,
     color: '#374151',
   },
 
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
   sectionTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: 35,
+    marginTop: 30,
     marginBottom: 20,
   },
   sectionTitleLine: {
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     height: 0.75,
   },
   sectionTitle: {
-    fontSize: 10.5,
+    fontSize: 14,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 2.6,
@@ -150,13 +149,13 @@ const styles = StyleSheet.create({
   },
 
   socialItem: {
-    fontSize: 9,
+    fontSize: 10,
     color: '#374151',
   },
 
   // ---------- Summary ----------
   bodyText: {
-    fontSize: 9.5,
+    fontSize: 11,
     lineHeight: 1.65,
     color: '#3f4653',
     textAlign: 'justify',
@@ -165,25 +164,32 @@ const styles = StyleSheet.create({
   // ---------- Skills grid ----------
   skillsGrid: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
   },
   skillsCol: {
     width: '50%',
   },
   skillRow: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 11,
-    paddingRight: 12,
+    alignItems: 'flex-start',
+    gap: 8,
+    marginBottom: 15,
+    paddingRight: 15,
   },
   skillName: {
+    flex: 1,
+    minWidth: 0,
     fontSize: 9.5,
     color: '#1f2937',
-    fontWeight: '500',
+    fontWeight: '400',
+    marginRight: 8,
   },
   pill: {
-    fontSize: 7.5,
-    fontWeight: '700',
+    flexShrink: 0,
+    fontSize: 8,
+    fontWeight: '500',
     borderRadius: 9,
     paddingTop: 3.5,
     paddingBottom: 3.5,
@@ -204,13 +210,13 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   entryTitle: {
-    fontSize: 10.5,
-    fontWeight: '700',
+    fontSize: 12,
+    fontWeight: '600',
     color: '#111827',
   },
   entryDate: {
-    fontSize: 8.5,
-    fontWeight: '700',
+    fontSize: 10,
+    fontWeight: '600',
     textTransform: 'uppercase',
     letterSpacing: 0.6,
   },
@@ -221,13 +227,13 @@ const styles = StyleSheet.create({
      marginTop: 5,
   },
   entryLocation: {
-    fontSize: 9,
+    fontSize: 10,
     fontStyle: 'italic',
     fontWeight: '500',
-    color: '#000',
+    color: '#000000',
   },
   entrySub: {
-    fontSize: 8.8,
+    fontSize: 9,
     lineHeight: 1.55,
     color: '#4b5563',
     marginTop: 4,
@@ -238,12 +244,12 @@ const styles = StyleSheet.create({
     paddingRight: 6,
   },
   bulletMark: {
-    fontSize: 9,
+    fontSize: 10,
     marginRight: 6,
     color: '#374151',
   },
   bulletText: {
-    fontSize: 9,
+    fontSize: 10,
     lineHeight: 1.55,
     color: '#3f4653',
     flex: 1,
@@ -262,7 +268,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   languageItem: {
-    fontSize: 9.5,
+    fontSize: 10,
     color: '#1f2937',
   },
   languageLabel: {
@@ -409,7 +415,6 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                 </View>
                 {(work.company_name || work.location) && (
                   <View style={styles.entryLocationRow}>
-                  <IconLocation color={accentColor} />
                     <Text style={{ ...styles.entryLocation }}>
                       {[safeText(work.company_name), safeText(work.location)].filter(Boolean).join(', ')}
                     </Text>
@@ -446,7 +451,6 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                 </View>
                 {(edu.institute_name || edu.location) && (
                   <View style={styles.entryLocationRow}>
-                    <IconLocation color={accentColor} />
                     <Text style={{ ...styles.entryLocation }}>
                       {[safeText(edu.institute_name), safeText(edu.location)].filter(Boolean).join(', ')}
                     </Text>
@@ -471,7 +475,6 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                 </View>
                 {(intern.company_name || intern.location) && (
                   <View style={styles.entryLocationRow}>
-                  <IconLocation color={accentColor} />
                     <Text style={{ ...styles.entryLocation }}>
                       {[safeText(intern.company_name), safeText(intern.location)].filter(Boolean).join(', ')}
                     </Text>
@@ -490,7 +493,7 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
               <View key={idx} style={{ marginBottom: 10 }}>
                 <View style={styles.simpleRow}>
                   <Text style={styles.entryTitle}>{safeText(cert.certificate_name)}</Text>
-                  <Text style={{ fontSize: 9, color: accentColor, fontWeight: '700' }}>
+                  <Text style={{ fontSize: 10, color: accentColor, fontWeight: '700' }}>
                     {[safeText(cert.issuing_organization), safeText(cert.issue_date)].filter(Boolean).join('  ·  ')}
                   </Text>
                 </View>

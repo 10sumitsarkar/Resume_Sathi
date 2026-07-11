@@ -252,7 +252,18 @@ export default function ResumeLists() {
     document.body.appendChild(printContainer);
     const styleTag = document.createElement('style');
     styleTag.id = '__resume_list_print_style__';
-    styleTag.innerHTML = `@media print{body>*:not(#__resume_list_print_root__){display:none !important;visibility:hidden !important;}html,body{margin:0 !important;padding:0 !important;height:auto !important;min-height:auto !important;overflow:visible !important;background:#fff !important;}#__resume_list_print_root__{display:block !important;position:relative !important;width:100% !important;max-width:100% !important;height:auto !important;overflow:visible !important;margin:0 !important;padding:0 !important;background:#fff !important;}#__resume_list_print_root__ *{visibility:visible !important;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important;}@page{size:A4 portrait;margin:10mm 0 10mm 0 !important;}@page :first{margin-top:0 !important;}}`;
+    // try to inline available stylesheets (ignore cross-origin ones)
+    let collectedCss = '';
+    Array.from(document.styleSheets).forEach((sheet) => {
+      try {
+        const rules = sheet.cssRules || sheet.rules;
+        for (let i = 0; i < rules.length; i += 1) collectedCss += rules[i].cssText;
+      } catch (e) {
+        // ignore stylesheets we can't access (cross-origin)
+      }
+    });
+    collectedCss += `@media print{body>*:not(#__resume_list_print_root__){display:none !important;visibility:hidden !important;}html,body{margin:0 !important;padding:0 !important;height:auto !important;min-height:auto !important;overflow:visible !important;background:#fff !important;}#__resume_list_print_root__{display:block !important;position:relative !important;width:100% !important;max-width:100% !important;height:auto !important;overflow:visible !important;margin:0 !important;padding:0 !important;background:#fff !important;}#__resume_list_print_root__ *{visibility:visible !important;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important;}@page{size:A4 portrait;margin:10mm 0 10mm 0 !important;}@page :first{margin-top:0 !important;}}`;
+    styleTag.innerHTML = collectedCss;
     document.head.appendChild(styleTag);
     const cleanup = () => {
       const root = document.getElementById('__resume_list_print_root__');
@@ -350,6 +361,7 @@ export default function ResumeLists() {
             <div className="row g-4">
               {submittedResumeLists.map((resume) => {
                 const initials = (resume.personal_infomation?.firstName?.[0] || resume.resume_name?.[0] || 'R').toUpperCase();
+                const photo = resume.personal_infomation?.photo || resume.personal_infomation?.profile_image || resume.personal_infomation?.image || null;
                 const atsScore = calcAtsScore(resume);
                 const atsCls = atsClass(atsScore);
                 return (
@@ -376,7 +388,7 @@ export default function ResumeLists() {
                                   fill="none"
                                   stroke={arcColor}
                                   strokeWidth="3.5"
-                                  strokeDasharray={`${dash} ${circ}`}
+                                  strokeDasharray={`${dash} ${Math.max(0, circ - dash)}`}
                                   strokeDashoffset={circ * 0.25}
                                   strokeLinecap="round"
                                   className="rl-ats-arc"
@@ -407,7 +419,9 @@ export default function ResumeLists() {
 
                       {/* Card header */}
                       <div className="rl-card__head">
-                        <div className="rl-card__avatar">{initials}</div>
+                        <div className="rl-card__avatar">{photo ? (
+                          <img src={photo} alt={`${resume.resume_name || initials} profile`} className="rl-card__avatar-img" />
+                        ) : initials}</div>
                         <div className="rl-card__title-group">
                           <p className="rl-card__name">{resume?.resume_name || 'Untitled Resume'}</p>
                           <span className="rl-card__date">

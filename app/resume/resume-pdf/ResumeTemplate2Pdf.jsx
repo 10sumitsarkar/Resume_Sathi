@@ -11,6 +11,9 @@ import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon, IconTick 
  * centered uppercase title flanked by thin accent rules on both sides.
  * Skills render as a two-column grid of name + level pill.
  * Reuses the same data shape / helpers as the other templates.
+ *
+ * Section order: Summary -> Skills -> Experience -> Education ->
+ * Internships -> Certificates -> Languages -> Social Media -> Hobbies
  */
 
 // Convert a hex color (#rrggbb or #rgb) to an rgba() string with the given alpha.
@@ -28,12 +31,12 @@ const hexToRgba = (hex, alpha) => {
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'column',
+   flexDirection: 'column',
     fontFamily: 'Poppins',
-    paddingTop: 40,
-    paddingBottom: 40,
-    paddingLeft: 44,
-    paddingRight: 44,
+    paddingTop: 35,
+    paddingBottom: 35,
+    paddingLeft: 35,
+    paddingRight: 35,
   },
 
   // ---------- Header ----------
@@ -138,10 +141,9 @@ const styles = StyleSheet.create({
 
   // ---------- Social ----------
   socialRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
     marginBottom: 4,
-    gap: 12,
+    gap: 9,
   },
   socialItemWrap: {
     flexDirection: 'row',
@@ -151,6 +153,9 @@ const styles = StyleSheet.create({
   socialItem: {
     fontSize: 10,
     color: '#374151',
+  },
+  socialLabel: {
+    fontWeight: '700',
   },
 
   // ---------- Summary ----------
@@ -505,22 +510,6 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
           </View>
         )}
 
-        {socialItems.length > 0 && (
-          <View style={styles.section}>
-            <SectionTitle>Social Media</SectionTitle>
-            <View style={styles.socialRow}>
-              {socialItems.map((item, idx) => (
-                <View key={idx} style={styles.socialItemWrap}>
-                  <View style={{ width: 13, height: 13, marginRight: 5, alignItems: 'center', justifyContent: 'center' }}>
-                    {getSocialIcon(item.social_name, accentColor)}
-                  </View>
-                  <Text style={{ ...styles.socialItem, color: textColor }}>{item.social_url}</Text>
-                </View>
-              ))}
-            </View>
-          </View>
-        )}
-
         {/* ---------- LANGUAGES ---------- */}
         {resume.languages && resume.languages.length > 0 && (
           <View style={styles.section}>
@@ -536,6 +525,26 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                   {safeText(lang.proficiency_level)}
                 </Text>
               </view>
+              ))}
+            </View>
+          </View>
+        )}
+
+        {/* ---------- SOCIAL MEDIA ---------- */}
+        {socialItems.length > 0 && (
+          <View style={styles.section}>
+            <SectionTitle>Social Media</SectionTitle>
+            <View style={styles.socialRow}>
+              {socialItems.map((item, idx) => (
+                <View key={idx} style={styles.socialItemWrap}>
+                  <View style={{ width: 13, height: 13, marginRight: 5, alignItems: 'center', justifyContent: 'center' }}>
+                    {getSocialIcon(item.social_name, accentColor)}
+                  </View>
+                  <Text style={{ ...styles.socialItem, color: textColor }}>
+                    <Text style={{ ...styles.socialLabel, color: '#111827' }}>{item.social_name}: </Text>
+                    {item.social_url}
+                  </Text>
+                </View>
               ))}
             </View>
           </View>

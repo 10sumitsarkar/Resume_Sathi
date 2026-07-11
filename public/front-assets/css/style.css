@@ -3257,6 +3257,10 @@ body:has(.tools-sidebar.collapsed) .tooltip {
       i {
         font-size: 12px;
       }
+
+      svg path {
+        stroke: var(--rk-brand);
+      }
     }
 
      .rl-create-btn {

@@ -112,7 +112,7 @@ useEffect(() => {
             </div>
 
             <button className='right-side-btn' data-bs-dismiss="offcanvas" aria-label="Close">
-              <img src="/front-assets/images/icons/collapse-btn.svg" alt="Collapse" />
+              <img src="/front-assets/images/icons/close-cross.svg" alt="Close" />
             </button>
           </div>
 

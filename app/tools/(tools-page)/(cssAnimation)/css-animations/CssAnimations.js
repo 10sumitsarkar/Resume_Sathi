@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import '../../../tools-css/animate.min.css';
 import '../../../tools-css/css-animation.css';
+import CustomInput from '../../../../components/CustomInput/CustomInput';
 import Link from 'next/link';
 
 export default function AnimationPreview() {
@@ -47,21 +48,19 @@ export default function AnimationPreview() {
       <div className='css-animation-tool mt-5'>
 
         <div className="text-select-divs">
-          <select value={category} onChange={(e) => setCategory(e.target.value)}>
-            {Object.keys(animations).map((cat) => (
-              <option key={cat} value={cat}>
-                {cat.replace(/([A-Z])/g, ' $1').trim()}
-              </option>
-            ))}
-          </select>
+          <CustomInput
+            type="select"
+            options={Object.keys(animations).map((cat) => ({ value: cat, label: cat.replace(/([A-Z])/g, ' $1').trim() }))}
+            value={category}
+            onChange={(v) => setCategory(v)}
+          />
 
-          <select value={selectedAnimation} onChange={(e) => setSelectedAnimation(e.target.value)}>
-            {animations[category].map((anim) => (
-              <option key={anim} value={anim}>
-                {anim}
-              </option>
-            ))}
-          </select>
+          <CustomInput
+            type="select"
+            options={animations[category].map((anim) => ({ value: anim, label: anim }))}
+            value={selectedAnimation}
+            onChange={(v) => setSelectedAnimation(v)}
+          />
         </div>
         <div className="animate-preview-output-area">
 

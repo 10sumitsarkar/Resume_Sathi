@@ -1915,19 +1915,32 @@
     }
 
     input {
-      color: var(--text-color2);
-      font-size: 16px;
-      font-weight: 400;
-      padding: 15px 15px;
-      border-radius: 10px;
-      box-shadow: none !important;
+       cursor: pointer;
+    box-sizing: border-box;
+    width: 100%;
+    color: var(--text-color2);
+    background: #fff;
+    border: 1.5px solid #e8e8f8;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 400;
+    display: flex;
+    box-shadow: none !important;
 
       &::placeholder {
         color: rgba(102, 102, 102, 0.5);
       }
 
       &:focus {
-        border: 1px solid #4400ff4a;
+    border: 1.5px solid #4400ff4a;
+      }
+
+           &:focus-visible {
+outline: none!important;
       }
 
       &.is-invalid {

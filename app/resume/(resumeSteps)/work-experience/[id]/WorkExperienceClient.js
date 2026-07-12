@@ -12,6 +12,7 @@ import {
   markResumeStepSkipped,
 } from "../../../reducer/resume-reducer";
 import MobProgressArea from "../../../components/MobProgressArea";
+import CustomInput from '../../../../components/CustomInput/CustomInput';
 
 export default function WorkExperience() {
   const { id } = useParams();
@@ -359,26 +360,24 @@ export default function WorkExperience() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
                   <label htmlFor="employee_type">Employment Type</label>
-                  <select
-                    id="employee_type"
-                    {...register("employee_type", {
-                      required: "Employee type is required",
-                    })}
+                  <CustomInput
+                    type="select"
+                    register={register}
+                    registerName="employee_type"
+                    registerOptions={{ required: 'Employee type is required' }}
+                    options={[
+                      { value: 'Full-time', label: 'Full-time' },
+                      { value: 'Part-time', label: 'Part-time' },
+                      { value: 'Contract', label: 'Contract' },
+                      { value: 'Freelance', label: 'Freelance' },
+                      { value: 'Internship', label: 'Internship' },
+                      { value: 'Temporary', label: 'Temporary' },
+                      { value: 'Volunteer', label: 'Volunteer' },
+                      { value: 'Other', label: 'Other' },
+                    ]}
+                    placeholder="Select Employee Type"
                     className={`form-control ${errors.employee_type ? "is-invalid" : ""}`}
-                    defaultValue=""
-                  >
-                    <option value="" disabled className="d-none">
-                      Select Employee Type
-                    </option>
-                    <option value="Full-time">Full-time</option>
-                    <option value="Part-time">Part-time</option>
-                    <option value="Contract">Contract</option>
-                    <option value="Freelance">Freelance</option>
-                    <option value="Internship">Internship</option>
-                    <option value="Temporary">Temporary</option>
-                    <option value="Volunteer">Volunteer</option>
-                    <option value="Other">Other</option>
-                  </select>
+                  />
                 </div>
                 {errors.employee_type && (
                   <p className="input-error">{errors.employee_type.message}</p>
@@ -410,36 +409,15 @@ export default function WorkExperience() {
                 <div className="row">
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="start_date"
-                        {...register("start_month", {
-                          required: "Month is required",
-                        })}
+                      <CustomInput
+                        type="select"
+                        register={register}
+                        registerName="start_month"
+                        registerOptions={{ required: 'Month is required' }}
+                        options={['January','February','March','April','May','June','July','August','September','October','November','December'].map(m=>({value:m,label:m}))}
+                        placeholder="Month"
                         className={`form-control ${errors.start_month ? "is-invalid" : ""}`}
-                        value={workExperienceFormData.start_month || ""}
-                      >
-                        <option value="" disabled className="d-none">
-                          Month
-                        </option>
-                        {[
-                          "January",
-                          "February",
-                          "March",
-                          "April",
-                          "May",
-                          "June",
-                          "July",
-                          "August",
-                          "September",
-                          "October",
-                          "November",
-                          "December",
-                        ].map((month) => (
-                          <option key={month} value={month}>
-                            {month}
-                          </option>
-                        ))}
-                      </select>
+                      />
                     </div>
 
                     {errors.start_month && (
@@ -450,26 +428,16 @@ export default function WorkExperience() {
                   </div>
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="start_date"
-                        {...register("start_year", {
-                          required: "Month is required",
-                        })}
+                      <CustomInput
+                        type="select"
+                        register={register}
+                        registerName="start_year"
+                        registerOptions={{ required: 'Month is required' }}
+                        options={Array.from({ length: 50 }, (_, i) => ({ value: new Date().getFullYear() - i, label: String(new Date().getFullYear() - i) }))}
+                        search={true}
+                        placeholder="Year"
                         className={`form-control ${errors.start_year ? "is-invalid" : ""}`}
-                        value={workExperienceFormData.start_year || ""}
-                      >
-                        <option value="" disabled className="d-none">
-                          Year
-                        </option>
-                        {Array.from({ length: 50 }, (_, i) => {
-                          const year = new Date().getFullYear() - i;
-                          return (
-                            <option key={year} value={year}>
-                              {year}
-                            </option>
-                          );
-                        })}
-                      </select>
+                      />
                     </div>
 
                     {errors.start_year && (
@@ -486,44 +454,17 @@ export default function WorkExperience() {
                 <div className="row">
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="end_month"
-                        {...register("end_month", {
-                          required: !stillEnrolled
-                            ? "Month is required"
-                            : false,
-                        })}
+                      <CustomInput
+                        type="select"
+                        register={register}
+                        registerName="end_month"
+                        registerOptions={{ required: !stillEnrolled ? 'Month is required' : false }}
+                        options={['January','February','March','April','May','June','July','August','September','October','November','December'].map(m=>({value:m,label:m}))}
+                        placeholder="Month"
                         className={`form-control ${errors.end_month ? "is-invalid" : ""}`}
                         disabled={stillEnrolled}
-                        onChangeCapture={() => setStillEnrolled(false)}
-                        value={
-                          stillEnrolled === true
-                            ? ""
-                            : workExperienceFormData.end_month || ""
-                        }
-                      >
-                        <option value="" disabled className="d-none">
-                          Month
-                        </option>
-                        {[
-                          "January",
-                          "February",
-                          "March",
-                          "April",
-                          "May",
-                          "June",
-                          "July",
-                          "August",
-                          "September",
-                          "October",
-                          "November",
-                          "December",
-                        ].map((month) => (
-                          <option key={month} value={month}>
-                            {month}
-                          </option>
-                        ))}
-                      </select>
+                        onChange={() => setStillEnrolled(false)}
+                      />
                     </div>
 
                     {errors.end_month && (
@@ -532,34 +473,18 @@ export default function WorkExperience() {
                   </div>
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="end_year"
-                        {...register("end_year", {
-                          required: !stillEnrolled
-                            ? "Month is required"
-                            : false,
-                        })}
+                      <CustomInput
+                        type="select"
+                        register={register}
+                        registerName="end_year"
+                        registerOptions={{ required: !stillEnrolled ? 'Month is required' : false }}
+                        options={Array.from({ length: 50 }, (_, i) => ({ value: new Date().getFullYear() - i, label: String(new Date().getFullYear() - i) }))}
+                        search={true}
+                        placeholder="Year"
                         className={`form-control ${errors.end_year ? "is-invalid" : ""}`}
                         disabled={stillEnrolled}
-                        onChangeCapture={() => setStillEnrolled(false)}
-                        value={
-                          stillEnrolled === true
-                            ? ""
-                            : workExperienceFormData.end_year || ""
-                        }
-                      >
-                        <option value="" disabled className="d-none">
-                          Year
-                        </option>
-                        {Array.from({ length: 50 }, (_, i) => {
-                          const year = new Date().getFullYear() - i;
-                          return (
-                            <option key={year} value={year}>
-                              {year}
-                            </option>
-                          );
-                        })}
-                      </select>
+                        onChange={() => setStillEnrolled(false)}
+                      />
                     </div>
 
                     {errors.end_year && (

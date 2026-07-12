@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeEducations, deleteEducationFromResume, reorderEducations } from '../../../reducer/resume-reducer';
 import MobProgressArea from '../../../components/MobProgressArea';
+import CustomInput from '../../../../components/CustomInput/CustomInput';
 
 export default function Education() {
   const { id } = useParams();
@@ -250,82 +251,71 @@ export default function Education() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
                   <label htmlFor="degree">Degree</label>
-                  <select
-                    id="degree"
-                    {...register("degree", { required: "Degree is required" })}
-                    className={`form-control ${errors.degree ? 'is-invalid' : ''}`}
-                    defaultValue=""
-                  >
-                    <option value="" disabled className="d-none">E.g., Bachelor of Technology</option>
-                    {/* School Education */}
-                    <option value="Secondary School (10th)">Secondary School (10th)</option>
-                    <option value="Higher Secondary (12th)">Higher Secondary (12th)</option>
-                    <option value="High School Diploma">High School Diploma</option>
-                    <option value="GED">GED</option>
-
-                    {/* Vocational & Technical */}
-                    <option value="ITI">ITI</option>
-                    <option value="Polytechnic Diploma">Polytechnic Diploma</option>
-                    <option value="Vocational Training">Vocational Training</option>
-                    <option value="Certificate Course">Certificate Course</option>
-                    <option value="Diploma">Diploma</option>
-                    <option value="Advanced Diploma">Advanced Diploma</option>
-                    <option value="Post Graduate Diploma">Post Graduate Diploma</option>
-
-                    {/* Associate Degrees */}
-                    <option value="Associate of Arts (AA)">Associate of Arts (AA)</option>
-                    <option value="Associate of Science (AS)">Associate of Science (AS)</option>
-                    <option value="Associate of Applied Science (AAS)">Associate of Applied Science (AAS)</option>
-
-                    {/* Bachelor's Degrees */}
-                    <option value="Bachelor of Arts (BA)">Bachelor of Arts (BA)</option>
-                    <option value="Bachelor of Science (BSc/BS)">Bachelor of Science (BSc/BS)</option>
-                    <option value="Bachelor of Commerce (BCom)">Bachelor of Commerce (BCom)</option>
-                    <option value="Bachelor of Business Administration (BBA)">Bachelor of Business Administration (BBA)</option>
-                    <option value="Bachelor of Computer Applications (BCA)">Bachelor of Computer Applications (BCA)</option>
-                    <option value="Bachelor of Technology (BTech)">Bachelor of Technology (BTech)</option>
-                    <option value="Bachelor of Engineering (BE)">Bachelor of Engineering (BE)</option>
-                    <option value="Bachelor of Architecture (BArch)">Bachelor of Architecture (BArch)</option>
-                    <option value="Bachelor of Design (BDes)">Bachelor of Design (BDes)</option>
-                    <option value="Bachelor of Fine Arts (BFA)">Bachelor of Fine Arts (BFA)</option>
-                    <option value="Bachelor of Education (BEd)">Bachelor of Education (BEd)</option>
-                    <option value="Bachelor of Laws (LLB)">Bachelor of Laws (LLB)</option>
-                    <option value="Bachelor of Pharmacy (BPharm)">Bachelor of Pharmacy (BPharm)</option>
-                    <option value="Bachelor of Medicine and Bachelor of Surgery (MBBS)">MBBS</option>
-                    <option value="Bachelor of Dental Surgery (BDS)">BDS</option>
-                    <option value="Bachelor of Hotel Management (BHM)">Bachelor of Hotel Management (BHM)</option>
-                    <option value="Bachelor of Journalism and Mass Communication (BJMC)">BJMC</option>
-
-                    {/* Master's Degrees */}
-                    <option value="Master of Arts (MA)">Master of Arts (MA)</option>
-                    <option value="Master of Science (MSc/MS)">Master of Science (MSc/MS)</option>
-                    <option value="Master of Commerce (MCom)">Master of Commerce (MCom)</option>
-                    <option value="Master of Business Administration (MBA)">Master of Business Administration (MBA)</option>
-                    <option value="Master of Computer Applications (MCA)">Master of Computer Applications (MCA)</option>
-                    <option value="Master of Technology (MTech)">Master of Technology (MTech)</option>
-                    <option value="Master of Engineering (ME)">Master of Engineering (ME)</option>
-                    <option value="Master of Education (MEd)">Master of Education (MEd)</option>
-                    <option value="Master of Laws (LLM)">Master of Laws (LLM)</option>
-                    <option value="Master of Pharmacy (MPharm)">Master of Pharmacy (MPharm)</option>
-                    <option value="Master of Architecture (MArch)">Master of Architecture (MArch)</option>
-                    <option value="Master of Design (MDes)">Master of Design (MDes)</option>
-
-                    {/* Doctoral Degrees */}
-                    <option value="Doctor of Philosophy (PhD)">Doctor of Philosophy (PhD)</option>
-                    <option value="Doctor of Medicine (MD)">Doctor of Medicine (MD)</option>
-                    <option value="Doctor of Education (EdD)">Doctor of Education (EdD)</option>
-                    <option value="Doctor of Dental Surgery (DDS)">Doctor of Dental Surgery (DDS)</option>
-                    <option value="Doctor of Pharmacy (PharmD)">Doctor of Pharmacy (PharmD)</option>
-
-                    {/* Professional Qualifications */}
-                    <option value="CA (Chartered Accountant)">CA (Chartered Accountant)</option>
-                    <option value="CS (Company Secretary)">CS (Company Secretary)</option>
-                    <option value="CMA (Cost & Management Accountant)">CMA (Cost & Management Accountant)</option>
-                    <option value="CPA (Certified Public Accountant)">CPA (Certified Public Accountant)</option>
-                    <option value="CFA (Chartered Financial Analyst)">CFA (Chartered Financial Analyst)</option>
-
-                    <option value="Other">Other</option>
-                  </select>
+                  <CustomInput
+                    type="select"
+                    register={register}
+                    registerName="degree"
+                    registerOptions={{ required: 'Degree is required' }}
+                    options={[
+                      { value: 'Secondary School (10th)', label: 'Secondary School (10th)' },
+                      { value: 'Higher Secondary (12th)', label: 'Higher Secondary (12th)' },
+                      { value: 'High School Diploma', label: 'High School Diploma' },
+                      { value: 'GED', label: 'GED' },
+                      { value: 'ITI', label: 'ITI' },
+                      { value: 'Polytechnic Diploma', label: 'Polytechnic Diploma' },
+                      { value: 'Vocational Training', label: 'Vocational Training' },
+                      { value: 'Certificate Course', label: 'Certificate Course' },
+                      { value: 'Diploma', label: 'Diploma' },
+                      { value: 'Advanced Diploma', label: 'Advanced Diploma' },
+                      { value: 'Post Graduate Diploma', label: 'Post Graduate Diploma' },
+                      { value: 'Associate of Arts (AA)', label: 'Associate of Arts (AA)' },
+                      { value: 'Associate of Science (AS)', label: 'Associate of Science (AS)' },
+                      { value: 'Associate of Applied Science (AAS)', label: 'Associate of Applied Science (AAS)' },
+                      { value: 'Bachelor of Arts (BA)', label: 'Bachelor of Arts (BA)' },
+                      { value: 'Bachelor of Science (BSc/BS)', label: 'Bachelor of Science (BSc/BS)' },
+                      { value: 'Bachelor of Commerce (BCom)', label: 'Bachelor of Commerce (BCom)' },
+                      { value: 'Bachelor of Business Administration (BBA)', label: 'Bachelor of Business Administration (BBA)' },
+                      { value: 'Bachelor of Computer Applications (BCA)', label: 'Bachelor of Computer Applications (BCA)' },
+                      { value: 'Bachelor of Technology (BTech)', label: 'Bachelor of Technology (BTech)' },
+                      { value: 'Bachelor of Engineering (BE)', label: 'Bachelor of Engineering (BE)' },
+                      { value: 'Bachelor of Architecture (BArch)', label: 'Bachelor of Architecture (BArch)' },
+                      { value: 'Bachelor of Design (BDes)', label: 'Bachelor of Design (BDes)' },
+                      { value: 'Bachelor of Fine Arts (BFA)', label: 'Bachelor of Fine Arts (BFA)' },
+                      { value: 'Bachelor of Education (BEd)', label: 'Bachelor of Education (BEd)' },
+                      { value: 'Bachelor of Laws (LLB)', label: 'Bachelor of Laws (LLB)' },
+                      { value: 'Bachelor of Pharmacy (BPharm)', label: 'Bachelor of Pharmacy (BPharm)' },
+                      { value: 'Bachelor of Medicine and Bachelor of Surgery (MBBS)', label: 'MBBS' },
+                      { value: 'Bachelor of Dental Surgery (BDS)', label: 'BDS' },
+                      { value: 'Bachelor of Hotel Management (BHM)', label: 'Bachelor of Hotel Management (BHM)' },
+                      { value: 'Bachelor of Journalism and Mass Communication (BJMC)', label: 'BJMC' },
+                      { value: 'Master of Arts (MA)', label: 'Master of Arts (MA)' },
+                      { value: 'Master of Science (MSc/MS)', label: 'Master of Science (MSc/MS)' },
+                      { value: 'Master of Commerce (MCom)', label: 'Master of Commerce (MCom)' },
+                      { value: 'Master of Business Administration (MBA)', label: 'Master of Business Administration (MBA)' },
+                      { value: 'Master of Computer Applications (MCA)', label: 'Master of Computer Applications (MCA)' },
+                      { value: 'Master of Technology (MTech)', label: 'Master of Technology (MTech)' },
+                      { value: 'Master of Engineering (ME)', label: 'Master of Engineering (ME)' },
+                      { value: 'Master of Education (MEd)', label: 'Master of Education (MEd)' },
+                      { value: 'Master of Laws (LLM)', label: 'Master of Laws (LLM)' },
+                      { value: 'Master of Pharmacy (MPharm)', label: 'Master of Pharmacy (MPharm)' },
+                      { value: 'Master of Architecture (MArch)', label: 'Master of Architecture (MArch)' },
+                      { value: 'Master of Design (MDes)', label: 'Master of Design (MDes)' },
+                      { value: 'Doctor of Philosophy (PhD)', label: 'Doctor of Philosophy (PhD)' },
+                      { value: 'Doctor of Medicine (MD)', label: 'Doctor of Medicine (MD)' },
+                      { value: 'Doctor of Education (EdD)', label: 'Doctor of Education (EdD)' },
+                      { value: 'Doctor of Dental Surgery (DDS)', label: 'Doctor of Dental Surgery (DDS)' },
+                      { value: 'Doctor of Pharmacy (PharmD)', label: 'Doctor of Pharmacy (PharmD)' },
+                      { value: 'CA (Chartered Accountant)', label: 'CA (Chartered Accountant)' },
+                      { value: 'CS (Company Secretary)', label: 'CS (Company Secretary)' },
+                      { value: 'CMA (Cost & Management Accountant)', label: 'CMA (Cost & Management Accountant)' },
+                      { value: 'CPA (Certified Public Accountant)', label: 'CPA (Certified Public Accountant)' },
+                      { value: 'CFA (Chartered Financial Analyst)', label: 'CFA (Chartered Financial Analyst)' },
+                      { value: 'Other', label: 'Other' },
+                    ]}
+                    search={true}
+                    placeholder="E.g., Bachelor of Technology"
+                    className={`${errors.degree ? 'is-invalid' : ''}`}
+                  />
                 </div>
                 {errors.degree && <p className="input-error">{errors.degree.message}</p>}
               </div>
@@ -334,7 +324,7 @@ export default function Education() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="field_study">Field of Study</label>
-                  <input type="text"  {...register("field_study")} className={`form-control ${errors.field_study ? 'is-invalid' : ''}`} id="field_study" placeholder="E.g., Computer Science" />
+                  <input type="text"  {...register("field_study")} className={`${errors.field_study ? 'is-invalid' : ''}`} id="field_study" placeholder="E.g., Computer Science" />
                 </div>
                 {errors.field_study && <p className="input-error">{errors.field_study.message}</p>}
               </div>
@@ -342,7 +332,7 @@ export default function Education() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="institute_name">University/Institution Name</label>
-                  <input type="text"  {...register("institute_name", { required: "University/Institution name is required" })} className={`form-control ${errors.institute_name ? 'is-invalid' : ''}`} id="institute_name" placeholder="E.g., Delhi University" />
+                  <input type="text"  {...register("institute_name", { required: "University/Institution name is required" })} className={`${errors.institute_name ? 'is-invalid' : ''}`} id="institute_name" placeholder="E.g., Delhi University" />
                 </div>
                 {errors.institute_name && <p className="input-error">{errors.institute_name.message}</p>}
               </div>
@@ -350,7 +340,7 @@ export default function Education() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="location">Location</label>
-                  <input type="text"  {...register("location", { required: "Location is required" })} className={`form-control ${errors.location ? 'is-invalid' : ''}`} id="location" placeholder="E.g., Delhi, India" />
+                  <input type="text"  {...register("location", { required: "Location is required" })} className={`${errors.location ? 'is-invalid' : ''}`} id="location" placeholder="E.g., Delhi, India" />
                 </div>
                 {errors.location && <p className="input-error">{errors.location.message}</p>}
               </div>
@@ -363,44 +353,51 @@ export default function Education() {
                 <div className="row">
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="date"
-                        {...register("date", {
-                          required: !stillEnrolled ? 'Month is required' : false
-                        })}
-                        className={`form-control ${errors.date ? 'is-invalid' : ''}`}
-                        onChangeCapture={() => setStillEnrolled(false)}
-                        defaultValue=""
-                      >
-                        <option value="" disabled>Month</option>
-                        {[
-                          "January", "February", "March", "April", "May", "June",
-                          "July", "August", "September", "October", "November", "December"
-                        ].map((month) => (
-                          <option key={month} value={month}>{month}</option>
-                        ))}
-                      </select>
+                        <CustomInput
+                          type="select"
+                          register={register}
+                          registerName="date"
+                          registerOptions={{ required: !stillEnrolled ? 'Month is required' : false }}
+                          options={[
+                            { value: 'January', label: 'January' },
+                            { value: 'February', label: 'February' },
+                            { value: 'March', label: 'March' },
+                            { value: 'April', label: 'April' },
+                            { value: 'May', label: 'May' },
+                            { value: 'June', label: 'June' },
+                            { value: 'July', label: 'July' },
+                            { value: 'August', label: 'August' },
+                            { value: 'September', label: 'September' },
+                            { value: 'October', label: 'October' },
+                            { value: 'November', label: 'November' },
+                            { value: 'December', label: 'December' },
+                          ]}
+                          onChange={() => setStillEnrolled(false)}
+                          placeholder="Month"
+                            className={`${errors.date ? 'is-invalid' : ''}`}
+                            disabled={stillEnrolled}
+                        />
                     </div>
 
                     {errors.date && <p className="input-error">{errors.date.message}</p>}
                   </div>
                   <div className="col-6">
                     <div className="each-input-div">
-                      <select
-                        id="year"
-                        {...register("year", {
-                          required: !stillEnrolled ? 'Month is required' : false
-                        })}
-                        className={`form-control ${errors.year ? 'is-invalid' : ''}`}
-                        onChangeCapture={() => setStillEnrolled(false)}
-                        defaultValue=""
-                      >
-                        <option value="" disabled>Year</option>
-                        {Array.from({ length: 50 }, (_, i) => {
+                      <CustomInput
+                        type="select"
+                        register={register}
+                        registerName="year"
+                        registerOptions={{ required: !stillEnrolled ? 'Month is required' : false }}
+                        options={Array.from({ length: 50 }, (_, i) => {
                           const year = new Date().getFullYear() - i;
-                          return <option key={year} value={year}>{year}</option>;
+                          return { value: year, label: String(year) };
                         })}
-                      </select>
+                        search={true}
+                        onChange={() => setStillEnrolled(false)}
+                        placeholder="Year"
+                        className={`${errors.year ? 'is-invalid' : ''}`}
+                        disabled={stillEnrolled}
+                      />
                     </div>
 
                     {errors.year && <p className="input-error">{errors.year.message}</p>}

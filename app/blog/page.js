@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 import { Suspense } from "react";
 import { useSearchParams } from 'next/navigation';
 import './blog.css';
@@ -16,6 +17,29 @@ const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_IMAGE = '/front-assets/images/resume-hero.webp';
 const PAGE_SIZE = 10;
 const SUGGESTION_LIMIT = 6;
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
+const BLOG_DEFAULT_TITLE = 'Career Blog | Resume & Job Search Tips';
+const BLOG_DEFAULT_DESCRIPTION = 'Explore expert blog articles on resumes, interviews, career growth, and job search strategies.';
+
+function getBlogPageMeta(searchQuery = '', categoryName = '') {
+  const trimmedQuery = (searchQuery || '').trim();
+  const title = trimmedQuery
+    ? `Search: ${trimmedQuery} | Career Blog`
+    : categoryName
+      ? `${categoryName} | Career Blog`
+      : BLOG_DEFAULT_TITLE;
+  const description = trimmedQuery
+    ? `Find useful articles related to ${trimmedQuery} and other career growth topics on our blog.`
+    : BLOG_DEFAULT_DESCRIPTION;
+  const canonical = `${SITE_URL}/blog${trimmedQuery ? `?search=${encodeURIComponent(trimmedQuery)}` : ''}`;
+  return {
+    title,
+    description,
+    keywords: 'resume tips, career advice, interview tips, job search, professional growth',
+    canonical,
+    image: `${SITE_URL}/front-assets/images/tools-hero.webp`,
+  };
+}
 
 function resolveMediaUrl(url) {
   if (!url) return DEFAULT_IMAGE;
@@ -35,11 +59,64 @@ function formatDate(dateString) {
 }
 
 function getSlug(item) {
-  return item.slug || item.url_name || item.canonical_tag;
+  if (!item) return '';
+  return item.slug || item.url_name || item.canonical_tag || '';
 }
 
 function getTitle(item) {
-  return item.article_title || item.title;
+  if (!item) return '';
+  return item.article_title || item.title || item.meta_title || item.name || 'Untitled article';
+}
+
+function applyDocumentMeta(meta) {
+  if (typeof document === 'undefined') return;
+
+  document.title = meta.title || 'Career Blog';
+
+  const descriptionTag = document.querySelector('meta[name="description"]');
+  if (descriptionTag) {
+    descriptionTag.setAttribute('content', meta.description || '');
+  }
+
+  const keywordsTag = document.querySelector('meta[name="keywords"]');
+  if (keywordsTag) {
+    keywordsTag.setAttribute('content', meta.keywords || '');
+  }
+
+  const canonicalTag = document.querySelector('link[rel="canonical"]');
+  if (canonicalTag) {
+    canonicalTag.setAttribute('href', meta.canonical || '');
+  }
+
+  const ogTitleTag = document.querySelector('meta[property="og:title"]');
+  if (ogTitleTag) {
+    ogTitleTag.setAttribute('content', meta.title || '');
+  }
+
+  const ogDescriptionTag = document.querySelector('meta[property="og:description"]');
+  if (ogDescriptionTag) {
+    ogDescriptionTag.setAttribute('content', meta.description || '');
+  }
+
+  const ogImageTag = document.querySelector('meta[property="og:image"]');
+  if (ogImageTag) {
+    ogImageTag.setAttribute('content', meta.image || '');
+  }
+
+  const twitterTitleTag = document.querySelector('meta[name="twitter:title"]');
+  if (twitterTitleTag) {
+    twitterTitleTag.setAttribute('content', meta.title || '');
+  }
+
+  const twitterDescriptionTag = document.querySelector('meta[name="twitter:description"]');
+  if (twitterDescriptionTag) {
+    twitterDescriptionTag.setAttribute('content', meta.description || '');
+  }
+
+  const twitterImageTag = document.querySelector('meta[name="twitter:image"]');
+  if (twitterImageTag) {
+    twitterImageTag.setAttribute('content', meta.image || '');
+  }
 }
 
 function getCategoryLabel(item) {
@@ -319,6 +396,15 @@ function BlogPageContent() {
   const offcanvasCloseRef = useRef(null);
 
   const selectedCategory = categoryId;
+  const selectedCategoryName = categories.find((cat) => cat.id === categoryId)?.article_name
+    || categories.find((cat) => cat.id === categoryId)?.name
+    || categories.find((cat) => cat.id === categoryId)?.title
+    || '';
+  const blogPageMeta = getBlogPageMeta(search, selectedCategoryName);
+
+  useEffect(() => {
+    applyDocumentMeta(blogPageMeta);
+  }, [blogPageMeta.title, blogPageMeta.description, blogPageMeta.keywords, blogPageMeta.canonical, blogPageMeta.image]);
 
   const fetchArticles = async (targetPage = 1) => {
     setLoading(true);
@@ -467,6 +553,23 @@ function BlogPageContent() {
 
   return (
     <>
+      <Head>
+        <title>{blogPageMeta.title}</title>
+        <meta name="description" content={blogPageMeta.description} />
+        <meta name="keywords" content={blogPageMeta.keywords} />
+        <link rel="canonical" href={blogPageMeta.canonical} />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content={blogPageMeta.title} />
+        <meta property="og:description" content={blogPageMeta.description} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={blogPageMeta.canonical} />
+        <meta property="og:image" content={blogPageMeta.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={blogPageMeta.title} />
+        <meta name="twitter:description" content={blogPageMeta.description} />
+        <meta name="twitter:image" content={blogPageMeta.image} />
+      </Head>
+
       <section className="container-fluid custom-container small-hero-area">
         <div className='left-part'>
           <div>

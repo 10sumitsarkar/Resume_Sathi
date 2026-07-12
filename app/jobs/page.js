@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Head from 'next/head';
 import { Suspense } from "react";
 import { useSearchParams, usePathname } from 'next/navigation';
-import './blog.css';
+import './jobs.css';
 
 const IconBlog = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -18,24 +18,24 @@ const DEFAULT_IMAGE = '/front-assets/images/resume-hero.webp';
 const PAGE_SIZE = 10;
 const SUGGESTION_LIMIT = 6;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
-const BLOG_DEFAULT_TITLE = 'Career Blog | Resume & Job Search Tips';
-const BLOG_DEFAULT_DESCRIPTION = 'Explore expert blog articles on resumes, interviews, career growth, and job search strategies.';
+const JOBS_DEFAULT_TITLE = 'Latest Jobs | Resume & Career Opportunities';
+const JOBS_DEFAULT_DESCRIPTION = 'Explore fresh job openings, company details, and career opportunities curated for job seekers.';
 
 function getBlogPageMeta(searchQuery = '', categoryName = '') {
   const trimmedQuery = (searchQuery || '').trim();
   const title = trimmedQuery
-    ? `Search: ${trimmedQuery} | Career Blog`
+    ? `Search: ${trimmedQuery} | Jobs`
     : categoryName
-      ? `${categoryName} | Career Blog`
-      : BLOG_DEFAULT_TITLE;
+      ? `${categoryName} | Jobs`
+      : JOBS_DEFAULT_TITLE;
   const description = trimmedQuery
-    ? `Find useful articles related to ${trimmedQuery} and other career growth topics on our blog.`
-    : BLOG_DEFAULT_DESCRIPTION;
-  const canonical = `${SITE_URL}/blog${trimmedQuery ? `?search=${encodeURIComponent(trimmedQuery)}` : ''}`;
+    ? `Find jobs related to ${trimmedQuery} and other career opportunities.`
+    : JOBS_DEFAULT_DESCRIPTION;
+  const canonical = `${SITE_URL}/jobs${trimmedQuery ? `?search=${encodeURIComponent(trimmedQuery)}` : ''}`;
   return {
     title,
     description,
-    keywords: 'resume tips, career advice, interview tips, job search, professional growth',
+    keywords: 'jobs, career opportunities, hiring, resume tips, professional growth',
     canonical,
     image: `${SITE_URL}/front-assets/images/tools-hero.webp`,
   };
@@ -65,7 +65,46 @@ function getSlug(item) {
 
 function getTitle(item) {
   if (!item) return '';
-  return item.article_title || item.title || item.meta_title || item.name || 'Untitled article';
+  return item.title || item.article_title || item.meta_title || item.topic_name || item.name || 'Untitled job';
+}
+
+function getDescription(item) {
+  if (!item) return '';
+  return item.description || item.meta_description || item.short_description || '';
+}
+
+function getCategoryLabel(item) {
+  return item.category?.course_name || item.course_category?.course_name || item.category?.article_name || item.category?.name || item.category?.title || 'General';
+}
+
+function getCompanyName(item) {
+  return item.company || item.company_name || item.organization || '';
+}
+
+function getLocation(item) {
+  return item.location || item.city || item.place || '';
+}
+
+function getEmploymentType(item) {
+  return item.employment_type || item.job_type || '';
+}
+
+function formatApplicationDate(dateString) {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  if (Number.isNaN(date.getTime())) return '';
+  return date.toLocaleDateString('en-GB', {
+    day: '2-digit',
+    month: 'short',
+    year: 'numeric',
+  });
+}
+
+function getApplicationDates(item) {
+  return {
+    begin: item.application_begin || item.applicationStart || item.start_date || '',
+    lastDate: item.last_date_for_apply || item.lastDateForApply || item.apply_until || '',
+  };
 }
 
 function applyDocumentMeta(meta) {
@@ -119,10 +158,6 @@ function applyDocumentMeta(meta) {
   }
 }
 
-function getCategoryLabel(item) {
-  return item.category?.article_name || item.category?.name || item.category?.title || 'General';
-}
-
 /* -------------------- Search dropdown (shared by sidebar + offcanvas) -------------------- */
 function SearchDropdown({
   value,
@@ -148,8 +183,8 @@ function SearchDropdown({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           onFocus={onFocus}
-          placeholder="Search articles..."
-          aria-label="Search articles"
+          placeholder="Search jobs..."
+          aria-label="Search jobs"
         />
         <button className="rk-search-button d-none" type="submit" aria-label="Search">
           <i className="bi bi-arrow-right"></i>
@@ -159,11 +194,11 @@ function SearchDropdown({
       {showSuggestions && (
         <ul className="rk-search-dropdown">
           {suggestions.length === 0 ? (
-            <li className="rk-search-dropdown-empty">No matching articles</li>
+            <li className="rk-search-dropdown-empty">No matching jobs</li>
           ) : (
             suggestions.map((item) => (
               <li key={item.id}>
-                <Link href={`/blog/${getSlug(item)}`} onClick={() => onSelect(item)}>
+                <Link href={`/jobs/${getSlug(item)}`} onClick={() => onSelect(item)}>
                   <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} />
                   <div>
                     <span className="rk-search-dropdown-title">{getTitle(item)}</span>
@@ -198,7 +233,7 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
             className={`rk-cat-chip ${selectedCategory === cat.id ? 'active' : ''}`}
             onClick={() => onSelectCategory(cat.id)}
           >
-            {cat.article_name || cat.name || cat.title}
+            {cat.course_name || cat.article_name || cat.name || cat.title}
           </button>
         ))}
       </div>
@@ -208,11 +243,16 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
 
 function BlogCard({ article }) {
   const articleSlug = getSlug(article);
+  const companyName = getCompanyName(article);
+  const location = getLocation(article);
+  const employmentType = getEmploymentType(article);
+  const { begin, lastDate } = getApplicationDates(article);
+
   return (
     <div className="col-sm-6 col-lg-4">
       <article className="rk-blog-card">
-        <Link href={`/blog/${articleSlug}`} className="rk-blog-card-img">
-          <img src={resolveMediaUrl(article.hero_image)} alt={getTitle(article)} />
+        <Link href={`/jobs/${articleSlug}`} className="rk-blog-card-img">
+          <img src={resolveMediaUrl(article.hero_image || article.image)} alt={getTitle(article)} />
           <span className="rk-blog-cat">{getCategoryLabel(article)}</span>
         </Link>
         <div className="rk-blog-card-body">
@@ -230,11 +270,22 @@ function BlogCard({ article }) {
             {formatDate(article.created_at)}
           </span>
           <h3>
-            <Link href={`/blog/${articleSlug}`}>{getTitle(article)}</Link>
+            <Link href={`/jobs/${articleSlug}`}>{getTitle(article)}</Link>
           </h3>
-          <p>{article.description || article.meta_description || ''}</p>
-          <Link href={`/blog/${articleSlug}`} className="rk-blog-readmore">
-            Read More
+          {companyName ? <p className="rk-job-company">{companyName}</p> : null}
+          <p>{getDescription(article)}</p>
+          <div className="rk-job-meta-row">
+            {location ? <span className="rk-job-pill">{location}</span> : null}
+            {employmentType ? <span className="rk-job-pill">{employmentType}</span> : null}
+          </div>
+          {(begin || lastDate) ? (
+            <div className="rk-job-meta-row mt-2">
+              {begin ? <span className="rk-job-pill">Apply From: {formatApplicationDate(begin)}</span> : null}
+              {lastDate ? <span className="rk-job-pill">Last Date: {formatApplicationDate(lastDate)}</span> : null}
+            </div>
+          ) : null}
+          <Link href={`/jobs/${articleSlug}`} className="rk-blog-readmore">
+            View Job
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M14 18L20 12L14 6M20 12H9.5M4 12H6.5" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -263,8 +314,8 @@ function Sidebar({
             type="search"
             value={searchQuery}
             onChange={(e) => onSearch(e.target.value)}
-            placeholder="Search articles..."
-            aria-label="Search articles"
+            placeholder="Search jobs..."
+            aria-label="Search jobs"
           />
           <button className="rk-search-button d-none" type="submit">
             <i className="bi bi-search"></i>
@@ -273,16 +324,16 @@ function Sidebar({
       </div>
 
       <div className="rk-widget rk-widget-latest">
-        <h4>Latest Articles</h4>
+        <h4>Latest Jobs</h4>
         <ul>
           {latest.map((item) => (
             <li key={item.id}>
-              <Link href={`/blog/${getSlug(item)}`} className="rk-blog-card-img">
+              <Link href={`/jobs/${getSlug(item)}`} className="rk-blog-card-img">
                 <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} />
               </Link>
               <div>
                 <span>{formatDate(item.created_at)}</span>
-                <Link href={`/blog/${getSlug(item)}`}>{getTitle(item)}</Link>
+                <Link href={`/jobs/${getSlug(item)}`}>{getTitle(item)}</Link>
               </div>
             </li>
           ))}
@@ -393,26 +444,34 @@ function BlogPageContent() {
   const fetchArticles = async (targetPage = 1) => {
     setLoading(true);
     try {
-      const params = new URLSearchParams();
-      if (search) params.set('search', search);
-      if (categoryId) params.set('category_id', String(categoryId));
-      params.set('limit', String(PAGE_SIZE));
-      params.set('page', String(targetPage));
-
-      const response = await fetch(`${API_BASE}/articles?${params.toString()}`);
+      const response = await fetch(`${API_BASE}/courses`);
       const data = await response.json();
-
       const items = Array.isArray(data) ? data : (data.items || data.results || []);
-      const total = Array.isArray(data) ? null : (data.total ?? null);
 
-      setArticles(items);
+      const normalizedSearch = search.trim().toLowerCase();
+      const filteredItems = items.filter((item) => {
+        const haystack = [
+          getTitle(item),
+          getDescription(item),
+          getCategoryLabel(item),
+          getCompanyName(item),
+          getLocation(item),
+          getEmploymentType(item),
+        ].join(' ').toLowerCase();
+
+        const matchesSearch = !normalizedSearch || haystack.includes(normalizedSearch);
+        const selectedCategory = categoryId ? Number(categoryId) : null;
+        const matchesCategory = !selectedCategory || Number(item.course_type || item.category_id || item.category?.id || item.course_category?.id) === selectedCategory;
+
+        return matchesSearch && matchesCategory;
+      });
+
+      const total = filteredItems.length;
+      const pagedItems = filteredItems.slice((targetPage - 1) * PAGE_SIZE, targetPage * PAGE_SIZE);
+
+      setArticles(pagedItems);
       setPage(targetPage);
-
-      if (total !== null) {
-        setHasMore(targetPage * PAGE_SIZE < total);
-      } else {
-        setHasMore(items.length === PAGE_SIZE);
-      }
+      setHasMore(targetPage * PAGE_SIZE < total);
     } catch (error) {
       console.error(error);
       setArticles([]);
@@ -425,12 +484,18 @@ function BlogPageContent() {
   const fetchSidebar = async () => {
     try {
       const [latestRes, categoriesRes] = await Promise.all([
-        fetch(`${API_BASE}/articles/latest?limit=3`),
-        fetch(`${API_BASE}/article-categories`),
+        fetch(`${API_BASE}/courses`),
+        fetch(`${API_BASE}/course-categories`),
       ]);
       const latestData = await latestRes.json();
       const categoriesData = await categoriesRes.json();
-      setLatest(Array.isArray(latestData) ? latestData : []);
+      const latestItems = Array.isArray(latestData)
+        ? latestData
+            .slice()
+            .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
+            .slice(0, 3)
+        : [];
+      setLatest(latestItems);
       setCategories(Array.isArray(categoriesData) ? categoriesData : []);
     } catch (error) {
       console.error(error);
@@ -444,7 +509,7 @@ function BlogPageContent() {
   }, []);
 
   useEffect(() => {
-    if (previousPathname.current === '/blog' && pathname !== '/blog') {
+    if (previousPathname.current === '/jobs' && pathname !== '/jobs') {
       setSearch('');
       setSearchInput('');
       setCategoryId(null);
@@ -488,10 +553,14 @@ function BlogPageContent() {
         params.set('search', term);
         params.set('limit', String(SUGGESTION_LIMIT));
         params.set('page', '1');
-        const response = await fetch(`${API_BASE}/articles?${params.toString()}`);
+        const response = await fetch(`${API_BASE}/courses`);
         const data = await response.json();
         const items = Array.isArray(data) ? data : (data.items || data.results || []);
-        setSuggestions(items);
+        const filteredSuggestions = items.filter((item) => {
+          const haystack = [getTitle(item), getDescription(item), getCategoryLabel(item), getCompanyName(item), getLocation(item)].join(' ').toLowerCase();
+          return haystack.includes(term.toLowerCase());
+        });
+        setSuggestions(filteredSuggestions.slice(0, SUGGESTION_LIMIT));
         setShowSuggestions(true);
       } catch (error) {
         console.error(error);
@@ -569,11 +638,11 @@ function BlogPageContent() {
         <div className='left-part'>
           <div>
             <label className="tl-eyebrow">
-              <IconBlog />Career Blog
+              <IconBlog />Jobs
             </label>
-            <h1 className="fs-mob-22">Tips, Guides & Career Insights</h1>
+            <h1 className="fs-mob-22">Find your next opportunity</h1>
           </div>
-          <p className='className="fs-mob-16"'>Browse the latest articles, learn new tips, and explore career insights curated for job seekers like you.</p>
+          <p className='className="fs-mob-16"'>Browse the latest job openings, explore company details, and discover roles that match your career goals.</p>
         </div>
         <div className='right-part d-none d-md-block'>
           <img src={'/front-assets/images/tools-hero.webp'} className='img-fluid' width={500} />
@@ -585,7 +654,6 @@ function BlogPageContent() {
         selectedCategory={selectedCategory}
         onSelectCategory={handleCategoryClick}
       />
-
       <section className="rk-blog-page">
         <div className="container-fluid custom-container pb-120">
           <div className="row g-4">
@@ -593,12 +661,12 @@ function BlogPageContent() {
               {loading ? (
                 <div className="rk-loading">
                   <div className="rk-spinner"></div>
-                  Loading articles...
+                  Loading jobs...
                 </div>
               ) : articles.length === 0 ? (
                 <div className="rk-empty">
                   <i className="bi bi-inboxes"></i>
-                  <p>No articles found for these filters.</p>
+                  <p>No jobs found for these filters.</p>
                 </div>
               ) : (
                 <>
@@ -635,7 +703,7 @@ function BlogPageContent() {
 <path d="M14.5 2.51563H10.925C10.1578 2.51563 9.40781 2.73594 8.7625 3.15156L8 3.64063L7.2375 3.15156C6.59283 2.73602 5.84199 2.51522 5.075 2.51563H1.5C1.22344 2.51563 1 2.73906 1 3.01563V11.8906C1 12.1672 1.22344 12.3906 1.5 12.3906H5.075C5.84219 12.3906 6.59219 12.6109 7.2375 13.0266L7.93125 13.4734C7.95156 13.4859 7.975 13.4938 7.99844 13.4938C8.02187 13.4938 8.04531 13.4875 8.06563 13.4734L8.75937 13.0266C9.40625 12.6109 10.1578 12.3906 10.925 12.3906H14.5C14.7766 12.3906 15 12.1672 15 11.8906V3.01563C15 2.73906 14.7766 2.51563 14.5 2.51563ZM5.075 11.2656H2.125V3.64063H5.075C5.62812 3.64063 6.16562 3.79844 6.62969 4.09688L7.39219 4.58594L7.5 4.65625V11.875C6.75625 11.475 5.925 11.2656 5.075 11.2656ZM13.875 11.2656H10.925C10.075 11.2656 9.24375 11.475 8.5 11.875V4.65625L8.60781 4.58594L9.37031 4.09688C9.83438 3.79844 10.3719 3.64063 10.925 3.64063H13.875V11.2656ZM6.20156 5.64063H3.29844C3.2375 5.64063 3.1875 5.69375 3.1875 5.75781V6.46094C3.1875 6.525 3.2375 6.57813 3.29844 6.57813H6.2C6.26094 6.57813 6.31094 6.525 6.31094 6.46094V5.75781C6.3125 5.69375 6.2625 5.64063 6.20156 5.64063ZM9.6875 5.75781V6.46094C9.6875 6.525 9.7375 6.57813 9.79844 6.57813H12.7C12.7609 6.57813 12.8109 6.525 12.8109 6.46094V5.75781C12.8109 5.69375 12.7609 5.64063 12.7 5.64063H9.79844C9.7375 5.64063 9.6875 5.69375 9.6875 5.75781ZM6.20156 7.82813H3.29844C3.2375 7.82813 3.1875 7.88125 3.1875 7.94531V8.64844C3.1875 8.7125 3.2375 8.76563 3.29844 8.76563H6.2C6.26094 8.76563 6.31094 8.7125 6.31094 8.64844V7.94531C6.3125 7.88125 6.2625 7.82813 6.20156 7.82813ZM12.7016 7.82813H9.79844C9.7375 7.82813 9.6875 7.88125 9.6875 7.94531V8.64844C9.6875 8.7125 9.7375 8.76563 9.79844 8.76563H12.7C12.7609 8.76563 12.8109 8.7125 12.8109 8.64844V7.94531C12.8125 7.88125 12.7625 7.82813 12.7016 7.82813Z" fill="#fff"/>
 </svg>
 
-              <p>Blog</p>
+              <p>Jobs</p>
             </div>
 
             <button ref={offcanvasCloseRef} className='right-side-btn' data-bs-dismiss="offcanvas" aria-label="Close">
@@ -669,12 +737,12 @@ function BlogPageContent() {
 
             {/* Latest Articles - always visible */}
             <div className="rk-offcanvas-section">
-              <h4><i className="bi bi-clock-history"></i> Latest Articles</h4>
+              <h4><i className="bi bi-clock-history"></i> Latest Jobs</h4>
               <div className="rk-offcanvas-latest-list">
                 {latest.map((item) => (
                   <Link
                     key={item.id}
-                    href={`/blog/${getSlug(item)}`}
+                    href={`/jobs/${getSlug(item)}`}
                     className="rk-latest-sub-item"
                     onClick={closeOffcanvas}
                   >

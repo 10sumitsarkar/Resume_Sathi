@@ -155,6 +155,64 @@ const Icon = {
   ),
 };
 
+const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || "http://localhost:8000";
+const API_BASE = `${BACKEND_BASE}/api`;
+const DEFAULT_JOB_IMAGE = "/front-assets/images/blog/govt-jobs.jpg";
+const DEFAULT_BLOG_IMAGE = "/front-assets/images/blog/resume-tips.jpg";
+
+function resolveMediaUrl(url, fallback = "") {
+  if (!url) return fallback;
+  if (/^https?:\/\//i.test(url) || url.startsWith("//")) return url;
+  return `${BACKEND_BASE}/${String(url).replace(/^\/+/, "")}`;
+}
+
+function getSlug(item) {
+  return item?.slug || item?.url_name || item?.canonical_tag || "";
+}
+
+function getArticleTitle(item) {
+  return item?.article_title || item?.title || item?.meta_title || item?.topic_name || item?.name || "Career Guide";
+}
+
+function getArticleDescription(item) {
+  return item?.description || item?.meta_description || item?.short_description || item?.summary || "Discover practical resume, interview, and career advice for your next move.";
+}
+
+function getArticleCategory(item) {
+  return item?.category?.article_name || item?.category?.course_name || item?.category?.name || item?.category?.title || "Career Insights";
+}
+
+function getJobTitle(item) {
+  return item?.title || item?.topic_name || item?.meta_title || "Latest Job Opportunity";
+}
+
+function getJobDescription(item) {
+  return item?.description || item?.meta_description || item?.short_description || "Explore this opportunity and apply before the deadline.";
+}
+
+function getCompanyName(item) {
+  return item?.company || item?.company_name || item?.organization || "Hiring Team";
+}
+
+function getLocation(item) {
+  return item?.location || item?.city || item?.place || "India";
+}
+
+function getDeadline(item) {
+  return item?.last_date_for_apply || item?.lastDateForApply || item?.deadline || item?.apply_until || "";
+}
+
+function formatDate(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 // ── Live Counter ──────────────────────────────────────────────────────────
 function LiveCounter() {
   const [count, setCount] = useState(4312);
@@ -368,59 +426,68 @@ const tools = [
 ];
 
 // ── Jobs ─────────────────────────────────────────────────────────────────
-const jobs = [
-  { org: "UPSC", title: "Civil Services Examination 2025", location: "All India", deadline: "Aug 15, 2025", posts: "1,105 vacancies" },
-  { org: "SSC", title: "Combined Graduate Level (CGL) 2025", location: "Pan India", deadline: "Sep 4, 2025", posts: "17,727 vacancies" },
-  { org: "IBPS", title: "Probationary Officer (PO) 2025", location: "Pan India", deadline: "Jul 28, 2025", posts: "4,455 vacancies" },
-  { org: "Railway RRB", title: "NTPC Graduate Level 2025", location: "Zone-wise", deadline: "Oct 12, 2025", posts: "11,558 vacancies" },
-  { org: "NHM", title: "Staff Nurse & Medical Officer", location: "State-wise", deadline: "Jul 20, 2025", posts: "3,200 vacancies" },
-  { org: "DSSSB", title: "Teaching & Non-Teaching Roles", location: "Delhi NCT", deadline: "Aug 30, 2025", posts: "6,000+ vacancies" },
-];
+function JobCard({ job, href }) {
+  const deadline = getDeadline(job);
+  const companyName = getCompanyName(job);
+  const location = getLocation(job);
+  const imageUrl = resolveMediaUrl(job.hero_image || job.image, DEFAULT_JOB_IMAGE);
 
-function JobCard({ job }) {
   return (
     <div className="col-12 col-md-6 col-lg-4">
       <div className="rk-jc h-100">
         <div className="rk-jc-top">
-          <span className="rk-jc-org">{job.org}</span>
+          <span className="rk-jc-org">{companyName}</span>
           <span className="rk-jc-badge">Open</span>
         </div>
-        <div className="rk-jc-title">{job.title}</div>
-        <div className="rk-jc-meta">
-          <span><Icon.MapPin /> {job.location}</span>
-          <span><Icon.Calendar /> {job.deadline}</span>
-          <span><Icon.Users /> {job.posts}</span>
+        <div className="rk-jc-thumb">
+          <img src={imageUrl} alt={getJobTitle(job)} className="rk-bc-img" onError={(e) => { e.target.src = DEFAULT_JOB_IMAGE; }} />
         </div>
-        <button className="rk-jc-apply">View & Apply <Icon.ChevRight /></button>
+        <div className="rk-jc-title">{getJobTitle(job)}</div>
+        <p className="rk-jc-desc">{getJobDescription(job)}</p>
+        <div className="rk-jc-meta">
+          <span><Icon.MapPin /> {location}</span>
+          {deadline ? <span><Icon.Calendar /> {formatDate(deadline)}</span> : null}
+        </div>
+        <Link href={href} className="rk-jc-apply">View & Apply <Icon.ChevRight /></Link>
       </div>
     </div>
   );
 }
 
 // ── Blog ──────────────────────────────────────────────────────────────────
-const blogs = [
-  {
-    img: "/front-assets/images/blog/resume-tips.jpg",
-    cat: "Resume Writing",
-    title: "10 must-have resume sections for freshers that hiring managers look for",
-    desc: "No experience? No problem. These sections make your resume professional even without a job history.",
-    date: "June 12, 2025",
-  },
-  {
-    img: "/front-assets/images/blog/govt-jobs.jpg",
-    cat: "Jobs",
-    title: "How to write a job-ready resume in 2025 — format and practical tips",
-    desc: "Job applications often require a different format. Learn what to include and what to avoid for a strong application.",
-    date: "June 5, 2025",
-  },
-  {
-    img: "/front-assets/images/blog/cover-letter.jpg",
-    cat: "Cover Letter",
-    title: "The right way to write a cover letter — step-by-step guide with template",
-    desc: "A strong cover letter sets you apart from other candidates. Learn how to write one in just 5 minutes.",
-    date: "May 28, 2025",
-  },
-];
+function BlogCard({ blog, href }) {
+  const imageUrl = resolveMediaUrl(blog.hero_image || blog.image || blog.img, DEFAULT_BLOG_IMAGE);
+  const title = getArticleTitle(blog);
+  const description = getArticleDescription(blog);
+  const category = getArticleCategory(blog);
+  const publishedDate = blog.created_at || blog.date || "";
+
+  return (
+    <div className="col-12 col-md-6 col-lg-4">
+      <article className="rk-bc h-100">
+        <div className="rk-bc-thumb">
+          <img
+            src={imageUrl}
+            alt={title}
+            className="rk-bc-img"
+            onError={(e) => {
+              e.target.src = DEFAULT_BLOG_IMAGE;
+            }}
+          />
+          <span className="rk-bc-cat">{category}</span>
+        </div>
+        <div className="rk-bc-body">
+          <h3 className="rk-bc-title">{title}</h3>
+          <p className="rk-bc-desc">{description}</p>
+        </div>
+        <div className="rk-bc-foot">
+          <span className="rk-bc-date"><Icon.Calendar /> {publishedDate ? formatDate(publishedDate) : "Updated recently"}</span>
+          <Link href={href} className="rk-bc-read">Read more <Icon.ArrowRight /></Link>
+        </div>
+      </article>
+    </div>
+  );
+}
 
 // ── Testimonials — 2 per screen ───────────────────────────────────────────
 const testimonials = [
@@ -533,6 +600,33 @@ function FAQ() {
 
 // ── Root Component ────────────────────────────────────────────────────────
 export default function ResumeListClient() {
+  const [jobs, setJobs] = useState([]);
+  const [blogs, setBlogs] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [jobsResponse, articlesResponse] = await Promise.all([
+          fetch(`${API_BASE}/courses?limit=6`),
+          fetch(`${API_BASE}/articles?limit=3`),
+        ]);
+
+        const jobsData = jobsResponse.ok ? await jobsResponse.json() : [];
+        const articlesData = articlesResponse.ok ? await articlesResponse.json() : [];
+
+        const normalizedJobs = Array.isArray(jobsData) ? jobsData : (jobsData.items || jobsData.results || []);
+        const normalizedArticles = Array.isArray(articlesData) ? articlesData : (articlesData.items || articlesData.results || []);
+
+        setJobs(normalizedJobs.slice(0, 6));
+        setBlogs(normalizedArticles.slice(0, 3));
+      } catch (error) {
+        console.error("Failed to load homepage content", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div className="rk-root">
 
@@ -548,12 +642,11 @@ export default function ResumeListClient() {
               No signup · Always free · 100% local
             </div>
             <h1 className="rk-hero-title">
-              Create a resume that<br />
-              <span className="rk-hero-hl">opens doors</span>
+              Build a professional resume<br />
+              <span className="rk-hero-hl">for jobs, internships and career growth</span>
             </h1>
             <p className="rk-hero-sub">
-              Professional templates, instant PDF, free career tools — all without an account.
-              Your data never leaves your device.
+              Create ATS-friendly resumes, cover letters and job-ready career documents with free templates, smart tools and practical job guidance.
             </p>
 
             <div className="rk-local-box">
@@ -613,10 +706,9 @@ export default function ResumeListClient() {
         <div className="rk-container">
           <div className="rk-sec-head">
             <div className="rk-eyebrow">Resume Templates</div>
-            <h2 className="rk-sec-title">Pick your style, start building</h2>
+            <h2 className="rk-sec-title">Free resume templates for freshers and professionals</h2>
             <p className="rk-sec-sub mx-auto">
-              Every template is free — always. ATS-friendly and optimized for Indian job markets.
-              Your data stays local in localStorage.
+              Choose an ATS-friendly resume format for government jobs, private sector hiring, internships and career upgrades. Everything is free and works instantly in your browser.
             </p>
           </div>
           <div className="row rk-tpl-grid g-4">
@@ -628,10 +720,10 @@ export default function ResumeListClient() {
       <section className="rk-section rk-section--gray" id="tools">
         <div className="rk-container">
           <div className="rk-sec-head">
-            <div className="rk-eyebrow">Free Tools</div>
-            <h2 className="rk-sec-title">Tools to help you get hired</h2>
+            <div className="rk-eyebrow">Career Tools</div>
+            <h2 className="rk-sec-title">Free job search tools for resume success</h2>
             <p className="rk-sec-sub mx-auto">
-              Everything runs in your browser. Nothing uploaded to any server, ever.
+              Improve your application package with cover letter builder, text tools, design helpers and job-ready resources that support every career stage.
             </p>
           </div>
           <div className="rk-tools-grid">
@@ -663,15 +755,19 @@ export default function ResumeListClient() {
           <div className="rk-sec-head-row">
             <div>
               <div className="rk-eyebrow">Jobs</div>
-              <h2 className="rk-sec-title">Latest Job Opportunities — 2025</h2>
-              <p className="rk-sec-sub">Hand-picked, updated regularly. Apply directly on official portals.</p>
+              <h2 className="rk-sec-title">Latest government and private job opportunities</h2>
+              <p className="rk-sec-sub">Discover fresh openings, deadline-based alerts and job updates that help you prepare faster and apply smarter.</p>
             </div>
             <button className="rk-btn rk-btn--outline rk-btn--sm">
               All jobs <Icon.ArrowRight />
             </button>
           </div>
           <div className="row rk-jobs-grid g-4">
-            {jobs.map((j) => <JobCard key={j.title} job={j} />)}
+            {jobs.length > 0 ? jobs.map((j) => <JobCard key={j.id || getSlug(j)} job={j} href={`/jobs/${getSlug(j)}`} />) : (
+              <div className="col-12">
+                <p className="rk-sec-sub">Loading latest job openings...</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -694,39 +790,20 @@ export default function ResumeListClient() {
           <div className="rk-sec-head-row">
             <div>
               <div className="rk-eyebrow">Career Blog</div>
-              <h2 className="rk-sec-title">Tips, guides &amp; career advice</h2>
+              <h2 className="rk-sec-title">Resume tips, interview guidance and career advice</h2>
             </div>
             <button className="rk-btn rk-btn--outline rk-btn--sm">
               All articles <Icon.ArrowRight />
             </button>
           </div>
           <div className="row rk-blog-grid g-4">
-            {blogs.map((b) => (
-              <div key={b.title} className="col-12 col-md-6 col-lg-4">
-                <article className="rk-bc h-100">
-                  <div className="rk-bc-thumb">
-                    <img
-                      src={b.img}
-                      alt={b.title}
-                      className="rk-bc-img"
-                      onError={(e) => {
-                        e.target.parentNode.style.background = "var(--rk-gray-100)";
-                        e.target.style.display = "none";
-                      }}
-                    />
-                    <span className="rk-bc-cat">{b.cat}</span>
-                  </div>
-                  <div className="rk-bc-body">
-                    <h3 className="rk-bc-title">{b.title}</h3>
-                    <p className="rk-bc-desc">{b.desc}</p>
-                  </div>
-                  <div className="rk-bc-foot">
-                    <span className="rk-bc-date"><Icon.Calendar /> {b.date}</span>
-                    <button className="rk-bc-read">Read more <Icon.ArrowRight /></button>
-                  </div>
-                </article>
+            {blogs.length > 0 ? blogs.map((b) => (
+              <BlogCard key={b.id || getSlug(b)} blog={b} href={`/blog/${getSlug(b)}`} />
+            )) : (
+              <div className="col-12">
+                <p className="rk-sec-sub">Loading latest career articles...</p>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>

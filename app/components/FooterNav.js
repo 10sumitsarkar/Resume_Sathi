@@ -1,18 +1,29 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+function getNavClassName(isActive) {
+    return ['footer-each-tab', isActive ? 'active' : ''].filter(Boolean).join(' ');
+}
 
 export default function FooterNav() {
     const pathname = usePathname() || '';
-    const isResumeActive = pathname.startsWith('/resume');
-    const isToolsActive = pathname.startsWith('/tools');
-        const visibleToolsBtn = pathname.startsWith('/tools/');
-    const visibleCreateBtn = !pathname.startsWith('/tools') && !pathname.startsWith('/blog');
-     const visibleBlogsBtn = pathname.startsWith('/blog');
-    const isblogActive = pathname.startsWith('/blog');
+    const [currentPath, setCurrentPath] = useState('');
+
+    useEffect(() => {
+        setCurrentPath(pathname);
+    }, [pathname]);
+
+    const activePath = currentPath || pathname;
+    const isResumeActive = activePath.startsWith('/resume');
+    const isToolsActive = activePath.startsWith('/tools');
+    const visibleToolsBtn = activePath.startsWith('/tools/');
+    const visibleCreateBtn = !activePath.startsWith('/tools') && !activePath.startsWith('/blog') && !activePath.startsWith('/jobs');
+    const visibleBlogsBtn = activePath.startsWith('/blog') || activePath.startsWith('/jobs');
+    const isblogActive = activePath.startsWith('/blog');
+    const isjobsActive = activePath.startsWith('/jobs');
 
     return (
         <>
@@ -43,7 +54,7 @@ export default function FooterNav() {
 
                     <div className="footer-all-tab">
                         <Link href="/resume">
-                            <div className={`footer-each-tab ${isResumeActive ? 'active' : ''}`}>
+                            <div className={getNavClassName(isResumeActive)}>
                                 <div>
 
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -60,7 +71,7 @@ export default function FooterNav() {
                             </div>
                         </Link>
                         <Link href="/tools">
-                            <div className={`footer-each-tab ${isToolsActive ? 'active' : ''}`}>
+                            <div className={getNavClassName(isToolsActive)}>
                                 <div>
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M5.91019 11.8175C7.39082 10.5794 8.61913 11.4332 10.2585 13.4757C10.4426 13.7062 10.6901 13.4364 10.8314 13.3049C10.9726 13.1734 13.134 11.0763 13.2404 10.9807C13.3451 10.8799 13.4721 10.6921 13.3054 10.482C12.904 9.9478 12.5109 9.40637 12.1263 8.85797C9.25709 4.81915 19.9754 2.07993 18.3298 2.03724C17.4918 2.01333 14.1307 1.97064 13.6276 2.03041C11.5915 2.26095 9.03492 4.30854 7.74789 5.26317C6.06412 6.50299 5.43568 7.23049 5.33253 7.33124C4.85644 7.77867 5.25636 8.81186 4.39305 9.62645C3.48055 10.4854 2.91083 9.8348 2.38237 10.3335C2.12052 10.5828 1.38734 11.1737 1.17786 11.3701C0.987353 11.5504 0.937769 11.8421 1.08863 12.0943C1.12206 12.1502 1.16444 12.1981 1.20637 12.2479C1.54533 12.6509 3.16811 14.5806 3.31868 14.7702C3.48531 14.9785 3.93918 15.1595 4.21848 14.8914C4.49938 14.625 5.22144 13.947 5.34205 13.8275C5.46584 13.7148 5.26271 12.3571 5.91019 11.8175ZM14.9686 12.7004C14.7781 12.463 14.5417 12.4562 14.3385 12.6509L12.0628 14.789C11.9753 14.875 11.922 14.994 11.9141 15.1213C11.9061 15.2485 11.944 15.3742 12.02 15.4721L23.0999 28.9991C23.2855 29.2287 23.4836 29.7164 23.7541 29.9141C24.1487 30.2024 24.6195 29.6528 25.0499 29.4213L25.1663 29.3586C25.5196 29.1685 26.0246 28.722 26.2977 28.4281V28.4281C26.8717 27.8104 26.7654 27.2774 26.1478 26.7032C25.9353 26.5056 25.7525 26.3393 25.6999 26.2737L14.9686 12.7004Z" stroke="#001691" strokeWidth="1.5" />
@@ -73,7 +84,7 @@ export default function FooterNav() {
                             </div>
                         </Link>
                         <Link href="/jobs">
-                            <div className="footer-each-tab">
+                             <div className={getNavClassName(isjobsActive)}>
                                 <div>
 
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,7 +99,7 @@ export default function FooterNav() {
                             </div>
                         </Link>
                         <Link href="/blog">
-                            <div className={`footer-each-tab ${isblogActive ? 'active' : ''}`}>
+                            <div className={getNavClassName(isblogActive)}>
                                 <div>
 
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

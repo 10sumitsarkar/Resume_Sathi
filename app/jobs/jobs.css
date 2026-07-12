@@ -668,9 +668,6 @@
   border-bottom: 1px solid var(--rk-border);
   background: #ffdddb;
   padding: 10px 15;
-  position: sticky;
-  top: 64px;
-  z-index: 1000;
 }
 
 .rk-cat-slider-track {
@@ -1007,7 +1004,7 @@
   border: 1px solid var(--rk-border);
   border-radius: var(--rk-radius);
   box-shadow: var(--rk-shadow);
-  padding: 15px;
+  padding: 24px;
   margin-bottom: 28px;
 }
 

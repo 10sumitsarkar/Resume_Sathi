@@ -189,16 +189,16 @@
       .rk-cta-trust{ display:flex; gap:20px; flex-wrap:wrap; font-size:.78rem; opacity:.85; }
       .rk-cta-trust-item{ display:flex; align-items:center; gap:6px; }
 
-      .rk-footer{ background:var(--rk-ink); color:#cbd5e1; padding-top:50px; }
+      .rk-footer{ background:#f8fafc; color:#64748b; padding-top:50px; }
       .rk-footer-inner{ display:grid; grid-template-columns:1.2fr 2fr; gap:40px; padding-bottom:40px; }
-      .rk-footer .rk-logo{ color:#fff; }
+      .rk-footer .rk-logo{ color:var(--rk-ink); }
       .rk-footer-tag{ font-size:.85rem; margin-top:10px; max-width:280px; }
       .rk-footer-cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
-      .rk-footer-col-title{ color:#fff; font-weight:700; margin-bottom:12px; font-size:.9rem; }
-      .rk-footer-col a{ display:block; color:#94a3b8; font-size:.85rem; margin-bottom:9px; }
-      .rk-footer-col a:hover{ color:#fff; }
-      .rk-footer-bottom{ border-top:1px solid rgba(255,255,255,.1); padding:18px 0; }
-      .rk-footer-bottom-inner{ display:flex; justify-content:space-between; font-size:.78rem; color:#94a3b8; flex-wrap:wrap; gap:8px; }
+      .rk-footer-col-title{ color:var(--rk-ink); font-weight:700; margin-bottom:12px; font-size:.9rem; }
+      .rk-footer-col a{ display:block; color:#64748b; font-size:.85rem; margin-bottom:9px; }
+      .rk-footer-col a:hover{ color:var(--rk-primary); }
+      .rk-footer-bottom{ border-top:1px solid rgba(0,0,0,.08); padding:18px 0; }
+      .rk-footer-bottom-inner{ display:flex; justify-content:space-between; font-size:.78rem; color:#64748b; flex-wrap:wrap; gap:8px; }
 
       .rk-logo{ font-weight:800; font-size:1.3rem; color:var(--rk-ink); }
       .rk-logo span{ color:var(--rk-primary); }

@@ -66,7 +66,7 @@ export default function AnimationPreview() {
 
 
           <div id="animatedText" className={`animate__animated animate__${selectedAnimation} animate__infinite fs-mob-24`}>
-            W3CoderSchool
+            ResumeSathi
           </div>
         </div>
 

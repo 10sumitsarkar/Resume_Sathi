@@ -367,8 +367,8 @@ const tools = [
   { icon: <Icon.Mail />, name: "Cover Letter Builder", desc: "Build a professional cover letter with structured sections. Saved locally like your resume.", href: "/cover-letter" },
 ];
 
-// ── Government Jobs ───────────────────────────────────────────────────────
-const govtJobs = [
+// ── Jobs ─────────────────────────────────────────────────────────────────
+const jobs = [
   { org: "UPSC", title: "Civil Services Examination 2025", location: "All India", deadline: "Aug 15, 2025", posts: "1,105 vacancies" },
   { org: "SSC", title: "Combined Graduate Level (CGL) 2025", location: "Pan India", deadline: "Sep 4, 2025", posts: "17,727 vacancies" },
   { org: "IBPS", title: "Probationary Officer (PO) 2025", location: "Pan India", deadline: "Jul 28, 2025", posts: "4,455 vacancies" },
@@ -383,7 +383,7 @@ function JobCard({ job }) {
       <div className="rk-jc h-100">
         <div className="rk-jc-top">
           <span className="rk-jc-org">{job.org}</span>
-          <span className="rk-jc-badge">Govt</span>
+          <span className="rk-jc-badge">Open</span>
         </div>
         <div className="rk-jc-title">{job.title}</div>
         <div className="rk-jc-meta">
@@ -408,9 +408,9 @@ const blogs = [
   },
   {
     img: "/front-assets/images/blog/govt-jobs.jpg",
-    cat: "Government Jobs",
-    title: "How to write a government job resume in 2025 — format and practical tips",
-    desc: "Govt jobs require a different format. Know what to include and what to avoid for sarkari naukri applications.",
+    cat: "Jobs",
+    title: "How to write a job-ready resume in 2025 — format and practical tips",
+    desc: "Job applications often require a different format. Learn what to include and what to avoid for a strong application.",
     date: "June 5, 2025",
   },
   {
@@ -428,7 +428,7 @@ const testimonials = [
   { name: "Rahul Verma", role: "SSC CGL Qualifier, Delhi", avatar: "RV", text: "I used the Classic template for SSC CGL. It was incredibly clean and professional. The examiner even complimented my resume. Highly recommend!", rating: 5 },
   { name: "Ananya Singh", role: "UX Designer, Razorpay", avatar: "AS", text: "Bold Accent template was perfect for my field. No signup, no data upload — that's what I loved most. Free and premium quality at the same time.", rating: 5 },
   { name: "Karan Mehta", role: "Product Manager, Zomato", avatar: "KM", text: "I also used the Gradient Generator and Code Editor — both tools are very useful. The Cover Letter Builder completed my application package perfectly.", rating: 5 },
-  { name: "Deepika Nair", role: "Bank PO, SBI", avatar: "DN", text: "Found this site while preparing for IBPS PO. Built my resume and checked government job vacancies all in one place — incredibly convenient.", rating: 5 },
+  { name: "Deepika Nair", role: "Bank PO, SBI", avatar: "DN", text: "Found this site while preparing for IBPS PO. Built my resume and checked job vacancies all in one place — incredibly convenient.", rating: 5 },
   { name: "Arjun Patel", role: "Civil Engineer, L&T", avatar: "AP", text: "Created my resume with the Executive template. The output was so polished that the interviewer asked if I had it professionally made. Amazing quality for free!", rating: 5 },
 ];
 
@@ -662,8 +662,8 @@ export default function ResumeListClient() {
         <div className="rk-container">
           <div className="rk-sec-head-row">
             <div>
-              <div className="rk-eyebrow">Government Jobs</div>
-              <h2 className="rk-sec-title">Latest Sarkari Naukri — 2025</h2>
+              <div className="rk-eyebrow">Jobs</div>
+              <h2 className="rk-sec-title">Latest Job Opportunities — 2025</h2>
               <p className="rk-sec-sub">Hand-picked, updated regularly. Apply directly on official portals.</p>
             </div>
             <button className="rk-btn rk-btn--outline rk-btn--sm">
@@ -671,7 +671,7 @@ export default function ResumeListClient() {
             </button>
           </div>
           <div className="row rk-jobs-grid g-4">
-            {govtJobs.map((j) => <JobCard key={j.title} job={j} />)}
+            {jobs.map((j) => <JobCard key={j.title} job={j} />)}
           </div>
         </div>
       </section>
@@ -809,14 +809,14 @@ export default function ResumeListClient() {
         <div className="rk-container rk-footer-inner">
           <div className="rk-footer-brand">
             <div className="rk-logo">
-              Resume<span>Kit</span><span className="rk-logo-dot" />
+             <img src="/front-assets/images/logo/logo.svg" className='img-fluid nav-logo' width={200} height={35} alt="Logichook" />
             </div>
             <p className="rk-footer-tag">Built for Indian job seekers. Your data, always yours.</p>
           </div>
           <div className="rk-footer-cols">
             {[
               { title: "Product", links: [["Templates", "#templates"], ["Tools", "#tools"], ["Cover Letter", "/cover-letter"]] },
-              { title: "Jobs", links: [["Govt Jobs", "#jobs"], ["State PSC", "#jobs"], ["Defence", "#jobs"]] },
+              { title: "Jobs", links: [["Jobs", "#jobs"], ["Career Tips", "#templates"], ["Tools", "#tools"]] },
               { title: "Company", links: [["About", "#"], ["Privacy Policy", "#"], ["Contact", "#"]] },
             ].map((col) => (
               <div key={col.title} className="rk-footer-col">

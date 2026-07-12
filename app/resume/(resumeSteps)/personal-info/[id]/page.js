@@ -1,8 +1,8 @@
 import PersonalInfoClient from "./PersonalInfoClient";
 
 export const metadata = {
-  title: 'Personal Information | Logichook',
-  description: 'Create a professional resume in minutes with Logichook resume builder.',
+  title: 'Personal Information | ResumeSathi',
+  description: 'Create a professional resume in minutes with ResumeSathi resume builder.',
 };
 
 export default function ResumeTypeClientWrapper() {

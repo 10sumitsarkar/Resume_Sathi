@@ -44,6 +44,20 @@ const Icon = {
       <line x1="16" y1="17" x2="8" y2="17" />
     </svg>
   ),
+  ClipboardCheck: () => (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+      <rect x="9" y="3" width="6" height="4" rx="1" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  ),
+  Files: () => (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7z" />
+      <polyline points="15 2 15 8 21 8" />
+      <path d="M9 18V12M9 12l-2 2M9 12l2 2" />
+    </svg>
+  ),
   Type: () => (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <polyline points="4 7 4 4 20 4 20 7" />
@@ -191,15 +205,19 @@ function getJobDescription(item) {
 }
 
 function getCompanyName(item) {
-  return item?.company || item?.company_name || item?.organization || "Hiring Team";
+  return item?.company || item?.company_name || item?.organization || "";
 }
 
 function getLocation(item) {
   return item?.location || item?.city || item?.place || "India";
 }
 
-function getDeadline(item) {
-  return item?.last_date_for_apply || item?.lastDateForApply || item?.deadline || item?.apply_until || "";
+function getApplicationStart(item) {
+  return item?.application_begin || item?.applicationStart || item?.start_date || item?.startDate || item?.begin_date || item?.date_start || "";
+}
+
+function getApplicationEnd(item) {
+  return item?.last_date_for_apply || item?.lastDateForApply || item?.deadline || item?.apply_until || item?.end_date || item?.date_end || item?.last_date || "";
 }
 
 function formatDate(value) {
@@ -211,6 +229,13 @@ function formatDate(value) {
     month: "short",
     year: "numeric",
   });
+}
+
+function formatDay(value) {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return "";
+  return date.toLocaleDateString("en-IN", { weekday: "long" });
 }
 
 // ── Live Counter ──────────────────────────────────────────────────────────
@@ -373,82 +398,83 @@ function TemplateMini({ accent, bg }) {
 
 // ── Template Card ─────────────────────────────────────────────────────────
 const templates = [
-  { id: 1, name: "Classic", desc: "Single-column, ATS-safe. Best for corporate & govt roles.", accent: "#cc0000", bg: "#fff5f5", path: "/resume/templates/ResumeTemplate1" },
-  { id: 2, name: "Modern Sidebar", desc: "Two-column with sidebar. Great for tech and design pros.", accent: "#1a56db", bg: "#eff6ff", path: "/resume/templates/ResumeTemplate2" },
-  { id: 3, name: "Bold Accent", desc: "Color header, strong hierarchy. Perfect for creative roles.", accent: "#059669", bg: "#f0fdf4", path: "/resume/templates/ResumeTemplate3" },
-  { id: 4, name: "Executive", desc: "Dark header, premium feel. Ideal for senior professionals.", accent: "#7c3aed", bg: "#f5f3ff", path: "/resume/templates/ResumeTemplate4" },
-  { id: 5, name: "Minimal", desc: "Typography-first, ultra-clean. Speaks through whitespace.", accent: "#0f172a", bg: "#f8fafc", path: "/resume/templates/ResumeTemplate5" },
+  { id: 1, name: "Classic", desc: "Single-column, ATS-safe. Best for corporate & govt roles.", accent: "#cc0000", bg: "#fff5f5", path: "/resume/templates/ResumeTemplate1", image: "/front-assets/images/resume-img/template1-preview.jpg" },
 ];
 
-function TemplateCard({ tpl }) {
+function TemplateCard({ tpl, className = "" }) {
   return (
-    <div className="col-12 col-sm-6 col-lg-4 col-xl">
-      <div className="rk-tc h-100">
-        <div className="rk-tc-preview" style={{ background: tpl.bg }}>
-          <TemplateMini accent={tpl.accent} bg={tpl.bg} />
-          <div className="rk-tc-overlay">
-            <div>
-              <Link href={`${tpl.path}?create=true`} className="rk-ov-btn rk-ov-btn--red">
-                <Icon.FileText /> Create Resume
-              </Link>
-              <button className="rk-ov-btn rk-ov-btn--ghost">
-                <Icon.Eye /> View Saved
-              </button>
-            </div>
-          </div>
-        </div>
-        <div className="rk-tc-info">
-          <div className="rk-tc-name-row">
-            <span className="rk-tc-name">{tpl.name}</span>
-            <span className="rk-free-pill">Free</span>
-          </div>
-          <p className="rk-tc-desc">{tpl.desc}</p>
-          <div className="rk-tc-btns">
-            <Link href={`${tpl.path}?create=true`} className="rk-tpl-btn rk-tpl-btn--fill">
-              <Icon.FileText /> Create
-            </Link>
-            <button className="rk-tpl-btn rk-tpl-btn--line">
-              <Icon.Eye /> Saved
-            </button>
-          </div>
-        </div>
-      </div>
+    <img src={tpl.image} alt={tpl.name} className="rk-template-img" />
+  );
+}
+
+function TemplateCarousel() {
+  return (
+    <div className="rk-template-single">
+      {templates.map((tpl) => (
+        <TemplateCard key={tpl.id} tpl={tpl} className="" />
+      ))}
     </div>
   );
 }
 
 // ── Tools ─────────────────────────────────────────────────────────────────
 const tools = [
-  { icon: <Icon.Type />, name: "Text Transformer", desc: "Convert text to UPPERCASE, lowercase, Title Case, camelCase, slug-format, and more instantly.", href: "/tools/text-transform" },
-  { icon: <Icon.Gradient />, name: "Gradient Generator", desc: "Build beautiful CSS gradients with live preview and one-click copy for your projects.", href: "/tools/gradient-generator" },
-  { icon: <Icon.Code />, name: "Code Editor", desc: "Lightweight in-browser editor with syntax highlighting. No install, no login required.", href: "/tools/code-editor" },
-  { icon: <Icon.Mail />, name: "Cover Letter Builder", desc: "Build a professional cover letter with structured sections. Saved locally like your resume.", href: "/cover-letter" },
+  {
+    icon: <Icon.ClipboardCheck />,
+    name: "ATS Checker",
+    desc: "Analyze your resume for ATS compatibility and keyword alignment.",
+    href: "/tools/ats-checker",
+  },
+  {
+    icon: <Icon.Files />,
+    name: "Merge PDF",
+    desc: "Combine multiple PDFs into one. Drag to reorder before merging.",
+    href: "/tools/merge-pdf",
+  },
 ];
 
 // ── Jobs ─────────────────────────────────────────────────────────────────
 function JobCard({ job, href }) {
-  const deadline = getDeadline(job);
+  const startDate = getApplicationStart(job);
+  const endDate = getApplicationEnd(job);
   const companyName = getCompanyName(job);
-  const location = getLocation(job);
   const imageUrl = resolveMediaUrl(job.hero_image || job.image, DEFAULT_JOB_IMAGE);
+  const today = new Date();
+  const start = startDate ? new Date(startDate) : null;
+  const end = endDate ? new Date(endDate) : null;
+  const status = !start && !end ? "Open" : start && end && today < start ? "Upcoming" : end && today > end ? "Closed" : "Open";
 
   return (
-    <div className="col-12 col-md-6 col-lg-4">
+    <div className="col-12 col-sm-6 col-lg-4">
       <div className="rk-jc h-100">
-        <div className="rk-jc-top">
-          <span className="rk-jc-org">{companyName}</span>
-          <span className="rk-jc-badge">Open</span>
-        </div>
         <div className="rk-jc-thumb">
+          {companyName ? <span className="rk-jc-org">{companyName}</span> : null}
           <img src={imageUrl} alt={getJobTitle(job)} className="rk-bc-img" onError={(e) => { e.target.src = DEFAULT_JOB_IMAGE; }} />
+          <span className={`rk-jc-badge rk-jc-badge--${status.toLowerCase()}`}>{status}</span>
         </div>
         <div className="rk-jc-title">{getJobTitle(job)}</div>
         <p className="rk-jc-desc">{getJobDescription(job)}</p>
-        <div className="rk-jc-meta">
-          <span><Icon.MapPin /> {location}</span>
-          {deadline ? <span><Icon.Calendar /> {formatDate(deadline)}</span> : null}
+        {(startDate || endDate) ? (
+          <div className="rk-jc-meta rk-jc-meta-split">
+            {startDate ? (
+              <div className="rk-jc-meta-block rk-jc-meta-block-left">
+                <span className="rk-jc-meta-label">Start date</span>
+                <span className="rk-jc-meta-date">{formatDate(startDate)}</span>
+                <span className="rk-jc-meta-day">{formatDay(startDate)}</span>
+              </div>
+            ) : null}
+            {endDate ? (
+              <div className="rk-jc-meta-block rk-jc-meta-block-right">
+                <span className="rk-jc-meta-label">End date</span>
+                <span className="rk-jc-meta-date">{formatDate(endDate)}</span>
+                <span className="rk-jc-meta-day">{formatDay(endDate)}</span>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
+        <div className="rk-jc-actions">
+          <Link href={href} className="rk-jc-apply rk-btn rk-btn--primary rk-btn--sm">Apply now <Icon.ChevRight /></Link>
         </div>
-        <Link href={href} className="rk-jc-apply">View & Apply <Icon.ChevRight /></Link>
       </div>
     </div>
   );
@@ -491,7 +517,7 @@ function BlogCard({ blog, href }) {
 
 // ── Testimonials — 2 per screen ───────────────────────────────────────────
 const testimonials = [
-  { name: "Priya Sharma", role: "Software Engineer, Infosys", avatar: "PS", text: "ResumeKit completely transformed my resume. I used Template 2 and got an interview call within three days. Knowing my data stays local made me feel completely safe.", rating: 5 },
+  { name: "Priya Sharma", role: "Software Engineer, Infosys", avatar: "PS", text: "ResumeSathi completely transformed my resume. I used Template 2 and got an interview call within three days. Knowing my data stays local made me feel completely safe.", rating: 5 },
   { name: "Rahul Verma", role: "SSC CGL Qualifier, Delhi", avatar: "RV", text: "I used the Classic template for SSC CGL. It was incredibly clean and professional. The examiner even complimented my resume. Highly recommend!", rating: 5 },
   { name: "Ananya Singh", role: "UX Designer, Razorpay", avatar: "AS", text: "Bold Accent template was perfect for my field. No signup, no data upload — that's what I loved most. Free and premium quality at the same time.", rating: 5 },
   { name: "Karan Mehta", role: "Product Manager, Zomato", avatar: "KM", text: "I also used the Gradient Generator and Code Editor — both tools are very useful. The Cover Letter Builder completed my application package perfectly.", rating: 5 },
@@ -500,64 +526,24 @@ const testimonials = [
 ];
 
 function TestimonialCarousel() {
-  const [idx, setIdx] = useState(0);
-  const perView = 2;
-  const total = testimonials.length;
-  const maxIdx = total - perView;
-
-  const prev = () => setIdx((i) => Math.max(0, i - 1));
-  const next = () => setIdx((i) => Math.min(maxIdx, i + 1));
-
-  useEffect(() => {
-    const t = setInterval(() => setIdx((i) => (i >= maxIdx ? 0 : i + 1)), 5000);
-    return () => clearInterval(t);
-  }, [maxIdx]);
-
-  const translatePct = idx * (100 / perView);
-
   return (
-    <div className="rk-tcarousel">
-      <div className="rk-tcarousel-track-wrap">
-        <div
-          className="rk-tcarousel-track"
-          style={{ transform: `translateX(-${translatePct}%)` }}
-        >
-          {testimonials.map((t, i) => (
-            <div key={i} className="rk-tcard">
-              <div className="rk-tcard-quote"><Icon.QuoteIcon /></div>
-              <p className="rk-tcard-text">&quot;{t.text}&quot;</p>
-              <div className="rk-tcard-stars">
-                {Array(t.rating).fill(0).map((_, s) => <Icon.Star key={s} />)}
-              </div>
-              <div className="rk-tcard-author">
-                <div className="rk-tcard-av">{t.avatar}</div>
-                <div>
-                  <div className="rk-tcard-name">{t.name}</div>
-                  <div className="rk-tcard-role">{t.role}</div>
-                </div>
-              </div>
+    <div className="rk-testimonials-grid">
+      {testimonials.map((t, i) => (
+        <div key={i} className="rk-tcard">
+          <div className="rk-tcard-quote"><Icon.QuoteIcon /></div>
+          <p className="rk-tcard-text">&quot;{t.text}&quot;</p>
+          <div className="rk-tcard-stars">
+            {Array(t.rating).fill(0).map((_, s) => <Icon.Star key={s} />)}
+          </div>
+          <div className="rk-tcard-author">
+            <div className="rk-tcard-av">{t.avatar}</div>
+            <div>
+              <div className="rk-tcard-name">{t.name}</div>
+              <div className="rk-tcard-role">{t.role}</div>
             </div>
-          ))}
+          </div>
         </div>
-      </div>
-
-      <div className="rk-tcarousel-controls">
-        <button className="rk-tcar-btn" onClick={prev} disabled={idx === 0}>
-          <Icon.ChevLeft />
-        </button>
-        <div className="rk-tcar-dots">
-          {Array(maxIdx + 1).fill(0).map((_, i) => (
-            <button
-              key={i}
-              className={`rk-tdot${i === idx ? " rk-tdot--active" : ""}`}
-              onClick={() => setIdx(i)}
-            />
-          ))}
-        </div>
-        <button className="rk-tcar-btn" onClick={next} disabled={idx >= maxIdx}>
-          <Icon.ChevRightNav />
-        </button>
-      </div>
+      ))}
     </div>
   );
 }
@@ -567,7 +553,7 @@ const companies = ["Infosys", "TCS", "Wipro", "HDFC Bank", "Zomato", "L&T"];
 
 // ── FAQ ───────────────────────────────────────────────────────────────────
 const faqs = [
-  { q: "Is ResumeKit completely free?", a: "Yes, ResumeKit is 100% free and always will be. No hidden charges, no premium plans. All 5 templates and all tools are completely free." },
+  { q: "Is ResumeSathi completely free?", a: "Yes, ResumeSathi is 100% free and always will be. No hidden charges, no premium plans. All templates and all tools are completely free." },
   { q: "Where is my data saved?", a: "Your data is saved only in your browser's localStorage. No server, no database, no account required. Your data stays safe on your device until you choose to clear it." },
   { q: "Do I need to create an account to build a resume?", a: "Absolutely not. No signup, no login, no email verification. Simply choose a template, fill in your details, and download. That's it." },
   { q: "How do I download my resume as a PDF?", a: "Once you complete your resume, click the 'Download PDF' button. The browser print dialog will open — select 'Save as PDF' to save it to your device. No extra software needed." },
@@ -617,7 +603,7 @@ export default function ResumeListClient() {
         const normalizedJobs = Array.isArray(jobsData) ? jobsData : (jobsData.items || jobsData.results || []);
         const normalizedArticles = Array.isArray(articlesData) ? articlesData : (articlesData.items || articlesData.results || []);
 
-        setJobs(normalizedJobs.slice(0, 6));
+        setJobs(normalizedJobs.slice(0, 4));
         setBlogs(normalizedArticles.slice(0, 3));
       } catch (error) {
         console.error("Failed to load homepage content", error);
@@ -641,21 +627,20 @@ export default function ResumeListClient() {
               <span className="rk-hero-badge-dot" />
               No signup · Always free · 100% local
             </div>
-            <h1 className="rk-hero-title">
-              Build a professional resume<br />
-              <span className="rk-hero-hl">for jobs, internships and career growth</span>
+            <h1 className="rk-hero-title fs-mob-32">
+              Build an ATS-friendly resume<br />
+              <span className="rk-hero-hl">for your next job or internship</span>
             </h1>
-            <p className="rk-hero-sub">
-              Create ATS-friendly resumes, cover letters and job-ready career documents with free templates, smart tools and practical job guidance.
+            <p className="rk-hero-sub fs-mob-14">
+              Create professional resumes, cover letters, and job-ready documents for free with simple tools and clean templates.
             </p>
 
             <div className="rk-local-box">
               <div className="rk-local-box-icon"><Icon.Lock /></div>
               <div>
-                <div className="rk-local-box-title">Your data stays on your device</div>
-                <div className="rk-local-box-sub">
-                  We use localStorage — no server, no account, no privacy concerns.
-                  Your data stays with you, always.
+                <div className="rk-local-box-title fs-mob-14">Your data stays private</div>
+                <div className="rk-local-box-sub fs-mob-12">
+                  Everything is saved in your browser. No account, no server, and no sharing needed.
                 </div>
               </div>
             </div>
@@ -706,14 +691,12 @@ export default function ResumeListClient() {
         <div className="rk-container">
           <div className="rk-sec-head">
             <div className="rk-eyebrow">Resume Templates</div>
-            <h2 className="rk-sec-title">Free resume templates for freshers and professionals</h2>
-            <p className="rk-sec-sub mx-auto">
-              Choose an ATS-friendly resume format for government jobs, private sector hiring, internships and career upgrades. Everything is free and works instantly in your browser.
+            <h2 className="rk-sec-title fs-mob-24">Free ATS-friendly resume templates</h2>
+            <p className="rk-sec-sub mx-auto fs-mob-14">
+              Pick a clean resume format for freshers, professionals, and government jobs. Everything is free and works in your browser.
             </p>
           </div>
-          <div className="row rk-tpl-grid g-4">
-            {templates.map((t) => <TemplateCard key={t.id} tpl={t} />)}
-          </div>
+          <TemplateCarousel />
         </div>
       </section>
 
@@ -721,9 +704,9 @@ export default function ResumeListClient() {
         <div className="rk-container">
           <div className="rk-sec-head">
             <div className="rk-eyebrow">Career Tools</div>
-            <h2 className="rk-sec-title">Free job search tools for resume success</h2>
-            <p className="rk-sec-sub mx-auto">
-              Improve your application package with cover letter builder, text tools, design helpers and job-ready resources that support every career stage.
+            <h2 className="rk-sec-title fs-mob-24">Free tools for better job applications</h2>
+            <p className="rk-sec-sub mx-auto fs-mob-14">
+              Use ATS checker, PDF tools, and simple resume helpers to improve your applications and save time.
             </p>
           </div>
           <div className="rk-tools-grid">
@@ -755,15 +738,15 @@ export default function ResumeListClient() {
           <div className="rk-sec-head-row">
             <div>
               <div className="rk-eyebrow">Jobs</div>
-              <h2 className="rk-sec-title">Latest government and private job opportunities</h2>
-              <p className="rk-sec-sub">Discover fresh openings, deadline-based alerts and job updates that help you prepare faster and apply smarter.</p>
+              <h2 className="rk-sec-title fs-mob-24">Latest job openings for job seekers</h2>
+              <p className="rk-sec-sub fs-mob-14">Find fresh opportunities, check deadlines, and apply with a stronger resume.</p>
             </div>
-            <button className="rk-btn rk-btn--outline rk-btn--sm">
+            <Link href="/jobs" className="rk-btn rk-btn--outline rk-btn--sm">
               All jobs <Icon.ArrowRight />
-            </button>
+            </Link>
           </div>
           <div className="row rk-jobs-grid g-4">
-            {jobs.length > 0 ? jobs.map((j) => <JobCard key={j.id || getSlug(j)} job={j} href={`/jobs/${getSlug(j)}`} />) : (
+            {jobs.length > 0 ? jobs.slice(0, 3).map((j) => <JobCard key={j.id || getSlug(j)} job={j} href={`/jobs/${getSlug(j)}`} />) : (
               <div className="col-12">
                 <p className="rk-sec-sub">Loading latest job openings...</p>
               </div>
@@ -776,9 +759,9 @@ export default function ResumeListClient() {
         <div className="rk-container">
           <div className="rk-sec-head">
             <div className="rk-eyebrow">Testimonials</div>
-            <h2 className="rk-sec-title">Trusted by thousands of job seekers</h2>
-            <p className="rk-sec-sub mx-auto">
-              Real stories from people who built their resumes on ResumeKit and landed their dream jobs.
+            <h2 className="rk-sec-title fs-mob-24">Trusted by thousands of job seekers</h2>
+            <p className="rk-sec-sub mx-auto fs-mob-14">
+              Real stories from people who built their resumes on ResumeSathi and landed their dream jobs.
             </p>
           </div>
           <TestimonialCarousel />
@@ -790,11 +773,11 @@ export default function ResumeListClient() {
           <div className="rk-sec-head-row">
             <div>
               <div className="rk-eyebrow">Career Blog</div>
-              <h2 className="rk-sec-title">Resume tips, interview guidance and career advice</h2>
+              <h2 className="rk-sec-title fs-mob-24">Resume tips and career guidance</h2>
             </div>
-            <button className="rk-btn rk-btn--outline rk-btn--sm">
+            <Link href="/blog" className="rk-btn rk-btn--outline rk-btn--sm">
               All articles <Icon.ArrowRight />
-            </button>
+            </Link>
           </div>
           <div className="row rk-blog-grid g-4">
             {blogs.length > 0 ? blogs.map((b) => (
@@ -812,11 +795,11 @@ export default function ResumeListClient() {
         <div className="rk-container rk-faq-wrap">
           <div className="rk-faq-left">
             <div className="rk-eyebrow">FAQ</div>
-            <h2 className="rk-sec-title">Frequently asked<br />questions</h2>
-            <p className="rk-sec-sub">
+            <h2 className="rk-sec-title fs-mob-24">Frequently asked<br />questions</h2>
+            <p className="rk-sec-sub fs-mob-14">
               Have more questions? Contact us — we are here to help.
             </p>
-            <a href="#" className="rk-btn rk-btn--primary rk-btn--sm" style={{ marginTop: 24 }}>
+            <a href="mailto:hello@resumesathi.com" className="rk-btn rk-btn--primary rk-btn--sm" style={{ marginTop: 24 }}>
               Contact us <Icon.ArrowRight />
             </a>
           </div>
@@ -835,13 +818,13 @@ export default function ResumeListClient() {
               <Icon.Sparkle /> No signup required · Always free
             </div>
 
-            <h2 className="rk-cta-title">
+            <h2 className="rk-cta-title fs-mob-28">
               Build your resume today.<br />
               It&apos;s 100% free.
             </h2>
 
-            <p className="rk-cta-sub">
-              Join 50,000+ job seekers who built professional resumes on ResumeKit.
+            <p className="rk-cta-sub fs-mob-14">
+              Join 50,000+ job seekers who built professional resumes on ResumeSathi.
               No account, no fee, no compromise on quality.
             </p>
 
@@ -849,7 +832,7 @@ export default function ResumeListClient() {
               {[
                 { label: "Free forever", icon: <Icon.Check /> },
                 { label: "Data stays local", icon: <Icon.Lock /> },
-                { label: "5 premium templates", icon: <Icon.FileText /> },
+                { label: "Premium templates", icon: <Icon.FileText /> },
                 { label: "Instant PDF download", icon: <Icon.Download /> },
               ].map((c) => (
                 <span key={c.label} className="rk-cta-check-item">
@@ -886,7 +869,7 @@ export default function ResumeListClient() {
         <div className="rk-container rk-footer-inner">
           <div className="rk-footer-brand">
             <div className="rk-logo">
-             <img src="/front-assets/images/logo/logo.svg" className='img-fluid nav-logo' width={200} height={35} alt="Logichook" />
+             <img src="/front-assets/images/logo/logo.svg" className='img-fluid nav-logo' width={200} height={35} alt="ResumeSathi" />
             </div>
             <p className="rk-footer-tag">Built for Indian job seekers. Your data, always yours.</p>
           </div>
@@ -907,7 +890,7 @@ export default function ResumeListClient() {
         </div>
         <div className="rk-footer-bottom">
           <div className="rk-container rk-footer-bottom-inner">
-            <span>© 2025 ResumeKit · Your data never leaves your device</span>
+            <span>© 2025 ResumeSathi · Your data never leaves your device</span>
             <span>Made with ♥ for India</span>
           </div>
         </div>

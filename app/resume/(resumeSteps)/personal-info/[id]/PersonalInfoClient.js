@@ -175,7 +175,7 @@ export default function PersonalInfo() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="website">website</label>
-                  <input type="text" {...register('website', { pattern: {value: /^(https?:\/\/)?([\w\d-]+\.)+\w{2,}(\/\S*)?$/,message: 'Please enter a valid website URL',}})} className={` ${errors.website ? 'is-invalid' : ''}`} id="website" placeholder="www.logichook.in" value={personalFormData.website || ''} />
+                  <input type="text" {...register('website', { pattern: {value: /^(https?:\/\/)?([\w\d-]+\.)+\w{2,}(\/\S*)?$/,message: 'Please enter a valid website URL',}})} className={` ${errors.website ? 'is-invalid' : ''}`} id="website" placeholder="www.resumesathi.com" value={personalFormData.website || ''} />
                 </div>
                  {errors.website && <p className="input-error">{errors.website.message}</p>}
               </div>

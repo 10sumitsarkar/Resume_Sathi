@@ -1,7 +1,7 @@
 import HobbieClient from "./HobbieClient";
 
 export const metadata = {
-  title: 'ResumeSathi',
+  title: 'Hobbies | ResumeSathi',
   description: 'Create a professional resume in minutes with Logichook resume builder.',
 };
 

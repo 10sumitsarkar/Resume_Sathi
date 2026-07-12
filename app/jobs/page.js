@@ -642,7 +642,7 @@ function BlogPageContent() {
             </label>
             <h1 className="fs-mob-22">Find your next opportunity</h1>
           </div>
-          <p className='className="fs-mob-16"'>Browse the latest job openings, explore company details, and discover roles that match your career goals.</p>
+          <p className='fs-mob-16'>Browse the latest job openings, explore company details, and discover roles that match your career goals.</p>
         </div>
         <div className='right-part d-none d-md-block'>
           <img src={'/front-assets/images/tools-hero.webp'} className='img-fluid' width={500} />

@@ -25,7 +25,7 @@ export default function NavBar() {
                 <div className="container-fluid custom-container d-flex align-items-center justify-content-between">
 
                     <Link href="/" onClick={closeAll}>
-                        <img src="/front-assets/images/logo/logo.svg" className='img-fluid nav-logo' width={250} height={52} alt="Logichook" />
+                        <img src="/front-assets/images/logo/logo.svg" className='img-fluid nav-logo' width={250} height={52} alt="ResumeSathi" />
                     </Link>
 
                     <div className="d-flex align-items-center gap-2">
@@ -88,7 +88,7 @@ export default function NavBar() {
             <div className={`offcanvas-panel ${offcanvasOpen ? 'open' : ''}`}>
                 <div className="offcanvas-header">
                     <Link href="/" onClick={closeAll}>
-                        <img src="/front-assets/images/logo/logo.svg" className='img-fluid' width={160} height={35} alt="Logichook" />
+                        <img src="/front-assets/images/logo/logo.svg" className='img-fluid' width={160} height={35} alt="ResumeSathi" />
                     </Link>
                     <button className="offcanvas-close" onClick={closeAll} aria-label="Close menu">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

@@ -42,9 +42,10 @@ export async function generateMetadata({ params }) {
   const slug = (await params)?.slug;
   const article = slug ? await getArticleData(slug) : null;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
-  const title = article?.meta_title || article?.og_title || article?.title || article?.topic_name || 'Job Opening';
-  const description = article?.meta_description || article?.og_description || article?.description || 'Explore this job opportunity and apply today.';
-  const keywords = article?.meta_keywords || article?.keywords || 'jobs, career opportunities, hiring';
+  const rawTitle = article?.meta_title || article?.og_title || article?.title || article?.topic_name || 'Job Opening';
+  const title = `${rawTitle} | ResumeSathi`;
+  const description = article?.meta_description || article?.og_description || article?.description || 'Explore this job opportunity on ResumeSathi and apply today.';
+  const keywords = article?.meta_keywords || article?.keywords || 'jobs, career opportunities, hiring, apply now, government jobs';
   const image = article?.og_image || article?.meta_image || article?.hero_image || article?.image;
   const canonical = `${siteUrl}/jobs/${slug || ''}`;
   const resolvedImage = resolveImageUrl(image);
@@ -54,12 +55,14 @@ export async function generateMetadata({ params }) {
     description,
     keywords,
     alternates: { canonical },
+    robots: { index: true, follow: true },
     openGraph: {
       title,
       description,
       type: 'article',
       url: canonical,
-      images: [{ url: resolvedImage, alt: title }],
+      siteName: 'ResumeSathi',
+      images: [{ url: resolvedImage, alt: rawTitle }],
     },
     twitter: {
       card: 'summary_large_image',

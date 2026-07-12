@@ -1,7 +1,7 @@
 import InternshipClient from "./InternshipClient";
 
 export const metadata = {
-  title: 'ResumeSathi',
+  title: 'Internships | ResumeSathi',
   description: 'Create a professional resume in minutes with Logichook resume builder.',
 };
 

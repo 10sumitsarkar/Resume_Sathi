@@ -1,7 +1,7 @@
 import LanguageClient from "./LanguageClient";
 
 export const metadata = {
-  title: 'ResumeSathi',
+  title: 'Languages | ResumeSathi',
   description: 'Create a professional resume in minutes with Logichook resume builder.',
 };
 

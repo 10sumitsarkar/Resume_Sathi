@@ -1,7 +1,7 @@
 import SkillClient from "./SkillClient";
 
 export const metadata = {
-  title: 'ResumeSathi',
+  title: 'Skills | ResumeSathi',
   description: 'Create a professional resume in minutes with Logichook resume builder.',
 };
 

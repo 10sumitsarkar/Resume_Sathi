@@ -1,9 +1,25 @@
 import ToolsLists from "./ToolsLists";
 
 export const metadata = {
-  title: "Tools | ResumeSathi",
+  title: "Free Online Tools | ResumeSathi",
   description:
-    "Use ResumeSathi's free online tools to merge, split, compress, and manage PDF files, along with powerful resume tools to help you create professional resumes.",
+    "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",
+  keywords: ["free online tools", "merge PDF", "gradient generator", "CSS animation generator"],
+  alternates: { canonical: "/tools" },
+  openGraph: {
+    title: "Free Online Tools | ResumeSathi",
+    description: "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",
+    url: "/tools",
+    type: "website",
+    siteName: "ResumeSathi",
+    images: [{ url: "/front-assets/images/resume-hero.webp", width: 1200, height: 630, alt: "ResumeSathi tools" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Free Online Tools | ResumeSathi",
+    description: "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",
+    images: ["/front-assets/images/resume-hero.webp"],
+  },
 };
 
 export default function ToolsPages() {

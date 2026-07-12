@@ -37,9 +37,10 @@ export async function generateMetadata({ params }) {
   const slug = (await params)?.slug;
   const article = slug ? await getArticleData(slug) : null;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
-  const title = article?.meta_title || article?.og_title || article?.article_title || article?.title || 'Blog Article';
-  const description = article?.meta_description || article?.og_description || article?.description || 'Read this helpful article from our blog.';
-  const keywords = article?.meta_keywords || article?.keywords || 'resume tips, career advice, interview tips';
+  const rawTitle = article?.meta_title || article?.og_title || article?.article_title || article?.title || 'Blog Article';
+  const title = `${rawTitle} | ResumeSathi`;
+  const description = article?.meta_description || article?.og_description || article?.description || 'Read this helpful article from ResumeSathi about resume writing, interviews, career growth, and job search success.';
+  const keywords = article?.meta_keywords || article?.keywords || 'resume tips, interview tips, career advice, job search, professional growth';
   const image = article?.og_image || article?.meta_image || article?.hero_image || article?.image;
   const canonical = `${siteUrl}/blog/${slug || ''}`;
   const resolvedImage = resolveImageUrl(image);
@@ -49,12 +50,14 @@ export async function generateMetadata({ params }) {
     description,
     keywords,
     alternates: { canonical },
+    robots: { index: true, follow: true },
     openGraph: {
       title,
       description,
       type: 'article',
       url: canonical,
-      images: [{ url: resolvedImage, alt: title }],
+      siteName: 'ResumeSathi',
+      images: [{ url: resolvedImage, alt: rawTitle }],
     },
     twitter: {
       card: 'summary_large_image',

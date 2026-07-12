@@ -237,7 +237,7 @@ export default function SocialMedia() {
                       { value: 'Other', label: 'Other' },
                     ]}
                     placeholder="Select Social Platform"
-                    className={`form-control ${errors.social_name ? 'is-invalid' : ''}`}
+                    className={` ${errors.social_name ? 'is-invalid' : ''}`}
                   />
                 </div>
                 {errors.social_name && <p className="input-error">{errors.social_name.message}</p>}
@@ -247,7 +247,7 @@ export default function SocialMedia() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="social_url">Social URL</label>
-                  <input type="link"  {...register("social_url", { required: "Social URL is required", pattern: { value: /^(https?:\/\/)?([\w\d-]+\.)+\w{2,}(\/\S*)?$/, message: 'Please enter a valid URL', } })} className={`form-control ${errors.social_url ? 'is-invalid' : ''}`} id="social_url" placeholder="E.g., https://social_url.com/in/username" />
+                  <input type="link"  {...register("social_url", { required: "Social URL is required", pattern: { value: /^(https?:\/\/)?([\w\d-]+\.)+\w{2,}(\/\S*)?$/, message: 'Please enter a valid URL', } })} className={` ${errors.social_url ? 'is-invalid' : ''}`} id="social_url" placeholder="E.g., https://social_url.com/in/username" />
                 </div>
                 {errors.social_url && <p className="input-error">{errors.social_url.message}</p>}
               </div>

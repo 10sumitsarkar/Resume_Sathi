@@ -221,7 +221,7 @@ export default function Language() {
                 <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                   <div className='each-input-div'>
                     <label htmlFor="language">Language</label>
-                    <input type="link"  {...register("language", { required: "Language is required"})} className={`form-control ${errors.language ? 'is-invalid' : ''}`} id="language" placeholder="E.g., English" />
+                    <input type="link"  {...register("language", { required: "Language is required"})} className={` ${errors.language ? 'is-invalid' : ''}`} id="language" placeholder="E.g., English" />
                   </div>
                   {errors.language && <p className="input-error">{errors.language.message}</p>}
                 </div>
@@ -237,7 +237,7 @@ export default function Language() {
                       registerOptions={{ required: 'Proficiency level is required' }}
                       options={[{ value: 'Beginner', label: 'Beginner' }, { value: 'Intermediate', label: 'Intermediate' }, { value: 'Fluent', label: 'Fluent' }]}
                       placeholder="Beginner, Intermediate, Fluent"
-                      className={`form-control ${errors.proficiency_level ? 'is-invalid' : ''}`}
+                      className={` ${errors.proficiency_level ? 'is-invalid' : ''}`}
                     />
                   </div>
                   {errors.proficiency_level && <p className="input-error">{errors.proficiency_level.message}</p>}

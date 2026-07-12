@@ -242,7 +242,7 @@ export default function Hobbie() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="hobbies">Hobbie</label>
-                  <input type="link"  {...register("hobbies", { required: "Hobbie is required" })} className={`form-control ${errors.hobbies ? 'is-invalid' : ''}`} id="hobbies" placeholder="E.g., Painting, Football" />
+                  <input type="link"  {...register("hobbies", { required: "Hobbie is required" })} className={` ${errors.hobbies ? 'is-invalid' : ''}`} id="hobbies" placeholder="E.g., Painting, Football" />
                 </div>
                 {errors.hobbies && <p className="input-error">{errors.hobbies.message}</p>}
               </div>

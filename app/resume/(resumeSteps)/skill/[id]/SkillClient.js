@@ -227,7 +227,7 @@ export default function Skills() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="skill_name">Skill Name</label>
-                  <input type="text" {...register("skill_name", { required: "Skill name is required" })} className={`form-control ${errors.skill_name ? 'is-invalid' : ''}`} id="skill_name" placeholder="E.g., JavaScript, UI/UX Design" />
+                  <input type="text" {...register("skill_name", { required: "Skill name is required" })} className={` ${errors.skill_name ? 'is-invalid' : ''}`} id="skill_name" placeholder="E.g., JavaScript, UI/UX Design" />
                 </div>
                 {errors.skill_name && <p className="input-error">{errors.skill_name.message}</p>}
               </div>
@@ -249,7 +249,7 @@ export default function Skills() {
                       { value: 'Master', label: 'Master' },
                     ]}
                     placeholder="Select Proficiency Level"
-                    className={`form-control ${errors.proficiency_level ? 'is-invalid' : ''}`}
+                    className={` ${errors.proficiency_level ? 'is-invalid' : ''}`}
                   />
                 </div>
                 {errors.proficiency_level && <p className="input-error">{errors.proficiency_level.message}</p>}

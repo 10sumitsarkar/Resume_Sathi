@@ -221,7 +221,7 @@ export default function Certifications() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="certificate_name">Certification Name</label>
-                  <input type="text" {...register("certificate_name", { required: "Field of Study is required" })} className={`form-control ${errors.certificate_name ? 'is-invalid' : ''}`} id="certificate_name" placeholder="E.g., Google UX Design Certificate" />
+                  <input type="text" {...register("certificate_name", { required: "Field of Study is required" })} className={` ${errors.certificate_name ? 'is-invalid' : ''}`} id="certificate_name" placeholder="E.g., Google UX Design Certificate" />
                   {errors.certificate_name && <p className="input-error">{errors.certificate_name.message}</p>}
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function Certifications() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="issuing_organization">Issuing Organization</label>
-                  <input type="text" {...register("issuing_organization", { required: "Issuing Organization is required" })} className={`form-control ${errors.issuing_organization ? 'is-invalid' : ''}`} id="issuing_organization" placeholder="E.g., Delhi University" />
+                  <input type="text" {...register("issuing_organization", { required: "Issuing Organization is required" })} className={` ${errors.issuing_organization ? 'is-invalid' : ''}`} id="issuing_organization" placeholder="E.g., Delhi University" />
                   {errors.issuing_organization && <p className="input-error">{errors.issuing_organization.message}</p>}
                 </div>
               </div>
@@ -242,7 +242,7 @@ export default function Certifications() {
                     register={register}
                     registerName="issue_date"
                     registerOptions={{ required: 'Issue date is required' }}
-                    className={`form-control ${errors.issue_date ? 'is-invalid' : ''}`}
+                    className={` ${errors.issue_date ? 'is-invalid' : ''}`}
                     placeholder="Select date"
                   />
                   {errors.issue_date && <p className="input-error">{errors.issue_date.message}</p>}
@@ -252,7 +252,7 @@ export default function Certifications() {
               <div className="col-12 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="description">Description (Optional)</label>
-                  <textarea rows={8} {...register("description")} className={`form-control`} id="description" placeholder="Add details about the certification, skills learned, topics covered, or achievements earned..."></textarea>
+                  <textarea rows={8} {...register("description")} className={``} id="description" placeholder="Add details about the certification, skills learned, topics covered, or achievements earned..."></textarea>
                   <button type='button' className='refine-al-btn'>
                     <img src="/front-assets/images/icons/refine-ai.svg" alt="Refine AI" /> Refine with AI
                   </button>

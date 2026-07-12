@@ -329,7 +329,7 @@ export default function WorkExperience() {
                     {...register("job_title", {
                       required: "Job Title is required",
                     })}
-                    className={`form-control ${errors.job_title ? "is-invalid" : ""}`}
+                    className={` ${errors.job_title ? "is-invalid" : ""}`}
                     id="job_title"
                     placeholder="E.g., Software Engineer"
                   />
@@ -347,7 +347,7 @@ export default function WorkExperience() {
                     {...register("company_name", {
                       required: "Company name is required",
                     })}
-                    className={`form-control ${errors.company_name ? "is-invalid" : ""}`}
+                    className={` ${errors.company_name ? "is-invalid" : ""}`}
                     id="company_name"
                     placeholder="E.g., Delhi University"
                   />
@@ -376,7 +376,7 @@ export default function WorkExperience() {
                       { value: 'Other', label: 'Other' },
                     ]}
                     placeholder="Select Employee Type"
-                    className={`form-control ${errors.employee_type ? "is-invalid" : ""}`}
+                    className={` ${errors.employee_type ? "is-invalid" : ""}`}
                   />
                 </div>
                 {errors.employee_type && (
@@ -392,7 +392,7 @@ export default function WorkExperience() {
                     {...register("location", {
                       required: "Location is required",
                     })}
-                    className={`form-control ${errors.location ? "is-invalid" : ""}`}
+                    className={` ${errors.location ? "is-invalid" : ""}`}
                     id="location"
                     placeholder="E.g., Delhi, India"
                   />
@@ -416,7 +416,7 @@ export default function WorkExperience() {
                         registerOptions={{ required: 'Month is required' }}
                         options={['January','February','March','April','May','June','July','August','September','October','November','December'].map(m=>({value:m,label:m}))}
                         placeholder="Month"
-                        className={`form-control ${errors.start_month ? "is-invalid" : ""}`}
+                        className={` ${errors.start_month ? "is-invalid" : ""}`}
                       />
                     </div>
 
@@ -436,7 +436,7 @@ export default function WorkExperience() {
                         options={Array.from({ length: 50 }, (_, i) => ({ value: new Date().getFullYear() - i, label: String(new Date().getFullYear() - i) }))}
                         search={true}
                         placeholder="Year"
-                        className={`form-control ${errors.start_year ? "is-invalid" : ""}`}
+                        className={` ${errors.start_year ? "is-invalid" : ""}`}
                       />
                     </div>
 
@@ -461,7 +461,7 @@ export default function WorkExperience() {
                         registerOptions={{ required: !stillEnrolled ? 'Month is required' : false }}
                         options={['January','February','March','April','May','June','July','August','September','October','November','December'].map(m=>({value:m,label:m}))}
                         placeholder="Month"
-                        className={`form-control ${errors.end_month ? "is-invalid" : ""}`}
+                        className={` ${errors.end_month ? "is-invalid" : ""}`}
                         disabled={stillEnrolled}
                         onChange={() => setStillEnrolled(false)}
                       />
@@ -481,7 +481,7 @@ export default function WorkExperience() {
                         options={Array.from({ length: 50 }, (_, i) => ({ value: new Date().getFullYear() - i, label: String(new Date().getFullYear() - i) }))}
                         search={true}
                         placeholder="Year"
-                        className={`form-control ${errors.end_year ? "is-invalid" : ""}`}
+                        className={` ${errors.end_year ? "is-invalid" : ""}`}
                         disabled={stillEnrolled}
                         onChange={() => setStillEnrolled(false)}
                       />
@@ -510,7 +510,7 @@ export default function WorkExperience() {
                   <textarea
                     rows={8}
                     {...register("description")}
-                    className={`form-control`}
+                    className={``}
                     id="description"
                    placeholder="Describe your work, experience, achievements, responsibilities, or any relevant details..."
                   ></textarea>

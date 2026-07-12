@@ -73,7 +73,7 @@ export default function Summary() {
                   <textarea
                     rows={8}
                     {...register("summary", { required: "Summary is required" })}
-                    className={`form-control ${errors.summary ? 'is-invalid' : ''}`}
+                    className={` ${errors.summary ? 'is-invalid' : ''}`}
                     id="summary"
                     placeholder="Write a short professional summary..."
                     value={summaryFormData.summary || ''}

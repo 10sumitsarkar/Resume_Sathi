@@ -256,7 +256,7 @@ export default function Internship() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="job_title">Job Title</label>
-                  <input type="text"  {...register("job_title", { required: "Job Title is required" })} className={`form-control ${errors.job_title ? 'is-invalid' : ''}`} id="job_title" placeholder="E.g., Software Engineer" />
+                  <input type="text"  {...register("job_title", { required: "Job Title is required" })} className={` ${errors.job_title ? 'is-invalid' : ''}`} id="job_title" placeholder="E.g., Software Engineer" />
                 </div>
                 {errors.job_title && <p className="input-error">{errors.job_title.message}</p>}
               </div>
@@ -264,7 +264,7 @@ export default function Internship() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="company_name">Company Name</label>
-                  <input type="text"  {...register("company_name", { required: "Company name is required" })} className={`form-control ${errors.company_name ? 'is-invalid' : ''}`} id="company_name" placeholder="E.g., Delhi University" />
+                  <input type="text"  {...register("company_name", { required: "Company name is required" })} className={` ${errors.company_name ? 'is-invalid' : ''}`} id="company_name" placeholder="E.g., Delhi University" />
                 </div>
                 {errors.company_name && <p className="input-error">{errors.company_name.message}</p>}
               </div>
@@ -284,7 +284,7 @@ export default function Internship() {
                       { value: 'Freelance', label: 'Freelance' },
                     ]}
                     placeholder="Full-time, Part-time, Contract, Freelance"
-                    className={`form-control ${errors.employee_type ? 'is-invalid' : ''}`}
+                    className={` ${errors.employee_type ? 'is-invalid' : ''}`}
                   />
                 </div>
                 {errors.employee_type && <p className="input-error">{errors.employee_type.message}</p>}
@@ -293,7 +293,7 @@ export default function Internship() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="location">Location</label>
-                  <input type="text"  {...register("location", { required: "Location is required" })} className={`form-control ${errors.location ? 'is-invalid' : ''}`} id="location" placeholder="E.g., Delhi, India" />
+                  <input type="text"  {...register("location", { required: "Location is required" })} className={` ${errors.location ? 'is-invalid' : ''}`} id="location" placeholder="E.g., Delhi, India" />
                 </div>
                 {errors.location && <p className="input-error">{errors.location.message}</p>}
               </div>
@@ -327,7 +327,7 @@ export default function Internship() {
                           { value: 'December', label: 'December' },
                         ]}
                         placeholder="Month"
-                        className={`form-control ${errors.start_month ? 'is-invalid' : ''}`}
+                        className={` ${errors.start_month ? 'is-invalid' : ''}`}
                       />
                       {errors.start_month && <p className="input-error">{errors.start_month.message}</p>}
                     </div>
@@ -342,7 +342,7 @@ export default function Internship() {
                         options={Array.from({ length: 50 }, (_, i) => ({ value: new Date().getFullYear() - i, label: String(new Date().getFullYear() - i) }))}
                         search={true}
                         placeholder="Year"
-                        className={`form-control ${errors.start_year ? 'is-invalid' : ''}`}
+                        className={` ${errors.start_year ? 'is-invalid' : ''}`}
                       />
                       {errors.start_year && <p className="input-error">{errors.start_year.message}</p>}
                     </div>
@@ -378,7 +378,7 @@ export default function Internship() {
                           { value: 'December', label: 'December' },
                         ]}
                         placeholder="Month"
-                        className={`form-control ${errors.end_month ? 'is-invalid' : ''}`}
+                        className={` ${errors.end_month ? 'is-invalid' : ''}`}
                         disabled={stillEnrolled}
                       />
                       {errors.end_month && <p className="input-error">{errors.end_month.message}</p>}
@@ -394,7 +394,7 @@ export default function Internship() {
                         options={Array.from({ length: 50 }, (_, i) => ({ value: new Date().getFullYear() - i, label: String(new Date().getFullYear() - i) }))}
                         search={true}
                         placeholder="Year"
-                        className={`form-control ${errors.end_year ? 'is-invalid' : ''}`}
+                        className={` ${errors.end_year ? 'is-invalid' : ''}`}
                         disabled={stillEnrolled}
                       />
                       {errors.end_year && <p className="input-error">{errors.end_year.message}</p>}

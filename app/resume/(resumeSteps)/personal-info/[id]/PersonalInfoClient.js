@@ -125,7 +125,7 @@ export default function PersonalInfo() {
                     <label htmlFor="add-photo">
                       Add a photo
                     </label>
-                    <input type="file" {...register("photo")} accept="image/*" className={`form-control ${errors.photo ? 'is-invalid' : ''}`} id="add-photo" hidden onChange={handleImageChange} />
+                    <input type="file" {...register("photo")} accept="image/*" className={` ${errors.photo ? 'is-invalid' : ''}`} id="add-photo" hidden onChange={handleImageChange} />
                   </div>
                 </div>
               </div>
@@ -134,7 +134,7 @@ export default function PersonalInfo() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="first_name">First Name</label>
-                  <input type="text"  {...register("firstName", { required: "First Name is required" })} className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} id="first_name" placeholder="First Name" value={personalFormData.firstName || ''} onInput={(e) => { setPersonalFormData(prev => ({ ...prev, firstName: e.target.value })); }} />
+                  <input type="text"  {...register("firstName", { required: "First Name is required" })} className={` ${errors.firstName ? 'is-invalid' : ''}`} id="first_name" placeholder="First Name" value={personalFormData.firstName || ''} onInput={(e) => { setPersonalFormData(prev => ({ ...prev, firstName: e.target.value })); }} />
                 </div>
                 {errors.firstName && <p className="input-error">{errors.firstName.message}</p>}
               </div>
@@ -147,35 +147,35 @@ export default function PersonalInfo() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="email">Email</label>
-                  <input type="text" {...register('email', { required: 'Email is required', pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Invalid email address", }, })} className={`form-control ${errors.email ? 'is-invalid' : ''}`} id="email" placeholder="Email" value={personalFormData.email || ''} />
+                  <input type="text" {...register('email', { required: 'Email is required', pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Invalid email address", }, })} className={` ${errors.email ? 'is-invalid' : ''}`} id="email" placeholder="Email" value={personalFormData.email || ''} />
                 </div>
                 {errors.email && <p className="input-error">{errors.email.message}</p>}
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="phone">Phone</label>
-                  <input type="tel" {...register('phone', { required: "Phone is required", pattern: { value: /^\d{10}$/, message: "Phone must be 10 digits", }, })} className={`form-control ${errors.phone ? 'is-invalid' : ''}`} id="phone" placeholder="Phone" value={personalFormData.phone || ''} maxLength={10} />
+                  <input type="tel" {...register('phone', { required: "Phone is required", pattern: { value: /^\d{10}$/, message: "Phone must be 10 digits", }, })} className={` ${errors.phone ? 'is-invalid' : ''}`} id="phone" placeholder="Phone" value={personalFormData.phone || ''} maxLength={10} />
                 </div>
                 {errors.phone && <p className="input-error">{errors.phone.message}</p>}
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="city">City</label>
-                  <input type="text" {...register('city', { required: "City is required" })} className={`form-control ${errors.city ? 'is-invalid' : ''}`} id="city" placeholder="City" value={personalFormData.city || ''} />
+                  <input type="text" {...register('city', { required: "City is required" })} className={` ${errors.city ? 'is-invalid' : ''}`} id="city" placeholder="City" value={personalFormData.city || ''} />
                 </div>
                 {errors.city && <p className="input-error">{errors.city.message}</p>}
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="State">State</label>
-                  <input type="text" {...register('state', { required: "State is required" })} className={`form-control ${errors.state ? 'is-invalid' : ''}`} id="State" placeholder="State" value={personalFormData.state || ''} />
+                  <input type="text" {...register('state', { required: "State is required" })} className={` ${errors.state ? 'is-invalid' : ''}`} id="State" placeholder="State" value={personalFormData.state || ''} />
                 </div>
                 {errors.state && <p className="input-error">{errors.state.message}</p>}
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="website">website</label>
-                  <input type="text" {...register('website', { pattern: {value: /^(https?:\/\/)?([\w\d-]+\.)+\w{2,}(\/\S*)?$/,message: 'Please enter a valid website URL',}})} className={`form-control ${errors.website ? 'is-invalid' : ''}`} id="website" placeholder="www.logichook.in" value={personalFormData.website || ''} />
+                  <input type="text" {...register('website', { pattern: {value: /^(https?:\/\/)?([\w\d-]+\.)+\w{2,}(\/\S*)?$/,message: 'Please enter a valid website URL',}})} className={` ${errors.website ? 'is-invalid' : ''}`} id="website" placeholder="www.logichook.in" value={personalFormData.website || ''} />
                 </div>
                  {errors.website && <p className="input-error">{errors.website.message}</p>}
               </div>
@@ -184,11 +184,11 @@ export default function PersonalInfo() {
                   <label htmlFor="experience">Experience</label>
                   <div className='radio-btn-div mt-2'>
                     <label>
-                      <input type="radio" {...register('experience', { required: "Experience is required" })} name='experience' className={`form-control ${errors.experience ? 'is-invalid' : ''}`} id="experience" placeholder="Experience" value={'Fresher'} hidden checked={personalFormData.experience === 'Fresher' ? true : false} />
+                      <input type="radio" {...register('experience', { required: "Experience is required" })} name='experience' className={` ${errors.experience ? 'is-invalid' : ''}`} id="experience" placeholder="Experience" value={'Fresher'} hidden checked={personalFormData.experience === 'Fresher' ? true : false} />
                       Fresher
                     </label>
                     <label>
-                      <input type="radio" {...register('experience', { required: "Experience is required" })} name='experience' className={`form-control ${errors.experience ? 'is-invalid' : ''}`} id="experience" placeholder="Experience" value={'Experienced'} hidden checked={personalFormData.experience === 'Experienced' ? true : false} />
+                      <input type="radio" {...register('experience', { required: "Experience is required" })} name='experience' className={` ${errors.experience ? 'is-invalid' : ''}`} id="experience" placeholder="Experience" value={'Experienced'} hidden checked={personalFormData.experience === 'Experienced' ? true : false} />
                       Experienced
                     </label>
                   </div>

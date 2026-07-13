@@ -3951,7 +3951,7 @@ body:has(.tools-sidebar.collapsed) .tooltip {
     @media (max-width:991px) {
       position: fixed;
       background: #eaeaeac4;
-      bottom: 90px;
+      bottom: 74px;
 
       button {
         width: 100%;

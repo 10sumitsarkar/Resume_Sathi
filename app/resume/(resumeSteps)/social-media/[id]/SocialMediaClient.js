@@ -217,7 +217,7 @@ export default function SocialMedia() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="social_name">Social Name</label>
+                  <label htmlFor="social_name">Social Name<span className='text-danger'>*</span></label>
                   <CustomInput
                     type="select"
                     register={register}
@@ -246,7 +246,7 @@ export default function SocialMedia() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="social_url">Social URL</label>
+                  <label htmlFor="social_url">Social URL<span className='text-danger'>*</span></label>
                   <input type="link"  {...register("social_url", { required: "Social URL is required", pattern: { value: /^(https?:\/\/)?([\w\d-]+\.)+\w{2,}(\/\S*)?$/, message: 'Please enter a valid URL', } })} className={` ${errors.social_url ? 'is-invalid' : ''}`} id="social_url" placeholder="E.g., https://social_url.com/in/username" />
                 </div>
                 {errors.social_url && <p className="input-error">{errors.social_url.message}</p>}

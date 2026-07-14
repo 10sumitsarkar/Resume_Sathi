@@ -133,7 +133,7 @@ export default function PersonalInfo() {
             <div className="row mt-5">
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="first_name">First Name</label>
+                  <label htmlFor="first_name">First Name<span className='text-danger'>*</span></label>
                   <input type="text"  {...register("firstName", { required: "First Name is required" })} className={` ${errors.firstName ? 'is-invalid' : ''}`} id="first_name" placeholder="First Name" value={personalFormData.firstName || ''} onInput={(e) => { setPersonalFormData(prev => ({ ...prev, firstName: e.target.value })); }} />
                 </div>
                 {errors.firstName && <p className="input-error">{errors.firstName.message}</p>}
@@ -146,28 +146,28 @@ export default function PersonalInfo() {
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="email">Email</label>
+                  <label htmlFor="email">Email<span className='text-danger'>*</span></label>
                   <input type="text" {...register('email', { required: 'Email is required', pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: "Invalid email address", }, })} className={` ${errors.email ? 'is-invalid' : ''}`} id="email" placeholder="Email" value={personalFormData.email || ''} />
                 </div>
                 {errors.email && <p className="input-error">{errors.email.message}</p>}
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="phone">Phone</label>
+                  <label htmlFor="phone">Phone<span className='text-danger'>*</span></label>
                   <input type="tel" {...register('phone', { required: "Phone is required", pattern: { value: /^\d{10}$/, message: "Phone must be 10 digits", }, })} className={` ${errors.phone ? 'is-invalid' : ''}`} id="phone" placeholder="Phone" value={personalFormData.phone || ''} maxLength={10} />
                 </div>
                 {errors.phone && <p className="input-error">{errors.phone.message}</p>}
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="city">City</label>
+                  <label htmlFor="city">City<span className='text-danger'>*</span></label>
                   <input type="text" {...register('city', { required: "City is required" })} className={` ${errors.city ? 'is-invalid' : ''}`} id="city" placeholder="City" value={personalFormData.city || ''} />
                 </div>
                 {errors.city && <p className="input-error">{errors.city.message}</p>}
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="State">State</label>
+                  <label htmlFor="State">State<span className='text-danger'>*</span></label>
                   <input type="text" {...register('state', { required: "State is required" })} className={` ${errors.state ? 'is-invalid' : ''}`} id="State" placeholder="State" value={personalFormData.state || ''} />
                 </div>
                 {errors.state && <p className="input-error">{errors.state.message}</p>}
@@ -181,7 +181,7 @@ export default function PersonalInfo() {
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="experience">Experience</label>
+                  <label htmlFor="experience">Experience<span className='text-danger'>*</span></label>
                   <div className='radio-btn-div mt-2'>
                     <label>
                       <input type="radio" {...register('experience', { required: "Experience is required" })} name='experience' className={` ${errors.experience ? 'is-invalid' : ''}`} id="experience" placeholder="Experience" value={'Fresher'} hidden checked={personalFormData.experience === 'Fresher' ? true : false} />

@@ -14,7 +14,7 @@ const IconBlog = () => (
 
 const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'http://localhost:8000';
 const API_BASE = `${BACKEND_BASE}/api`;
-const DEFAULT_IMAGE = '/front-assets/images/resume-hero.webp';
+const DEFAULT_IMAGE = '/front-assets/images/blog-hero.webp';
 const PAGE_SIZE = 10;
 const SUGGESTION_LIMIT = 6;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
@@ -37,7 +37,7 @@ function getBlogPageMeta(searchQuery = '', categoryName = '') {
     description,
     keywords: 'resume tips, career advice, interview tips, job search, professional growth',
     canonical,
-    image: `${SITE_URL}/front-assets/images/tools-hero.webp`,
+    image: `${SITE_URL}/front-assets/images/blog-hero.webp`,
   };
 }
 
@@ -576,7 +576,7 @@ function BlogPageContent() {
           <p className='fs-mob-16'>Browse the latest articles, learn new tips, and explore career insights curated for job seekers like you.</p>
         </div>
         <div className='right-part d-none d-md-block'>
-          <img src={'/front-assets/images/tools-hero.webp'} className='img-fluid' width={500} />
+          <img src={'/front-assets/images/blog-hero.webp'} className='img-fluid' width={500} />
         </div>
       </section>
 

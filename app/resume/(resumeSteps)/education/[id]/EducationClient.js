@@ -250,7 +250,7 @@ export default function Education() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="degree">Degree</label>
+                  <label htmlFor="degree">Degree<span className='text-danger'>*</span></label>
                   <CustomInput
                     type="select"
                     register={register}
@@ -331,7 +331,7 @@ export default function Education() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="institute_name">University/Institution Name</label>
+                  <label htmlFor="institute_name">University/Institution Name<span className='text-danger'>*</span></label>
                   <input type="text"  {...register("institute_name", { required: "University/Institution name is required" })} className={`${errors.institute_name ? 'is-invalid' : ''}`} id="institute_name" placeholder="E.g., Delhi University" />
                 </div>
                 {errors.institute_name && <p className="input-error">{errors.institute_name.message}</p>}
@@ -339,7 +339,7 @@ export default function Education() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="location">Location</label>
+                  <label htmlFor="location">Location<span className='text-danger'>*</span></label>
                   <input type="text"  {...register("location", { required: "Location is required" })} className={`${errors.location ? 'is-invalid' : ''}`} id="location" placeholder="E.g., Delhi, India" />
                 </div>
                 {errors.location && <p className="input-error">{errors.location.message}</p>}
@@ -348,7 +348,7 @@ export default function Education() {
 
               <div className="col-12 col-lg-12 col-xl-12 col-xxl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="date">Graduation Date</label>
+                  <label htmlFor="date">Graduation Date<span className='text-danger'>*</span></label>
                 </div>
                 <div className="row">
                   <div className="col-6">
@@ -432,7 +432,7 @@ export default function Education() {
 
 
             <button type='button' className={`add-more-btn ${formOpened === true ? 'd-none' : ''}`} onClick={AddMoreEducation}>
-              <img src="/front-assets/images/icons/add-more.svg" alt="Add More" /> Add More Experience
+              <img src="/front-assets/images/icons/add-more.svg" alt="Add More" /> Add More Education
             </button>
           </div >
 

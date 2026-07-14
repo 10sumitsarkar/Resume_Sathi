@@ -130,6 +130,7 @@ export default function CustomInput({
       {/* Hidden native inputs for form libraries (react-hook-form) to bind to */}
       {isSelect && regProps && (
         <select {...regProps} name={registerName} style={{ display: 'none' }} value={selectedValue ?? ''}>
+          <option value="">{placeholder || 'Please select'}</option>
           {options.map((o, idx) => (
             <option key={o.value ?? idx} value={o.value ?? o}>{o.label ?? o.value ?? o}</option>
           ))}

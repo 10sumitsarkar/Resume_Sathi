@@ -230,7 +230,7 @@ const {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="certificate_name">Certification Name</label>
+                  <label htmlFor="certificate_name">Certification Name<span className='text-danger'>*</span></label>
                   <input type="text" {...register("certificate_name", { required: "Field of Study is required" })} className={` ${errors.certificate_name ? 'is-invalid' : ''}`} id="certificate_name" placeholder="E.g., Google UX Design Certificate" />
                   {errors.certificate_name && <p className="input-error">{errors.certificate_name.message}</p>}
                 </div>
@@ -238,7 +238,7 @@ const {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="issuing_organization">Issuing Organization</label>
+                  <label htmlFor="issuing_organization">Issuing Organization<span className='text-danger'>*</span></label>
                   <input type="text" {...register("issuing_organization", { required: "Issuing Organization is required" })} className={` ${errors.issuing_organization ? 'is-invalid' : ''}`} id="issuing_organization" placeholder="E.g., Delhi University" />
                   {errors.issuing_organization && <p className="input-error">{errors.issuing_organization.message}</p>}
                 </div>
@@ -246,7 +246,7 @@ const {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
   <div className='each-input-div'>
-    <label htmlFor="issue_date">Issue Date</label>
+    <label htmlFor="issue_date">Issue Date<span className='text-danger'>*</span></label>
     <CustomInput
       type="date"
       register={register}
@@ -283,7 +283,7 @@ const {
             </div>
 
             <button type='button' className={`add-more-btn ${formOpened === true ? 'd-none' : ''}`} onClick={AddMoreCertificate}>
-              <img src="/front-assets/images/icons/add-more.svg" alt="Add More" /> Add More Experience
+              <img src="/front-assets/images/icons/add-more.svg" alt="Add More" /> Add More Certifications
             </button>
           </div>
         </form>

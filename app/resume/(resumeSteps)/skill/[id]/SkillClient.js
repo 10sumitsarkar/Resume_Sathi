@@ -226,7 +226,7 @@ export default function Skills() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="skill_name">Skill Name</label>
+                  <label htmlFor="skill_name">Skill Name<span className='text-danger'>*</span></label>
                   <input type="text" {...register("skill_name", { required: "Skill name is required" })} className={` ${errors.skill_name ? 'is-invalid' : ''}`} id="skill_name" placeholder="E.g., JavaScript, UI/UX Design" />
                 </div>
                 {errors.skill_name && <p className="input-error">{errors.skill_name.message}</p>}
@@ -234,7 +234,7 @@ export default function Skills() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="proficiency_level">Proficiency Level</label>
+                  <label htmlFor="proficiency_level">Proficiency Level<span className='text-danger'>*</span></label>
                   <CustomInput
                     type="select"
                     register={register}

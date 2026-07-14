@@ -255,7 +255,7 @@ export default function Internship() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="job_title">Job Title</label>
+                  <label htmlFor="job_title">Internship Role<span className='text-danger'>*</span></label>
                   <input type="text"  {...register("job_title", { required: "Job Title is required" })} className={` ${errors.job_title ? 'is-invalid' : ''}`} id="job_title" placeholder="E.g., Software Engineer" />
                 </div>
                 {errors.job_title && <p className="input-error">{errors.job_title.message}</p>}
@@ -263,7 +263,7 @@ export default function Internship() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="company_name">Company Name</label>
+                  <label htmlFor="company_name">Company Name<span className='text-danger'>*</span></label>
                   <input type="text"  {...register("company_name", { required: "Company name is required" })} className={` ${errors.company_name ? 'is-invalid' : ''}`} id="company_name" placeholder="E.g., Delhi University" />
                 </div>
                 {errors.company_name && <p className="input-error">{errors.company_name.message}</p>}
@@ -271,7 +271,7 @@ export default function Internship() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="employee_type">Employment Type</label>
+                  <label htmlFor="employee_type">Internship Type<span className='text-danger'>*</span></label>
                   <CustomInput
                     type="select"
                     register={register}
@@ -292,7 +292,7 @@ export default function Internship() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="location">Location</label>
+                  <label htmlFor="location">Location<span className='text-danger'>*</span></label>
                   <input type="text"  {...register("location", { required: "Location is required" })} className={` ${errors.location ? 'is-invalid' : ''}`} id="location" placeholder="E.g., Delhi, India" />
                 </div>
                 {errors.location && <p className="input-error">{errors.location.message}</p>}
@@ -302,7 +302,7 @@ export default function Internship() {
               {/* Start Date Section */}
               <div className="col-12 col-lg-12 col-xl-12 col-xxl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="start_date">Start Date</label>
+                  <label htmlFor="start_date">Start Date<span className='text-danger'>*</span></label>
                 </div>
                 <div className="row">
                   <div className="col-6">
@@ -353,7 +353,7 @@ export default function Internship() {
               {/* End Date Section */}
               <div className="col-12 col-lg-12 col-xl-12 col-xxl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="end_date">End Date</label>
+                  <label htmlFor="end_date">End Date<span className='text-danger'>*</span></label>
                 </div>
                 <div className="row">
                   <div className="col-6">
@@ -410,7 +410,7 @@ export default function Internship() {
                     hidden
                   />
                   <label className='checkbox-label'></label>
-                  I am currently an intern here
+                  I am currently interning here
                 </label>
               </div>
 

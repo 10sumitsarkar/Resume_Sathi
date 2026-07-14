@@ -506,7 +506,7 @@ function HeroVideo() {
       </div>
       <div className="rk-float-badge rk-float-badge--br">
         <Icon.Sparkle />
-        <span>Free forever</span>
+        <span>100% Free forever</span>
       </div>
     </div>
   );
@@ -776,14 +776,14 @@ export default function ResumeListClient() {
       <section className="rk-hero">
         <div className="container-fluid custom-container">
           <div className="row g-4">
-           <div className="col-lg-6">
+           <div className="col-lg-6 col-md-10 mx-auto hero-left-part">
             <div className="rk-hero-badge">
               <span className="rk-hero-badge-dot" />
               No signup · Always free · 100% local
             </div>
             <h1 className="rk-hero-title fs-mob-32">
-              Build your <span className="rk-hero-hl">ATS-friendly resume</span><br />
-              in minutes — 100% free
+              Build your <span className="rk-hero-hl">ATS-friendly resume </span>
+              in minutes
             </h1>
             <p className="rk-hero-sub fs-mob-14">
               Create professional resumes, cover letters, and job-ready documents for free with simple tools and clean templates.
@@ -819,7 +819,7 @@ export default function ResumeListClient() {
             </div>
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-lg-6 d-none d-lg-block">
             <HeroVideo />
           </div>
           </div>
@@ -868,7 +868,7 @@ export default function ResumeListClient() {
           <ResumeCoverflow />
           <div className="rk-resume-showcase-cta">
             <Link href="/resume/resume-type" className="rk-btn rk-btn--primary rk-btn--lg">
-              Choose a Template <Icon.ArrowRight />
+              Get Started <Icon.ArrowRight />
             </Link>
           </div>
         </div>

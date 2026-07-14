@@ -323,7 +323,7 @@ export default function WorkExperience() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="job_title">Job Title</label>
+                  <label htmlFor="job_title">Job Title<span className='text-danger'>*</span></label>
                   <input
                     type="text"
                     {...register("job_title", {
@@ -341,7 +341,7 @@ export default function WorkExperience() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="company_name">Company Name</label>
+                  <label htmlFor="company_name">Company Name<span className='text-danger'>*</span></label>
                   <input
                     type="text"
                     {...register("company_name", {
@@ -359,7 +359,7 @@ export default function WorkExperience() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="employee_type">Employment Type</label>
+                  <label htmlFor="employee_type">Employment Type<span className='text-danger'>*</span></label>
                   <CustomInput
                     type="select"
                     register={register}
@@ -386,7 +386,7 @@ export default function WorkExperience() {
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="location">Location</label>
+                  <label htmlFor="location">Location<span className='text-danger'>*</span></label>
                   <input
                     type="text"
                     {...register("location", {
@@ -404,7 +404,7 @@ export default function WorkExperience() {
 
               <div className="col-12 col-lg-12 col-xl-12 col-xxl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="start_date">Start Date</label>
+                  <label htmlFor="start_date">Start Date<span className='text-danger'>*</span></label>
                 </div>
                 <div className="row">
                   <div className="col-6">
@@ -449,7 +449,7 @@ export default function WorkExperience() {
 
               <div className="col-12 col-lg-12 col-xl-12 col-xxl-6 mb-4">
                 <div className="each-input-div">
-                  <label htmlFor="end_month">End Date</label>
+                  <label htmlFor="end_month">End Date<span className='text-danger'>*</span></label>
                 </div>
                 <div className="row">
                   <div className="col-6">

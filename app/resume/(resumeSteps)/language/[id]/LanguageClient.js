@@ -220,7 +220,7 @@ export default function Language() {
   
                 <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                   <div className='each-input-div'>
-                    <label htmlFor="language">Language</label>
+                    <label htmlFor="language">Language<span className='text-danger'>*</span></label>
                     <input type="link"  {...register("language", { required: "Language is required"})} className={` ${errors.language ? 'is-invalid' : ''}`} id="language" placeholder="E.g., English" />
                   </div>
                   {errors.language && <p className="input-error">{errors.language.message}</p>}
@@ -229,7 +229,7 @@ export default function Language() {
   
                 <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                   <div className="each-input-div">
-                    <label htmlFor="proficiency_level">Proficiency Level</label>
+                    <label htmlFor="proficiency_level">Proficiency Level<span className='text-danger'>*</span></label>
                     <CustomInput
                       type="select"
                       register={register}

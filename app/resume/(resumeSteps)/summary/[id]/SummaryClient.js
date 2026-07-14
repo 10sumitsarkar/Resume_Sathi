@@ -69,7 +69,7 @@ export default function Summary() {
             <div className="row">
               <div className="col-12 mb-4">
                 <div className='each-input-div'>
-                  <label htmlFor="summary">Brief Introduction</label>
+                  <label htmlFor="summary">Brief Introduction<span className='text-danger'>*</span></label>
                   <textarea
                     rows={8}
                     {...register("summary", { required: "Summary is required" })}
@@ -81,7 +81,7 @@ export default function Summary() {
                       setSummaryFormData(prev => ({ ...prev, summary: e.target.value }))
                     }
                   />
-                  <button type='button' className='refine-al-btn'>
+                  <button type='button' className='refine-al-btn' disabled title="Coming Soon">
                     <img src="/front-assets/images/icons/refine-ai.svg" alt="Refine AI" /> Refine with AI
                   </button>
                 </div>

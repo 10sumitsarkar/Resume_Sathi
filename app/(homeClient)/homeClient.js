@@ -238,124 +238,265 @@ function formatDay(value) {
   return date.toLocaleDateString("en-IN", { weekday: "long" });
 }
 
-// ── Live Counter ──────────────────────────────────────────────────────────
-function LiveCounter() {
-  const [count, setCount] = useState(4312);
-  const [flash, setFlash] = useState(false);
+// ── Owl Carousel loader + hook ────────────────────────────────────────────
+// Loads jQuery + Owl Carousel from CDN once, then initializes on the given ref.
+// This guarantees items never overflow/crop on any screen size, since Owl
+// Carousel measures the real container width at runtime instead of using
+// fixed pixel widths.
+let owlAssetsPromise = null;
 
-  useEffect(() => {
-    const schedule = () => {
-      const delay = 18000 + Math.random() * 22000;
-      return setTimeout(() => {
-        const add = Math.floor(Math.random() * 5) + 1;
-        setCount((c) => c + add);
-        setFlash(true);
-        setTimeout(() => setFlash(false), 600);
-        schedule();
-      }, delay);
+function loadOwlAssets() {
+  if (typeof window === "undefined") return Promise.resolve();
+  if (owlAssetsPromise) return owlAssetsPromise;
+
+  owlAssetsPromise = new Promise((resolve) => {
+    if (window.jQuery && window.jQuery.fn && window.jQuery.fn.owlCarousel) {
+      resolve();
+      return;
+    }
+
+    const ensureCss = (href) => {
+      if (document.querySelector(`link[href="${href}"]`)) return;
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      document.head.appendChild(link);
     };
-    const t = schedule();
-    return () => clearTimeout(t);
-  }, []);
+    ensureCss("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css");
+    ensureCss("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css");
+
+    const loadScript = (src) => new Promise((res) => {
+      const existing = document.querySelector(`script[src="${src}"]`);
+      if (existing) {
+        if (existing.getAttribute("data-loaded") === "1") { res(); return; }
+        existing.addEventListener("load", () => res());
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = src;
+      script.async = true;
+      script.onload = () => { script.setAttribute("data-loaded", "1"); res(); };
+      document.body.appendChild(script);
+    });
+
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js")
+      .then(() => loadScript("https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"))
+      .then(resolve);
+  });
+
+  return owlAssetsPromise;
+}
+
+function useOwlCarousel(ref, options, deps = []) {
+  useEffect(() => {
+    let cancelled = false;
+    let $el = null;
+
+    loadOwlAssets().then(() => {
+      if (cancelled || !ref.current || !window.jQuery) return;
+      const $ = window.jQuery;
+      $el = $(ref.current);
+      if ($el.hasClass("owl-loaded")) {
+        $el.trigger("destroy.owl.carousel");
+        $el.removeClass("owl-loaded");
+      }
+      $el.owlCarousel(options);
+    });
+
+    return () => {
+      cancelled = true;
+      if ($el && $el.hasClass && $el.hasClass("owl-loaded")) {
+        $el.trigger("destroy.owl.carousel");
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+}
+
+// ── OwlSlider (used for Tools, Jobs, Blog, Testimonials) ──────────────────
+function OwlSlider({ children, options = {}, className = "", ariaLabel = "carousel" }) {
+  const ref = useRef(null);
+  const count = React.Children.count(children);
+
+  const merged = {
+    loop: false,
+    margin: 20,
+    nav: true,
+    dots: true,
+    autoplay: false,
+    mouseDrag: true,
+    touchDrag: true,
+    smartSpeed: 400,
+    stagePadding: 0,
+    navText: [
+      '<span class="rk-owl-arrow rk-owl-arrow--prev"></span>',
+      '<span class="rk-owl-arrow rk-owl-arrow--next"></span>',
+    ],
+    responsive: {
+      0: { items: 1 },
+      768: { items: 2 },
+      1024: { items: 3 },
+    },
+    ...options,
+  };
+
+  useOwlCarousel(ref, merged, [count]);
 
   return (
-    <div className="rk-live-bar">
-      <span className="rk-live-dot" />
-      <span className={`rk-live-num${flash ? " rk-live-flash" : ""}`}>
-        {count.toLocaleString("en-IN")}
-      </span>
-      <span className="rk-live-text">resumes created today — join them</span>
+    <div className={`owl-carousel rk-owl ${className}`} ref={ref} role="region" aria-label={ariaLabel}>
+      {children}
     </div>
   );
 }
 
-// ── Hero Slideshow ────────────────────────────────────────────────────────
-const heroSlides = [
-  { src: "/front-assets/images/resume-img/template1-preview.jpg", label: "Classic — Template 1" },
-  { src: "/front-assets/images/resume-img/template2-preview.jpg", label: "Modern Sidebar — Template 2" },
-  { src: "/front-assets/images/resume-img/template3-preview.jpg", label: "Bold Accent — Template 3" },
-  { src: "/front-assets/images/resume-img/template4-preview.jpg", label: "Executive — Template 4" },
-  { src: "/front-assets/images/resume-img/template5-preview.jpg", label: "Minimal — Template 5" },
+// ── Resume Coverflow (A4 template preview carousel) ──────────────────────
+const resumeShowcaseImages = [
+  { src: "/front-assets/images/resume-img/resume-1.webp", label: "Modern Sidebar Resume" },
+  { src: "/front-assets/images/resume-img/resume-2.webp", label: "Classic ATS Resume" },
+  { src: "/front-assets/images/resume-img/resume-3.webp", label: "Executive Resume" },
+  { src: "/front-assets/images/resume-img/resume-4.webp", label: "Bold Accent Resume" },
 ];
 
-function HeroSlideshow() {
-  const [current, setCurrent] = useState(0);
-  const [dir, setDir] = useState("next");
+function ResumeCoverflow() {
+  const [active, setActive] = useState(1);
   const timerRef = useRef(null);
-
-  const go = (idx, direction = "next") => {
-    setDir(direction);
-    setCurrent(idx);
-  };
+  const count = resumeShowcaseImages.length;
 
   useEffect(() => {
     timerRef.current = setInterval(() => {
-      go((current + 1) % heroSlides.length, "next");
+      setActive((a) => (a + 1) % count);
     }, 3200);
     return () => clearInterval(timerRef.current);
-  }, [current]);
+  }, [count]);
+
+  const goTo = (i) => setActive(((i % count) + count) % count);
 
   return (
-    <div className="rk-hero-slideshow">
-      <div className="rk-slide-frame">
-        <div className="rk-slide-topbar">
-          <span className="rk-slide-dot" style={{ background: "#FF5F57" }} />
-          <span className="rk-slide-dot" style={{ background: "#FEBC2E" }} />
-          <span className="rk-slide-dot" style={{ background: "#28C840" }} />
-          <span className="rk-slide-label">{heroSlides[current].label}</span>
-        </div>
+    <div className="rk-coverflow">
+      <div className="rk-coverflow-stage">
+        {resumeShowcaseImages.map((img, i) => {
+          let offset = i - active;
+          if (offset > count / 2) offset -= count;
+          if (offset < -count / 2) offset += count;
+          const abs = Math.abs(offset);
+          if (abs > 2) return null;
+          const translateX = offset * 42;
+          const scale = offset === 0 ? 1 : abs === 1 ? 0.8 : 0.64;
+          const rotateY = offset === 0 ? 0 : offset > 0 ? -18 : 18;
+          const zIndex = 10 - abs;
+          const opacity = abs > 2 ? 0 : 1 - abs * 0.28;
 
-        <div className="rk-slide-img-wrap">
-          {heroSlides.map((s, i) => (
-            <div
-              key={i}
-              className={`rk-slide-item${i === current ? " rk-slide-item--active" : ""} rk-slide-item--${dir}`}
+          return (
+            <button
+              type="button"
+              key={img.src}
+              className={`rk-cf-item${offset === 0 ? " rk-cf-item--active" : ""}`}
+              style={{
+                transform: `translate(-50%, -50%) translateX(${translateX}%) scale(${scale}) rotateY(${rotateY}deg)`,
+                zIndex,
+                opacity,
+              }}
+              onClick={() => goTo(i)}
+              aria-label={`Show ${img.label}`}
             >
               <img
-                src={s.src}
-                alt={s.label}
-                className="rk-slide-img"
-                onError={(e) => {
-                  e.target.style.display = "none";
-                  if (e.target.nextSibling) e.target.nextSibling.style.display = "flex";
-                }}
+                src={img.src}
+                alt={`${img.label} — free ATS-friendly resume template preview A4 size`}
+                className="rk-cf-img"
+                loading="lazy"
               />
-              <div className="rk-slide-fallback" style={{ display: "none" }}>
-                <div className="rk-ph-card">
-                  <div className="rk-ph-header">
-                    <div className="rk-ph-avatar" />
-                    <div>
-                      <div className="rk-ph-line w55" />
-                      <div className="rk-ph-line w35" />
-                    </div>
-                  </div>
-                  <div className="rk-ph-divider" />
-                  <div className="rk-ph-section-label" />
-                  <div className="rk-ph-line w90" />
-                  <div className="rk-ph-line w80" />
-                  <div className="rk-ph-line w85" />
-                  <div className="rk-ph-section-label" style={{ marginTop: 10 }} />
-                  <div className="rk-ph-line w70" />
-                  <div className="rk-ph-line w60" />
-                  <div className="rk-ph-section-label" style={{ marginTop: 10 }} />
-                  <div className="rk-ph-skills"><span /><span /><span /></div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="rk-slide-dots">
-          {heroSlides.map((_, i) => (
-            <button
-              key={i}
-              className={`rk-dot${i === current ? " rk-dot--active" : ""}`}
-              onClick={() => go(i, i > current ? "next" : "prev")}
-            />
-          ))}
-        </div>
+            </button>
+          );
+        })}
       </div>
+      <div className="rk-cf-dots">
+        {resumeShowcaseImages.map((img, i) => (
+          <button
+            type="button"
+            key={img.src}
+            className={`rk-dot${i === active ? " rk-dot--active" : ""}`}
+            onClick={() => goTo(i)}
+            aria-label={`Go to ${img.label}`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
 
+// ── Daily Resume Counter (grows all day, resets to 0 at local midnight) ───
+const DAILY_TARGET = 4300; // roughly how many "resumes" the counter reaches by end of day
+const RATE_PER_SEC = DAILY_TARGET / 86400;
+
+function useDailyResumeCounter() {
+  const [count, setCount] = useState(0);
+  const [flash, setFlash] = useState(false);
+
+  useEffect(() => {
+    let tickTimeout;
+    let midnightTimeout;
+    let cancelled = false;
+
+    const secondsSinceMidnight = () => {
+      const now = new Date();
+      const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      return (now - start) / 1000;
+    };
+
+    setCount(Math.max(0, Math.floor(secondsSinceMidnight() * RATE_PER_SEC)));
+
+    const scheduleTick = () => {
+      const delay = 3000 + Math.random() * 5000; // every 3-8s
+      tickTimeout = setTimeout(() => {
+        if (cancelled) return;
+        const add = Math.floor(Math.random() * 3) + 1; // +1, +2, or +3
+        setCount((c) => c + add);
+        setFlash(true);
+        setTimeout(() => setFlash(false), 500);
+        scheduleTick();
+      }, delay);
+    };
+    scheduleTick();
+
+    const scheduleMidnightReset = () => {
+      const now = new Date();
+      const nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 2);
+      midnightTimeout = setTimeout(() => {
+        if (cancelled) return;
+        setCount(0);
+        scheduleMidnightReset();
+      }, nextMidnight - now);
+    };
+    scheduleMidnightReset();
+
+    return () => {
+      cancelled = true;
+      clearTimeout(tickTimeout);
+      clearTimeout(midnightTimeout);
+    };
+  }, []);
+
+  return { count, flash };
+}
+
+// ── Hero Image (simple, static) ───────────────────────────────────────────
+function HeroVideo() {
+  return (
+    <div className="rk-hero-image-wrap">
+      <video
+  className="rk-hero-video"
+  autoPlay
+  muted
+  loop
+  playsInline
+  controlsList="nodownload noplaybackrate"
+  onContextMenu={(e) => e.preventDefault()}
+>
+  <source
+    src="/front-assets/images/hero-video-2.webm"
+    type="video/webm"
+  />
+</video>
       <div className="rk-float-badge rk-float-badge--tl">
         <div className="rk-fb-icon"><Icon.Lock /></div>
         <div>
@@ -445,36 +586,34 @@ function JobCard({ job, href }) {
   const status = !start && !end ? "Open" : start && end && today < start ? "Upcoming" : end && today > end ? "Closed" : "Open";
 
   return (
-    <div className="col-12 col-sm-6 col-lg-4">
-      <div className="rk-jc h-100">
-        <div className="rk-jc-thumb">
-          {companyName ? <span className="rk-jc-org">{companyName}</span> : null}
-          <img src={imageUrl} alt={getJobTitle(job)} className="rk-bc-img" onError={(e) => { e.target.src = DEFAULT_JOB_IMAGE; }} />
-          <span className={`rk-jc-badge rk-jc-badge--${status.toLowerCase()}`}>{status}</span>
+    <div className="rk-jc h-100">
+      <div className="rk-jc-thumb">
+        {companyName ? <span className="rk-jc-org">{companyName}</span> : null}
+        <img src={imageUrl} alt={getJobTitle(job)} className="rk-bc-img" onError={(e) => { e.target.src = DEFAULT_JOB_IMAGE; }} />
+        <span className={`rk-jc-badge rk-jc-badge--${status.toLowerCase()}`}>{status}</span>
+      </div>
+      <div className="rk-jc-title">{getJobTitle(job)}</div>
+      <p className="rk-jc-desc">{getJobDescription(job)}</p>
+      {(startDate || endDate) ? (
+        <div className="rk-jc-meta rk-jc-meta-split">
+          {startDate ? (
+            <div className="rk-jc-meta-block rk-jc-meta-block-left">
+              <span className="rk-jc-meta-label">Start date</span>
+              <span className="rk-jc-meta-date">{formatDate(startDate)}</span>
+              <span className="rk-jc-meta-day">{formatDay(startDate)}</span>
+            </div>
+          ) : null}
+          {endDate ? (
+            <div className="rk-jc-meta-block rk-jc-meta-block-right">
+              <span className="rk-jc-meta-label">End date</span>
+              <span className="rk-jc-meta-date">{formatDate(endDate)}</span>
+              <span className="rk-jc-meta-day">{formatDay(endDate)}</span>
+            </div>
+          ) : null}
         </div>
-        <div className="rk-jc-title">{getJobTitle(job)}</div>
-        <p className="rk-jc-desc">{getJobDescription(job)}</p>
-        {(startDate || endDate) ? (
-          <div className="rk-jc-meta rk-jc-meta-split">
-            {startDate ? (
-              <div className="rk-jc-meta-block rk-jc-meta-block-left">
-                <span className="rk-jc-meta-label">Start date</span>
-                <span className="rk-jc-meta-date">{formatDate(startDate)}</span>
-                <span className="rk-jc-meta-day">{formatDay(startDate)}</span>
-              </div>
-            ) : null}
-            {endDate ? (
-              <div className="rk-jc-meta-block rk-jc-meta-block-right">
-                <span className="rk-jc-meta-label">End date</span>
-                <span className="rk-jc-meta-date">{formatDate(endDate)}</span>
-                <span className="rk-jc-meta-day">{formatDay(endDate)}</span>
-              </div>
-            ) : null}
-          </div>
-        ) : null}
-        <div className="rk-jc-actions">
-          <Link href={href} className="rk-jc-apply rk-btn rk-btn--primary rk-btn--sm">Apply now <Icon.ChevRight /></Link>
-        </div>
+      ) : null}
+      <div className="rk-jc-actions">
+        <Link href={href} className="rk-jc-apply rk-btn rk-btn--primary rk-btn--sm">Apply now <Icon.ChevRight /></Link>
       </div>
     </div>
   );
@@ -489,29 +628,27 @@ function BlogCard({ blog, href }) {
   const publishedDate = blog.created_at || blog.date || "";
 
   return (
-    <div className="col-12 col-md-6 col-lg-4">
-      <article className="rk-bc h-100">
-        <div className="rk-bc-thumb">
-          <img
-            src={imageUrl}
-            alt={title}
-            className="rk-bc-img"
-            onError={(e) => {
-              e.target.src = DEFAULT_BLOG_IMAGE;
-            }}
-          />
-          <span className="rk-bc-cat">{category}</span>
-        </div>
-        <div className="rk-bc-body">
-          <h3 className="rk-bc-title">{title}</h3>
-          <p className="rk-bc-desc">{description}</p>
-        </div>
-        <div className="rk-bc-foot">
-          <span className="rk-bc-date"><Icon.Calendar /> {publishedDate ? formatDate(publishedDate) : "Updated recently"}</span>
-          <Link href={href} className="rk-bc-read">Read more <Icon.ArrowRight /></Link>
-        </div>
-      </article>
-    </div>
+    <article className="rk-bc h-100">
+      <div className="rk-bc-thumb">
+        <img
+          src={imageUrl}
+          alt={title}
+          className="rk-bc-img"
+          onError={(e) => {
+            e.target.src = DEFAULT_BLOG_IMAGE;
+          }}
+        />
+        <span className="rk-bc-cat">{category}</span>
+      </div>
+      <div className="rk-bc-body">
+        <h3 className="rk-bc-title">{title}</h3>
+        <p className="rk-bc-desc">{description}</p>
+      </div>
+      <div className="rk-bc-foot">
+        <span className="rk-bc-date"><Icon.Calendar /> {publishedDate ? formatDate(publishedDate) : "Updated recently"}</span>
+        <Link href={href} className="rk-bc-read">Read more <Icon.ArrowRight /></Link>
+      </div>
+    </article>
   );
 }
 
@@ -527,29 +664,46 @@ const testimonials = [
 
 function TestimonialCarousel() {
   return (
-    <div className="rk-testimonials-grid">
+    <OwlSlider
+      ariaLabel="Customer testimonials"
+      options={{
+        margin: 24,
+        responsive: {
+          0: { items: 1 },
+          768: { items: 2 },
+        },
+      }}
+    >
       {testimonials.map((t, i) => (
-        <div key={i} className="rk-tcard">
-          <div className="rk-tcard-quote"><Icon.QuoteIcon /></div>
-          <p className="rk-tcard-text">&quot;{t.text}&quot;</p>
-          <div className="rk-tcard-stars">
-            {Array(t.rating).fill(0).map((_, s) => <Icon.Star key={s} />)}
-          </div>
-          <div className="rk-tcard-author">
-            <div className="rk-tcard-av">{t.avatar}</div>
-            <div>
-              <div className="rk-tcard-name">{t.name}</div>
-              <div className="rk-tcard-role">{t.role}</div>
+        <div key={i} className="item">
+          <div className="rk-tcard">
+            <div className="rk-tcard-quote"><Icon.QuoteIcon /></div>
+            <p className="rk-tcard-text">&quot;{t.text}&quot;</p>
+            <div className="rk-tcard-stars">
+              {Array(t.rating).fill(0).map((_, s) => <Icon.Star key={s} />)}
+            </div>
+            <div className="rk-tcard-author">
+              <div className="rk-tcard-av">{t.avatar}</div>
+              <div>
+                <div className="rk-tcard-name">{t.name}</div>
+                <div className="rk-tcard-role">{t.role}</div>
+              </div>
             </div>
           </div>
         </div>
       ))}
-    </div>
+    </OwlSlider>
   );
 }
 
 // ── Companies ─────────────────────────────────────────────────────────────
-const companies = ["Infosys", "TCS", "Wipro", "HDFC Bank", "Zomato", "L&T"];
+const companies = [
+  { name: "Infosys", logo: "/front-assets/images/companies/infosys.svg" },
+  { name: "TCS", logo: "/front-assets/images/companies/tcs.svg" },
+  { name: "Wipro", logo: "/front-assets/images/companies/wipro.svg" },
+  { name: "HDFC Bank", logo: "/front-assets/images/companies/hdfc-bank.svg" },
+  { name: "Zomato", logo: "/front-assets/images/companies/zomato.svg" },
+];
 
 // ── FAQ ───────────────────────────────────────────────────────────────────
 const faqs = [
@@ -588,13 +742,14 @@ function FAQ() {
 export default function ResumeListClient() {
   const [jobs, setJobs] = useState([]);
   const [blogs, setBlogs] = useState([]);
+  const { count: dailyCount, flash: dailyFlash } = useDailyResumeCounter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [jobsResponse, articlesResponse] = await Promise.all([
-          fetch(`${API_BASE}/courses?limit=6`),
-          fetch(`${API_BASE}/articles?limit=3`),
+          fetch(`${API_BASE}/courses?limit=8`),
+          fetch(`${API_BASE}/articles?limit=6`),
         ]);
 
         const jobsData = jobsResponse.ok ? await jobsResponse.json() : [];
@@ -603,8 +758,8 @@ export default function ResumeListClient() {
         const normalizedJobs = Array.isArray(jobsData) ? jobsData : (jobsData.items || jobsData.results || []);
         const normalizedArticles = Array.isArray(articlesData) ? articlesData : (articlesData.items || articlesData.results || []);
 
-        setJobs(normalizedJobs.slice(0, 4));
-        setBlogs(normalizedArticles.slice(0, 3));
+        setJobs(normalizedJobs.slice(0, 6));
+        setBlogs(normalizedArticles.slice(0, 6));
       } catch (error) {
         console.error("Failed to load homepage content", error);
       }
@@ -618,18 +773,17 @@ export default function ResumeListClient() {
 
       <NavBar />
 
-      <LiveCounter />
-
       <section className="rk-hero">
-        <div className="rk-container rk-hero-inner">
-          <div className="rk-hero-left">
+        <div className="container-fluid custom-container">
+          <div className="row g-4">
+           <div className="col-lg-6">
             <div className="rk-hero-badge">
               <span className="rk-hero-badge-dot" />
               No signup · Always free · 100% local
             </div>
             <h1 className="rk-hero-title fs-mob-32">
-              Build an ATS-friendly resume<br />
-              <span className="rk-hero-hl">for your next job or internship</span>
+              Build your <span className="rk-hero-hl">ATS-friendly resume</span><br />
+              in minutes — 100% free
             </h1>
             <p className="rk-hero-sub fs-mob-14">
               Create professional resumes, cover letters, and job-ready documents for free with simple tools and clean templates.
@@ -646,12 +800,12 @@ export default function ResumeListClient() {
             </div>
 
             <div className="rk-hero-actions">
-              <a href="#templates" className="rk-btn rk-btn--primary rk-btn--lg">
+              <Link href="/resume/resume-type" className="rk-btn rk-btn--primary rk-btn--lg">
                 Choose a Template <Icon.ArrowRight />
-              </a>
-              <a href="#tools" className="rk-btn rk-btn--outline rk-btn--lg">
+              </Link>
+              <Link href="/tools" className="rk-btn rk-btn--outline rk-btn--lg">
                 Explore Tools
-              </a>
+              </Link>
             </div>
 
             <div className="rk-trust-row">
@@ -665,76 +819,122 @@ export default function ResumeListClient() {
             </div>
           </div>
 
-          <div className="rk-hero-right">
-            <HeroSlideshow />
+          <div className="col-lg-6">
+            <HeroVideo />
+          </div>
           </div>
         </div>
       </section>
 
-      <div className="rk-stats-bar">
-        <div className="rk-container rk-stats-inner">
-          {[
-            { n: "50,000+", l: "Resumes Created" },
-            { n: "5", l: "Free Templates" },
-            { n: "₹0", l: "Forever Free" },
-            { n: "100%", l: "Privacy Guaranteed" },
-          ].map(({ n, l }) => (
-            <div key={l} className="rk-stat">
-              <div className="rk-stat-num">{n}</div>
-              <div className="rk-stat-label">{l}</div>
+      <section className="rk-stats-section">
+        <div className="container-fluid custom-container">
+          <div className="rk-stats-flex">
+            <div className="rk-live-highlight">
+              <span className="rk-live-highlight-dot" />
+              <span className={`rk-live-highlight-num${dailyFlash ? " rk-live-flash" : ""}`}>
+                {dailyCount.toLocaleString("en-IN")}
+              </span>
+              <span className="rk-live-highlight-label">resumes created today — join them</span>
             </div>
-          ))}
+
+            <div className="rk-stats-simple-divider" />
+
+            <div className="rk-stats-simple">
+              {[
+                { icon: <Icon.FileText />, n: "ATS", l: "Ready Templates" },
+                { icon: <Icon.Lock />, n: "₹0", l: "Forever Free" },
+                { icon: <Icon.Shield />, n: "100%", l: "Privacy Guaranteed" },
+              ].map(({ icon, n, l }) => (
+                <div key={l} className="rk-stat-simple">
+                  <span className="rk-stat-simple-icon">{icon}</span>
+                  <span className="rk-stat-simple-num">{n}</span>
+                  <span className="rk-stat-simple-label">{l}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section className="rk-resume-showcase" id="resume-preview">
+        <div className="container-fluid custom-container">
+          <div className="rk-sec-head">
+            <div className="rk-eyebrow">Your Resume, Ready to Impress</div>
+            <h2 className="rk-sec-title fs-mob-24">See your resume come to life</h2>
+            <p className="rk-sec-sub mx-auto fs-mob-14">
+              Every ResumeSathi resume is formatted for A4 print, ATS-friendly, and built without ever sending your data anywhere.
+            </p>
+          </div>
+          <ResumeCoverflow />
+          <div className="rk-resume-showcase-cta">
+            <Link href="/resume/resume-type" className="rk-btn rk-btn--primary rk-btn--lg">
+              Choose a Template <Icon.ArrowRight />
+            </Link>
+          </div>
+        </div>
+      </section>
 
       <section className="rk-section rk-section--white" id="templates">
-        <div className="rk-container">
-          <div className="rk-sec-head">
-            <div className="rk-eyebrow">Resume Templates</div>
-            <h2 className="rk-sec-title fs-mob-24">Free ATS-friendly resume templates</h2>
-            <p className="rk-sec-sub mx-auto fs-mob-14">
-              Pick a clean resume format for freshers, professionals, and government jobs. Everything is free and works in your browser.
-            </p>
+        <div className="container-fluid custom-container">
+          
+                    <div className="rk-sec-head-row">
+            <div>
+              <div className="rk-eyebrow">Career Tools</div>
+              <h2 className="rk-sec-title fs-mob-24">Free tools for better job applications</h2>
+              <p className="rk-sec-sub fs-mob-14">Use ATS checker, PDF tools, and simple resume helpers to improve your applications and save time.</p>
+            </div>
+            <Link href="/tools" className="rk-btn rk-btn--outline rk-btn--sm">
+              All tools <Icon.ArrowRight />
+            </Link>
           </div>
-          <TemplateCarousel />
-        </div>
-      </section>
-
-      <section className="rk-section rk-section--gray" id="tools">
-        <div className="rk-container">
-          <div className="rk-sec-head">
-            <div className="rk-eyebrow">Career Tools</div>
-            <h2 className="rk-sec-title fs-mob-24">Free tools for better job applications</h2>
-            <p className="rk-sec-sub mx-auto fs-mob-14">
-              Use ATS checker, PDF tools, and simple resume helpers to improve your applications and save time.
-            </p>
-          </div>
-          <div className="rk-tools-grid">
+          
+          <OwlSlider
+            ariaLabel="Free career tools"
+            options={{
+              responsive: {
+                0: { items: 1 },
+                640: { items: 2 },
+              },
+            }}
+          >
             {tools.map((tool) => (
-              <Link key={tool.name} href={tool.href} className="rk-tool-card">
-                <div className="rk-tool-icon">{tool.icon}</div>
-                <div className="rk-tool-name">{tool.name}</div>
-                <div className="rk-tool-desc">{tool.desc}</div>
-                <div className="rk-tool-link">Open tool <Icon.ArrowRight /></div>
-              </Link>
+              <div key={tool.name} className="item">
+                <Link href={tool.href} className="rk-tool-card">
+                  <div className="rk-tool-icon">{tool.icon}</div>
+                  <div className="rk-tool-name">{tool.name}</div>
+                  <div className="rk-tool-desc">{tool.desc}</div>
+                  <div className="rk-tool-link">Open tool <Icon.ArrowRight /></div>
+                </Link>
+              </div>
             ))}
-          </div>
+          </OwlSlider>
         </div>
       </section>
 
       <section className="rk-hired-at">
-        <div className="rk-container">
+        <div className="container-fluid custom-container">
           <div className="rk-hired-label">Our candidates have been hired at</div>
           <div className="rk-hired-logos">
             {companies.map((c) => (
-              <div key={c} className="rk-hired-logo">{c}</div>
+              <div key={c.name} className="rk-hired-logo">
+                <img
+                  src={c.logo}
+                  alt={`${c.name} logo`}
+                  className="rk-hired-logo-img img-fluid"
+                  onError={(e) => {
+                    e.target.style.display = "none";
+                    if (e.target.nextSibling) e.target.nextSibling.style.display = "inline-block";
+                  }}
+                />
+                <span className="rk-hired-logo-fallback" style={{ display: "none" }}>{c.name}</span>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       <section className="rk-section rk-section--white" id="jobs">
-        <div className="rk-container">
+        <div className="container-fluid custom-container">
           <div className="rk-sec-head-row">
             <div>
               <div className="rk-eyebrow">Jobs</div>
@@ -745,18 +945,22 @@ export default function ResumeListClient() {
               All jobs <Icon.ArrowRight />
             </Link>
           </div>
-          <div className="row rk-jobs-grid g-4">
-            {jobs.length > 0 ? jobs.slice(0, 3).map((j) => <JobCard key={j.id || getSlug(j)} job={j} href={`/jobs/${getSlug(j)}`} />) : (
-              <div className="col-12">
-                <p className="rk-sec-sub">Loading latest job openings...</p>
-              </div>
-            )}
-          </div>
+          {jobs.length > 0 ? (
+            <OwlSlider ariaLabel="Latest job openings">
+              {jobs.slice(0, 6).map((j) => (
+                <div key={j.id || getSlug(j)} className="item">
+                  <JobCard job={j} href={`/jobs/${getSlug(j)}`} />
+                </div>
+              ))}
+            </OwlSlider>
+          ) : (
+            <p className="rk-sec-sub">Loading latest job openings...</p>
+          )}
         </div>
       </section>
 
       <section className="rk-section rk-section--gray" id="testimonials">
-        <div className="rk-container">
+        <div className="container-fluid custom-container">
           <div className="rk-sec-head">
             <div className="rk-eyebrow">Testimonials</div>
             <h2 className="rk-sec-title fs-mob-24">Trusted by thousands of job seekers</h2>
@@ -769,7 +973,7 @@ export default function ResumeListClient() {
       </section>
 
       <section className="rk-section rk-section--white" id="blog">
-        <div className="rk-container">
+        <div className="container-fluid custom-container">
           <div className="rk-sec-head-row">
             <div>
               <div className="rk-eyebrow">Career Blog</div>
@@ -779,29 +983,31 @@ export default function ResumeListClient() {
               All articles <Icon.ArrowRight />
             </Link>
           </div>
-          <div className="row rk-blog-grid g-4">
-            {blogs.length > 0 ? blogs.map((b) => (
-              <BlogCard key={b.id || getSlug(b)} blog={b} href={`/blog/${getSlug(b)}`} />
-            )) : (
-              <div className="col-12">
-                <p className="rk-sec-sub">Loading latest career articles...</p>
-              </div>
-            )}
-          </div>
+          {blogs.length > 0 ? (
+            <OwlSlider ariaLabel="Career blog articles">
+              {blogs.map((b) => (
+                <div key={b.id || getSlug(b)} className="item">
+                  <BlogCard blog={b} href={`/blog/${getSlug(b)}`} />
+                </div>
+              ))}
+            </OwlSlider>
+          ) : (
+            <p className="rk-sec-sub">Loading latest career articles...</p>
+          )}
         </div>
       </section>
 
       <section className="rk-section rk-section--gray" id="faq">
-        <div className="rk-container rk-faq-wrap">
+        <div className="container-fluid custom-container rk-faq-wrap">
           <div className="rk-faq-left">
             <div className="rk-eyebrow">FAQ</div>
             <h2 className="rk-sec-title fs-mob-24">Frequently asked<br />questions</h2>
             <p className="rk-sec-sub fs-mob-14">
               Have more questions? Contact us — we are here to help.
             </p>
-            <a href="mailto:hello@resumesathi.com" className="rk-btn rk-btn--primary rk-btn--sm" style={{ marginTop: 24 }}>
+            <Link href="/contact" className="rk-btn rk-btn--primary rk-btn--sm" style={{ marginTop: 24 }}>
               Contact us <Icon.ArrowRight />
-            </a>
+            </Link>
           </div>
           <div className="rk-faq-right">
             <FAQ />
@@ -812,7 +1018,7 @@ export default function ResumeListClient() {
       <section className="rk-cta" id="cta">
         <div className="rk-cta-bg-text" aria-hidden="true">FREE</div>
 
-        <div className="rk-container rk-cta-inner">
+        <div className="container-fluid custom-container rk-cta-inner">
           <div className="rk-cta-content">
             <div className="rk-cta-badge">
               <Icon.Sparkle /> No signup required · Always free
@@ -824,60 +1030,39 @@ export default function ResumeListClient() {
             </h2>
 
             <p className="rk-cta-sub fs-mob-14">
-              Join 50,000+ job seekers who built professional resumes on ResumeSathi.
+              Join thousands of job seekers who built professional resumes on ResumeSathi.
               No account, no fee, no compromise on quality.
             </p>
 
-            <div className="rk-cta-checks">
-              {[
-                { label: "Free forever", icon: <Icon.Check /> },
-                { label: "Data stays local", icon: <Icon.Lock /> },
-                { label: "Premium templates", icon: <Icon.FileText /> },
-                { label: "Instant PDF download", icon: <Icon.Download /> },
-              ].map((c) => (
-                <span key={c.label} className="rk-cta-check-item">
-                  {c.icon} {c.label}
-                </span>
-              ))}
-            </div>
-
             <div className="rk-cta-actions">
-              <a href="#templates" className="rk-cta-btn-primary">
+              <Link href="/resume/resume-type" className="rk-cta-btn-primary">
                 Choose a Template <Icon.ArrowRight />
-              </a>
-              <a href="#tools" className="rk-cta-btn-ghost">
+              </Link>
+              <Link href="/tools" className="rk-cta-btn-ghost">
                 <Icon.Rocket /> Explore Free Tools
-              </a>
+              </Link>
             </div>
 
-            <div className="rk-cta-trust">
-              {[
-                { icon: <Icon.Shield />, label: "No data leaves your device" },
-                { icon: <Icon.Lock />, label: "localStorage only" },
-                { icon: <Icon.CheckCircle />, label: "ATS-optimized templates" },
-              ].map(({ icon, label }) => (
-                <span key={label} className="rk-cta-trust-item">
-                  {icon} {label}
-                </span>
-              ))}
-            </div>
+            <p className="rk-cta-footnote">
+              <Icon.Lock /> No data leaves your device · 100% local · ATS-optimized templates
+            </p>
           </div>
         </div>
       </section>
 
       <footer className="rk-footer">
-        <div className="rk-container rk-footer-inner">
+        <div className="container-fluid custom-container rk-footer-inner">
           <div className="rk-footer-brand">
             <div className="rk-logo">
              <img src="/front-assets/images/logo/logo.svg" className='img-fluid nav-logo' width={200} height={35} alt="ResumeSathi" />
             </div>
-            <p className="rk-footer-tag">Built for Indian job seekers. Your data, always yours.</p>
+            <p className="rk-footer-tag">Your data, always yours. Create resumes without signup or hidden fees.</p>
           </div>
           <div className="rk-footer-cols">
             {[
-              { title: "Product", links: [["Templates", "#templates"], ["Tools", "#tools"], ["Cover Letter", "/cover-letter"]] },
-              { title: "Jobs", links: [["Jobs", "#jobs"], ["Career Tips", "#templates"], ["Tools", "#tools"]] },
-              { title: "Company", links: [["About", "#"], ["Privacy Policy", "#"], ["Contact", "#"]] },
+              { title: "Product", links: [["Tools", "/tools"]] },
+              { title: "Jobs", links: [["Jobs", "/jobs"], ["Career Tips", "/blog"]] },
+              { title: "Company", links: [["About", "/about"], ["Terms & Conditions", "/terms-and-conditions"], ["Privacy Policy", "/privacy-policy"], ["Contact", "/contact"]] },
             ].map((col) => (
               <div key={col.title} className="rk-footer-col">
                 <div className="rk-footer-col-title">{col.title}</div>
@@ -889,9 +1074,9 @@ export default function ResumeListClient() {
           </div>
         </div>
         <div className="rk-footer-bottom">
-          <div className="rk-container rk-footer-bottom-inner">
+          <div className="container-fluid custom-container rk-footer-bottom-inner">
             <span>© 2025 ResumeSathi · Your data never leaves your device</span>
-            <span>Made with ♥ for India</span>
+            <span>Made with ♥ for every career</span>
           </div>
         </div>
       </footer>

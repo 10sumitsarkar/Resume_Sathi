@@ -30,6 +30,10 @@ a {
   text-decoration: none;
 }
 
+.placeholder{
+background-color: transparent;
+}
+
 .custom-container {
   padding-inline: 60px;
 }

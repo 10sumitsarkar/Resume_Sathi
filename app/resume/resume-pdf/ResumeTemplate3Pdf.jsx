@@ -11,11 +11,10 @@ import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from './
  * education / certification entries, each marked by a ring icon with
  * title left / date right on the same row).
  *
- * Every non-neutral color on the page (header bg, sidebar bg, headings,
- * body text, icons, dividers, bar fills) is DERIVED from the single
- * `accentColor` (driven by the `palette` prop) via lighten/darken
- * mixing, so switching palette re-themes the whole template with
- * consistent tints/shades of that one color instead of fixed grays.
+ * Headings, underlines, ring-icons, bullet marks and skill-bar fills are
+ * derived from the single `accentColor` (driven by the `palette` prop).
+ * Body text, descriptions, sub-lines and header-icons use fixed neutral
+ * colors so the page doesn't turn entirely red/accent-tinted.
  */
 
 // ---------- Color engine: derive tints/shades from one hex color ----------
@@ -281,28 +280,31 @@ const styles = StyleSheet.create({
 const ResumeTemplate3Pdf = ({ resume, palette = 'color-1', forceFallbackFont = false, fontFamily = 'Poppins' }) => {
   const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS['color-1'];
 
-  // ---------- Theme: every shade below is derived from accentColor ----------
+  // ---------- Theme ----------
+  // Accent-derived: headings, underlines, ring-icons, bullet marks, skill-bar fill.
+  // Neutral (fixed): body text, descriptions, sub-lines, header icons/text —
+  // so the page doesn't end up entirely red/accent-tinted.
   const theme = {
     headerBg: darken(accentColor, 0.8),
     headerTagText: lighten(accentColor, 0.72),
-    headerContactText: lighten(accentColor, 0.85),
-    headerIconColor: lighten(accentColor, 0.68),
+    headerContactText: '#f2f2f2',
+    headerIconColor: '#ffffff',
 
     sidebarBg: lighten(accentColor, 0.94),
-    sidebarHeading: darken(accentColor, 0.55),
+    sidebarHeading: accentColor,
     sidebarUnderline: lighten(accentColor, 0.5),
-    skillName: darken(accentColor, 0.62),
+    skillName: '#2b2b2b',
     skillBarTrack: lighten(accentColor, 0.75),
-    bulletMark: darken(accentColor, 0.35),
-    bulletText: darken(accentColor, 0.35),
-    socialIcon: darken(accentColor, 0.55),
-    socialText: darken(accentColor, 0.55),
+    bulletMark: accentColor,
+    bulletText: '#3a3a3a',
+    socialIcon: accentColor,
+    socialText: '#3a3a3a',
 
-    bodyText: darken(accentColor, 0.35),
-    entryTitle: darken(accentColor, 0.8),
-    entryDate: darken(accentColor, 0.4),
-    entrySubLine: darken(accentColor, 0.25),
-    entryDescription: darken(accentColor, 0.35),
+    bodyText: '#3a3a3a',
+    entryTitle: '#1a1a1a',
+    entryDate: '#6b6b6b',
+    entrySubLine: '#555555',
+    entryDescription: '#3a3a3a',
   };
 
   const personal = resume.personal_infomation || {};

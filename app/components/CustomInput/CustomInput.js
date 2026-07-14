@@ -19,6 +19,7 @@ export default function CustomInput({
   register,
   registerName,
   registerOptions,
+  setValue,
   disabled,
 }) {
   const isSelect = type === 'select';
@@ -59,10 +60,14 @@ export default function CustomInput({
     setQuery('');
     const val = opt.value ?? opt;
     setSelectedValue(val);
-    // call react-hook-form onChange if available
-    if (regProps && typeof regProps.onChange === 'function') {
+
+    // ✅ react-hook-form ko reliably notify karo
+    if (typeof setValue === 'function' && registerName) {
+      setValue(registerName, val, { shouldValidate: true, shouldDirty: true });
+    } else if (regProps && typeof regProps.onChange === 'function') {
       regProps.onChange({ target: { value: val } });
     }
+
     // Also update hidden select DOM value and dispatch change so libraries/readers see it
     try {
       const hidden = ref.current && ref.current.querySelector && ref.current.querySelector(`select[name="${registerName}"]`);
@@ -98,7 +103,16 @@ export default function CustomInput({
     const dt = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
     if (minDate && dt < new Date(minDate)) return;
     if (maxDate && dt > new Date(maxDate)) return;
+
     setSelectedDate(dt);
+
+    // ✅ react-hook-form ka value directly aur reliably update karo
+    if (typeof setValue === 'function' && registerName) {
+      setValue(registerName, dt.toISOString(), { shouldValidate: true, shouldDirty: true });
+    } else if (regProps && typeof regProps.onChange === 'function') {
+      regProps.onChange({ target: { value: dt.toISOString() } });
+    }
+
     onChange(dt.toISOString());
     setOpen(false);
   };
@@ -169,7 +183,7 @@ export default function CustomInput({
                 <button type="button" onClick={() => goMonth(1)} className="rk-month-nav">›</button>
               </div>
               <div className="rk-days">
-                {['S','M','T','W','T','F','S'].map((d) => <div key={d} className="rk-day-name">{d}</div>)}
+                {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, idx) => <div key={`day-${idx}`} className="rk-day-name">{d}</div>)}
                 {(() => {
                   const start = startOfMonth(visibleMonth).getDay();
                   const total = daysInMonth(visibleMonth);
@@ -178,9 +192,9 @@ export default function CustomInput({
                   for (let day = 1; day <= total; day++) {
                     const dt = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
                     const isSelected = selectedDate && dt.toDateString() === selectedDate.toDateString();
-                    const disabled = (minDate && dt < new Date(minDate)) || (maxDate && dt > new Date(maxDate));
+                    const dayDisabled = (minDate && dt < new Date(minDate)) || (maxDate && dt > new Date(maxDate));
                     cells.push(
-                      <button key={day} type="button" disabled={disabled} onClick={() => pickDate(day)} className={`rk-day ${isSelected ? 'selected' : ''}`}>{day}</button>
+                      <button key={day} type="button" disabled={dayDisabled} onClick={() => pickDate(day)} className={`rk-day ${isSelected ? 'selected' : ''}`}>{day}</button>
                     );
                   }
                   return cells;

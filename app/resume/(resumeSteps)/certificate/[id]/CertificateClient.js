@@ -13,7 +13,7 @@ export default function Certifications() {
   const { id } = useParams();
   const router = useRouter();
   const formRef = useRef(null);
-
+ 
   const [loading, setLoading] = useState(false);
   const [formOpened, setFormOpened] = useState('');
   const [editStatus, setEditStatus] = useState(false);
@@ -28,16 +28,17 @@ export default function Certifications() {
 
   const dispatch = useDispatch();
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm({
-    mode: 'onChange',
-    defaultValues: certificateFormData
-  });
+const {
+  register,
+  handleSubmit,
+  watch,
+  reset,
+  setValue,
+  formState: { errors },
+} = useForm({
+  mode: 'onChange',
+  defaultValues: certificateFormData
+});
 
 
 
@@ -155,6 +156,15 @@ export default function Certifications() {
     }, 2500);
   };
 
+  const formatDisplayDate = (isoDate) => {
+  if (!isoDate) return '';
+  const d = new Date(isoDate);
+  if (isNaN(d.getTime())) return isoDate; // fallback agar invalid ho
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = d.toLocaleString('default', { month: 'short' });
+  const year = d.getFullYear();
+  return `${day} ${month} ${year}`; // e.g. "30 Jun 2026"
+};
 
   return (
     <>
@@ -184,10 +194,10 @@ export default function Certifications() {
                     </span>
                   )}
                   {certificate.issue_date && (
-                    <>
-                      | <span><img src="/front-assets/images/icons/date.svg" width={18} height={18} alt="Date" /> {certificate.issue_date}</span>
-                    </>
-                  )}
+  <>
+    | <span><img src="/front-assets/images/icons/date.svg" width={18} height={18} alt="Date" /> {formatDisplayDate(certificate.issue_date)}</span>
+  </>
+)}
                 </p>
               </div>
 
@@ -235,19 +245,21 @@ export default function Certifications() {
               </div>
 
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
-                <div className='each-input-div'>
-                  <label htmlFor="issue_date">Issue Date</label>
-                  <CustomInput
-                    type="date"
-                    register={register}
-                    registerName="issue_date"
-                    registerOptions={{ required: 'Issue date is required' }}
-                    className={` ${errors.issue_date ? 'is-invalid' : ''}`}
-                    placeholder="Select date"
-                  />
-                  {errors.issue_date && <p className="input-error">{errors.issue_date.message}</p>}
-                </div>
-              </div>
+  <div className='each-input-div'>
+    <label htmlFor="issue_date">Issue Date</label>
+    <CustomInput
+      type="date"
+      register={register}
+      registerName="issue_date"
+      registerOptions={{ required: 'Issue date is required' }}
+      className={` ${errors.issue_date ? 'is-invalid' : ''}`}
+      placeholder="Select date"
+      value={watch('issue_date')}
+      setValue={setValue}
+    />
+    {errors.issue_date && <p className="input-error">{errors.issue_date.message}</p>}
+  </div>
+</div>
 
               <div className="col-12 mb-4">
                 <div className='each-input-div'>

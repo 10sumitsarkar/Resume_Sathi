@@ -1,18 +1,18 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
-import ResumeTemplate1 from '../../templates/ResumeTemplate1'
-import ResumeTemplate2 from '../../templates/ResumeTemplate2'
-import ResumeTemplate3 from '../../templates/ResumeTemplate3'
-import ResumeTemplate4 from '../../templates/ResumeTemplate4'
-import { useParams } from 'next/navigation';
+import ResumeTemplate1 from '../templates/ResumeTemplate1'
+import ResumeTemplate2 from '../templates/ResumeTemplate2'
+import ResumeTemplate3 from '../templates/ResumeTemplate3'
+import ResumeTemplate4 from '../templates/ResumeTemplate4'
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux'
-import { setResumeConfigration, setResumeName, setPreviewResumeSize } from '../../reducer/resume-reducer'
-import ReviewResume from '../../components/ReviewResume'
+import { setResumeConfigration, setResumeName, setPreviewResumeSize } from '../reducer/resume-reducer'
+import ReviewResume from '../components/ReviewResume'
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
-import { createResumePdf } from '../../resume-pdf/createResumePdf';
+import { createResumePdf } from '../resume-pdf/createResumePdf';
 
 const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate1', component: ResumeTemplate1 },
@@ -25,7 +25,8 @@ const AVAILABLE_TEMPLATES = [
 const PDF_PAGE_MARGIN_MM = 10;
 
 export default function ShowResume() {
-    const { id } = useParams()
+    const searchParams = useSearchParams();
+    const id = searchParams.get('id');
     const [loading, setLoading] = useState(false);
     const componentRef = useRef(null);
     const [activeIndexes, setActiveIndexes] = useState([0, 1, 2])
@@ -780,7 +781,7 @@ export default function ShowResume() {
                             <button onClick={saveResumeName} className={isEditable === true ? 'd-block' : 'd-none'}><img src="/front-assets/images/icons/tick.svg" alt="Done" /></button>
                         </div>
                         <div className='edit-zoom-div'>
-                            <Link href={`/resume/personal-info/${id}`} className="edit-btn">
+                            <Link href={`/resume/personal-info/?id=${id}`} className="edit-btn">
                                 Edit Details
                             </Link>
                             <div className='zoom-div'>
@@ -918,7 +919,7 @@ export default function ShowResume() {
                                 <img src="/front-assets/images/icons/print.svg" width={24} height={24} className='img-fluid' alt="Print" />
                                 Print
                             </button>
-                            <Link href={`/resume/personal-info/${id}`} className="edit-btn">
+                            <Link href={`/resume/personal-info/?id=${id}`} className="edit-btn">
                                 <img src="/front-assets/images/icons/edit-Details.svg" width={22} height={24} className='img-fluid' alt="Edit" />
                                 Edit Details
                             </Link>

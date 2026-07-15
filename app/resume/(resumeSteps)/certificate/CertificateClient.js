@@ -2,15 +2,16 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { useParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setResumeCertifications, deleteCertificateFromResume, reorderCertificates, markResumeStepSkipped } from '../../../reducer/resume-reducer';
-import MobProgressArea from '../../../components/MobProgressArea';
-import CustomInput from '../../../../components/CustomInput/CustomInput';
+import { setResumeCertifications, deleteCertificateFromResume, reorderCertificates, markResumeStepSkipped } from '../../reducer/resume-reducer';
+import MobProgressArea from '../../components/MobProgressArea';
+import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function Certifications() {
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const router = useRouter();
   const formRef = useRef(null);
  
@@ -152,7 +153,7 @@ const {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/skill/${id}`);
+      router.push(`/resume/skill?id=${id}`);
     }, 2500);
   };
 

@@ -1,5 +1,5 @@
+import { Suspense } from 'react';
 import ShowResume from './ShowResumeClient';
-
 
 export const metadata = {
   title: 'Resume Preview | ResumeSathi',
@@ -23,5 +23,9 @@ export const metadata = {
 };
 
 export default function ResumePreviewPage() {
-  return <ShowResume />;
+    return (
+                 <Suspense fallback={<div>Loading...</div>}>
+                 <ShowResume />;
+                 </Suspense>
+               );
 }

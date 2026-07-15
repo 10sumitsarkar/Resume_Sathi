@@ -1,15 +1,16 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setResumeSummary } from '../../../reducer/resume-reducer';
-import MobProgressArea from '../../../components/MobProgressArea';
+import { setResumeSummary } from '../../reducer/resume-reducer';
+import MobProgressArea from '../../components/MobProgressArea';
 
 export default function Summary() {
   const router = useRouter();
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const [loading, setLoading] = useState(false);
 
   const summary = useSelector(state =>
@@ -53,7 +54,7 @@ export default function Summary() {
     dispatch(setResumeSummary({ id: id, data: completedSummary }));
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/education/${id}`);
+      router.push(`/resume/education?id=${id}`);
     }, 2500);
   };
 

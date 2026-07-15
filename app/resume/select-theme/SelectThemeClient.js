@@ -1,12 +1,12 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react'
-import { useParams, useRouter } from 'next/navigation';
-import ResumeTemplate1 from '../../templates/ResumeTemplate1'
-import ResumeTemplate2 from '../../templates/ResumeTemplate2'
-import ResumeTemplate3 from '../../templates/ResumeTemplate3'
-import ResumeTemplate4 from '../../templates/ResumeTemplate4'
+import { useSearchParams, useRouter } from 'next/navigation';
+import ResumeTemplate1 from '../templates/ResumeTemplate1'
+import ResumeTemplate2 from '../templates/ResumeTemplate2'
+import ResumeTemplate3 from '../templates/ResumeTemplate3'
+import ResumeTemplate4 from '../templates/ResumeTemplate4'
 import { useDispatch, useSelector } from 'react-redux'
-import { setResumeConfigration } from '../../reducer/resume-reducer'
+import { setResumeConfigration } from '../reducer/resume-reducer'
 
 
 const AVAILABLE_TEMPLATES = [
@@ -17,7 +17,8 @@ const AVAILABLE_TEMPLATES = [
 ];
 
 export default function selectTheme() {
-    const { id } = useParams()
+      const searchParams = useSearchParams();
+  const id = searchParams.get('id');
     const router = useRouter(); // similar to useNavigate()
     const [activeIndexes, setActiveIndexes] = useState([0, 1, 2])
     const [mobCustomizeSlider, setMobCustomizeSlider] = useState()
@@ -51,7 +52,7 @@ export default function selectTheme() {
         dispatch(setResumeConfigration({ id: id, data: customizeData }));
         setTimeout(() => {
             setLoading(false);
-            router.push(`/resume/personal-info/${id}`);
+            router.push(`/resume/personal-info/?id=${id}`);
         }, 2500);
     };
 

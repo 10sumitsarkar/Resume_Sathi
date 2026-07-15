@@ -1,11 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setResumePersonalInfomation } from '../../../reducer/resume-reducer';
-import MobProgressArea from '../../../components/MobProgressArea';
+import { setResumePersonalInfomation } from '../../reducer/resume-reducer';
+import MobProgressArea from '../../components/MobProgressArea';
 
 const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -38,7 +38,8 @@ const compressImageFile = async (file) => {
 };
 
 export default function PersonalInfo() {
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -97,7 +98,7 @@ export default function PersonalInfo() {
     dispatch(setResumePersonalInfomation({ id: id, data: completedPersonalInfo }));
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/summary/${id}`);
+      router.push(`/resume/summary?id=${id}`);
     }, 1000);
   };
 

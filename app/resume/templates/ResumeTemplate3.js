@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../resume-css/resumeTemplate3.css';
 import { useSelector } from 'react-redux';
-import { usePathname, useParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 /* ─── Inline SVG Icons ─────────────────────────────────────────────────── */
 const IconLocation = () => (
@@ -93,7 +93,8 @@ const getSocialIcon = (name) => {
 /* ─── Component ─────────────────────────────────────────────────────────── */
 export default function ResumeTemplate3({ additionalClass, isStatic = false, resumeId, isForDownload = false }) {
 
-    const { id } = useParams();
+    const searchParams = useSearchParams();
+const id = searchParams.get('id');
     const activeResumeId = resumeId || id;
     const containerRef = useRef();
     const resumeRef    = useRef();

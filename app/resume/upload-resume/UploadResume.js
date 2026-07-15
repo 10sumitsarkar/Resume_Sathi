@@ -286,7 +286,7 @@ export default function UploadResume() {
       const id = `${Date.now()}`;
       const importedResume = buildImportedResume(id, text);
       dispatch(setResumes([...resumes, importedResume]));
-      router.push(`/resume/personal-info/${id}`);
+      router.push(`/resume/personal-info?id=${id}`);
     } catch (error) {
       alert('Could not extract this resume. Please try a DOCX or text-based PDF.');
     } finally {

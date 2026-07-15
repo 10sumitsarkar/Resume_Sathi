@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../resume-css/resumeTemp.css";
 import { useSelector } from "react-redux";
-import { usePathname, useParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 export default function ResumeTemplate1({ additionalClass, isStatic = false, resumeId, isForDownload = false }) {
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const activeResumeId = resumeId || id;
   const containerRef = useRef();
   const resumeRef = useRef();

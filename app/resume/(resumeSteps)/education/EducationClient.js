@@ -2,15 +2,16 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { useParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setResumeEducations, deleteEducationFromResume, reorderEducations } from '../../../reducer/resume-reducer';
-import MobProgressArea from '../../../components/MobProgressArea';
-import CustomInput from '../../../../components/CustomInput/CustomInput';
+import { setResumeEducations, deleteEducationFromResume, reorderEducations } from '../../reducer/resume-reducer';
+import MobProgressArea from '../../components/MobProgressArea';
+import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function Education() {
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const router = useRouter();
   const formRef = useRef(null);
 
@@ -166,7 +167,7 @@ export default function Education() {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        router.push(`/resume/certificate/${id}`);
+        router.push(`/resume/certificate?id=${id}`);
       }, 2500);
     } else {
       toast.error('At least one education required.', {
@@ -248,7 +249,7 @@ export default function Education() {
 
               <input type="text"  {...register("edu_id", { required: "ID is required" })} id="edu_id" defaultValue={educationFormData.edu_id || `edu_${Number(eduIindex)}_${id}`} hidden />
 
-              <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
+              <div className="col-md-6 col-lg-12 col-xl-6 mb-4"> 
                 <div className="each-input-div">
                   <label htmlFor="degree">Degree<span className='text-danger'>*</span></label>
                   <CustomInput
@@ -411,7 +412,7 @@ export default function Education() {
 
                     hidden
                   />
-                  <label className='checkbox-label'></label>
+                  <div className='checkbox-label'></div>
                   I'm still enrolled
                 </label>
 

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import SocialMediaClient from "./SocialMediaClient";
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function ResumeTypeClientWrapper() {
-  return <SocialMediaClient />;
+    return (
+         <Suspense fallback={<div>Loading...</div>}>
+         <SocialMediaClient />;
+         </Suspense>
+       );
 }

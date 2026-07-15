@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import SelectThemeClient from "./SelectThemeClient";
 
 
@@ -7,5 +8,9 @@ export const metadata = {
 };
 
 export default function SelectThemePage() {
-  return <SelectThemeClient />;
+    return (
+         <Suspense fallback={<div>Loading...</div>}>
+          <SelectThemeClient />;
+         </Suspense>
+       );
 }

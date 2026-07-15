@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import HobbieClient from "./HobbieClient";
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function ResumeTypeClientWrapper() {
-  return <HobbieClient />;
+    return (
+               <Suspense fallback={<div>Loading...</div>}>
+               <HobbieClient />;
+               </Suspense>
+             );
 }

@@ -2,16 +2,17 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { useParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setResumeSocialMedias, deleteSocialMediaFromResume, reorderSocialMedias, markResumeStepSkipped } from '../../../reducer/resume-reducer';
-import MobProgressArea from '../../../components/MobProgressArea';
-import CustomInput from '../../../../components/CustomInput/CustomInput';
+import { setResumeSocialMedias, deleteSocialMediaFromResume, reorderSocialMedias, markResumeStepSkipped } from '../../reducer/resume-reducer';
+import MobProgressArea from '../../components/MobProgressArea';
+import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function SocialMedia() {
 
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const router = useRouter();
   const formRef = useRef(null);
 
@@ -150,7 +151,7 @@ export default function SocialMedia() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/internship/${id}`);
+      router.push(`/resume/internship?id=${id}`);
     }, 2500);
   };
 

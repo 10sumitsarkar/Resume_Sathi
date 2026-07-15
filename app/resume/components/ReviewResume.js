@@ -7,7 +7,7 @@ import ResumeTemplate3 from "../templates/ResumeTemplate3";
 import ResumeTemplate4 from "../templates/ResumeTemplate4";
 import "../resume-css/resumeTemp.css";
 import { useSelector } from "react-redux";
-import { useParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 export default function ReviewResume({ isMainPreview = false }) {
   const [isHydrated, setIsHydrated] = useState(false);
@@ -15,7 +15,8 @@ export default function ReviewResume({ isMainPreview = false }) {
     setIsHydrated(true);
   }, []);
 
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const templateMap = {
     ResumeTemplate1: ResumeTemplate1,
     ResumeTemplate2: ResumeTemplate2,

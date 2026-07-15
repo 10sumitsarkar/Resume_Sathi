@@ -40,6 +40,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+      <link rel="shortcut icon" href="/front-assets/images/logo/favicon.png" />
         <link rel="stylesheet" href="/front-assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/front-assets/css/style.css" />
         <link rel="stylesheet" href="/front-assets/css/responsive.css" />

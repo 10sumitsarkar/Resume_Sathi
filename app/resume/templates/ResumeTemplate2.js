@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../resume-css/resumeTemplate2.css";
 import { useSelector } from "react-redux";
-import { usePathname, useParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 
 /* ─── Contact Icons ─────────────────────────────────────────────────────── */
 const IconEmail = () => (
@@ -46,7 +46,8 @@ const SocialIcons = {
 const getSocialIcon = (name) => { const Icon = SocialIcons[name] || SocialIcons.Other; return <Icon />; };
 
 export default function ResumeTemplate2({ additionalClass, isStatic = false, resumeId, isForDownload = false }) {
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const activeResumeId = resumeId || id;
   const containerRef = useRef();
   const resumeRef = useRef();

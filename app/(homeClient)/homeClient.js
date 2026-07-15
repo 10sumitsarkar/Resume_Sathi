@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import NavBar from "../components/NavBar";
+import Footer from "../components/Footer";
 import FooterNav from "../components/FooterNav";
 import "../../public/front-assets/css/home.css";
 
@@ -169,7 +170,7 @@ const Icon = {
   ),
 };
 
-const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || "http://localhost:8000";
+const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || "https://api.resumesathi.com";
 const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_JOB_IMAGE = "/front-assets/images/blog/govt-jobs.jpg";
 const DEFAULT_BLOG_IMAGE = "/front-assets/images/blog/resume-tips.jpg";
@@ -1049,37 +1050,7 @@ export default function ResumeListClient() {
           </div>
         </div>
       </section>
-
-      <footer className="rk-footer">
-        <div className="container-fluid custom-container rk-footer-inner">
-          <div className="rk-footer-brand">
-            <div className="rk-logo">
-             <img src="/front-assets/images/logo/logo.svg" className='img-fluid nav-logo' width={200} height={35} alt="ResumeSathi" />
-            </div>
-            <p className="rk-footer-tag">Your data, always yours. Create resumes without signup or hidden fees.</p>
-          </div>
-          <div className="rk-footer-cols">
-            {[
-              { title: "Product", links: [["Tools", "/tools"]] },
-              { title: "Jobs", links: [["Jobs", "/jobs"], ["Career Tips", "/blog"]] },
-              { title: "Company", links: [["About", "/about"], ["Terms & Conditions", "/terms-and-conditions"], ["Privacy Policy", "/privacy-policy"], ["Contact", "/contact"]] },
-            ].map((col) => (
-              <div key={col.title} className="rk-footer-col">
-                <div className="rk-footer-col-title">{col.title}</div>
-                {col.links.map(([label, href]) => (
-                  <Link key={label} href={href}>{label}</Link>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="rk-footer-bottom">
-          <div className="container-fluid custom-container rk-footer-bottom-inner">
-            <span>© 2025 ResumeSathi · Your data never leaves your device</span>
-            <span>Made with ♥ for every career</span>
-          </div>
-        </div>
-      </footer>
+<Footer/>
     </div>
   );
 }

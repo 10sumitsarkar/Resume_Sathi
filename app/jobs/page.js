@@ -12,7 +12,7 @@ const IconBlog = () => (
   </svg>
 );
 
-const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'http://localhost:8000';
+const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
 const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_IMAGE = '/front-assets/images/job-hero.webp';
 const PAGE_SIZE = 10;

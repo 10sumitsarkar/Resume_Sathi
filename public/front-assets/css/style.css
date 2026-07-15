@@ -4243,3 +4243,99 @@ body:has(.tools-sidebar.collapsed) .tooltip {
 }
 
 /* Newslater footer end */
+
+/* Desk footer start */
+.rk-footer {
+  background: #f8fafc;
+  color: #64748b;
+  padding-top: 50px;
+
+     @media (max-width: 991px) {
+          padding-bottom: 80px;
+    }
+
+
+  .rk-footer-inner {
+    display: grid;
+    grid-template-columns: 1.2fr 2fr;
+    gap: 40px;
+    padding-bottom: 40px;
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .rk-footer .rk-logo {
+    color: var(--rk-ink);
+  }
+
+  .rk-footer-tag {
+    font-size: .92rem;
+    margin-top: 12px;
+    max-width: 320px;
+  }
+
+  .rk-footer-cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+
+  .rk-footer-col-title {
+    color: var(--rk-ink);
+    font-weight: 700;
+    margin-bottom: 12px;
+    font-size: .9rem;
+  }
+
+  .rk-footer-col a {
+    display: block;
+    color: #64748b;
+    font-size: .85rem;
+    margin-bottom: 9px;
+  }
+
+  .rk-footer-col a:hover {
+    color: var(--rk-primary);
+  }
+
+  .rk-footer-bottom {
+    border-top: 1px solid rgba(0, 0, 0, .08);
+    padding: 18px 0;
+  }
+
+  .rk-footer-bottom-inner {
+    display: flex;
+    justify-content: space-between;
+    font-size: .78rem;
+    color: #64748b;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .rk-logo {
+    font-weight: 800;
+    font-size: 1.3rem;
+    color: var(--rk-ink);
+  }
+
+  .rk-logo span {
+    color: var(--rk-primary);
+  }
+
+  .rk-logo-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--rk-accent);
+    margin-left: 4px;
+  }
+}
+
+/* Desk footer end */

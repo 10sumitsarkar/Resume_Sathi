@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import SkillClient from "./SkillClient";
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function ResumeTypeClientWrapper() {
-  return <SkillClient />;
+ return (
+     <Suspense fallback={<div>Loading...</div>}>
+      <SkillClient />
+     </Suspense>
+   );
 }

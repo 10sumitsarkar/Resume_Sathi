@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useParams, usePathname } from 'next/navigation';
+import { useSearchParams, usePathname } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProgressPercent } from '../reducer/resume-reducer';
 import {
@@ -27,7 +27,8 @@ const stepIcons = {
 
 export default function ResumeSidebar() {
   const [isHydrated, setIsHydrated] = useState(false);
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const pathname = usePathname();
   const dispatch = useDispatch();
   const resume = useSelector((state) =>

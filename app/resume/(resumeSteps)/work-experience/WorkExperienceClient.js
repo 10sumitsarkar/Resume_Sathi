@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import { useParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,12 +10,13 @@ import {
   deleteWorkExperienceFromResume,
   reorderWorkExperiences,
   markResumeStepSkipped,
-} from "../../../reducer/resume-reducer";
-import MobProgressArea from "../../../components/MobProgressArea";
-import CustomInput from '../../../../components/CustomInput/CustomInput';
+} from "../../reducer/resume-reducer";
+import MobProgressArea from "../../components/MobProgressArea";
+import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function WorkExperience() {
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const router = useRouter();
   const formRef = useRef(null);
 
@@ -195,7 +196,7 @@ export default function WorkExperience() {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/social-media/${id}`);
+      router.push(`/resume/social-media?id=${id}`);
     }, 2500);
   };
   return (
@@ -499,7 +500,7 @@ export default function WorkExperience() {
                     onChange={handleStillEnrolledChange}
                     hidden
                   />
-                  <label className="checkbox-label"></label>
+                  <div className="checkbox-label"></div>
                   I'm still enrolled
                 </label>
               </div>

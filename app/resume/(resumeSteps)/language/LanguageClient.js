@@ -2,16 +2,17 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { useParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setResumeLanguages, deleteLanguagesFromResume, reorderLanguages } from '../../../reducer/resume-reducer';
-import MobProgressArea from '../../../components/MobProgressArea';
-import CustomInput from '../../../../components/CustomInput/CustomInput';
+import { setResumeLanguages, deleteLanguagesFromResume, reorderLanguages } from '../../reducer/resume-reducer';
+import MobProgressArea from '../../components/MobProgressArea';
+import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function Language() {
 
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const router = useRouter();
   const formRef = useRef(null);
 
@@ -148,7 +149,7 @@ export default function Language() {
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        router.push(`/resume/hobbie/${id}`);
+        router.push(`/resume/hobbie?id=${id}`);
       }, 2500);
     } else {
       toast.error('Please add at least one language.', {

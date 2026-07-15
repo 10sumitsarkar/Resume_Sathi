@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import InternshipClient from "./InternshipClient";
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function ResumeTypeClientWrapper() {
-  return <InternshipClient />;
+     return (
+           <Suspense fallback={<div>Loading...</div>}>
+           <InternshipClient />;
+           </Suspense>
+         );
 }

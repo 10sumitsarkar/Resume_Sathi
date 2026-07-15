@@ -1,6 +1,7 @@
 'use client';
 
 import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
 import FooterNav from '../../components/FooterNav';
 import '../legal-pages.css';
 
@@ -228,7 +229,7 @@ export default function PrivacyPolicyClient() {
           </div>
         </div>
       </section>
-
+      <Footer/>
       <FooterNav />
     </>
   );

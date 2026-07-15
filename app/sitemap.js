@@ -1,5 +1,5 @@
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
-const backendBase = (process.env.NEXT_PUBLIC_BACKEND_BASE || 'http://localhost:8000').replace(/\/$/, '');
+const backendBase = (process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com').replace(/\/$/, '');
 
 function getSlug(item) {
   return item?.slug || item?.url_name || item?.canonical_tag || item?.id?.toString() || '';

@@ -11,7 +11,7 @@ export const resumeSteps = [
   { key: 'hobbie', segment: 'hobbie', label: 'Hobbies', optional: true },
 ];
 
-export const getStepPath = (step, id) => `/resume/${step.segment}/${id}`;
+export const getStepPath = (step, id) => `/resume/${step.segment}/?id=${id}`;
 
 const hasItems = (items) => Array.isArray(items) && items.length > 0;
 const wasSkipped = (resume, key) => resume?.skipped_steps?.[key] === true;

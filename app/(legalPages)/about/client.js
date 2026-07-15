@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Footer from '../../components/Footer';
 import NavBar from '../../components/NavBar';
 import FooterNav from '../../components/FooterNav';
 import '../legal-pages.css';
@@ -145,7 +146,7 @@ export default function AboutClient() {
 
         </div>
       </section>
-
+      <Footer/>
       <FooterNav />
     </>
   );

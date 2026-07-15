@@ -1,5 +1,6 @@
 'use client';
 import NavBar from '../../components/NavBar';
+import Footer from "../../components/Footer";
 import FooterNav from '../../components/FooterNav';
 import './tools-lists.css';
 
@@ -229,6 +230,7 @@ export default function ToolsLists() {
 
         </div>
       </section>
+      <Footer/>
       <FooterNav />
     </>
   );

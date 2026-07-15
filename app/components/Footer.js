@@ -1,0 +1,58 @@
+// components/Footer.jsx
+
+import Link from "next/link";
+
+export default function Footer() {
+  return (
+    <footer className="rk-footer">
+      <div className="container-fluid custom-container rk-footer-inner">
+        <div className="rk-footer-brand">
+          <div className="rk-logo">
+            <img
+              src="/front-assets/images/logo/logo.svg"
+              className="img-fluid nav-logo"
+              width={200}
+              height={35}
+              alt="ResumeSathi"
+            />
+          </div>
+
+          <p className="rk-footer-tag">
+            Your data, always yours. Create resumes without signup or hidden fees.
+          </p>
+        </div>
+
+        <div className="rk-footer-cols">
+          <div className="rk-footer-col">
+            <div className="rk-footer-col-title">Product</div>
+
+            <Link href="/tools">Tools</Link>
+          </div>
+
+          <div className="rk-footer-col">
+            <div className="rk-footer-col-title">Jobs</div>
+
+            <Link href="/jobs">Jobs</Link>
+            <Link href="/blog">Career Tips</Link>
+          </div>
+
+          <div className="rk-footer-col">
+            <div className="rk-footer-col-title">Company</div>
+
+            <Link href="/about">About</Link>
+            <Link href="/terms-and-conditions">Terms & Conditions</Link>
+            <Link href="/privacy-policy">Privacy Policy</Link>
+            <Link href="/contact">Contact</Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="rk-footer-bottom">
+        <div className="container-fluid custom-container rk-footer-bottom-inner">
+          <span>© 2025 ResumeSathi · Your data never leaves your device</span>
+          <span>Made with ♥ for every career</span>
+        </div>
+      </div>
+    </footer>
+  );
+}

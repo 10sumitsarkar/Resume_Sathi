@@ -2,15 +2,16 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-import { useParams, useRouter } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { setResumeHobbies, deleteHobbieFromResume, reorderHobbies, markResumeSubmitted, markResumeStepSkipped } from '../../../reducer/resume-reducer';
-import MobProgressArea from '../../../components/MobProgressArea';
+import { setResumeHobbies, deleteHobbieFromResume, reorderHobbies, markResumeSubmitted, markResumeStepSkipped } from '../../reducer/resume-reducer';
+import MobProgressArea from '../../components/MobProgressArea';
 
 export default function Hobbie() {
 
-  const { id } = useParams();
+  const searchParams = useSearchParams();
+const id = searchParams.get('id');
   const router = useRouter();
   const formRef = useRef(null);
 
@@ -181,7 +182,7 @@ export default function Hobbie() {
     }
 
     dispatch(markResumeSubmitted(id));
-    router.push(`/resume/preview/${id}`);
+    router.push(`/resume/preview?id=${id}`);
   };
 
   return (

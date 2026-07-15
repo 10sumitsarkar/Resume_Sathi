@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import PersonalInfoClient from "./PersonalInfoClient";
 
 export const metadata = {
@@ -6,5 +7,9 @@ export const metadata = {
 };
 
 export default function ResumeTypeClientWrapper() {
-  return <PersonalInfoClient />;
+return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PersonalInfoClient />
+    </Suspense>
+  );
 }

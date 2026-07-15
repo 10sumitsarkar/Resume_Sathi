@@ -2,7 +2,7 @@ import React from 'react';
 import ArticleDetailPageClient from './ArticleDetailPageClient';
 
 function resolveImageUrl(url) {
-  const backendBase = (process.env.NEXT_PUBLIC_BACKEND_BASE || 'http://localhost:8000').replace(/\/+$/, '');
+  const backendBase = (process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com').replace(/\/+$/, '');
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
   const fallbackImage = `${siteUrl}/front-assets/images/resume-hero.webp`;
 
@@ -13,29 +13,36 @@ function resolveImageUrl(url) {
   return `${backendBase}/${normalized}`;
 }
 
-async function getArticleData(slug) {
-  const backendBase = process.env.NEXT_PUBLIC_BACKEND_BASE || 'http://localhost:8000';
+async function getAllJobs() {
+  const backendBase = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
   const apiBase = `${backendBase}/api`;
 
   try {
-    const response = await fetch(`${apiBase}/courses`, {
-      next: { revalidate: 60 },
-    });
-
-    if (!response.ok) {
-      return null;
-    }
-
+    const response = await fetch(`${apiBase}/courses`);
+    if (!response.ok) return [];
     const jobs = await response.json();
-    const items = Array.isArray(jobs) ? jobs : (jobs.items || jobs.results || []);
-    return items.find((item) => {
-      const slugValue = item.slug || item.url_name || item.canonical_tag || '';
-      return slugValue === slug || slugValue === decodeURIComponent(slug);
-    }) || null;
+    return Array.isArray(jobs) ? jobs : (jobs.items || jobs.results || []);
   } catch (error) {
     console.error(error);
-    return null;
+    return [];
   }
+}
+
+async function getArticleData(slug) {
+  const items = await getAllJobs();
+  return items.find((item) => {
+    const slugValue = item.slug || item.url_name || item.canonical_tag || '';
+    return slugValue === slug || slugValue === decodeURIComponent(slug);
+  }) || null;
+}
+
+// 👇 NAYA FUNCTION — static export ke liye zaroori
+export async function generateStaticParams() {
+  const items = await getAllJobs();
+  return items
+    .map((item) => item.slug || item.url_name || item.canonical_tag)
+    .filter(Boolean)
+    .map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }) {

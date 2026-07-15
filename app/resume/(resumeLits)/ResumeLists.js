@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setResumes } from '../reducer/resume-reducer';
 import React, { useState } from 'react';
-import NavBar from '../../components/NavBar';
+import Footer from '../../components/Footer';
 import FooterNav from '../../components/FooterNav';
 import { ToastContainer, toast } from 'react-toastify';
 import Link from 'next/link';
@@ -325,8 +325,6 @@ export default function ResumeLists() {
 
   return (
     <>
-      <NavBar />
-
       {/* ── Hero ── */}
       <section className="container-fluid custom-container small-hero-area">
         <div className="left-part">
@@ -455,11 +453,11 @@ export default function ResumeLists() {
 
                       {/* Action buttons */}
                       <div className="rl-card__actions">
-                        <Link href={`/resume/preview/${resume.id}`} className="rl-card__action-btn rl-card__action-btn--view">
+                        <Link href={`/resume/preview?id=${resume.id}`} className="rl-card__action-btn rl-card__action-btn--view">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" /></svg>
                           Preview
                         </Link>
-                        <Link href={`/resume/select-theme/${resume.id}`} className="rl-card__action-btn rl-card__action-btn--edit">
+                        <Link href={`/resume/select-theme/?id=${resume.id}`} className="rl-card__action-btn rl-card__action-btn--edit">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" /></svg>
                           Edit
                         </Link>
@@ -546,7 +544,7 @@ export default function ResumeLists() {
           )}
         </div>
       </section>
-
+<Footer/>
       <FooterNav />
 
       {/* Offscreen render target */}

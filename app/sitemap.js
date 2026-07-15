@@ -1,4 +1,4 @@
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
 const backendBase = (process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com').replace(/\/$/, '');
 
 function getSlug(item) {
@@ -18,14 +18,14 @@ export default async function sitemap() {
 
   const routes = [
     { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${baseUrl}/jobs`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.95 },
-    { url: `${baseUrl}/resume`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/resume/resume-type`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
-    { url: `${baseUrl}/resume/upload-resume`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/tools`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
-    { url: `${baseUrl}/tools/ats-checker`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.82 },
-    { url: `${baseUrl}/tools/merge-pdf`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/blog/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/jobs/`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.95 },
+    { url: `${baseUrl}/resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/resume/resume-type/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${baseUrl}/resume/upload-resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${baseUrl}/tools/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${baseUrl}/tools/ats-checker/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.82 },
+    { url: `${baseUrl}/tools/merge-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ];
 
   try {
@@ -40,7 +40,7 @@ export default async function sitemap() {
       articles.forEach((article) => {
         const slug = getSlug(article);
         if (slug) {
-          const url = `${baseUrl}/blog/${encodeURIComponent(slug)}`;
+          const url = `${baseUrl}/blog/${encodeURIComponent(slug)}/`;
           if (!seenBlogUrls.has(url)) {
             seenBlogUrls.add(url);
             routes.push({
@@ -60,7 +60,7 @@ export default async function sitemap() {
       jobs.forEach((job) => {
         const slug = getSlug(job);
         if (slug) {
-          const url = `${baseUrl}/jobs/${encodeURIComponent(slug)}`;
+          const url = `${baseUrl}/jobs/${encodeURIComponent(slug)}/`;
           if (!seenJobUrls.has(url)) {
             seenJobUrls.add(url);
             routes.push({

@@ -3,7 +3,7 @@ import ArticleDetailPageClient from './ArticleDetailPageClient';
 
 function resolveImageUrl(url) {
   const backendBase = (process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com').replace(/\/+$/, '');
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
   const fallbackImage = `${siteUrl}/front-assets/images/resume-hero.webp`;
 
   if (!url) return fallbackImage;
@@ -48,7 +48,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const slug = (await params)?.slug;
   const article = slug ? await getArticleData(slug) : null;
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
   const rawTitle = article?.meta_title || article?.og_title || article?.title || article?.topic_name || 'Job Opening';
   const title = `${rawTitle} | ResumeSathi`;
   const description = article?.meta_description || article?.og_description || article?.description || 'Explore this job opportunity on ResumeSathi and apply today.';

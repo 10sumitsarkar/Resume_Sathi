@@ -136,7 +136,7 @@ export default function AboutClient() {
           <div className="ab-cta">
             <h2>Ready to Build Your Resume?</h2>
             <p>Join thousands of job seekers who trust ResumeSathi to create their next career document.</p>
-            <Link className="rl-create-btn" href="/resume/resume-type">
+            <Link prefetch={false} className="rl-create-btn" href="/resume/resume-type">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 5v14M5 12h14" />
               </svg>

@@ -17,7 +17,7 @@ const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_IMAGE = '/front-assets/images/blog-hero.webp';
 const PAGE_SIZE = 10;
 const SUGGESTION_LIMIT = 6;
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
 const BLOG_DEFAULT_TITLE = 'Career Blog | Resume & Job Search Tips';
 const BLOG_DEFAULT_DESCRIPTION = 'Explore expert blog articles on resumes, interviews, career growth, and job search strategies.';
 
@@ -163,7 +163,7 @@ function SearchDropdown({
           ) : (
             suggestions.map((item) => (
               <li key={item.id}>
-                <Link href={`/blog/${getSlug(item)}`} onClick={() => onSelect(item)}>
+                <Link prefetch={false} href={`/blog/${getSlug(item)}`} onClick={() => onSelect(item)}>
                   <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} />
                   <div>
                     <span className="rk-search-dropdown-title">{getTitle(item)}</span>
@@ -211,7 +211,7 @@ function BlogCard({ article }) {
   return (
     <div className="col-sm-6 col-lg-4">
       <article className="rk-blog-card">
-        <Link href={`/blog/${articleSlug}`} className="rk-blog-card-img">
+        <Link prefetch={false} href={`/blog/${articleSlug}`} className="rk-blog-card-img">
           <img src={resolveMediaUrl(article.hero_image)} alt={getTitle(article)} />
           <span className="rk-blog-cat">{getCategoryLabel(article)}</span>
         </Link>
@@ -230,10 +230,10 @@ function BlogCard({ article }) {
             {formatDate(article.created_at)}
           </span>
           <h3>
-            <Link href={`/blog/${articleSlug}`}>{getTitle(article)}</Link>
+            <Link prefetch={false} href={`/blog/${articleSlug}`}>{getTitle(article)}</Link>
           </h3>
           <p>{article.description || article.meta_description || ''}</p>
-          <Link href={`/blog/${articleSlug}`} className="rk-blog-readmore">
+          <Link prefetch={false} href={`/blog/${articleSlug}`} className="rk-blog-readmore">
             Read More
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M14 18L20 12L14 6M20 12H9.5M4 12H6.5" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -277,12 +277,12 @@ function Sidebar({
         <ul>
           {latest.map((item) => (
             <li key={item.id}>
-              <Link href={`/blog/${getSlug(item)}`} className="rk-blog-card-img">
+              <Link prefetch={false} href={`/blog/${getSlug(item)}`} className="rk-blog-card-img">
                 <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} />
               </Link>
               <div>
                 <span>{formatDate(item.created_at)}</span>
-                <Link href={`/blog/${getSlug(item)}`}>{getTitle(item)}</Link>
+                <Link prefetch={false} href={`/blog/${getSlug(item)}`}>{getTitle(item)}</Link>
               </div>
             </li>
           ))}
@@ -292,7 +292,7 @@ function Sidebar({
       <div className="rk-widget rk-widget-cta">
         <h4>Build Your Resume</h4>
         <p>Create an ATS-optimized resume in minutes, 100% free.</p>
-        <Link href="/resume" className="rk-cta-btn">
+        <Link prefetch={false} href="/resume" className="rk-cta-btn">
           <i className="bi bi-plus-lg"></i> Create Resume
         </Link>
       </div>
@@ -672,7 +672,7 @@ function BlogPageContent() {
               <h4><i className="bi bi-clock-history"></i> Latest Articles</h4>
               <div className="rk-offcanvas-latest-list">
                 {latest.map((item) => (
-                  <Link
+                  <Link prefetch={false}
                     key={item.id}
                     href={`/blog/${getSlug(item)}`}
                     className="rk-latest-sub-item"
@@ -692,7 +692,7 @@ function BlogPageContent() {
 
           {/* Build Your Resume */}
           <div className="rk-offcanvas-cta">
-            <Link href="/resume" className="rk-cta-btn" onClick={closeOffcanvas}>
+            <Link prefetch={false} href="/resume" className="rk-cta-btn" onClick={closeOffcanvas}>
               <i className="bi bi-plus-lg"></i> Build Your Resume
             </Link>
           </div>

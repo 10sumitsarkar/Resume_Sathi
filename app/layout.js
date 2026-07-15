@@ -2,7 +2,7 @@ import Script from "next/script";
 import JsonLd from "./components/JsonLd";
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com'),
   title: {
     default: 'Free Resume Builder, ATS Resume Templates & Career Tools | ResumeSathi',
     template: '%s | ResumeSathi',

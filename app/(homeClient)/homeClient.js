@@ -172,8 +172,8 @@ const Icon = {
 
 const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || "https://api.resumesathi.com";
 const API_BASE = `${BACKEND_BASE}/api`;
-const DEFAULT_JOB_IMAGE = "/front-assets/images/blog/govt-jobs.jpg";
-const DEFAULT_BLOG_IMAGE = "/front-assets/images/blog/resume-tips.jpg";
+const DEFAULT_JOB_IMAGE = "/front-assets/images/job-hero.webp";
+const DEFAULT_BLOG_IMAGE = "/front-assets/images/blog-hero.webp";
 
 function resolveMediaUrl(url, fallback = "") {
   if (!url) return fallback;
@@ -614,7 +614,7 @@ function JobCard({ job, href }) {
         </div>
       ) : null}
       <div className="rk-jc-actions">
-        <Link href={href} className="rk-jc-apply rk-btn rk-btn--primary rk-btn--sm">Apply now <Icon.ChevRight /></Link>
+        <Link prefetch={false} href={href} className="rk-jc-apply rk-btn rk-btn--primary rk-btn--sm">Apply now <Icon.ChevRight /></Link>
       </div>
     </div>
   );
@@ -647,7 +647,7 @@ function BlogCard({ blog, href }) {
       </div>
       <div className="rk-bc-foot">
         <span className="rk-bc-date"><Icon.Calendar /> {publishedDate ? formatDate(publishedDate) : "Updated recently"}</span>
-        <Link href={href} className="rk-bc-read">Read more <Icon.ArrowRight /></Link>
+        <Link prefetch={false} href={href} className="rk-bc-read">Read more <Icon.ArrowRight /></Link>
       </div>
     </article>
   );
@@ -801,10 +801,10 @@ export default function ResumeListClient() {
             </div>
 
             <div className="rk-hero-actions">
-              <Link href="/resume/resume-type" className="rk-btn rk-btn--primary rk-btn--lg">
+              <Link prefetch={false} href="/resume/resume-type" className="rk-btn rk-btn--primary rk-btn--lg">
                 Choose a Template <Icon.ArrowRight />
               </Link>
-              <Link href="/tools" className="rk-btn rk-btn--outline rk-btn--lg">
+              <Link prefetch={false} href="/tools" className="rk-btn rk-btn--outline rk-btn--lg">
                 Explore Tools
               </Link>
             </div>
@@ -868,7 +868,7 @@ export default function ResumeListClient() {
           </div>
           <ResumeCoverflow />
           <div className="rk-resume-showcase-cta">
-            <Link href="/resume/resume-type" className="rk-btn rk-btn--primary rk-btn--lg">
+            <Link prefetch={false} href="/resume/resume-type" className="rk-btn rk-btn--primary rk-btn--lg">
               Get Started <Icon.ArrowRight />
             </Link>
           </div>
@@ -884,7 +884,7 @@ export default function ResumeListClient() {
               <h2 className="rk-sec-title fs-mob-24">Free tools for better job applications</h2>
               <p className="rk-sec-sub fs-mob-14">Use ATS checker, PDF tools, and simple resume helpers to improve your applications and save time.</p>
             </div>
-            <Link href="/tools" className="rk-btn rk-btn--outline rk-btn--sm">
+            <Link prefetch={false} href="/tools" className="rk-btn rk-btn--outline rk-btn--sm">
               All tools <Icon.ArrowRight />
             </Link>
           </div>
@@ -900,7 +900,7 @@ export default function ResumeListClient() {
           >
             {tools.map((tool) => (
               <div key={tool.name} className="item">
-                <Link href={tool.href} className="rk-tool-card">
+                <Link prefetch={false} href={tool.href} className="rk-tool-card">
                   <div className="rk-tool-icon">{tool.icon}</div>
                   <div className="rk-tool-name">{tool.name}</div>
                   <div className="rk-tool-desc">{tool.desc}</div>
@@ -942,7 +942,7 @@ export default function ResumeListClient() {
               <h2 className="rk-sec-title fs-mob-24">Latest job openings for job seekers</h2>
               <p className="rk-sec-sub fs-mob-14">Find fresh opportunities, check deadlines, and apply with a stronger resume.</p>
             </div>
-            <Link href="/jobs" className="rk-btn rk-btn--outline rk-btn--sm">
+            <Link prefetch={false} href="/jobs" className="rk-btn rk-btn--outline rk-btn--sm">
               All jobs <Icon.ArrowRight />
             </Link>
           </div>
@@ -980,7 +980,7 @@ export default function ResumeListClient() {
               <div className="rk-eyebrow">Career Blog</div>
               <h2 className="rk-sec-title fs-mob-24">Resume tips and career guidance</h2>
             </div>
-            <Link href="/blog" className="rk-btn rk-btn--outline rk-btn--sm">
+            <Link prefetch={false} href="/blog" className="rk-btn rk-btn--outline rk-btn--sm">
               All articles <Icon.ArrowRight />
             </Link>
           </div>
@@ -1006,7 +1006,7 @@ export default function ResumeListClient() {
             <p className="rk-sec-sub fs-mob-14">
               Have more questions? Contact us — we are here to help.
             </p>
-            <Link href="/contact" className="rk-btn rk-btn--primary rk-btn--sm" style={{ marginTop: 24 }}>
+            <Link prefetch={false} href="/contact" className="rk-btn rk-btn--primary rk-btn--sm" style={{ marginTop: 24 }}>
               Contact us <Icon.ArrowRight />
             </Link>
           </div>
@@ -1036,10 +1036,10 @@ export default function ResumeListClient() {
             </p>
 
             <div className="rk-cta-actions">
-              <Link href="/resume/resume-type" className="rk-cta-btn-primary">
+              <Link prefetch={false} href="/resume/resume-type" className="rk-cta-btn-primary">
                 Choose a Template <Icon.ArrowRight />
               </Link>
-              <Link href="/tools" className="rk-cta-btn-ghost">
+              <Link prefetch={false} href="/tools" className="rk-cta-btn-ghost">
                 <Icon.Rocket /> Explore Free Tools
               </Link>
             </div>

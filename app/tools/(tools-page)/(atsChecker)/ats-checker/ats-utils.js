@@ -7,28 +7,31 @@ export async function extractPdfText(file) {
 
     const pdfjsLib = await import("pdfjs-dist");
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-        "pdfjs-dist/build/pdf.worker.min.mjs",
-        import.meta.url
-    ).toString();
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
     const buffer = await file.arrayBuffer();
 
-    const pdf = await pdfjsLib.getDocument({
-        data: buffer,
-    }).promise;
-
     let text = "";
 
-    for (let i = 1; i <= pdf.numPages; i++) {
+    try {
+        const pdf = await pdfjsLib.getDocument({
+            data: buffer,
+        }).promise;
 
-        const page = await pdf.getPage(i);
+        for (let i = 1; i <= pdf.numPages; i++) {
 
-        const content = await page.getTextContent();
+            const page = await pdf.getPage(i);
 
-        text += content.items
-            .map(item => item.str)
-            .join(" ") + "\n";
+            const content = await page.getTextContent();
+
+            text += content.items
+                .map(item => item.str)
+                .join(" ") + "\n";
+        }
+    } catch (err) {
+        console.error("extractPdfText failed:", err);
+        throw err;
     }
 
     return text;
@@ -40,51 +43,54 @@ export async function extractPdfOCR(file) {
 
     const pdfjsLib = await import("pdfjs-dist");
 
-    pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-        "pdfjs-dist/build/pdf.worker.min.mjs",
-        import.meta.url
-    ).toString();
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+        `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
     const buffer = await file.arrayBuffer();
 
-    const pdf = await pdfjsLib.getDocument({
-        data: buffer,
-    }).promise;
-
     let extractedText = "";
 
-    for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
-
-        const page = await pdf.getPage(pageNo);
-
-        const viewport = page.getViewport({
-            scale: 2,
-        });
-
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        await page.render({
-            canvasContext: ctx,
-            viewport,
+    try {
+        const pdf = await pdfjsLib.getDocument({
+            data: buffer,
         }).promise;
 
-        const imageData = canvas.toDataURL("image/png");
+        for (let pageNo = 1; pageNo <= pdf.numPages; pageNo++) {
 
-        const result = await Tesseract.recognize(
-            imageData,
-            "eng",
-            {
-                logger: (m) => {
-                    console.log(m);
-                },
-            }
-        );
+            const page = await pdf.getPage(pageNo);
 
-        extractedText += result.data.text + "\n";
+            const viewport = page.getViewport({
+                scale: 2,
+            });
+
+            const canvas = document.createElement("canvas");
+            const ctx = canvas.getContext("2d");
+
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            await page.render({
+                canvasContext: ctx,
+                viewport,
+            }).promise;
+
+            const imageData = canvas.toDataURL("image/png");
+
+            const result = await Tesseract.recognize(
+                imageData,
+                "eng",
+                {
+                    logger: (m) => {
+                        console.log(m);
+                    },
+                }
+            );
+
+            extractedText += result.data.text + "\n";
+        }
+    } catch (err) {
+        console.error("extractPdfOCR failed:", err);
+        throw err;
     }
 
     return extractedText;

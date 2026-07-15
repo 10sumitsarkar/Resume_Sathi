@@ -36,7 +36,7 @@ export default function FooterNav() {
                     </div>
                 )}
                 {visibleCreateBtn && (
-                    <Link href="/resume/resume-type" className="footer-lists-btn">
+                    <Link prefetch={false} href="/resume/resume-type" className="footer-lists-btn">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <line x1="12" y1="5" x2="12" y2="19" />
                             <line x1="5" y1="12" x2="19" y2="12" />
@@ -53,7 +53,7 @@ export default function FooterNav() {
                 <div className="footer-main-div">
 
                     <div className="footer-all-tab">
-                        <Link href="/resume">
+                        <Link prefetch={false} href="/resume">
                             <div className={getNavClassName(isResumeActive)}>
                                 <div>
 
@@ -70,7 +70,7 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link href="/tools">
+                        <Link prefetch={false} href="/tools">
                             <div className={getNavClassName(isToolsActive)}>
                                 <div>
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +83,7 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link href="/jobs">
+                        <Link prefetch={false} href="/jobs">
                              <div className={getNavClassName(isjobsActive)}>
                                 <div>
 
@@ -98,7 +98,7 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link href="/blog">
+                        <Link prefetch={false} href="/blog">
                             <div className={getNavClassName(isblogActive)}>
                                 <div>
 

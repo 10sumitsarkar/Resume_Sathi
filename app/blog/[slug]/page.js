@@ -6,7 +6,7 @@ function resolveImageUrl(url) {
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
     process.env.NEXT_PUBLIC_FRONTEND_URL ||
-    'http://localhost:3000';
+    'https://www.resumesathi.com';
 
   const fallbackImage = `${siteUrl}/front-assets/images/resume-hero.webp`;
 
@@ -78,7 +78,7 @@ export async function generateMetadata({ params }) {
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
     process.env.NEXT_PUBLIC_FRONTEND_URL ||
-    'http://localhost:3000';
+    'https://www.resumesathi.com';
 
   const rawTitle =
     article?.meta_title ||

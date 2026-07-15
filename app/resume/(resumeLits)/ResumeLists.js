@@ -340,7 +340,7 @@ export default function ResumeLists() {
             <h1 className="fs-mob-22">Manage Your Resumes</h1>
           </div>
           <p className="fs-mob-16">Keep all your resumes organized, update them anytime, and export them in PDF, Word, or text format with ease.</p>
-          <Link className="rl-create-btn" href="/resume/resume-type">
+          <Link prefetch={false} className="rl-create-btn" href="/resume/resume-type">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14M5 12h14" />
             </svg>
@@ -453,11 +453,11 @@ export default function ResumeLists() {
 
                       {/* Action buttons */}
                       <div className="rl-card__actions">
-                        <Link href={`/resume/preview?id=${resume.id}`} className="rl-card__action-btn rl-card__action-btn--view">
+                        <Link prefetch={false} href={`/resume/preview?id=${resume.id}`} className="rl-card__action-btn rl-card__action-btn--view">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" /></svg>
                           Preview
                         </Link>
-                        <Link href={`/resume/select-theme/?id=${resume.id}`} className="rl-card__action-btn rl-card__action-btn--edit">
+                        <Link prefetch={false} href={`/resume/select-theme/?id=${resume.id}`} className="rl-card__action-btn rl-card__action-btn--edit">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" /></svg>
                           Edit
                         </Link>
@@ -532,7 +532,7 @@ export default function ResumeLists() {
                   </div>
                   <h2 className="rl-empty__title">No Resumes Yet</h2>
                   <p className="rl-empty__sub">You haven't created any resumes. Start building your professional resume in minutes.</p>
-                  <Link href="/resume/resume-type" className="rl-create-btn">
+                  <Link prefetch={false} href="/resume/resume-type" className="rl-create-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M12 5v14M5 12h14" />
                     </svg>

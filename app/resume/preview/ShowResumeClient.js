@@ -781,7 +781,7 @@ export default function ShowResume() {
                             <button onClick={saveResumeName} className={isEditable === true ? 'd-block' : 'd-none'}><img src="/front-assets/images/icons/tick.svg" alt="Done" /></button>
                         </div>
                         <div className='edit-zoom-div'>
-                            <Link href={`/resume/personal-info/?id=${id}`} className="edit-btn">
+                            <Link prefetch={false} href={`/resume/personal-info/?id=${id}`} className="edit-btn">
                                 Edit Details
                             </Link>
                             <div className='zoom-div'>
@@ -919,7 +919,7 @@ export default function ShowResume() {
                                 <img src="/front-assets/images/icons/print.svg" width={24} height={24} className='img-fluid' alt="Print" />
                                 Print
                             </button>
-                            <Link href={`/resume/personal-info/?id=${id}`} className="edit-btn">
+                            <Link prefetch={false} href={`/resume/personal-info/?id=${id}`} className="edit-btn">
                                 <img src="/front-assets/images/icons/edit-Details.svg" width={22} height={24} className='img-fluid' alt="Edit" />
                                 Edit Details
                             </Link>

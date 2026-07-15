@@ -72,11 +72,11 @@ useEffect(() => {
             </button>
 
             <div className='all-sub-items-div'>
-              <Link href="/tools/gradient-generator" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
+              <Link prefetch={false} href="/tools/gradient-generator" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
                 <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Gradient Generator" />
                 <span>Gradient Generator</span>
               </Link>
-              <Link href="/tools/css-animations" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
+              <Link prefetch={false} href="/tools/css-animations" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
                 <img src="/front-assets/images/icons/animate-css.svg" width={24} height={24} alt="CSS Animation" />
                 <span>CSS Animation</span>
               </Link>
@@ -91,7 +91,7 @@ useEffect(() => {
             </button>
 
             <div className='all-sub-items-div'>
-              <Link href="/tools/gradient-generator" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
+              <Link prefetch={false} href="/tools/gradient-generator" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
                 <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Gradient Generator" />
                 <span>Gradient Generator</span>
               </Link>
@@ -124,11 +124,11 @@ useEffect(() => {
               </button>
 
               <div className='all-sub-items-div'>
-                <Link href="/tools/gradient-generator" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
+                <Link prefetch={false} href="/tools/gradient-generator" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
                   <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Gradient Generator" />
                   <span>Gradient Generator</span>
                 </Link>
-                <Link href="/tools/css-animations" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
+                <Link prefetch={false} href="/tools/css-animations" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
                   <img src="/front-assets/images/icons/animate-css.svg" width={24} height={24} alt="CSS Animation" />
                   <span>CSS Animation</span>
                 </Link>

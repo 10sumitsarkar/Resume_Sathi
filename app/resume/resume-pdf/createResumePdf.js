@@ -32,7 +32,7 @@ const imageToBase64 = async (imageUrl) => {
   try {
     let url = imageUrl;
     if (imageUrl.startsWith('/')) {
-      url = `${typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000'}${imageUrl}`;
+      url = `${typeof window !== 'undefined' ? window.location.origin : 'https://www.resumesathi.com'}${imageUrl}`;
     }
     
     const response = await fetch(url, { 

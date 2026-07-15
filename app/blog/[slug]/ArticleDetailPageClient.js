@@ -7,7 +7,7 @@ import '../blog.css';
 const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
 const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_IMAGE = '/front-assets/images/blog-hero.webp';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'http://localhost:3000';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
 
 function getArticleSeo(article, slug) {
   const title = article?.meta_title || article?.og_title || getTitle(article) || 'Blog Article';
@@ -159,7 +159,7 @@ function SearchDropdown({
           ) : (
             suggestions.map((item) => (
               <li key={item.id}>
-                <Link href={`/blog/${getSlug(item)}`} onClick={() => onSelect(item)}>
+                <Link prefetch={false} href={`/blog/${getSlug(item)}`} onClick={() => onSelect(item)}>
                   <img src={resolveMediaUrl(item.hero_image || item.image)} alt={getTitle(item)} />
                   <div>
                     <span className="rk-search-dropdown-title">{getTitle(item)}</span>
@@ -557,12 +557,12 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
                   <ul>
                     {latest.map((item) => (
                       <li key={item.id}>
-                        <Link href={`/blog/${getSlug(item)}`} className="rk-blog-card-img">
+                        <Link prefetch={false} href={`/blog/${getSlug(item)}`} className="rk-blog-card-img">
                           <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} />
                         </Link>
                         <div>
                           <span>{formatDate(item.created_at)}</span>
-                          <Link href={`/blog/${getSlug(item)}`}>{getTitle(item)}</Link>
+                          <Link prefetch={false} href={`/blog/${getSlug(item)}`}>{getTitle(item)}</Link>
                         </div>
                       </li>
                     ))}
@@ -572,7 +572,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
                 <div className="rk-widget rk-widget-cta">
                   <h4>Build Your Resume</h4>
                   <p>Create an ATS-optimized resume in minutes, 100% free.</p>
-                  <Link href="/resume" className="rk-cta-btn">
+                  <Link prefetch={false} href="/resume" className="rk-cta-btn">
                     <i className="bi bi-plus-lg"></i> Create Resume
                   </Link>
                 </div>
@@ -622,7 +622,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
               <h4><i className="bi bi-clock-history"></i> Latest Articles</h4>
               <div className="rk-offcanvas-latest-list">
                 {latest.map((item) => (
-                  <Link key={item.id} href={`/blog/${getSlug(item)}`} className="rk-latest-sub-item" onClick={closeOffcanvas}>
+                  <Link prefetch={false} key={item.id} href={`/blog/${getSlug(item)}`} className="rk-latest-sub-item" onClick={closeOffcanvas}>
                     <img src={resolveMediaUrl(item.hero_image)} width={40} height={40} alt={getTitle(item)} />
                     <div>
                       <span className="rk-latest-sub-title">{getTitle(item)}</span>
@@ -635,7 +635,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
           </div>
 
           <div className="rk-offcanvas-cta">
-            <Link href="/resume" className="rk-cta-btn" onClick={closeOffcanvas}>
+            <Link prefetch={false} href="/resume" className="rk-cta-btn" onClick={closeOffcanvas}>
               <i className="bi bi-plus-lg"></i> Build Your Resume
             </Link>
           </div>

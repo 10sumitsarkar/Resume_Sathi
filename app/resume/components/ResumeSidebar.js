@@ -76,7 +76,7 @@ const id = searchParams.get('id');
     const isLocked = !canOpenStep(resume, step.segment);
 
     return (
-      <Link
+      <Link prefetch={false}
         key={`${mobile ? 'mobile' : 'desktop'}-${step.key}`}
         href={href}
         className={`each-sidebar-item ${isActive ? 'active' : ''} ${isLocked ? 'locked' : ''}`}

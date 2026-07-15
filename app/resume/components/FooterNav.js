@@ -14,7 +14,7 @@ export default function FooterNav() {
                 <div className="footer-main-div">
 
                     <div className="footer-all-tab">
-                        <Link href="/all-resume">
+                        <Link prefetch={false} href="/all-resume">
                             <div className="footer-each-tab active">
                                 <div>
 
@@ -31,7 +31,7 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link href="/">
+                        <Link prefetch={false} href="/">
                             <div className="footer-each-tab ">
                                 <div>
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +44,7 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link href="/">
+                        <Link prefetch={false} href="/">
                             <div className="footer-each-tab ">
                                 <div>
 
@@ -59,7 +59,7 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link href="https://mob.loveistheanswer.com/popular-feed">
+                        <Link prefetch={false} href="https://mob.loveistheanswer.com/popular-feed">
                             <div className="footer-each-tab ">
                                 <div>
 

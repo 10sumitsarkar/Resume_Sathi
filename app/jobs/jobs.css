@@ -541,6 +541,7 @@
   border: none;
   color: var(--rk-white);
   text-align: center;
+  
 }
 
 .rk-widget-cta h4 {
@@ -907,11 +908,11 @@
 }
 
 .rk-article-text h2 {
-  font-size: 22px;
+  font-size: 20px;
 }
 
 .rk-article-text h3 {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .rk-article-text h4 {
@@ -964,7 +965,9 @@
   margin: 20px 0;
   font-size: 14px;
 }
-
+.rk-article-text th{
+  white-space: nowrap;
+}
 .rk-article-text th,
 .rk-article-text td {
   border: 1px solid var(--rk-border);

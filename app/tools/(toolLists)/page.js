@@ -12,13 +12,13 @@ export const metadata = {
     url: "/tools",
     type: "website",
     siteName: "ResumeSathi",
-    images: [{ url: "/front-assets/images/resume-hero.webp", width: 1200, height: 630, alt: "ResumeSathi tools" }],
+    images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi tools" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Free Online Tools | ResumeSathi",
     description: "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",
-    images: ["/front-assets/images/resume-hero.webp"],
+    images: ["/front-assets/images/og/home-og.png"],
   },
 };
 

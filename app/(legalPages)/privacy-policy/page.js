@@ -24,13 +24,16 @@ export const metadata = {
     url: '/privacy-policy',
     siteName: 'ResumeSathi',
     type: 'website',
+        images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],
   },
   twitter: {
     card: 'summary',
     title: 'Privacy Policy | ResumeSathi',
     description:
       'Learn how ResumeSathi collects, uses, and protects your personal information.',
-  },
+        images: ["/front-assets/images/og/home-og.png"],
+
+    },
 };
 
 export default function PrivacyPolicyPage() {

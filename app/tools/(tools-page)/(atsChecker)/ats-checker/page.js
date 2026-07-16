@@ -12,13 +12,13 @@ export const metadata = {
     url: "/tools/ats-checker",
     type: "website",
     siteName: "ResumeSathi",
-    images: [{ url: "/front-assets/images/resume-hero.webp", width: 1200, height: 630, alt: "ATS resume checker tool" }],
+    images: [{ url: "/front-assets/images/og/tools-og.png", width: 1200, height: 630, alt: "ATS resume checker tool" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "ATS Resume Checker | ResumeSathi",
     description: "Analyze your resume ATS score, keyword match, and formatting quality with ResumeSathi’s free ATS checker tool.",
-    images: ["/front-assets/images/resume-hero.webp"],
+    images: ["/front-assets/images/og/tools-og.png"],
   },
 };
 

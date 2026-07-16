@@ -14,7 +14,7 @@ const IconBlog = () => (
 
 const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
 const API_BASE = `${BACKEND_BASE}/api`;
-const DEFAULT_IMAGE = '/front-assets/images/blog-hero.webp';
+const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.png';
 const PAGE_SIZE = 10;
 const SUGGESTION_LIMIT = 6;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
@@ -37,7 +37,7 @@ function getBlogPageMeta(searchQuery = '', categoryName = '') {
     description,
     keywords: 'resume tips, career advice, interview tips, job search, professional growth',
     canonical,
-    image: `${SITE_URL}/front-assets/images/blog-hero.webp`,
+    image: `${SITE_URL}/front-assets/images/og/blog-og.png`,
   };
 }
 

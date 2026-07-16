@@ -24,11 +24,15 @@ export const metadata = {
     url: '/contact',
     siteName: 'ResumeSathi',
     type: 'website',
+    images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],
+
   },
   twitter: {
     card: 'summary',
     title: 'Contact Us | ResumeSathi',
     description: 'Have a question or feedback? Reach out to the ResumeSathi team.',
+        images: ["/front-assets/images/og/home-og.png"],
+
   },
 };
 

@@ -36,6 +36,19 @@ export default function ToolsSidebar() {
   }
   // Show hide sidebar items end
 
+  // Close offcanvas on link click (navigation still happens via Link)
+  const closeOffcanvas = () => {
+    if (typeof window !== "undefined" && window.bootstrap) {
+      const offcanvasEl = document.getElementById('commonOffcanvas');
+      if (offcanvasEl) {
+        const instance = window.bootstrap.Offcanvas.getInstance(offcanvasEl)
+          || new window.bootstrap.Offcanvas(offcanvasEl);
+        instance.hide();
+      }
+    }
+  }
+  // Close offcanvas end
+
   // Tooltip start
 useEffect(() => {
   if (typeof window !== "undefined" && window.bootstrap) {
@@ -68,17 +81,13 @@ useEffect(() => {
           <div className='main-item-div'>
             <button className={`each-sidebar-item ${sideBtn === 'btn1' ? 'active' : ''}`} onClick={() => showHideItems('btn1')} data-bs-toggle="tooltip" data-bs-placement="right" title="CSS Tools">
               <img src="/front-assets/images/icons/personal-info.svg" alt="Personal Info" />
-              <span>Development</span>
+              <span>Resume</span>
             </button>
 
             <div className='all-sub-items-div'>
-              <Link prefetch={false} href="/tools/gradient-generator" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
-                <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Gradient Generator" />
-                <span>Gradient Generator</span>
-              </Link>
-              <Link prefetch={false} href="/tools/css-animations" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
-                <img src="/front-assets/images/icons/animate-css.svg" width={24} height={24} alt="CSS Animation" />
-                <span>CSS Animation</span>
+              <Link prefetch={false} href="/tools/ats-checker/" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="ATS Checker">
+                <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="ATS Checker" />
+                <span>ATS Checker</span>
               </Link>
             </div>
 
@@ -87,13 +96,13 @@ useEffect(() => {
           <div className='main-item-div'>
             <button className={`each-sidebar-item ${sideBtn === 'btn2' ? 'active' : ''}`} onClick={() => showHideItems('btn2')} data-bs-toggle="tooltip" data-bs-placement="right" title="CSS Tools">
               <img src="/front-assets/images/icons/personal-info.svg" alt="Personal Info" />
-              <span>Development</span>
+              <span>PDF</span>
             </button>
 
             <div className='all-sub-items-div'>
-              <Link prefetch={false} href="/tools/gradient-generator" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
+              <Link prefetch={false} href="/tools/merge-pdf/" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Merge PDF">
                 <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Gradient Generator" />
-                <span>Gradient Generator</span>
+                <span>Merge PDF</span>
               </Link>
             </div>
 
@@ -118,23 +127,31 @@ useEffect(() => {
 
           <div className="scroll-div pb-mob-100">
             <div className='main-item-div'>
-              <button className={`each-sidebar-item ${sideBtn === 'btn1' ? 'active' : ''}`} onClick={() => showHideItems('btn1')} data-bs-toggle="tooltip" data-bs-placement="right" title="CSS Tools">
+              <button className={`each-sidebar-item ${sideBtn === 'btn1' ? 'active' : ''}`} onClick={() => showHideItems('btn1')} data-bs-toggle="tooltip" data-bs-placement="right" title="Resume Tools">
                 <img src="/front-assets/images/icons/personal-info.svg" alt="Personal Info" />
-                <span>Development</span>
+                <span>Resume</span>
               </button>
 
               <div className='all-sub-items-div'>
-                <Link prefetch={false} href="/tools/gradient-generator" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
+                <Link prefetch={false} href="/tools/ats-checker/" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="ATS Checker" onClick={closeOffcanvas}>
                   <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Gradient Generator" />
-                  <span>Gradient Generator</span>
-                </Link>
-                <Link prefetch={false} href="/tools/css-animations" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Gradient Generator">
-                  <img src="/front-assets/images/icons/animate-css.svg" width={24} height={24} alt="CSS Animation" />
-                  <span>CSS Animation</span>
+                  <span>ATS Checker</span>
                 </Link>
               </div>
             </div>
+              <div className='main-item-div'>
+              <button className={`each-sidebar-item ${sideBtn === 'btn2' ? 'active' : ''}`} onClick={() => showHideItems('btn2')} data-bs-toggle="tooltip" data-bs-placement="right" title="PDF Tools">
+                <img src="/front-assets/images/icons/personal-info.svg" alt="Personal Info" />
+                <span>PDF</span>
+              </button>
 
+              <div className='all-sub-items-div'>
+                <Link prefetch={false} href="/tools/merge-pdf/" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Merge PDF" onClick={closeOffcanvas}>
+                  <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Merge PDF" />
+                  <span>Merge PDF</span>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

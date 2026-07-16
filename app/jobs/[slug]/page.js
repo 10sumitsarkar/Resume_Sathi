@@ -4,7 +4,7 @@ import ArticleDetailPageClient from './ArticleDetailPageClient';
 function resolveImageUrl(url) {
   const backendBase = (process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com').replace(/\/+$/, '');
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
-  const fallbackImage = `${siteUrl}/front-assets/images/resume-hero.webp`;
+  const fallbackImage = `${siteUrl}/front-assets/images/og/job-og.png`;
 
   if (!url) return fallbackImage;
   if (/^https?:\/\//i.test(url) || url.startsWith('//')) return url;

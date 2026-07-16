@@ -11,13 +11,13 @@ export const metadata = {
     url: "/tools/merge-pdf",
     type: "website",
     siteName: "ResumeSathi",
-    images: [{ url: "/front-assets/images/resume-hero.webp", width: 1200, height: 630, alt: "PDF merge tool" }],
+    images: [{ url: "/front-assets/images/og/tools-og.png", width: 1200, height: 630, alt: "PDF merge tool" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Merge PDF | ResumeSathi",
     description: "Merge multiple PDF files online for free with ResumeSathi’s secure and simple PDF merge tool.",
-    images: ["/front-assets/images/resume-hero.webp"],
+    images: ["/front-assets/images/og/home-og.png"],
   },
 };
 

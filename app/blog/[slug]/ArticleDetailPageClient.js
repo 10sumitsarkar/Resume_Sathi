@@ -6,7 +6,7 @@ import '../blog.css';
 
 const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
 const API_BASE = `${BACKEND_BASE}/api`;
-const DEFAULT_IMAGE = '/front-assets/images/blog-hero.webp';
+const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.png';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
 
 function getArticleSeo(article, slug) {
@@ -477,7 +477,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
       </section>
 
       <section className="rk-blog-page">
-        <div className="container-fluid custom-container pb-120">
+        <div className="container-fluid custom-container">
           <div className="row g-4">
             <div className="col-md-8 col-lg-9">
               <article className="rk-article-content">

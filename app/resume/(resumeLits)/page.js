@@ -11,13 +11,13 @@ export const metadata = {
     url: '/resume',
     type: 'website',
     siteName: 'ResumeSathi',
-    images: [{ url: '/front-assets/images/resume-hero.webp', width: 1200, height: 630, alt: 'ResumeSathi resume builder' }],
+    images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'ResumeSathi resume builder' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Free Resume Builder | ResumeSathi',
     description: 'Create a professional resume in minutes with ResumeSathi’s free resume builder using ATS-friendly templates and smart editing tools.',
-    images: ['/front-assets/images/resume-hero.webp'],
+    images: ['/front-assets/images/og/home-og.png'],
   },
 };
 

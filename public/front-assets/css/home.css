@@ -971,11 +971,14 @@
 }
 
 .rk-jc-desc {
-  font-size: .82rem;
+  font-size: 0.83rem;
   color: var(--rk-muted);
-  margin-bottom: 10px;
-  line-height: 1.5;
-  min-height: 34px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Maximum 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rk-jc-meta {

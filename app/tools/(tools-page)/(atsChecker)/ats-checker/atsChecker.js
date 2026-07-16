@@ -179,7 +179,7 @@ export default function AtsChecker() {
 
   // ── Render ───────────────────────────────
   return (
-    <div className="tools-right-div custom-container py-custom pb-0">
+    <div className="tools-right-div custom-container py-custom pb-120">
       <section className="ats-checker-tool">
 
         {/* Header */}

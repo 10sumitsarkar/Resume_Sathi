@@ -8,7 +8,7 @@ function resolveImageUrl(url) {
     process.env.NEXT_PUBLIC_FRONTEND_URL ||
     'https://www.resumesathi.com';
 
-  const fallbackImage = `${siteUrl}/front-assets/images/resume-hero.webp`;
+  const fallbackImage = `${siteUrl}/front-assets/images/og/blog-og.png`;
 
   if (!url) return fallbackImage;
   if (/^https?:\/\//i.test(url) || url.startsWith('//')) return url;

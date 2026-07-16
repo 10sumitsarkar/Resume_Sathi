@@ -24,13 +24,16 @@ export const metadata = {
     url: '/about',
     siteName: 'ResumeSathi',
     type: 'website',
+    images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],
   },
   twitter: {
     card: 'summary',
     title: 'About Us | ResumeSathi',
     description:
       'ResumeSathi is a free, ATS-optimized resume builder built for Indian job seekers.',
-  },
+      images: ["/front-assets/images/og/home-og.png"],
+
+    },
 };
 
 export default function AboutPage() {

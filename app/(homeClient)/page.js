@@ -11,7 +11,7 @@ export const metadata = {
     "cover letter builder",
     "job search tools",
   ],
-  alternates: { canonical: "/" },
+  alternates: { canonical: "/" }, 
   openGraph: {
     title: "Free Resume Builder for Jobs & Career Growth | ResumeSathi",
     description:
@@ -19,14 +19,14 @@ export const metadata = {
     url: "/",
     type: "website",
     siteName: "ResumeSathi",
-    images: [{ url: "/front-assets/images/resume-hero.webp", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],
+    images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Free Resume Builder for Jobs & Career Growth | ResumeSathi",
     description:
       "Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.",
-    images: ["/front-assets/images/resume-hero.webp"],
+    images: ["/front-assets/images/og/home-og.png"],
   },
 };
 

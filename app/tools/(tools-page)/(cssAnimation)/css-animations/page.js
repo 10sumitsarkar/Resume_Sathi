@@ -21,13 +21,13 @@ export const metadata = {
     url: '/tools/css-animations',
     type: 'website',
     siteName: 'ResumeSathi',
-    images: [{ url: '/front-assets/images/resume-hero.webp', width: 1200, height: 630, alt: 'CSS animation generator' }],
+    images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'CSS animation generator' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'CSS Animation Generator | ResumeSathi',
     description: 'Create beautiful CSS animations for your website, landing page, or resume project with ResumeSathi’s free animation tool.',
-    images: ['/front-assets/images/resume-hero.webp'],
+    images: ['/front-assets/images/og/home-og.png'],
   },
 };
 

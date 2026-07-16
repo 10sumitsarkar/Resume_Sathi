@@ -85,10 +85,24 @@ const id = searchParams.get('id');
         title={step.label}
         aria-disabled={isLocked}
         onClick={(event) => {
-          if (isLocked) {
-            event.preventDefault();
-          }
-        }}
+  if (isLocked) {
+    event.preventDefault();
+    return;
+  }
+
+  // Close Bootstrap Offcanvas
+  if (typeof window !== "undefined" && window.bootstrap) {
+    const offcanvasEl = document.getElementById("stepsOffcanvas");
+
+    if (offcanvasEl) {
+      const instance =
+        window.bootstrap.Offcanvas.getInstance(offcanvasEl) ||
+        new window.bootstrap.Offcanvas(offcanvasEl);
+
+      instance.hide();
+    }
+  }
+}}
         style={isLocked ? { opacity: 0.45, cursor: 'not-allowed' } : undefined}
       >
         <img src="/front-assets/images/icons/step-done.svg" width={22} height={22} className={`${isDone ? 'step-done d-block' : 'd-none'}`} alt="Check" />

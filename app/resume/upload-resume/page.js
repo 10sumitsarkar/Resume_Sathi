@@ -11,13 +11,13 @@ export const metadata = {
     url: '/resume/upload-resume',
     type: 'website',
     siteName: 'ResumeSathi',
-    images: [{ url: '/front-assets/images/resume-hero.webp', width: 1200, height: 630, alt: 'Upload resume to ResumeSathi' }],
+    images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'Upload resume to ResumeSathi' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Upload Resume | ResumeSathi',
     description: 'Upload an existing resume and extract details into ResumeSathi’s online resume builder for quick editing and updating.',
-    images: ['/front-assets/images/resume-hero.webp'],
+    images: ['/front-assets/images/og/home-og.png'],
   },
 };
 

@@ -1,13 +1,13 @@
 import AboutClient from './client';
 
 export const metadata = {
-  title: 'About Us | ResumeSathi',
+  title: 'About Us',
   description:
-    'Learn about ResumeSathi — a free, ATS-optimized resume builder made for Indian job seekers. Discover our mission, values, and why thousands trust us to build their career documents.',
+    'Learn about ResumeSathi — a free, ATS-optimized resume builder built to help job seekers everywhere. Discover our mission, values, and why thousands trust us to build their career documents.',
   keywords: [
     'about ResumeSathi',
     'ResumeSathi mission',
-    'free resume builder India',
+    'free resume builder online',
     'ResumeSathi story',
   ],
   alternates: {
@@ -15,12 +15,12 @@ export const metadata = {
   },
   robots: {
     index: true,
-    follow: true,
+    follow: true, 
   },
   openGraph: {
-    title: 'About Us | ResumeSathi',
+    title: 'About Us',
     description:
-      'ResumeSathi is a free, ATS-optimized resume builder built for Indian job seekers.',
+      'ResumeSathi is a free, ATS-optimized resume builder built for job seekers everywhere.',
     url: '/about',
     siteName: 'ResumeSathi',
     type: 'website',
@@ -28,9 +28,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary',
-    title: 'About Us | ResumeSathi',
+    title: 'About Us',
     description:
-      'ResumeSathi is a free, ATS-optimized resume builder built for Indian job seekers.',
+      'ResumeSathi is a free, ATS-optimized resume builder built for job seekers everywhere.',
       images: ["/front-assets/images/og/home-og.png"],
 
     },

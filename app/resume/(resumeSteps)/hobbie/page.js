@@ -4,6 +4,14 @@ import HobbieClient from "./HobbieClient";
 export const metadata = {
   title: 'Hobbies | ResumeSathi',
   description: 'Create a professional resume in minutes with Logichook resume builder.',
+ robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
 };
 
 export default function ResumeTypeClientWrapper() {

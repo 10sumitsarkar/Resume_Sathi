@@ -4,6 +4,14 @@ import SocialMediaClient from "./SocialMediaClient";
 export const metadata = {
   title: 'Social Media | ResumeSathi',
   description: 'Create a professional resume in minutes with Logichook resume builder.',
+ robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
 };
 
 export default function ResumeTypeClientWrapper() {

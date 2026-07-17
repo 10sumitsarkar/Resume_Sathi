@@ -86,7 +86,7 @@ export async function generateMetadata({ params }) {
     article?.title ||
     'Blog Article';
 
-  const title = `${rawTitle} | ResumeSathi`;
+  const title = rawTitle;
 
   const description =
     article?.meta_description ||
@@ -121,7 +121,7 @@ export async function generateMetadata({ params }) {
       follow: true,
     },
     openGraph: {
-      title,
+      title: `${title} | ResumeSathi`,
       description,
       url: canonical,
       type: 'article',
@@ -135,7 +135,7 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title,
+      title: `${title} | ResumeSathi`,
       description,
       images: [resolvedImage],
     },

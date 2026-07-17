@@ -23,7 +23,7 @@ export default function Error404() {
                 <div className="contant-box-404">
                   <h3 className="h2">Looks like you are lost</h3>
                   <p>The page you are looking for is not available.</p>
-                  <Link prefetch={false} href="/" className="link-404">Go to Home</Link>
+                  <Link prefetch={false} href="/" className="link-404" aria-label="Go to Home Page">Go to Home</Link>
                 </div>
               </div>
             </div>

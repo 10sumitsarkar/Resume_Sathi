@@ -740,12 +740,23 @@ function FAQ() {
 }
 
 // ── Root Component ────────────────────────────────────────────────────────
-export default function ResumeListClient() {
-  const [jobs, setJobs] = useState([]);
-  const [blogs, setBlogs] = useState([]);
+export default function ResumeListClient({ initialJobs = [], initialBlogs = [] }) {
+  const [jobs, setJobs] = useState(initialJobs);
+  const [blogs, setBlogs] = useState(initialBlogs);
   const { count: dailyCount, flash: dailyFlash } = useDailyResumeCounter();
+  const skippedInitialFetch = useRef(false);
 
   useEffect(() => {
+    // 👇 SSR se already jobs/blogs data mil chuka hai to pehla client
+    // fetch skip karo — taaki Googlebot ke render mein good data
+    // overwrite/empty na ho agar API robots.txt se blocked ho.
+    if (!skippedInitialFetch.current) {
+      skippedInitialFetch.current = true;
+      if (initialJobs.length > 0 && initialBlogs.length > 0) {
+        return;
+      }
+    }
+
     const fetchData = async () => {
       try {
         const [jobsResponse, articlesResponse] = await Promise.all([
@@ -763,6 +774,7 @@ export default function ResumeListClient() {
         setBlogs(normalizedArticles.slice(0, 6));
       } catch (error) {
         console.error("Failed to load homepage content", error);
+        // 👇 SSR data already hai to khaali mat karo
       }
     };
 

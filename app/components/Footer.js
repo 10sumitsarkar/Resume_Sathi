@@ -42,6 +42,7 @@ export default function Footer() {
             <Link prefetch={false} href="/about">About</Link>
             <Link prefetch={false} href="/terms-and-conditions">Terms & Conditions</Link>
             <Link prefetch={false} href="/privacy-policy">Privacy Policy</Link>
+            <Link prefetch={false} href="/disclaimer">Disclaimer</Link>
             <Link prefetch={false} href="/contact">Contact</Link>
           </div>
         </div>

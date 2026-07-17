@@ -1,7 +1,7 @@
 import ContactClient from './client';
 
 export const metadata = {
-  title: 'Contact Us | ResumeSathi',
+  title: 'Contact Us',
   description:
     'Get in touch with the ResumeSathi team for support, feedback, or partnership queries. We are here to help you build a better resume and land your next job.',
   keywords: [
@@ -18,7 +18,7 @@ export const metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'Contact Us | ResumeSathi',
+    title: 'Contact Us',
     description:
       'Have a question or feedback? Reach out to the ResumeSathi team.',
     url: '/contact',
@@ -29,7 +29,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary',
-    title: 'Contact Us | ResumeSathi',
+    title: 'Contact Us',
     description: 'Have a question or feedback? Reach out to the ResumeSathi team.',
         images: ["/front-assets/images/og/home-og.png"],
 

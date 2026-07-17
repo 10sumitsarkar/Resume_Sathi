@@ -4,6 +4,14 @@ import SummaryClient from "./SummaryClient";
 export const metadata = {
   title: 'Professional Summary | ResumeSathi',
   description: 'Create a professional resume in minutes with ResumeSathi resume builder.',
+ robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
 };
 
 export default function ResumeTypeClientWrapper() {

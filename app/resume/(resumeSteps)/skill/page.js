@@ -4,6 +4,14 @@ import SkillClient from "./SkillClient";
 export const metadata = {
   title: 'Skills | ResumeSathi',
   description: 'Create a professional resume in minutes with Logichook resume builder.',
+ robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
 };
 
 export default function ResumeTypeClientWrapper() {

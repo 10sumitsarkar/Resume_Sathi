@@ -31,13 +31,13 @@ function readCache(filename) {
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
 
 export const metadata = {
-  title: 'Latest Jobs | Resume & Career Opportunities | ResumeSathi',
+  title: 'Find Latest Jobs & Vacancies | ResumeSathi',
   description: 'Explore fresh job openings, company details, and career opportunities curated for job seekers.',
   keywords: 'jobs, career opportunities, hiring, resume tips, professional growth',
   alternates: { canonical: `${SITE_URL}/jobs` },
   robots: { index: true, follow: true },
   openGraph: {
-    title: 'Latest Jobs | Resume & Career Opportunities',
+    title: 'Find Latest Jobs & Vacancies | ResumeSathi',
     description: 'Explore fresh job openings, company details, and career opportunities curated for job seekers.',
     type: 'website',
     url: `${SITE_URL}/jobs`,
@@ -46,7 +46,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Latest Jobs | Resume & Career Opportunities',
+    title: 'Find Latest Jobs & Vacancies | ResumeSathi',
     description: 'Explore fresh job openings, company details, and career opportunities curated for job seekers.',
     images: [`${SITE_URL}/front-assets/images/og/job-og.png`],
   },

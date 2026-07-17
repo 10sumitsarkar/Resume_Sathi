@@ -34,13 +34,20 @@ export const metadata = {
     description: 'Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.',
     images: ['/front-assets/images/og/home-og.png'],
   },
+  icons: {
+    icon: '/front-assets/images/logo/favicon.png',
+    shortcut: '/front-assets/images/logo/favicon.png',
+    apple: '/front-assets/images/logo/favicon.png',
+    other: { rel: 'apple-touch-icon-precomposed', url: '/front-assets/images/logo/favicon.png' },
+  },
 };
+
+const GA_MEASUREMENT_ID = "G-GMDRJBQDWL";
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
-      <link rel="shortcut icon" href="/front-assets/images/logo/favicon.png" />
         <link rel="stylesheet" href="/front-assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/front-assets/css/style.css" />
         <link rel="stylesheet" href="/front-assets/css/responsive.css" />
@@ -61,6 +68,21 @@ export default function RootLayout({ children }) {
             description: "ResumeSathi helps job seekers create ATS-friendly resumes, cover letters, and career documents for free."
           }}
         />
+
+        {/* Google Analytics (gtag.js) */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
+
         {children}
         <Script src="/front-assets/js/bootstrap.bundle.min.js" defer />
       </body>

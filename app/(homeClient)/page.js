@@ -1,7 +1,38 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import ResumeListClient from "./homeClient";
 
+// 👇 Ab network fetch nahi — jobs/blogs preview sections ke liye
+// build-time cached data use karte hain (jobs/[slug] aur blog/[slug] ke
+// liye already ban chuki data/jobs-cache.json aur data/articles-cache.json).
+function readCache(filename) {
+  const candidates = [path.join(process.cwd(), 'data', filename)];
+  try {
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    // app/page.js -> ../data (1 level up to project root)
+    candidates.push(path.join(__dirname, '..', 'data', filename));
+  } catch (e) {
+    // import.meta.url unavailable — skip
+  }
+
+  for (const filePath of candidates) {
+    try {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      const data = JSON.parse(raw);
+      if (Array.isArray(data)) return data;
+    } catch (err) {
+      // try next candidate
+    }
+  }
+
+  console.error(`FATAL: could not read data/${filename} for homepage preview sections.`);
+  return [];
+}
+
 export const metadata = {
-  title: "Free Resume Builder & ATS-Friendly Resume Templates | ResumeSathi",
+  title: "Free Resume Builder & ATS-Friendly Resume Templates",
   description:
     "Create professional, ATS-friendly resumes for free with ResumeSathi. Build a resume, cover letter, and job-ready documents in minutes.",
   keywords: [
@@ -13,7 +44,7 @@ export const metadata = {
   ],
   alternates: { canonical: "/" }, 
   openGraph: {
-    title: "Free Resume Builder for Jobs & Career Growth | ResumeSathi",
+    title: "Free Resume Builder & ATS-Friendly Resume Templates",
     description:
       "Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.",
     url: "/",
@@ -23,7 +54,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Resume Builder for Jobs & Career Growth | ResumeSathi",
+    title: "Free Resume Builder & ATS-Friendly Resume Templates",
     description:
       "Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.",
     images: ["/front-assets/images/og/home-og.png"],
@@ -122,13 +153,16 @@ const jsonLd = [
 ];
 
 export default function Page() {
+  const initialJobs = readCache('jobs-cache.json').slice(0, 8);
+  const initialBlogs = readCache('articles-cache.json').slice(0, 6);
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ResumeListClient />
+      <ResumeListClient initialJobs={initialJobs} initialBlogs={initialBlogs} />
     </>
   );
 }

@@ -1,0 +1,40 @@
+[
+  {
+    "id": 24,
+    "article_type": 1,
+    "article_title": "comming Soon",
+    "url_name": "coming-soon",
+    "meta_title": "comming Soon",
+    "meta_description": "comming Soon",
+    "meta_keyword": "comming Soon",
+    "canonical_tag": "articles/web-articles/coming-soon",
+    "language_id": null,
+    "hero_image": null,
+    "pageview": 0,
+    "created_by": 1,
+    "created_at": "2026-07-17T05:55:24.000000Z",
+    "is_draft": 0,
+    "is_active": 1,
+    "status": 1,
+    "updated_at": "2026-07-17T05:55:49.000000Z",
+    "deleted_at": null,
+    "category": {
+      "id": 1,
+      "article_name": "Career Advice",
+      "url_name": "web-articles",
+      "article_description": "Expert tips for career growth, job search, and professional success.",
+      "created_at": "2021-09-12T17:33:33.000000Z",
+      "updated_at": "2026-07-16T15:18:01.000000Z"
+    },
+    "attachments": [],
+    "contents": [
+      {
+        "id": 24,
+        "article_id": 24,
+        "content": "<p>comming Soon</p>",
+        "created_at": "2026-07-17T05:55:24.000000Z",
+        "updated_at": "2026-07-17T05:55:49.000000Z"
+      }
+    ]
+  }
+]

@@ -29,12 +29,13 @@ const VALUES = [
     ),
   },
   {
-    title: 'Built for India',
-    desc: 'Designed with Indian job seekers in mind — from formats recruiters expect to relevant job listings.',
+    title: 'Built for Everyone',
+    desc: 'Designed with job seekers everywhere in mind — recruiter-friendly formats and relevant job listings, wherever you are.',
     icon: (
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 10c0 4.418-8 12-8 12S4 14.418 4 10a8 8 0 0 1 16 0z" />
-        <circle cx="12" cy="10" r="3" />
+        <circle cx="12" cy="12" r="10" />
+        <path d="M2 12h20" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
       </svg>
     ),
   },
@@ -64,10 +65,10 @@ export default function AboutClient() {
             </svg>
             About ResumeSathi
           </span>
-          <h1>Helping India Build Better Resumes</h1>
+          <h1>Helping Job Seekers Build Better Resumes</h1>
           <p>
             ResumeSathi is a free, ATS-optimized resume builder created to help job seekers
-            across India present their best selves to employers — without spending a rupee.
+            everywhere present their best selves to employers — without spending a penny.
           </p>
         </div>
       </section>
@@ -102,7 +103,7 @@ export default function AboutClient() {
                   </svg>
                 </span>
                 <h3>Our Mission</h3>
-                <p>To make professional resume building free, simple, and accessible for every job seeker in India.</p>
+                <p>To make professional resume building free, simple, and accessible for every job seeker, everywhere.</p>
               </div>
               <div className="ab-mv-card">
                 <span className="ab-mv-icon">
@@ -136,7 +137,7 @@ export default function AboutClient() {
           <div className="ab-cta">
             <h2>Ready to Build Your Resume?</h2>
             <p>Join thousands of job seekers who trust ResumeSathi to create their next career document.</p>
-            <Link prefetch={false} className="rl-create-btn" href="/resume/resume-type">
+            <Link prefetch={false} className="rl-create-btn m-0" href="/resume/resume-type">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M12 5v14M5 12h14" />
               </svg>

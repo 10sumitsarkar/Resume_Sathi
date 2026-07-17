@@ -1,3 +1,6 @@
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import React from 'react';
 import ArticleDetailPageClient from './ArticleDetailPageClient';
 
@@ -17,57 +20,53 @@ function resolveImageUrl(url) {
   return `${backendBase}/${normalized}`;
 }
 
-async function getArticleData(slug) {
-  const backendBase =
-    process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
-
+// 👇 Ab network fetch nahi — scripts/fetch-articles.js build se pehle ek hi
+// baar /api/articles fetch karke data/articles-cache.json mein save karta hai.
+// generateStaticParams, generateMetadata, aur page component — teeno isi
+// SAME cached data ko use karte hain, isliye kisi bhi article ka data
+// alag-alag build calls ki wajah se mismatch/missing nahi hoga.
+function getArticlesCache() {
+  const candidates = [path.join(process.cwd(), 'data', 'articles-cache.json')];
   try {
-    const response = await fetch(
-      `${backendBase}/api/articles/slug/${encodeURIComponent(slug)}`,
-      {
-        next: { revalidate: 60 },
-      }
-    );
-
-    if (!response.ok) {
-      return null;
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    return null;
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    candidates.push(path.join(__dirname, '..', '..', '..', 'data', 'articles-cache.json'));
+  } catch (e) {
+    // import.meta.url unavailable — skip
   }
+
+  for (const filePath of candidates) {
+    try {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      const data = JSON.parse(raw);
+      if (Array.isArray(data)) return data;
+    } catch (err) {
+      // try next candidate
+    }
+  }
+
+  console.error('FATAL: could not read data/articles-cache.json. Did scripts/fetch-articles.js run before build?');
+  return [];
+}
+
+async function getAllArticles() {
+  return getArticlesCache();
+}
+
+async function getArticleData(slug) {
+  const items = await getAllArticles();
+  return items.find((item) => {
+    const slugValue = item.url_name || item.slug || item.canonical_tag || '';
+    return slugValue === slug || slugValue === decodeURIComponent(slug);
+  }) || null;
 }
 
 export async function generateStaticParams() {
-  const backendBase =
-    process.env.NEXT_PUBLIC_BACKEND_BASE || "https://api.resumesathi.com";
-
-  try {
-    const response = await fetch(`${backendBase}/api/articles`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      return [];
-    }
-
-    const data = await response.json();
-
-    const articles = Array.isArray(data)
-      ? data
-      : data.items || data.results || data.data || [];
-
-    return articles
-      .filter((article) => article.url_name)
-      .map((article) => ({
-        slug: article.url_name,
-      }));
-  } catch (error) {
-    console.error("generateStaticParams:", error);
-    return [];
-  }
+  const items = await getAllArticles();
+  return items
+    .map((article) => article.url_name || article.slug || article.canonical_tag)
+    .filter(Boolean)
+    .map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }) {

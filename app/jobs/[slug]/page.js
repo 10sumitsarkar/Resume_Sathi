@@ -13,19 +13,49 @@ function resolveImageUrl(url) {
   return `${backendBase}/${normalized}`;
 }
 
-async function getAllJobs() {
-  const backendBase = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
-  const apiBase = `${backendBase}/api`;
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+// 👇 Ab network fetch nahi — scripts/fetch-jobs.js build se pehle ek hi baar
+// /api/courses fetch karke data/jobs-cache.json mein save karta hai.
+// generateStaticParams, generateMetadata, aur page component — teeno isi
+// SAME cached data ko use karte hain, isliye kisi bhi job ka data
+// alag-alag build calls ki wajah se mismatch/missing nahi hoga.
+function getJobsCache() {
+  const candidates = [];
+
+  // Attempt 1: process.cwd() based (project root jahan se `npm run build` chalaya)
+  candidates.push(path.join(process.cwd(), 'data', 'jobs-cache.json'));
+
+  // Attempt 2: __dirname based (is file ki actual location se relative — cwd se independent)
   try {
-    const response = await fetch(`${apiBase}/courses`);
-    if (!response.ok) return [];
-    const jobs = await response.json();
-    return Array.isArray(jobs) ? jobs : (jobs.items || jobs.results || []);
-  } catch (error) {
-    console.error(error);
-    return [];
+    const __filename = fileURLToPath(import.meta.url);
+    const __dirname = path.dirname(__filename);
+    candidates.push(path.join(__dirname, '..', '..', '..', 'data', 'jobs-cache.json'));
+  } catch (e) {
+    // import.meta.url unavailable in this runtime — skip
   }
+
+  for (const filePath of candidates) {
+    try {
+      const raw = fs.readFileSync(filePath, 'utf-8');
+      const data = JSON.parse(raw);
+      if (Array.isArray(data) && data.length > 0) {
+        return data;
+      }
+    } catch (err) {
+      // try next candidate
+    }
+  }
+
+  console.error('FATAL: could not read data/jobs-cache.json from any candidate path:', candidates);
+  console.error('cwd was:', process.cwd());
+  return [];
+}
+
+async function getAllJobs() {
+  return getJobsCache();
 }
 
 async function getArticleData(slug) {

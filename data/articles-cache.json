@@ -1,22 +1,22 @@
 [
   {
-    "id": 24,
+    "id": 25,
     "article_type": 1,
-    "article_title": "comming Soon",
-    "url_name": "coming-soon",
-    "meta_title": "comming Soon",
-    "meta_description": "comming Soon",
-    "meta_keyword": "comming Soon",
-    "canonical_tag": "articles/web-articles/coming-soon",
+    "article_title": "Coming Soon",
+    "url_name": "Coming Soon",
+    "meta_title": "Coming Soon",
+    "meta_description": "Coming Soon",
+    "meta_keyword": "Coming Soon",
+    "canonical_tag": "articles/web-articles/Coming Soon",
     "language_id": null,
     "hero_image": null,
     "pageview": 0,
     "created_by": 1,
-    "created_at": "2026-07-17T05:55:24.000000Z",
+    "created_at": "2026-07-17T16:19:52.000000Z",
     "is_draft": 0,
     "is_active": 1,
     "status": 1,
-    "updated_at": "2026-07-17T05:55:49.000000Z",
+    "updated_at": "2026-07-17T16:20:48.000000Z",
     "deleted_at": null,
     "category": {
       "id": 1,
@@ -29,11 +29,11 @@
     "attachments": [],
     "contents": [
       {
-        "id": 24,
-        "article_id": 24,
-        "content": "<p>comming Soon</p>",
-        "created_at": "2026-07-17T05:55:24.000000Z",
-        "updated_at": "2026-07-17T05:55:49.000000Z"
+        "id": 25,
+        "article_id": 25,
+        "content": "<p>Coming Soon</p>",
+        "created_at": "2026-07-17T16:19:52.000000Z",
+        "updated_at": "2026-07-17T16:20:48.000000Z"
       }
     ]
   }

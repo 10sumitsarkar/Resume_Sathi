@@ -5,6 +5,7 @@ import ResumeTemplate1 from '../templates/ResumeTemplate1'
 import ResumeTemplate2 from '../templates/ResumeTemplate2'
 import ResumeTemplate3 from '../templates/ResumeTemplate3'
 import ResumeTemplate4 from '../templates/ResumeTemplate4'
+import ResumeTemplate5 from '../templates/ResumeTemplate5'
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,6 +20,7 @@ const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate2', component: ResumeTemplate2 },
     { id: 'ResumeTemplate3', component: ResumeTemplate3 },
     { id: 'ResumeTemplate4', component: ResumeTemplate4 },
+    { id: 'ResumeTemplate5', component: ResumeTemplate5 },
 ];
 
 // PDF page margin in mm (top and bottom of each page)
@@ -920,7 +922,7 @@ export default function ShowResume() {
                                 Print
                             </button>
                             <Link prefetch={false} href={`/resume/personal-info/?id=${id}`} className="edit-btn">
-                                <img src="/front-assets/images/icons/edit-Details.svg" width={22} height={24} className='img-fluid' alt="Edit" />
+                                <img src="/front-assets/images/icons/edit-details.svg" width={22} height={24} className='img-fluid' alt="Edit" />
                                 Edit Details
                             </Link>
                         </div>

@@ -5,6 +5,7 @@ import ResumeTemplate1 from '../templates/ResumeTemplate1'
 import ResumeTemplate2 from '../templates/ResumeTemplate2'
 import ResumeTemplate3 from '../templates/ResumeTemplate3'
 import ResumeTemplate4 from '../templates/ResumeTemplate4'
+import ResumeTemplate5 from '../templates/ResumeTemplate5'
 import { useDispatch, useSelector } from 'react-redux'
 import { setResumeConfigration } from '../reducer/resume-reducer'
 
@@ -14,6 +15,7 @@ const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate2', component: ResumeTemplate2 },
     { id: 'ResumeTemplate3', component: ResumeTemplate3 },
     { id: 'ResumeTemplate4', component: ResumeTemplate4 },
+    { id: 'ResumeTemplate5', component: ResumeTemplate5 },
 ];
 
 export default function selectTheme() {

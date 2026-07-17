@@ -9,10 +9,8 @@ import mammoth from 'mammoth/mammoth.browser';
 import { setResumes } from '../reducer/resume-reducer';
 
 if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
-    'pdfjs-dist/legacy/build/pdf.worker.mjs',
-    import.meta.url
-  ).toString();
+  pdfjsLib.GlobalWorkerOptions.workerSrc =
+    `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 }
 
 const sectionHeadings = [

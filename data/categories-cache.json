@@ -9,5 +9,16 @@
     "updated_at": "2026-07-16T15:33:50.000000Z",
     "deleted_at": null,
     "created_by": 1
+  },
+  {
+    "id": 10,
+    "course_name": "State PSC",
+    "course_url": "state-psc",
+    "course_image": "courses/Emblem_of_India_(navy_blue).svg",
+    "description": "State-level Public Service Commission (WBPSC, UPPSC, BPSC etc.) recruitment notifications.",
+    "created_at": "2026-07-18T18:41:29.000000Z",
+    "updated_at": "2026-07-18T18:41:29.000000Z",
+    "deleted_at": null,
+    "created_by": 1
   }
 ]

@@ -32,21 +32,27 @@ function readCache(filename) {
 }
 
 export const metadata = {
-  title: "Free Resume Builder & ATS-Friendly Resume Templates",
+  title: "100% Free Resume Builder | Create a Resume Online, No Signup",
   description:
-    "Create professional, ATS-friendly resumes for free with ResumeSathi. Build a resume, cover letter, and job-ready documents in minutes.",
+    "Build a professional, ATS-friendly resume for free — no signup, no login, no payment. Anyone can create a job-ready resume online in minutes, 100% free forever.",
   keywords: [
     "resume builder",
-    "free resume maker",
-    "ATS resume",
-    "cover letter builder",
-    "job search tools",
+    "free resume builder",
+    "100% free resume builder",
+    "resume maker online free",
+    "create resume online free",
+    "ats friendly resume builder",
+    "resume builder no signup",
+    "free resume templates",
+    "cv maker online free",
+    "cover letter builder free",
+    "resume builder for freshers",
   ],
   alternates: { canonical: "/" }, 
   openGraph: {
-    title: "Free Resume Builder & ATS-Friendly Resume Templates",
+    title: "100% Free Resume Builder | Create a Resume Online, No Signup",
     description:
-      "Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.",
+      "Anyone can create a professional, ATS-friendly resume for free — no signup, no login, no hidden cost. 100% free, always.",
     url: "/",
     type: "website",
     siteName: "ResumeSathi",
@@ -54,9 +60,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Resume Builder & ATS-Friendly Resume Templates",
+    title: "100% Free Resume Builder | Create a Resume Online, No Signup",
     description:
-      "Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.",
+      "Anyone can create a professional, ATS-friendly resume for free — no signup, no login, no hidden cost. 100% free, always.",
     images: ["/front-assets/images/og/home-og.png"],
   },
 };

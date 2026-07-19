@@ -575,6 +575,63 @@ const tools = [
   },
 ];
 
+// ── Why Free Comparison ────────────────────────────────────────────────
+const comparisonRows = [
+  { feature: "Price", us: "Always free, forever", others: "Free trial, then paid plans" },
+  { feature: "Account / Signup", us: "Not required", others: "Signup usually required" },
+  { feature: "PDF Download", us: "Unlimited, no watermark", others: "Often locked or watermarked" },
+  { feature: "Your Data", us: "Stays only in your browser", others: "Uploaded to their server" },
+  { feature: "Premium Templates", us: "Every template is free", others: "Best templates are paid" },
+  { feature: "Hidden Charges", us: "None, ever", others: "Common at checkout/export" },
+];
+
+function WhyFreeSection() {
+  return (
+    <section className="rk-section rk-section--gray" id="why-free">
+      <div className="container-fluid custom-container">
+        <div className="rk-sec-head">
+          <div className="rk-eyebrow">Why ResumeSathi</div>
+<h2 className="rk-sec-title fs-mob-24">
+  Free means free. No catch.
+</h2>
+<p className="rk-sec-sub mx-auto fs-mob-14">
+  A lot of "free" resume builders ask you to pay right when you hit download.
+  We don't do that — every template and every download stays free, always.
+</p>
+        </div>
+
+        <div className="rk-compare-grid">
+          {comparisonRows.map((row) => (
+            <div className="rk-compare-card" key={row.feature}>
+              <div className="rk-compare-feature">{row.feature}</div>
+              <div className="rk-compare-side rk-compare-side--us">
+                <span className="rk-compare-icon rk-compare-icon--yes"><Icon.Check /></span>
+                <div>
+                  <div className="rk-compare-tag">ResumeSathi</div>
+                  <div className="rk-compare-value">{row.us}</div>
+                </div>
+              </div>
+              <div className="rk-compare-side rk-compare-side--them">
+                <span className="rk-compare-icon rk-compare-icon--no">✕</span>
+                <div>
+                  <div className="rk-compare-tag">Most Others</div>
+                  <div className="rk-compare-value">{row.others}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="rk-resume-showcase-cta">
+          <Link prefetch={false} href="/resume/resume-type" className="rk-btn rk-btn--primary rk-btn--lg">
+             Build My Resume <Icon.ArrowRight />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── Jobs ─────────────────────────────────────────────────────────────────
 function JobCard({ job, href }) {
   const startDate = getApplicationStart(job);
@@ -584,8 +641,8 @@ function JobCard({ job, href }) {
   const today = new Date();
   const start = startDate ? new Date(startDate) : null;
   const end = endDate ? new Date(endDate) : null;
-  const status = !start && !end ? "Open" : start && end && today < start ? "Upcoming" : end && today > end ? "Closed" : "Open";
-
+const status =
+  !start && !end ? "Awaited" : start && end && today < start ? "Upcoming" : end && today > end ? "Closed" : "Open";
   return (
     <div className="rk-jc h-100">
       <div className="rk-jc-thumb">
@@ -595,24 +652,28 @@ function JobCard({ job, href }) {
       </div>
       <div className="rk-jc-title">{getJobTitle(job)}</div>
       <p className="rk-jc-desc">{getJobDescription(job)}</p>
-      {(startDate || endDate) ? (
-        <div className="rk-jc-meta rk-jc-meta-split">
+      <div className="rk-jc-meta rk-jc-meta-split">
           {startDate ? (
             <div className="rk-jc-meta-block rk-jc-meta-block-left">
               <span className="rk-jc-meta-label">Start date</span>
               <span className="rk-jc-meta-date">{formatDate(startDate)}</span>
               <span className="rk-jc-meta-day">{formatDay(startDate)}</span>
             </div>
-          ) : null}
+          ) : <div className="rk-jc-meta-block rk-jc-meta-block-left">
+              <span className="rk-jc-meta-label">Start date</span>
+              <span className="rk-jc-meta-date">TBA</span>
+            </div>}
           {endDate ? (
             <div className="rk-jc-meta-block rk-jc-meta-block-right">
               <span className="rk-jc-meta-label">End date</span>
               <span className="rk-jc-meta-date">{formatDate(endDate)}</span>
               <span className="rk-jc-meta-day">{formatDay(endDate)}</span>
             </div>
-          ) : null}
+          ) :  <div className="rk-jc-meta-block rk-jc-meta-block-right">
+              <span className="rk-jc-meta-label">End date</span>
+              <span className="rk-jc-meta-date">TBA</span>
+            </div>}
         </div>
-      ) : null}
       <div className="rk-jc-actions">
         <Link prefetch={false} href={href} className="rk-jc-apply rk-btn rk-btn--primary rk-btn--sm">Apply now <Icon.ChevRight /></Link>
       </div>
@@ -655,12 +716,12 @@ function BlogCard({ blog, href }) {
 
 // ── Testimonials — 2 per screen ───────────────────────────────────────────
 const testimonials = [
-  { name: "Priya Sharma", role: "Software Engineer, Infosys", avatar: "PS", text: "ResumeSathi completely transformed my resume. I used Template 2 and got an interview call within three days. Knowing my data stays local made me feel completely safe.", rating: 5 },
-  { name: "Rahul Verma", role: "SSC CGL Qualifier, Delhi", avatar: "RV", text: "I used the Classic template for SSC CGL. It was incredibly clean and professional. The examiner even complimented my resume. Highly recommend!", rating: 5 },
-  { name: "Ananya Singh", role: "UX Designer, Razorpay", avatar: "AS", text: "Bold Accent template was perfect for my field. No signup, no data upload — that's what I loved most. Free and premium quality at the same time.", rating: 5 },
-  { name: "Karan Mehta", role: "Product Manager, Zomato", avatar: "KM", text: "I also used the Gradient Generator and Code Editor — both tools are very useful. The Cover Letter Builder completed my application package perfectly.", rating: 5 },
-  { name: "Deepika Nair", role: "Bank PO, SBI", avatar: "DN", text: "Found this site while preparing for IBPS PO. Built my resume and checked job vacancies all in one place — incredibly convenient.", rating: 5 },
-  { name: "Arjun Patel", role: "Civil Engineer, L&T", avatar: "AP", text: "Created my resume with the Executive template. The output was so polished that the interviewer asked if I had it professionally made. Amazing quality for free!", rating: 5 },
+  { name: "Priya Sharma", role: "Software Engineer, MNC", avatar: "PS", text: "ResumeSathi completely transformed my resume. I used Template 2 and got an interview call within three days. Knowing my data stays local made me feel completely safe.", rating: 5 },
+{ name: "Rahul Verma", role: "SSC CGL Qualifier, Delhi", avatar: "RV", text: "I used the Classic template for SSC CGL. It was incredibly clean and professional. The examiner even complimented my resume. Highly recommend!", rating: 5 },
+{ name: "Ananya Singh", role: "UX Designer, Bengaluru", avatar: "AS", text: "Bold Accent template was perfect for my field. No signup, no data upload — that's what I loved most. Free and premium quality at the same time.", rating: 5 },
+{ name: "Karan Mehta", role: "Product Manager, Pune", avatar: "KM", text: "I tried three different templates before finding the perfect match. The ATS Checker helped me fine-tune it further. My resume finally feels complete.", rating: 5 },
+{ name: "Deepika Nair", role: "Bank PO, SBI", avatar: "DN", text: "Found this site while preparing for IBPS PO. Built my resume and checked job vacancies all in one place — incredibly convenient.", rating: 5 },
+{ name: "Arjun Patel", role: "Civil Engineer, Ahmedabad", avatar: "AP", text: "Created my resume with the Executive template. The output was so polished that the interviewer asked if I had it professionally made. Amazing quality for free!", rating: 5 },
 ];
 
 function TestimonialCarousel() {
@@ -945,7 +1006,7 @@ export default function ResumeListClient({ initialJobs = [], initialBlogs = [] }
           </div>
         </div>
       </section>
-
+<WhyFreeSection />
       <section className="rk-section rk-section--white" id="jobs">
         <div className="container-fluid custom-container">
           <div className="rk-sec-head-row">

@@ -407,6 +407,74 @@ export default function PdfMergePage() {
                     </button>
                 </div>
             )}
+
+            {/* ============================================================
+   MERGE PDF — INFO / CONTENT SECTION
+   Paste below the tool component's closing tag.
+   ============================================================ */}
+
+<section className="pdf-merge-info">
+
+  <div className="info-block">
+    <h2>Merge Multiple PDF Files Into One</h2>
+    <p>
+      Recruitment forms, resume applications, and government portals often
+      ask for a single PDF containing your resume, certificates, and ID
+      proof. This tool combines separate PDF files into one document,
+      in whatever order you set.
+    </p>
+    <p>
+      Upload your files, drag the cards to reorder them, and download the
+      merged PDF. No login is required, and you can merge multiple PDF files directly in your browser.
+    </p>
+  </div>
+
+  <div className="info-block">
+    <h3>Where This Is Commonly Used</h3>
+    <ul className="info-list">
+      <li><b>Sarkari job applications</b> — many portals require one combined PDF for resume, marksheets, and category certificate.</li>
+      <li><b>Resume submissions</b> — combining a cover letter with the resume into a single file.</li>
+      <li><b>Scanned documents</b> — joining pages scanned separately from a phone into one PDF.</li>
+    </ul>
+  </div>
+
+  <div className="info-block">
+    <h3>Notes</h3>
+    <ul className="info-list info-list--plain">
+      <li>Files are merged in the order shown. Rearrange them before clicking Merge & Download.</li>
+      <li>Original files are not modified.</li>
+      <li>Processing happens in your browser; files are not stored on a server.</li>
+    </ul>
+  </div>
+
+  <div className="info-block">
+    <h3>Questions</h3>
+    <div className="faq-list">
+
+      <details className="faq-item">
+        <summary>Is this free?</summary>
+        <p>Yes, no login required.</p>
+      </details>
+
+      <details className="faq-item">
+        <summary>How many files can I merge at once?</summary>
+        <p>There's no fixed limit, you can add as many PDFs as you need."</p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Can I change the order after uploading?</summary>
+        <p>Yes, drag the cards left or right before merging.</p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Are my files uploaded anywhere?</summary>
+        <p>No, merging happens in your browser and files aren't retained.</p>
+      </details>
+
+    </div>
+  </div>
+
+</section>
         </div>
 
     );

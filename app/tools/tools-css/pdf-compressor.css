@@ -844,3 +844,183 @@
     height: 118px;
   }
 }
+
+.pdf-compress-info {
+  margin: 80px auto 0;
+  color: #1a1a1a;
+}
+
+.pdf-compress-info .info-block {
+  margin-bottom: 44px;
+}
+
+.pdf-compress-info h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.4px;
+  color: #111;
+  margin-bottom: 14px;
+}
+
+.pdf-compress-info h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 14px;
+}
+
+.pdf-compress-info p {
+  font-size: 0.92rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.pdf-compress-info p:last-child {
+  margin-bottom: 0;
+}
+
+.pdf-compress-info .info-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pdf-compress-info .info-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #555;
+}
+
+.pdf-compress-info .info-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cc0000;
+}
+
+.pdf-compress-info .info-list li b {
+  color: #222;
+}
+
+.pdf-compress-info .info-list--plain li::before {
+  background: #9CA3AF;
+}
+
+.pdf-compress-info .info-cards {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.pdf-compress-info .info-card {
+  flex: 1 1 220px;
+  border: 1.5px solid #E5E7EB;
+  border-radius: 12px;
+  background: #fff;
+  padding: 18px 18px 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.pdf-compress-info .info-card:hover {
+  border-color: #cc0000;
+  box-shadow: 0 4px 16px rgba(204, 0, 0, 0.08);
+}
+
+.pdf-compress-info .info-card--highlight {
+  border-color: #cc0000;
+  background: #fff8f8;
+}
+
+.pdf-compress-info .info-card-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #cc0000;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 8px;
+}
+
+.pdf-compress-info .info-card p {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.pdf-compress-info .faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pdf-compress-info .faq-item {
+  border: 1.5px solid #E5E7EB;
+  border-radius: 12px;
+  background: #fff;
+  padding: 14px 18px;
+  transition: border-color 0.2s;
+}
+
+.pdf-compress-info .faq-item[open] {
+  border-color: #cc0000;
+}
+
+.pdf-compress-info .faq-item summary {
+  cursor: pointer;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #111;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pdf-compress-info .faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.pdf-compress-info .faq-item summary::after {
+  content: "+";
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #cc0000;
+  flex-shrink: 0;
+  margin-left: 12px;
+  transition: transform 0.2s;
+}
+
+.pdf-compress-info .faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.pdf-compress-info .faq-item p {
+  font-size: 0.86rem;
+  color: #666;
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+@media (max-width: 767px) {
+  .pdf-compress-info {
+    margin-top: 56px;
+  }
+
+  .pdf-compress-info h2 {
+    font-size: 1.35rem;
+  }
+
+  .pdf-compress-info .info-cards {
+    flex-direction: column;
+  }
+}

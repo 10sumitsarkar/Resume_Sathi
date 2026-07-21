@@ -588,6 +588,125 @@ const downloadResult = () => {
           )}
         </div>
       )}
+
+      <section className="pdf-compress-info">
+
+  <div className="info-block">
+    <h2>Compress PDF Without Losing Quality</h2>
+    <p>Many websites only allow PDF files up to a certain size, especially job portals, government application forms, and online submission websites. If your resume, certificate, marksheet, or scanned document is too large to upload, this PDF Compressor can help reduce its file size while keeping the text clear and the document easy to read. Simply upload your PDF, choose a compression level, and download the compressed file in a few seconds.</p>
+    <p>Provides the highest level of compression to reduce file size as much as possible. Best for documents with strict upload limits.</p>
+  </div>
+
+  <div className="info-block">
+    <h3>Why People Usually Need This</h3>
+  <ul className="info-list">
+  <li>
+    <b>Sarkari job applications</b> — Many recruitment portals, including
+    SSC, state PSCs, and railway recruitment websites, have file size
+    limits for uploading resumes, certificates, and ID proof.
+  </li>
+
+  <li>
+    <b>Email attachments</b> — Smaller PDF files are easier to send and
+    receive, especially when sharing documents over mobile networks.
+  </li>
+
+  <li>
+    <b>Resume uploads</b> — Many ATS and job portals accept PDF resumes
+    only up to a specific file size, making compression necessary before
+    uploading.
+  </li>
+
+  <li>
+    <b>Scanned documents</b> — PDFs created using mobile camera or scanner
+    apps are often larger than necessary and can usually be reduced
+    without affecting readability.
+  </li>
+</ul>
+  </div>
+
+<div className="info-block">
+    <h3>Compression Levels</h3>
+
+    <div className="info-cards">
+      <div className="info-card">
+      <span className="info-card-tag">Extreme</span>
+      <p>
+       Provides the highest level of compression to reduce file size as much as possible. Best for documents with strict upload limits.
+      </p>
+    </div>
+      <div className="info-card info-card--highlight">
+      <span className="info-card-tag">Recommended</span>
+      <p>
+        Balances file size and quality. Text remains clear, and images stay
+        suitable for most resumes, certificates, and everyday documents.
+      </p>
+    </div>
+      <div className="info-card">
+      <span className="info-card-tag">Less Compression</span>
+      <p>
+       Reduces file size with very little change in quality. Best for PDFs that contain photos or diagrams.
+      </p>
+    </div>
+    </div>
+  </div>
+
+<div className="info-block">
+  <h3>How Much Smaller Will My File Get?</h3>
+  <p>
+    Compression results vary depending on your PDF. Text-only documents
+    usually shrink only slightly, while scanned documents and PDFs with
+    many images will compress much more.
+  </p>
+</div>
+
+<div className="info-block">
+  <h3>Things to Keep in Mind</h3>
+
+  <ul className="info-list info-list--plain">
+    <li>Keep the original PDF until you've checked the compressed file.</li>
+    <li>Password protected PDFs may not compress as much.</li>
+    <li>Text only PDFs usually show only a small size reduction.</li>
+  </ul>
+</div>
+
+<div className="info-block">
+  <h3>Frequently Asked Questions</h3>
+
+  <div className="faq-list">
+
+    <details className="faq-item">
+      <summary>Is this tool free?</summary>
+      <p>Yes. You can compress PDF files without creating an account or paying any fee.</p>
+    </details>
+
+    <details className="faq-item">
+      <summary>Will compression reduce PDF quality?</summary>
+      <p>
+        The Recommended mode keeps text clear and is suitable for most
+        resumes and documents. For the best quality, choose Less Compression.
+      </p>
+    </details>
+
+    <details className="faq-item">
+      <summary>Does it work on mobile?</summary>
+      <p>Yes. You can compress PDFs directly from any mobile browser.</p>
+    </details>
+
+    <details className="faq-item">
+      <summary>Are my files stored?</summary>
+      <p>No. Files are processed only for compression and are not stored afterward.</p>
+    </details>
+
+    <details className="faq-item">
+      <summary>What is the maximum file size?</summary>
+      <p>The maximum upload size depends on the current tool limits.</p>
+    </details>
+
+  </div>
+</div>
+
+</section>
     </div>
   );
 }

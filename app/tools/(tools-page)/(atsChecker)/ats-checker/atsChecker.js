@@ -423,6 +423,76 @@ export default function AtsChecker() {
           </button>
         </div>
       )}
+
+      {/* ============================================================
+   ATS RESUME CHECKER — INFO / CONTENT SECTION
+   Paste below the tool component's closing tag.
+   ============================================================ */}
+
+<section className="ats-checker-info">
+
+  <div className="info-block">
+    <h2>What This Tool Checks</h2>
+    <p>
+      Applicant Tracking Systems scan resumes before a recruiter sees them.
+      Missing sections, wrong formatting, or low keyword match can get a
+      resume filtered out automatically. This tool scores your resume
+      against 7 factors ATS software commonly checks, then shows what to
+      fix.
+    </p>
+  </div>
+
+  <div className="info-block">
+    <h3>How Scoring Works</h3>
+    <p>
+      Upload a PDF or DOCX resume. The tool checks for a valid email,
+      phone number, LinkedIn profile, work experience, education, skills
+      section, and a professional summary. Each present section adds to
+      your score out of 100.
+    </p>
+  </div>
+
+  <div className="info-block">
+    <h3>Job Description Matching</h3>
+    <p>
+      Paste a job description to compare it against your resume. The tool
+      lists which keywords from the JD are present and which are missing,
+      so you can add relevant terms before applying.
+    </p>
+  </div>
+
+  <div className="info-block">
+    <h3>Notes</h3>
+    <ul className="info-list info-list--plain">
+      <li>Nothing is uploaded to a server — checking happens in your browser.</li>
+      <li>Works with PDF and DOCX resumes.</li>
+      <li>Re-run the check after editing to confirm the score improved.</li>
+    </ul>
+  </div>
+
+  <div className="info-block">
+    <h3>Questions</h3>
+    <div className="faq-list">
+
+      <details className="faq-item">
+        <summary>Is this free?</summary>
+        <p>Yes, no login required.</p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Does a high score guarantee an interview?</summary>
+        <p>No. It means your resume is less likely to get filtered out by ATS software. The rest depends on your experience and the role.</p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Is my resume stored anywhere?</summary>
+        <p>No, it's processed in-browser and not saved.</p>
+      </details>
+
+    </div>
+  </div>
+
+</section>
     </div>
   );
 }

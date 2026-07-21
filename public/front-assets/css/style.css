@@ -3936,6 +3936,7 @@ body:has(.tools-sidebar.collapsed) .tooltip {
     backdrop-filter: 2px;
     padding-block: 15px;
     transition: all 0.5s ease-in-out;
+    z-index: 3;
 
     @media (min-width:991px) {
             position: fixed;

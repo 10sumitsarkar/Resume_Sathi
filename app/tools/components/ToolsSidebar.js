@@ -106,6 +106,13 @@ useEffect(() => {
               </Link>
             </div>
 
+            <div className='all-sub-items-div'>
+              <Link prefetch={false} href="/tools/pdf-compressor/" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Compress PDF">
+                <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Gradient Generator" />
+                <span>Compress PDF</span>
+              </Link>
+            </div>
+
           </div>
 
         </div>
@@ -149,6 +156,12 @@ useEffect(() => {
                 <Link prefetch={false} href="/tools/merge-pdf/" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Merge PDF" onClick={closeOffcanvas}>
                   <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Merge PDF" />
                   <span>Merge PDF</span>
+                </Link>
+              </div>
+              <div className='all-sub-items-div'>
+                <Link prefetch={false} href="/tools/pdf-compressor/" className={`each-sub-item ${isActive ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Compress PDF" onClick={closeOffcanvas}>
+                  <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Merge PDF" />
+                  <span>Compress PDF</span>
                 </Link>
               </div>
             </div>

@@ -8,6 +8,13 @@ import "../../public/front-assets/css/home.css";
 
 // ── SVG Icon Library ──────────────────────────────────────────────────────
 const Icon = {
+   IconFileZip: () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <path d="M12 14v1a1 1 0 0 0 1 1h0a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h0" />
+  </svg>
+),
   Shield: () => (
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
@@ -573,6 +580,13 @@ const tools = [
     desc: "Combine multiple PDFs into one. Drag to reorder before merging.",
     href: "/tools/merge-pdf",
   },
+    {
+        href: "/tools/pdf-compressor",
+        icon: <Icon.IconFileZip />,
+        name: "Compress PDF",
+        desc: "Reduce file size for easy sharing on job portals.",
+        tag: "PDF only",
+  },
 ];
 
 // ── Why Free Comparison ────────────────────────────────────────────────
@@ -967,7 +981,9 @@ export default function ResumeListClient({ initialJobs = [], initialBlogs = [] }
             options={{
               responsive: {
                 0: { items: 1 },
-                640: { items: 2 },
+                576: { items: 2 },
+                767: { items: 3 },
+                1200: { items: 4 },
               },
             }}
           >

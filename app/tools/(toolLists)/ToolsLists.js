@@ -130,12 +130,13 @@ const TOOL_GROUPS = [
         live: false,
       },
       {
+        href: "/tools/pdf-compressor",
         icon: <IconFileZip />,
         tagIcon: <IconFilePdfSmall />,
         title: "Compress PDF",
         desc: "Reduce file size for easy sharing on job portals.",
         tag: "PDF only",
-        live: false,
+        live: true,
       },
       {
         icon: <IconFileWord />,

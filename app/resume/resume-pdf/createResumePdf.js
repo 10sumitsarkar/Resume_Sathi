@@ -5,6 +5,7 @@ import ResumeTemplate2Pdf from './ResumeTemplate2Pdf';
 import ResumeTemplate3Pdf from './ResumeTemplate3Pdf';
 import ResumeTemplate4Pdf from './ResumeTemplate4Pdf';
 import ResumeTemplate5Pdf from './ResumeTemplate5Pdf';
+import ResumeTemplate6Pdf from './ResumeTemplate6Pdf';
 import { registerAvailableFonts, resolveProfileImage } from './pdfHelpers';
 
 const PDF_TEMPLATE_MAP = {
@@ -13,6 +14,7 @@ const PDF_TEMPLATE_MAP = {
   ResumeTemplate3: ResumeTemplate3Pdf,
   ResumeTemplate4: ResumeTemplate4Pdf,
   ResumeTemplate5: ResumeTemplate5Pdf,
+  ResumeTemplate6: ResumeTemplate6Pdf,
 };
 
 const sanitizeFileName = (fileName) => {

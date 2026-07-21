@@ -20,10 +20,10 @@ const DEFAULT_GRADIENT_TO = '#cfd3ef';
 const styles = StyleSheet.create({
   page: {
     fontFamily: 'Poppins',
-    paddingTop: 34,
-    paddingBottom: 34,
-    paddingLeft: 40,
-    paddingRight: 40,
+    paddingTop: 35,
+    paddingBottom: 35,
+    paddingLeft: 35,
+    paddingRight: 35,
   },
   bgLayer: {
     position: 'absolute',

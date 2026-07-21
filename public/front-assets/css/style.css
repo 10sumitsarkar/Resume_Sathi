@@ -3923,7 +3923,7 @@ body:has(.tools-sidebar.collapsed) .tooltip {
   }
 
   .tools-bottom-button-div {
-    position: sticky;
+    position: static;
     padding: 10px;
     bottom: 0;
     left: 0;
@@ -3935,6 +3935,14 @@ body:has(.tools-sidebar.collapsed) .tooltip {
     background: #ffffffc4;
     backdrop-filter: 2px;
     padding-block: 15px;
+    transition: all 0.5s ease-in-out;
+
+    @media (min-width:991px) {
+            position: fixed;
+    padding-inline: 0;
+         left: var(--toolsSidebarWidth) + 20px;
+         width: calc(100% - (var(--toolsSidebarWidth) + 80px));
+      }
 
     .tool-outline-btn {
       position: relative;
@@ -3950,7 +3958,10 @@ body:has(.tools-sidebar.collapsed) .tooltip {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;
+      gap: 5px;  
+      @media (min-width:991px) {
+        padding: 12px 20px;
+      }
 
       .file-count {
         position: absolute;
@@ -3991,6 +4002,9 @@ body:has(.tools-sidebar.collapsed) .tooltip {
       text-align: center;
       font-size: 14px;
       font-weight: 500;
+      @media (min-width:991px) {
+        padding: 12px 20px;
+      }
     }
 
     .tool-solid-btn:hover {
@@ -4019,7 +4033,14 @@ body:has(.tools-sidebar.collapsed) .tooltip {
   }
 
 }
-
+.tools-sidebar.collapsed~.tools-right-div .tools-bottom-button-div{
+  @media (min-width:991px) {
+            position: fixed;
+            padding-inline: 0;
+         left: var(--collapsedToolsSidebarWidth) + 20px;
+         width: calc(100% - (var(--collapsedToolsSidebarWidth) + 80px));
+      }
+}
 
 
 /* ─── HEADER ─────────────────────────────────────────────────── */

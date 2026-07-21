@@ -26,6 +26,7 @@ export default async function sitemap() {
     { url: `${baseUrl}/tools/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
     { url: `${baseUrl}/tools/ats-checker/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.82 },
     { url: `${baseUrl}/tools/merge-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+  { url: `${baseUrl}/tools/pdf-compressor/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   ];
 
   try {

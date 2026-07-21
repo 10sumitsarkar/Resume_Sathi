@@ -6,6 +6,7 @@ import ResumeTemplate2 from "../templates/ResumeTemplate2";
 import ResumeTemplate3 from "../templates/ResumeTemplate3";
 import ResumeTemplate4 from "../templates/ResumeTemplate4";
 import ResumeTemplate5 from "../templates/ResumeTemplate5";
+import ResumeTemplate6 from "../templates/ResumeTemplate6";
 import "../resume-css/resumeTemp.css";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "next/navigation";
@@ -24,6 +25,7 @@ const id = searchParams.get('id');
     ResumeTemplate3: ResumeTemplate3,
     ResumeTemplate4: ResumeTemplate4,
     ResumeTemplate5: ResumeTemplate5,   
+    ResumeTemplate6: ResumeTemplate6,  
     // add more as needed
   };
 

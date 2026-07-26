@@ -27,6 +27,7 @@ export default function Footer() {
             <div className="rk-footer-col-title">Product</div>
 
             <Link prefetch={false} href="/tools">Tools</Link>
+            <Link prefetch={false} href="/typing">Typing Practice</Link>
           </div>
 
           <div className="rk-footer-col">
@@ -50,7 +51,7 @@ export default function Footer() {
 
       <div className="rk-footer-bottom">
         <div className="container-fluid custom-container rk-footer-bottom-inner">
-          <span>© 2025 ResumeSathi · Your data never leaves your device</span>
+          <span>© {new Date().getFullYear()} ResumeSathi · Your data never leaves your device</span>
           <span>Made with ♥ for every career</span>
         </div>
       </div>

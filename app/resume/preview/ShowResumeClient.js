@@ -7,6 +7,8 @@ import ResumeTemplate3 from '../templates/ResumeTemplate3'
 import ResumeTemplate4 from '../templates/ResumeTemplate4'
 import ResumeTemplate5 from '../templates/ResumeTemplate5'
 import ResumeTemplate6 from '../templates/ResumeTemplate6'
+import ResumeTemplate7 from '../templates/ResumeTemplate7'
+
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux'
@@ -23,6 +25,7 @@ const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate4', component: ResumeTemplate4 },
     { id: 'ResumeTemplate5', component: ResumeTemplate5 },
     { id: 'ResumeTemplate6', component: ResumeTemplate6 },
+    { id: 'ResumeTemplate7', component: ResumeTemplate7 },
 ];
 
 // PDF page margin in mm (top and bottom of each page)

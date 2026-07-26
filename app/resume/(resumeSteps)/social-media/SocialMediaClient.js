@@ -75,13 +75,13 @@ const id = searchParams.get('id');
     reset();
 
     if (editStatus) {
-      toast.success('Cocial Media details updated successfully.', {
+      toast.success('Social Media details updated successfully.', {
         position: 'top-right',
         autoClose: 5000,
         theme: 'light',
       });
     } else {
-      toast.success('Cocial Media saved successfully.', {
+      toast.success('Social Media saved successfully.', {
         position: 'top-right',
         autoClose: 5000,
         theme: 'light',

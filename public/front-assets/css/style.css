@@ -1024,7 +1024,7 @@ a {
             div {
               position: relative;
               border-radius: 50%;
-              border: 2px solid #5a21de;
+              border: 2px solid #3e1d53;
               width: 20px;
               height: 20px;
               cursor: pointer;
@@ -1033,7 +1033,7 @@ a {
                 content: "";
                 width: 14px;
                 height: 14px;
-                background: #5a21de;
+                background: #3e1d53;
                 border-radius: 50%;
                 position: absolute;
                 top: 50%;
@@ -1075,45 +1075,45 @@ a {
               }
 
               &.color1 {
-                background-color: #de21a2;
-                border: 4px solid #de21a2;
+                background-color: #9f036d;
+                border: 4px solid #9f036d;
 
                 &:has(input:checked)::after {
                   display: block;
-                  background: #de21a2;
+                  background: #9f036d;
                   border: 2px solid #fff;
                 }
               }
 
               &.color2 {
-                background-color: #5a21de;
-                border: 4px solid #5a21de;
+                background-color: #3e1d53;
+                border: 4px solid #3e1d53;
 
                 &:has(input:checked)::after {
                   display: block;
-                  background: #5a21de;
+                  background: #3e1d53;
                   border: 2px solid #fff;
                 }
               }
 
               &.color3 {
-                background-color: #01cf27;
-                border: 4px solid #01cf27;
+                background-color: #084c41;
+                border: 4px solid #084c41;
 
                 &:has(input:checked)::after {
                   display: block;
-                  background: #01cf27;
+                  background: #084c41;
                   border: 2px solid #fff;
                 }
               }
 
               &.color4 {
-                background-color: #de7921;
-                border: 4px solid #de7921;
+                background-color: #87300d;
+                border: 4px solid #87300d;
 
                 &:has(input:checked)::after {
                   display: block;
-                  background: #de7921;
+                  background: #87300d;
                   border: 2px solid #fff;
                 }
               }
@@ -1327,7 +1327,7 @@ a {
           div {
             position: relative;
             border-radius: 50%;
-            border: 2px solid #5a21de;
+            border: 2px solid #3e1d53;
             width: 20px;
             height: 20px;
             cursor: pointer;
@@ -1336,7 +1336,7 @@ a {
               content: "";
               width: 14px;
               height: 14px;
-              background: #5a21de;
+              background: #3e1d53;
               border-radius: 50%;
               position: absolute;
               top: 50%;
@@ -1378,45 +1378,45 @@ a {
             }
 
             &.color1 {
-              background-color: #de21a2;
-              border: 4px solid #de21a2;
+              background-color: #9f036d;
+              border: 4px solid #9f036d;
 
               &:has(input:checked)::after {
                 display: block;
-                background: #de21a2;
+                background: #9f036d;
                 border: 2px solid #fff;
               }
             }
 
             &.color2 {
-              background-color: #5a21de;
-              border: 4px solid #5a21de;
+              background-color: #3e1d53;
+              border: 4px solid #3e1d53;
 
               &:has(input:checked)::after {
                 display: block;
-                background: #5a21de;
+                background: #3e1d53;
                 border: 2px solid #fff;
               }
             }
 
             &.color3 {
-              background-color: #01cf27;
-              border: 4px solid #01cf27;
+              background-color: #084c41;
+              border: 4px solid #084c41;
 
               &:has(input:checked)::after {
                 display: block;
-                background: #01cf27;
+                background: #084c41;
                 border: 2px solid #fff;
               }
             }
 
             &.color4 {
-              background-color: #de7921;
-              border: 4px solid #de7921;
+              background-color: #87300d;
+              border: 4px solid #87300d;
 
               &:has(input:checked)::after {
                 display: block;
-                background: #de7921;
+                background: #87300d;
                 border: 2px solid #fff;
               }
             }
@@ -2828,7 +2828,7 @@ body:has(.tools-sidebar.collapsed) .tooltip {
               div {
                 position: relative;
                 border-radius: 50%;
-                border: 2px solid #5a21de;
+                border: 2px solid #3e1d53;
                 width: 20px;
                 height: 20px;
                 cursor: pointer;
@@ -2837,7 +2837,7 @@ body:has(.tools-sidebar.collapsed) .tooltip {
                   content: "";
                   width: 14px;
                   height: 14px;
-                  background: #5a21de;
+                  background: #3e1d53;
                   border-radius: 50%;
                   position: absolute;
                   top: 50%;
@@ -2879,45 +2879,45 @@ body:has(.tools-sidebar.collapsed) .tooltip {
                 }
 
                 &.color1 {
-                  background-color: #de21a2;
-                  border: 4px solid #de21a2;
+                  background-color: #9f036d;
+                  border: 4px solid #9f036d;
 
                   &:has(input:checked)::after {
                     display: block;
-                    background: #de21a2;
+                    background: #9f036d;
                     border: 2px solid #fff;
                   }
                 }
 
                 &.color2 {
-                  background-color: #5a21de;
-                  border: 4px solid #5a21de;
+                  background-color: #3e1d53;
+                  border: 4px solid #3e1d53;
 
                   &:has(input:checked)::after {
                     display: block;
-                    background: #5a21de;
+                    background: #3e1d53;
                     border: 2px solid #fff;
                   }
                 }
 
                 &.color3 {
-                  background-color: #01cf27;
-                  border: 4px solid #01cf27;
+                  background-color: #084c41;
+                  border: 4px solid #084c41;
 
                   &:has(input:checked)::after {
                     display: block;
-                    background: #01cf27;
+                    background: #084c41;
                     border: 2px solid #fff;
                   }
                 }
 
                 &.color4 {
-                  background-color: #de7921;
-                  border: 4px solid #de7921;
+                  background-color: #87300d;
+                  border: 4px solid #87300d;
 
                   &:has(input:checked)::after {
                     display: block;
-                    background: #de7921;
+                    background: #87300d;
                     border: 2px solid #fff;
                   }
                 }
@@ -4409,6 +4409,47 @@ body:has(.tools-sidebar.collapsed) .tooltip {
 }
 
 /* Desk footer end */
+
+/* Fixed typing shortcut */
+.rk-fixed-typing-link {
+  position: fixed;
+  top: 150px;
+  right: 0;
+  z-index: 990;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  justify-content: center;
+  width: 38px;
+  min-height: 142px;
+  padding: 9px 7px;
+  border-radius: 10px 0 0 10px;
+  background: var(--rk-brand, #cc0000);
+  box-shadow: 0 10px 20px -10px rgba(136, 0, 0, .8);
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform .2s ease, background .2s ease;
+&:hover{
+    background: #a70000;
+
+}
+}
+
+.rk-fixed-typing-link span {
+  writing-mode: vertical-rl;
+}
+
+@media (max-width: 767px) {
+  .rk-fixed-typing-link {
+    display: none;
+  }
+}
 
 /* Photo Crop Modal start */
 .crop-modal-overlay {

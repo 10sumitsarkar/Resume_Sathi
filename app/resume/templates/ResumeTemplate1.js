@@ -24,6 +24,16 @@ const id = searchParams.get('id');
   const skills = activeResume.skills || [];
   const hobbies = activeResume.hobbies || [];
 
+  const formatDisplayDate = (dateStr) => {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr; // agar already plain text hai to wahi return
+  const day = d.getDate();
+  const month = d.toLocaleString('en-US', { month: 'long' });
+  const year = d.getFullYear();
+  return `${day} ${month} ${year}`;
+};
+
   const previewResumeSize = useSelector(
     (state) => state.resume.preview_resume_size,
   );
@@ -566,7 +576,7 @@ const id = searchParams.get('id');
                           {cert.certificate_name} from{" "}
                           {cert.issuing_organization}
                         </p>
-                        {cert.issue_date && <p>{cert.issue_date}</p>}
+                        {cert.issue_date && <p>{formatDisplayDate(cert.issue_date)}</p>}
                         {cert.description && (
                           <p className="para-desc">{cert.description}</p>
                         )}

@@ -407,18 +407,22 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   if (loading) {
     return (
-      <div className="rk-loading">
-        <div className="rk-spinner"></div>
-        Loading article...
+      <div className="rk-blog-scope">
+        <div className="rk-loading">
+          <div className="rk-spinner"></div>
+          Loading article...
+        </div>
       </div>
     );
   }
 
   if (!article) {
     return (
-      <div className="rk-empty">
-        <i className="bi bi-inboxes"></i>
-        <p>Job not found.</p>
+      <div className="rk-blog-scope">
+        <div className="rk-empty">
+          <i className="bi bi-inboxes"></i>
+          <p>Job not found.</p>
+        </div>
       </div>
     );
   }
@@ -429,11 +433,11 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
   const location = getLocation(article);
   const employmentType = getEmploymentType(article);
   const { begin, lastDate } = getApplicationDates(article);
-  const heroImage = article.hero_image;
+  const heroImage = article.hero_image || article.image || article.meta_image || article.og_image;
 
 
   return (
-    <>
+    <div className="rk-blog-scope">
       <section className="container-fluid custom-container small-hero-area rk-article-hero">
         <div className="left-part">
           <div>
@@ -600,6 +604,6 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

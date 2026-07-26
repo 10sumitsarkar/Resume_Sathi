@@ -107,6 +107,38 @@ function getApplicationDates(item) {
   };
 }
 
+// 👇 NAYA: expiry timestamp nikalne ke liye helper
+function getExpiryTimestamp(item) {
+  const { lastDate } = getApplicationDates(item);
+  if (!lastDate) return null;
+  const d = new Date(lastDate);
+  return Number.isNaN(d.getTime()) ? null : d.getTime();
+}
+
+// 👇 NAYA: jaldi khatam hone wali jobs pehle, expired jobs sabse last me
+function sortJobsByExpiry(items) {
+  const now = Date.now();
+  return items.slice().sort((a, b) => {
+    const aTime = getExpiryTimestamp(a);
+    const bTime = getExpiryTimestamp(b);
+    const aExpired = aTime !== null && aTime < now;
+    const bExpired = bTime !== null && bTime < now;
+
+    if (aExpired !== bExpired) return aExpired ? 1 : -1;
+
+    if (aExpired && bExpired) {
+      if (aTime === null) return 1;
+      if (bTime === null) return -1;
+      return bTime - aTime;
+    }
+
+    if (aTime === null && bTime === null) return 0;
+    if (aTime === null) return 1;
+    if (bTime === null) return -1;
+    return aTime - bTime;
+  });
+}
+
 function applyDocumentMeta(meta) {
   if (typeof document === 'undefined') return;
 
@@ -417,7 +449,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
   // 👇 SSR se aaye hue initial data se state seed karo — is-tarah pehla
   // render (jo Googlebot dekhta hai) already jobs se bhara hoga, khaali nahi.
-  const [articles, setArticles] = useState(() => initialArticles.slice(0, PAGE_SIZE));
+  const [articles, setArticles] = useState(() => sortJobsByExpiry(initialArticles).slice(0, PAGE_SIZE));
   const [latest, setLatest] = useState(() =>
     initialArticles
       .slice()
@@ -463,9 +495,9 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const fetchArticles = async (targetPage = 1) => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/courses`);
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.items || data.results || []);
+      // Static-export deployment: keep list links limited to pages generated
+      // at build time instead of loading newer, unexported API records.
+      const items = initialArticles;
 
       const normalizedSearch = search.trim().toLowerCase();
       const filteredItems = items.filter((item) => {
@@ -485,8 +517,10 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
         return matchesSearch && matchesCategory;
       });
 
-      const total = filteredItems.length;
-      const pagedItems = filteredItems.slice((targetPage - 1) * PAGE_SIZE, targetPage * PAGE_SIZE);
+      const sortedItems = sortJobsByExpiry(filteredItems); // 👈 NAYA: jaldi expire hone wali jobs pehle, expired last me
+
+      const total = sortedItems.length;
+      const pagedItems = sortedItems.slice((targetPage - 1) * PAGE_SIZE, targetPage * PAGE_SIZE);
 
       setArticles(pagedItems);
       setPage(targetPage);
@@ -507,20 +541,12 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
   const fetchSidebar = async () => {
     try {
-      const [latestRes, categoriesRes] = await Promise.all([
-        fetch(`${API_BASE}/courses`),
-        fetch(`${API_BASE}/course-categories`),
-      ]);
-      const latestData = await latestRes.json();
-      const categoriesData = await categoriesRes.json();
-      const latestItems = Array.isArray(latestData)
-        ? latestData
-            .slice()
-            .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
-            .slice(0, 3)
-        : [];
+      const latestItems = initialArticles
+        .slice()
+        .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
+        .slice(0, 3);
       setLatest(latestItems);
-      setCategories(Array.isArray(categoriesData) ? categoriesData : []);
+      setCategories(initialCategories);
     } catch (error) {
       console.error(error);
       // 👇 SSR se already latest/categories hain to khaali mat karo
@@ -643,13 +669,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const params = new URLSearchParams();
-        params.set('search', term);
-        params.set('limit', String(SUGGESTION_LIMIT));
-        params.set('page', '1');
-        const response = await fetch(`${API_BASE}/courses`);
-        const data = await response.json();
-        const items = Array.isArray(data) ? data : (data.items || data.results || []);
+        const items = initialArticles;
         const filteredSuggestions = items.filter((item) => {
           const haystack = [getTitle(item), getDescription(item), getCategoryLabel(item), getCompanyName(item), getLocation(item)].join(' ').toLowerCase();
           return haystack.includes(term.toLowerCase());
@@ -728,6 +748,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
         <meta name="twitter:image" content={blogPageMeta.image} />
       </Head>
 
+      <div className="rk-blog-scope">
       <section className="container-fluid custom-container small-hero-area">
         <div className='left-part'>
           <div>
@@ -859,6 +880,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
             </Link>
           </div>
         </div>
+      </div>
       </div>
 
     </>

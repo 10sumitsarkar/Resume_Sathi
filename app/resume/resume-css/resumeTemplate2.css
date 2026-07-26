@@ -18,10 +18,10 @@
 }
 
 .resume {
-  &.color-1 { --templateColor: #de21a2; }
-  &.color-2 { --templateColor: #5a21de; }
-  &.color-3 { --templateColor: #01cf27; }
-  &.color-4 { --templateColor: #de7921; }
+  &.color-1 { --templateColor: #9f036d; }
+  &.color-2 { --templateColor: #3e1d53; }
+  &.color-3 { --templateColor: #084c41; }
+  &.color-4 { --templateColor: #87300d; }
   &.color-5 { --templateColor: #de2124; }
   &.color-6 { --templateColor: #585858; }
   &.montserrat * { font-family: "Montserrat", sans-serif; }

@@ -3,14 +3,21 @@ import "../resume-css/resumeTemplate4.css";
 import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 
-export default function ResumeTemplate4({ additionalClass, isStatic = false, resumeId, isForDownload = false }) {
+export default function ResumeTemplate4({
+  additionalClass,
+  isStatic = false,
+  resumeId,
+  isForDownload = false,
+}) {
   const searchParams = useSearchParams();
-const id = searchParams.get('id');
+  const id = searchParams.get("id");
   const activeResumeId = resumeId || id;
   const containerRef = useRef();
   const resumeRef = useRef();
   const activeResume = useSelector((state) => {
-    const resumes = Array.isArray(state.resume.resumes) ? state.resume.resumes : [];
+    const resumes = Array.isArray(state.resume.resumes)
+      ? state.resume.resumes
+      : [];
     return resumes.find((resume) => resume.id === activeResumeId) || {};
   });
   const personalInfomation = activeResume.personal_infomation || {};
@@ -33,6 +40,16 @@ const id = searchParams.get('id');
   // Checking the actual page using path start
   const [currentLoc, setCurrentLoc] = useState("preview");
   const pathname = usePathname();
+
+  const formatDisplayDate = (dateStr) => {
+    if (!dateStr) return "";
+    const d = new Date(dateStr);
+    if (isNaN(d)) return dateStr;
+    const day = d.getDate();
+    const month = d.toLocaleString("en-US", { month: "long" });
+    const year = d.getFullYear();
+    return `${day} ${month} ${year}`;
+  };
 
   useEffect(() => {
     if (pathname) {
@@ -100,7 +117,7 @@ const id = searchParams.get('id');
     >
       <div
         ref={resumeRef}
-        id={isForDownload ? 'resume-download-area' : undefined}
+        id={isForDownload ? "resume-download-area" : undefined}
         className="position-absolute top-0 start-0"
         style={{
           transform: `scale(${scale})`,
@@ -430,7 +447,7 @@ const id = searchParams.get('id');
                       </p>
                       {cert.issue_date && (
                         <p className="resume4_entry_date">
-                          {cert.issue_date}
+                          {formatDisplayDate(cert.issue_date)}
                         </p>
                       )}
                     </div>

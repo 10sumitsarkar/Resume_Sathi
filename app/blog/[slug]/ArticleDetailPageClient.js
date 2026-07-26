@@ -61,7 +61,14 @@ function formatDate(dateString) {
 
 function getSlug(item) {
   if (!item) return '';
-  return item.slug || item.url_name || item.canonical_tag || '';
+  const raw = item.slug || item.url_name || item.canonical_tag || '';
+  let value = String(raw).trim().split('/').filter(Boolean).pop() || '';
+  try {
+    value = decodeURIComponent(value);
+  } catch {
+    // Use the source value if it contains malformed URI sequences.
+  }
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
 function getTitle(item) {
@@ -277,7 +284,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
   };
 
   useEffect(() => {
-    const isSameArticle = initialArticle && [initialArticle.url_name, initialArticle.slug, initialArticle.canonical_tag].includes(slug);
+    const isSameArticle = initialArticle && getSlug(initialArticle) === slug;
     if (!slug) return;
     if (isSameArticle) {
       setArticle(initialArticle);
@@ -424,18 +431,22 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   if (loading) {
     return (
-      <div className="rk-loading">
-        <div className="rk-spinner"></div>
-        Loading article...
+      <div className="rk-blog-scope">
+        <div className="rk-loading">
+          <div className="rk-spinner"></div>
+          Loading article...
+        </div>
       </div>
     );
   }
 
   if (!article) {
     return (
-      <div className="rk-empty">
-        <i className="bi bi-inboxes"></i>
-        <p>Article not found.</p>
+      <div className="rk-blog-scope">
+        <div className="rk-empty">
+          <i className="bi bi-inboxes"></i>
+          <p>Article not found.</p>
+        </div>
       </div>
     );
   }
@@ -443,9 +454,10 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
   const categoryLabel = article.category?.article_name || article.category?.name || article.category?.title || 'General';
   const selectedCategoryId = article.category?.id || article.category_id || null;
   const authorName = article.user?.name || 'Admin';
+  const heroImage = article.hero_image || article.image || article.meta_image || article.og_image;
 
   return (
-    <>
+    <div className="rk-blog-scope">
       <section className="container-fluid custom-container small-hero-area rk-article-hero">
         <div className="left-part">
           <div>
@@ -473,6 +485,9 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
               <span>{authorName}</span>
             </span>
           </div>
+        </div>
+         <div className="right-part">
+          <img className='img-fluid rounded' width={396} height={207} src={resolveMediaUrl(heroImage)} alt={categoryLabel}/>
         </div>
       </section>
 
@@ -641,6 +656,6 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

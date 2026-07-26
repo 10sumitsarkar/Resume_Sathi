@@ -60,12 +60,24 @@ function formatDate(dateString) {
 
 function getSlug(item) {
   if (!item) return '';
-  return item.slug || item.url_name || item.canonical_tag || '';
+  const raw = item.slug || item.url_name || item.canonical_tag || '';
+  let value = String(raw).trim().split('/').filter(Boolean).pop() || '';
+  try {
+    value = decodeURIComponent(value);
+  } catch {
+    // Use the source value if it contains malformed URI sequences.
+  }
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
 function getTitle(item) {
   if (!item) return '';
   return item.article_title || item.title || item.meta_title || item.name || 'Untitled article';
+}
+
+function getDescription(item) {
+  if (!item) return '';
+  return item.description || item.meta_description || item.short_description || item.excerpt || '';
 }
 
 function applyDocumentMeta(meta) {
@@ -407,26 +419,21 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const fetchArticles = async (targetPage = 1) => {
     setLoading(true);
     try {
-      const params = new URLSearchParams();
-      if (search) params.set('search', search);
-      if (categoryId) params.set('category_id', String(categoryId));
-      params.set('limit', String(PAGE_SIZE));
-      params.set('page', String(targetPage));
+      // Shared hosting serves a static export, so only show records whose
+      // detail pages were generated from the build-time cache.
+      const normalizedSearch = search.trim().toLowerCase();
+      const items = initialArticles.filter((item) => {
+        const haystack = [getTitle(item), getDescription(item), getCategoryLabel(item)].join(' ').toLowerCase();
+        const itemCategoryId = item.category_id || item.article_category_id || item.category?.id;
+        return (!normalizedSearch || haystack.includes(normalizedSearch))
+          && (!categoryId || Number(itemCategoryId) === Number(categoryId));
+      });
+      const total = items.length;
+      const pagedItems = items.slice((targetPage - 1) * PAGE_SIZE, targetPage * PAGE_SIZE);
 
-      const response = await fetch(`${API_BASE}/articles?${params.toString()}`);
-      const data = await response.json();
-
-      const items = Array.isArray(data) ? data : (data.items || data.results || []);
-      const total = Array.isArray(data) ? null : (data.total ?? null);
-
-      setArticles(items);
+      setArticles(pagedItems);
       setPage(targetPage);
-
-      if (total !== null) {
-        setHasMore(targetPage * PAGE_SIZE < total);
-      } else {
-        setHasMore(items.length === PAGE_SIZE);
-      }
+      setHasMore(targetPage * PAGE_SIZE < total);
     } catch (error) {
       console.error(error);
       // 👇 Sirf tab khaali karo jab humare paas already koi achha
@@ -443,14 +450,8 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
   const fetchSidebar = async () => {
     try {
-      const [latestRes, categoriesRes] = await Promise.all([
-        fetch(`${API_BASE}/articles/latest?limit=3`),
-        fetch(`${API_BASE}/article-categories`),
-      ]);
-      const latestData = await latestRes.json();
-      const categoriesData = await categoriesRes.json();
-      setLatest(Array.isArray(latestData) ? latestData : []);
-      setCategories(Array.isArray(categoriesData) ? categoriesData : []);
+      setLatest(initialArticles.slice().sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)).slice(0, 3));
+      setCategories(initialCategories);
     } catch (error) {
       console.error(error);
       if (initialArticles.length === 0) setLatest([]);
@@ -519,14 +520,9 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const params = new URLSearchParams();
-        params.set('search', term);
-        params.set('limit', String(SUGGESTION_LIMIT));
-        params.set('page', '1');
-        const response = await fetch(`${API_BASE}/articles?${params.toString()}`);
-        const data = await response.json();
-        const items = Array.isArray(data) ? data : (data.items || data.results || []);
-        setSuggestions(items);
+        const normalizedTerm = term.toLowerCase();
+        const items = initialArticles.filter((item) => [getTitle(item), getDescription(item), getCategoryLabel(item)].join(' ').toLowerCase().includes(normalizedTerm));
+        setSuggestions(items.slice(0, SUGGESTION_LIMIT));
         setShowSuggestions(true);
       } catch (error) {
         console.error(error);
@@ -600,6 +596,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
         <meta name="twitter:image" content={blogPageMeta.image} />
       </Head>
 
+      <div className="rk-blog-scope">
       <section className="container-fluid custom-container small-hero-area">
         <div className='left-part'>
           <div>
@@ -732,6 +729,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
             </Link>
           </div>
         </div>
+      </div>
       </div>
 
     </>

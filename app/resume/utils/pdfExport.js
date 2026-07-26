@@ -1,10 +1,10 @@
 import { pdf, Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
 
 const PALETTE_COLORS = {
-  'color-1': '#de21a2',
-  'color-2': '#5a21de',
-  'color-3': '#01cf27',
-  'color-4': '#de7921',
+  'color-1': '#9f036d',
+  'color-2': '#3e1d53',
+  'color-3': '#084c41',
+  'color-4': '#87300d',
   'color-5': '#de2124',
   'color-6': '#585858',
 };
@@ -87,6 +87,9 @@ const getThemeConfig = (selectedTheme = 'ResumeTemplate1', palette = 'color-1') 
   }
   if (themeKey === 'ResumeTemplate6') {
     return { layout: 'template6', accent, accentHex: accentColor, titleSize: 22, sectionTitleSize: 11, bodySize: 10 };
+  }
+   if (themeKey === 'ResumeTemplate7') {
+    return { layout: 'template7', accent, accentHex: accentColor, titleSize: 22, sectionTitleSize: 11, bodySize: 10 };
   }
   return { layout: 'template1', accent, accentHex: accentColor, titleSize: 24, sectionTitleSize: 11, bodySize: 10 };
 };

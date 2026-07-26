@@ -1,5 +1,7 @@
 import Script from "next/script";
+import Link from "next/link";
 import JsonLd from "./components/JsonLd";
+import FloatingTypingLink from "./components/FloatingTypingLink";
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com'),
@@ -84,6 +86,7 @@ export default function RootLayout({ children }) {
         </Script>
 
         {children}
+        <FloatingTypingLink />
         <Script src="/front-assets/js/bootstrap.bundle.min.js" defer />
       </body>
     </html>

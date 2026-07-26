@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import React, { useEffect, useRef, useState } from 'react';
-import './custom-input.css';
+import React, { useEffect, useRef, useState } from "react";
+import "./custom-input.css";
 
 export default function CustomInput({
-  type = 'select',
+  type = "select",
   options = [],
   search = false,
-  placeholder = type === 'date' ? 'Select date' : 'Select option',
+  placeholder = type === "date" ? "Select date" : "Select option",
   value = null,
   onChange = () => {},
   name,
   id,
-  className = '',
+  className = "",
   minDate,
   maxDate,
   // react-hook-form integration: pass register function and registerName/registerOptions
@@ -22,58 +22,72 @@ export default function CustomInput({
   setValue,
   disabled,
 }) {
-  const isSelect = type === 'select';
+  const isSelect = type === "select";
   const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const ref = useRef();
   const [selectedValue, setSelectedValue] = useState(value ?? null);
 
   // Date state
-  const [selectedDate, setSelectedDate] = useState(value ? new Date(value) : null);
+  const [selectedDate, setSelectedDate] = useState(
+    value ? new Date(value) : null,
+  );
   const [visibleMonth, setVisibleMonth] = useState(selectedDate || new Date());
 
   useEffect(() => {
     const onDoc = (e) => {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
     };
-    document.addEventListener('mousedown', onDoc);
-    return () => document.removeEventListener('mousedown', onDoc);
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
   }, []);
 
   useEffect(() => {
-    if (value && type === 'date') setSelectedDate(new Date(value));
-    if (value && type === 'select') setSelectedValue(value);
+    if (value && type === "date") setSelectedDate(new Date(value));
+    if (value && type === "select") setSelectedValue(value);
   }, [value, type]);
 
-  const filtered = isSelect && query ? options.filter((o) => (o.label || o.value || '').toString().toLowerCase().includes(query.toLowerCase())) : options;
+  const filtered =
+    isSelect && query
+      ? options.filter((o) =>
+          (o.label || o.value || "")
+            .toString()
+            .toLowerCase()
+            .includes(query.toLowerCase()),
+        )
+      : options;
 
   // register props for react-hook-form if provided
   let regProps = null;
   try {
-    if (register && registerName) regProps = register(registerName, registerOptions || {});
+    if (register && registerName)
+      regProps = register(registerName, registerOptions || {});
   } catch (e) {
     // ignore
   }
 
   const handleSelect = (opt) => {
     setOpen(false);
-    setQuery('');
+    setQuery("");
     const val = opt.value ?? opt;
     setSelectedValue(val);
 
     // ✅ react-hook-form ko reliably notify karo
-    if (typeof setValue === 'function' && registerName) {
+    if (typeof setValue === "function" && registerName) {
       setValue(registerName, val, { shouldValidate: true, shouldDirty: true });
-    } else if (regProps && typeof regProps.onChange === 'function') {
+    } else if (regProps && typeof regProps.onChange === "function") {
       regProps.onChange({ target: { value: val } });
     }
 
     // Also update hidden select DOM value and dispatch change so libraries/readers see it
     try {
-      const hidden = ref.current && ref.current.querySelector && ref.current.querySelector(`select[name="${registerName}"]`);
+      const hidden =
+        ref.current &&
+        ref.current.querySelector &&
+        ref.current.querySelector(`select[name="${registerName}"]`);
       if (hidden) {
         hidden.value = val;
-        hidden.dispatchEvent(new Event('change', { bubbles: true }));
+        hidden.dispatchEvent(new Event("change", { bubbles: true }));
       }
     } catch (e) {
       // ignore
@@ -89,27 +103,36 @@ export default function CustomInput({
     const handler = () => setSelectedValue(hidden.value || null);
     // initialize
     handler();
-    hidden.addEventListener('change', handler);
-    return () => hidden.removeEventListener('change', handler);
+    hidden.addEventListener("change", handler);
+    return () => hidden.removeEventListener("change", handler);
   }, [isSelect, regProps, registerName]);
 
   // Date helpers
   const startOfMonth = (d) => new Date(d.getFullYear(), d.getMonth(), 1);
-  const daysInMonth = (d) => new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
+  const daysInMonth = (d) =>
+    new Date(d.getFullYear(), d.getMonth() + 1, 0).getDate();
 
-  const goMonth = (offset) => setVisibleMonth((m) => new Date(m.getFullYear(), m.getMonth() + offset, 1));
+  const goMonth = (offset) =>
+    setVisibleMonth((m) => new Date(m.getFullYear(), m.getMonth() + offset, 1));
 
   const pickDate = (day) => {
-    const dt = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
+    const dt = new Date(
+      visibleMonth.getFullYear(),
+      visibleMonth.getMonth(),
+      day,
+    );
     if (minDate && dt < new Date(minDate)) return;
     if (maxDate && dt > new Date(maxDate)) return;
 
     setSelectedDate(dt);
 
     // ✅ react-hook-form ka value directly aur reliably update karo
-    if (typeof setValue === 'function' && registerName) {
-      setValue(registerName, dt.toISOString(), { shouldValidate: true, shouldDirty: true });
-    } else if (regProps && typeof regProps.onChange === 'function') {
+    if (typeof setValue === "function" && registerName) {
+      setValue(registerName, dt.toISOString(), {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    } else if (regProps && typeof regProps.onChange === "function") {
       regProps.onChange({ target: { value: dt.toISOString() } });
     }
 
@@ -118,10 +141,10 @@ export default function CustomInput({
   };
 
   const formatDate = (d) => {
-    if (!d) return '';
+    if (!d) return "";
     const y = d.getFullYear();
-    const m = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
+    const m = String(d.getMonth() + 1).padStart(2, "0");
+    const day = String(d.getDate()).padStart(2, "0");
     return `${day}-${m}-${y}`;
   };
 
@@ -129,40 +152,88 @@ export default function CustomInput({
     <div className={`rk-input-root ${className}`} ref={ref}>
       {/* Hidden native inputs for form libraries (react-hook-form) to bind to */}
       {isSelect && regProps && (
-        <select {...regProps} name={registerName} style={{ display: 'none' }} value={selectedValue ?? ''}>
-          <option value="">{placeholder || 'Please select'}</option>
+        <select
+          {...regProps}
+          name={registerName}
+          style={{ display: "none" }}
+          value={selectedValue ?? ""}
+        >
+          <option value="">{placeholder || "Please select"}</option>
           {options.map((o, idx) => (
-            <option key={o.value ?? idx} value={o.value ?? o}>{o.label ?? o.value ?? o}</option>
+            <option key={o.value ?? idx} value={o.value ?? o}>
+              {o.label ?? o.value ?? o}
+            </option>
           ))}
         </select>
       )}
       {!isSelect && regProps && (
-        <input type="hidden" {...regProps} name={registerName} value={selectedDate ? (selectedDate.toISOString()) : ''} />
+        <input
+          type="hidden"
+          {...regProps}
+          name={registerName}
+          value={selectedDate ? selectedDate.toISOString() : ""}
+        />
       )}
       {isSelect ? (
-        <div className={`rk-select ${open ? 'open' : ''} ${disabled ? 'disabled' : ''}`}>
-          <button type="button" className="rk-select-toggle" onClick={() => setOpen((v) => !v)} aria-haspopup="listbox" disabled={disabled}>
-            <span className={`rk-select-value ${!selectedValue && !value ? 'placeholder' : ''}`}>{
-              (() => {
+        <div
+          className={`rk-select ${open ? "open" : ""} ${disabled ? "disabled" : ""}`}
+        >
+          <button
+            type="button"
+            className="rk-select-toggle"
+            onClick={() => setOpen((v) => !v)}
+            aria-haspopup="listbox"
+            disabled={disabled}
+          >
+            <span
+              className={`rk-select-value ${!selectedValue && !value ? "placeholder" : ""}`}
+            >
+              {(() => {
                 const displayVal = selectedValue ?? value;
                 if (!displayVal) return placeholder;
                 const found = options.find((o) => o.value === displayVal);
                 return (found && (found.label ?? found.value)) || displayVal;
-              })()
-            }</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" className="rk-caret"><path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+              })()}
+            </span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              className="rk-caret"
+            >
+              <path
+                d="M6 9l6 6 6-6"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+            </svg>
           </button>
           {open && !disabled && (
             <div className="rk-select-panel">
               {search && (
                 <div className="rk-select-search">
-                  <input value={query} className='search-inp' onChange={(e) => setQuery(e.target.value)} placeholder="Search options..." />
+                  <input
+                    value={query}
+                    className="search-inp"
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search options..."
+                  />
                 </div>
               )}
               <ul role="listbox" className="rk-select-list">
-                {filtered.length === 0 && <li className="rk-empty">No options</li>}
+                {filtered.length === 0 && (
+                  <li className="rk-empty">No options</li>
+                )}
                 {filtered.map((opt, idx) => (
-                  <li role="option" key={opt.value ?? idx} className="rk-select-item" onClick={() => handleSelect(opt)}>
+                  <li
+                    role="option"
+                    key={opt.value ?? idx}
+                    className="rk-select-item"
+                    onClick={() => handleSelect(opt)}
+                  >
                     {opt.label ?? opt.value}
                   </li>
                 ))}
@@ -171,31 +242,94 @@ export default function CustomInput({
           )}
         </div>
       ) : (
-        <div className={`rk-date ${open ? 'open' : ''} ${disabled ? 'disabled' : ''}`}>
-          <button type="button" className="rk-date-toggle" onClick={() => setOpen((v) => !v)} disabled={disabled}>
-            <span className={`rk-date-value ${!selectedDate ? 'placeholder' : ''}`}>{selectedDate ? formatDate(selectedDate) : placeholder}</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" className="rk-calendar-icon"><path d="M8 7V3M16 7V3M3 11h18M7 4h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" fill="none"/></svg>
+        <div
+          className={`rk-date ${open ? "open" : ""} ${disabled ? "disabled" : ""}`}
+        >
+          <button
+            type="button"
+            className="rk-date-toggle"
+            onClick={() => setOpen((v) => !v)}
+            disabled={disabled}
+          >
+            <span
+              className={`rk-date-value ${!selectedDate ? "placeholder" : ""}`}
+            >
+              {selectedDate ? formatDate(selectedDate) : placeholder}
+            </span>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              className="rk-calendar-icon"
+            >
+              <path
+                d="M8 7V3M16 7V3M3 11h18M7 4h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1z"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+            </svg>
           </button>
           {open && (
             <div className="rk-date-panel">
               <div className="rk-date-header">
-                <button type="button" onClick={() => goMonth(-1)} className="rk-month-nav">‹</button>
-                <div className="rk-month-title">{visibleMonth.toLocaleString(undefined, { month: 'long', year: 'numeric' })}</div>
-                <button type="button" onClick={() => goMonth(1)} className="rk-month-nav">›</button>
+                <button
+                  type="button"
+                  onClick={() => goMonth(-1)}
+                  className="rk-month-nav"
+                >
+                  ‹
+                </button>
+                <div className="rk-month-title">
+                  {visibleMonth.toLocaleString(undefined, {
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </div>
+                <button
+                  type="button"
+                  onClick={() => goMonth(1)}
+                  className="rk-month-nav"
+                >
+                  ›
+                </button>
               </div>
               <div className="rk-days">
-                {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, idx) => <div key={`day-${idx}`} className="rk-day-name">{d}</div>)}
+                {["S", "M", "T", "W", "T", "F", "S"].map((d, idx) => (
+                  <div key={`day-${idx}`} className="rk-day-name">
+                    {d}
+                  </div>
+                ))}
                 {(() => {
                   const start = startOfMonth(visibleMonth).getDay();
                   const total = daysInMonth(visibleMonth);
                   const cells = [];
-                  for (let i = 0; i < start; i++) cells.push(<div key={`b-${i}`} className="rk-day blank" />);
+                  for (let i = 0; i < start; i++)
+                    cells.push(<div key={`b-${i}`} className="rk-day blank" />);
                   for (let day = 1; day <= total; day++) {
-                    const dt = new Date(visibleMonth.getFullYear(), visibleMonth.getMonth(), day);
-                    const isSelected = selectedDate && dt.toDateString() === selectedDate.toDateString();
-                    const dayDisabled = (minDate && dt < new Date(minDate)) || (maxDate && dt > new Date(maxDate));
+                    const dt = new Date(
+                      visibleMonth.getFullYear(),
+                      visibleMonth.getMonth(),
+                      day,
+                    );
+                    const isSelected =
+                      selectedDate &&
+                      dt.toDateString() === selectedDate.toDateString();
+                    const dayDisabled =
+                      (minDate && dt < new Date(minDate)) ||
+                      (maxDate && dt > new Date(maxDate));
                     cells.push(
-                      <button key={day} type="button" disabled={dayDisabled} onClick={() => pickDate(day)} className={`rk-day ${isSelected ? 'selected' : ''}`}>{day}</button>
+                      <button
+                        key={day}
+                        type="button"
+                        disabled={dayDisabled}
+                        onClick={() => pickDate(day)}
+                        className={`rk-day ${isSelected ? "selected" : ""}`}
+                      >
+                        {day}
+                      </button>,
                     );
                   }
                   return cells;

@@ -27,7 +27,12 @@ export default async function sitemap() {
     { url: `${baseUrl}/tools/ats-checker/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.82 },
     { url: `${baseUrl}/tools/merge-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   { url: `${baseUrl}/tools/pdf-compressor/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  ];
+  { url: `${baseUrl}/typing/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+{ url: `${baseUrl}/typing/practice/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+{ url: `${baseUrl}/typing/learn/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+{ url: `${baseUrl}/typing/learn/lesson/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+{ url: `${baseUrl}/typing/stats/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+];
 
   try {
     const [articlesResponse, jobsResponse] = await Promise.all([

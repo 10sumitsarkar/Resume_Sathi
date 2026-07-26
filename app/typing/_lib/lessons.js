@@ -1,0 +1,118 @@
+export const LESSONS = [
+  {
+    id: "home-row",
+    unit: 1,
+    title: "Home row anchor",
+    goal: "Anchor your fingers on A S D F and J K L ; — this is your base.",
+    newKeys: ["a", "s", "d", "f", "j", "k", "l", ";"],
+    drills: [
+      "asdf jkl;",
+      "asdf jkl; asdf jkl;",
+      "ask a lad; fall a jak;",
+      "as a lad falls, a flask asks;",
+      "salad ask flask lads fall sad;",
+    ],
+  },
+  {
+    id: "top-row",
+    unit: 2,
+    title: "Top row reach",
+    goal: "Reach up from the home row to Q W E R T Y U I O P without looking.",
+    newKeys: ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+    drills: [
+      "qwer tyui op",
+      "we are quiet;",
+      "your wire is a treat;",
+      "quiet writers type quite well;",
+      "the porter wore a purple tie;",
+    ],
+  },
+  {
+    id: "bottom-row",
+    unit: 3,
+    title: "Bottom row control",
+    goal: "Learn to curl your fingers down for Z X C V B N M.",
+    newKeys: ["z", "x", "c", "v", "b", "n", "m"],
+    drills: [
+      "zxcv bnm,",
+      "van can zoom;",
+      "the ox can move a box;",
+      "many zebras can move nimbly;",
+      "vex not the calm oxen, mabel;",
+    ],
+  },
+  {
+    id: "numbers",
+    unit: 4,
+    title: "Number row",
+    goal: "1 through 0 without looking, using the correct finger.",
+    newKeys: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    drills: [
+      "123 456 7890",
+      "room 42 has 15 desks;",
+      "we sold 309 tickets in 2024;",
+      "call 98765 43210 after 6 pm;",
+      "the score was 7 to 3 in game 12;",
+    ],
+  },
+  {
+    id: "punctuation",
+    unit: 5,
+    title: "Punctuation flow",
+    goal: "The rhythm of commas, full stops, apostrophes, and quotes.",
+    newKeys: [",", ".", "'", '"', "?", "!"],
+    drills: [
+      "wait, please. thanks!",
+      "it's a fine day, isn't it?",
+      "she said, \"come here now.\"",
+      "well, that's odd; who knew?",
+      "\"stop!\" he cried, \"it's too late.\"",
+    ],
+  },
+  {
+    id: "capitals",
+    unit: 6,
+    title: "Capitals & shift",
+    goal: "Capital letters, pressing Shift with your pinky.",
+    newKeys: ["Shift"],
+    drills: [
+      "Monday Tuesday Wednesday",
+      "New Delhi is the capital of India.",
+      "TypeForge helps you learn to type well.",
+      "Amit and Priya practice every single day.",
+      "Rome was not built in a single day, they say.",
+    ],
+  },
+  {
+    id: "common-words",
+    unit: 7,
+    title: "High-frequency words",
+    goal: "Build muscle memory for the most common English words.",
+    newKeys: [],
+    drills: [
+      "the of and a to in is you that it",
+      "he was for on are as with his they at",
+      "be this from we can had have what were",
+      "there use each which she do how their if",
+      "will up other about out many then them these",
+    ],
+  },
+  {
+    id: "combined",
+    unit: 8,
+    title: "Full sentences",
+    goal: "Everything combined — words, numbers, punctuation, capitals.",
+    newKeys: [],
+    drills: [
+      "TypeForge tracks your speed, accuracy, and streaks — every day.",
+      "On July 23rd, Riya typed 68 WPM with 97% accuracy!",
+      "\"Practice,\" she said, \"is the only real shortcut there is.\"",
+      "We booked table 12 for 4 people at 7:30 pm.",
+      "Good typists don't look down; they trust their fingers.",
+    ],
+  },
+];
+
+export function getLesson(id) {
+  return LESSONS.find((l) => l.id === id);
+}

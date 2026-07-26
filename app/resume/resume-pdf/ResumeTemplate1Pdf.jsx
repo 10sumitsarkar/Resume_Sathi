@@ -1,7 +1,26 @@
-import React from 'react';
-import { Document, Page, View, Text, Image, StyleSheet } from '@react-pdf/renderer';
-import { PALETTE_COLORS, safeText, resolveProfileImage, formatDateRange } from './pdfHelpers';
-import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from './PdfCommon';
+import React from "react";
+import {
+  Document,
+  Page,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+} from "@react-pdf/renderer";
+import {
+  PALETTE_COLORS,
+  safeText,
+  resolveProfileImage,
+  formatDateRange,
+  formatSingleDate,
+} from "./pdfHelpers";
+import {
+  IconEmail,
+  IconPhone,
+  IconLocation,
+  IconGlobe,
+  getSocialIcon,
+} from "./PdfCommon";
 /**
  * ResumeTemplate1Pdf — "Sidebar Timeline"
  * Two-column layout: a full-height colored sidebar (photo/initials,
@@ -12,9 +31,13 @@ import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from './
  */
 
 const hexToRgba = (hex, alpha) => {
-  if (!hex || typeof hex !== 'string') return `rgba(204,0,0,${alpha})`;
-  let h = hex.replace('#', '');
-  if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+  if (!hex || typeof hex !== "string") return `rgba(204,0,0,${alpha})`;
+  let h = hex.replace("#", "");
+  if (h.length === 3)
+    h = h
+      .split("")
+      .map((c) => c + c)
+      .join("");
   const num = parseInt(h, 16);
   if (Number.isNaN(num)) return `rgba(204,0,0,${alpha})`;
   const r = (num >> 16) & 255;
@@ -25,35 +48,35 @@ const hexToRgba = (hex, alpha) => {
 
 const styles = StyleSheet.create({
   page: {
-    flexDirection: 'row',
-    fontFamily: 'Poppins',
+    flexDirection: "row",
+    fontFamily: "Poppins",
   },
 
   // ---------- Sidebar ----------
   sidebar: {
     width: 195,
-    minHeight: '100%',
+    minHeight: "100%",
     paddingTop: 30,
     paddingBottom: 30,
     paddingLeft: 20,
     paddingRight: 20,
   },
   photoWrap: {
-    alignItems: 'start',
+    alignItems: "start",
     marginBottom: 16,
   },
   photoCircle: {
     width: 100,
     height: 100,
     borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
   },
   profileImage: {
     width: 100,
     height: 100,
-    objectFit: 'cover',
+    objectFit: "cover",
   },
   avatarHead: {
     width: 32,
@@ -69,64 +92,64 @@ const styles = StyleSheet.create({
   },
   sidebarName: {
     fontSize: 15,
-    fontWeight: '800',
-    color: '#ffffff',
+    fontWeight: "800",
+    color: "#ffffff",
     letterSpacing: 0.4,
     marginBottom: 3,
   },
   sidebarTag: {
     fontSize: 10,
-    color: '#ffffff',
+    color: "#ffffff",
     marginBottom: 18,
   },
   contactRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 8,
   },
   contactBadge: {
     width: 16,
     height: 16,
     borderRadius: 5,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 5,
   },
   contactText: {
     fontSize: 9,
-    color: '#ffffff',
-    fontWeight: '500',
+    color: "#ffffff",
+    fontWeight: "500",
     flex: 1,
   },
   sidebarDivider: {
     height: 1,
-    backgroundColor: 'rgba(255,255,255,0.45)',
+    backgroundColor: "rgba(255,255,255,0.45)",
     marginTop: 6,
     marginBottom: 18,
   },
   sidebarSectionTitle: {
     fontSize: 12,
-    fontWeight: '800',
-    color: '#ffffff',
-    textTransform: 'uppercase',
+    fontWeight: "800",
+    color: "#ffffff",
+    textTransform: "uppercase",
     letterSpacing: 0.6,
     marginBottom: 14,
   },
   skillItem: {
     fontSize: 9.5,
-    color: '#ffffff',
+    color: "#ffffff",
     marginBottom: 8,
     lineHeight: 1.4,
   },
   socialItem: {
     fontSize: 9.5,
-    color: '#ffffff',
+    color: "#ffffff",
     marginBottom: 11,
   },
   socialRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 11,
   },
 
@@ -143,27 +166,27 @@ const styles = StyleSheet.create({
   },
   contentSectionTitle: {
     fontSize: 13,
-    fontWeight: '800',
-    textTransform: 'uppercase',
+    fontWeight: "800",
+    textTransform: "uppercase",
     letterSpacing: 0.6,
     marginBottom: 10,
   },
   bodyText: {
     fontSize: 10,
     lineHeight: 1.6,
-    color: '#374151',
-    textAlign: 'justify',
+    color: "#374151",
+    textAlign: "justify",
     marginBottom: 22,
   },
 
   // ---------- Timeline entry ----------
   timelineRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 16,
   },
   timelineRail: {
     width: 16,
-    alignItems: 'center',
+    alignItems: "center",
   },
   timelineDot: {
     width: 6,
@@ -182,59 +205,76 @@ const styles = StyleSheet.create({
   },
   entryTitle: {
     fontSize: 11,
-    fontWeight: '700',
-    color: '#111827',
+    fontWeight: "700",
+    color: "#111827",
     marginTop: 5,
   },
   entrySubLine: {
     fontSize: 9.5,
-    fontStyle: 'italic',
-    color: '#6b7280',
+    fontStyle: "italic",
+    color: "#6b7280",
     marginTop: 5,
   },
   entryDate: {
     fontSize: 9.5,
-    color: '#374151',
+    color: "#374151",
     marginTop: 5,
   },
   entryDescription: {
     fontSize: 9.5,
     lineHeight: 1.55,
-    color: '#374151',
+    color: "#374151",
     marginTop: 10,
   },
 
   languageItem: {
     fontSize: 10,
-    color: '#374151',
+    color: "#374151",
     marginBottom: 10,
   },
   languageLabel: {
-    fontWeight: '700',
-    color: '#111827',
+    fontWeight: "700",
+    color: "#111827",
   },
 });
 
-const formatToDateLine = (a, b, c, d) => formatDateRange(a, b, c, d).replace(/\s*—\s*/g, ' to ');
+const formatToDateLine = (a, b, c, d) =>
+  formatDateRange(a, b, c, d).replace(/\s*—\s*/g, " to ");
 
-const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = false, fontFamily = 'Poppins' }) => {
-  const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS['color-1'];
-  const shapeColor = 'rgba(0,0,0,0.35)';
+const ResumeTemplate1Pdf = ({
+  resume,
+  palette = "color-1",
+  forceFallbackFont = false,
+  fontFamily = "Poppins",
+}) => {
+  const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS["color-1"];
+  const shapeColor = "rgba(0,0,0,0.35)";
 
   const personal = resume.personal_infomation || {};
-  const fullName = [personal.firstName, personal.lastName].filter(Boolean).join(' ') || resume.resume_name || 'Your Name';
+  const fullName =
+    [personal.firstName, personal.lastName].filter(Boolean).join(" ") ||
+    resume.resume_name ||
+    "Your Name";
   const jobLevel = safeText(personal.experience || personal.job_title);
   const profileSrc = resolveProfileImage(personal.photo);
 
-  const pageStyle = { ...styles.page, fontFamily: forceFallbackFont ? 'Helvetica' : (fontFamily || 'Poppins') };
+  const pageStyle = {
+    ...styles.page,
+    fontFamily: forceFallbackFont ? "Helvetica" : fontFamily || "Poppins",
+  };
 
   const contactItems = [
     [personal.city, personal.state, personal.country].filter(Boolean).length > 0
-      ? { type: 'location', label: [personal.city, personal.state].filter(Boolean).join(', ') }
+      ? {
+          type: "location",
+          label: [personal.city, personal.state].filter(Boolean).join(", "),
+        }
       : null,
-    personal.phone ? { type: 'phone', label: safeText(personal.phone) } : null,
-    personal.email ? { type: 'email', label: safeText(personal.email) } : null,
-    personal.website ? { type: 'globe', label: safeText(personal.website) } : null,
+    personal.phone ? { type: "phone", label: safeText(personal.phone) } : null,
+    personal.email ? { type: "email", label: safeText(personal.email) } : null,
+    personal.website
+      ? { type: "globe", label: safeText(personal.website) }
+      : null,
   ].filter(Boolean);
 
   const skills = resume.skills || [];
@@ -246,13 +286,19 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
     <View style={styles.timelineRow}>
       <View style={styles.timelineRail}>
         <View style={{ ...styles.timelineDot, backgroundColor: accentColor }} />
-        {!isLast && <View style={{ ...styles.timelineLine, backgroundColor: accentColor }} />}
+        {!isLast && (
+          <View
+            style={{ ...styles.timelineLine, backgroundColor: accentColor }}
+          />
+        )}
       </View>
       <View style={styles.timelineContent}>
         <Text style={styles.entryTitle}>{title}</Text>
         {subLine ? <Text style={styles.entrySubLine}>{subLine}</Text> : null}
         {dateLine ? <Text style={styles.entryDate}>{dateLine}</Text> : null}
-        {description ? <Text style={styles.entryDescription}>{description}</Text> : null}
+        {description ? (
+          <Text style={styles.entryDescription}>{description}</Text>
+        ) : null}
       </View>
     </View>
   );
@@ -263,13 +309,28 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
         {/* ---------- SIDEBAR ---------- */}
         <View style={{ ...styles.sidebar, backgroundColor: accentColor }}>
           <View style={styles.photoWrap}>
-            <View style={{ ...styles.photoCircle, backgroundColor: hexToRgba(accentColor, 1) }}>
+            <View
+              style={{
+                ...styles.photoCircle,
+                backgroundColor: hexToRgba(accentColor, 1),
+              }}
+            >
               {profileSrc ? (
                 <Image style={styles.profileImage} src={profileSrc} />
               ) : (
                 <>
-                  <View style={{ ...styles.avatarHead, backgroundColor: shapeColor }} />
-                  <View style={{ ...styles.avatarBody, backgroundColor: shapeColor }} />
+                  <View
+                    style={{
+                      ...styles.avatarHead,
+                      backgroundColor: shapeColor,
+                    }}
+                  />
+                  <View
+                    style={{
+                      ...styles.avatarBody,
+                      backgroundColor: shapeColor,
+                    }}
+                  />
                 </>
               )}
             </View>
@@ -281,7 +342,15 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
           {contactItems.map((item, idx) => (
             <View key={idx} style={styles.contactRow}>
               <View style={styles.contactBadge}>
-                {item.type === 'location' ? <IconLocation color="#ffffff" /> : item.type === 'phone' ? <IconPhone color="#ffffff" /> : item.type === 'email' ? <IconEmail color="#ffffff" /> : <IconGlobe color="#ffffff" />}
+                {item.type === "location" ? (
+                  <IconLocation color="#ffffff" />
+                ) : item.type === "phone" ? (
+                  <IconPhone color="#ffffff" />
+                ) : item.type === "email" ? (
+                  <IconEmail color="#ffffff" />
+                ) : (
+                  <IconGlobe color="#ffffff" />
+                )}
               </View>
               <Text style={styles.contactText}>{item.label}</Text>
             </View>
@@ -294,23 +363,36 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
               {skills.map((skill, idx) => (
                 <Text key={idx} style={styles.skillItem}>
                   {safeText(skill.skill_name)}
-                  {skill.proficiency_level ? ` (${safeText(skill.proficiency_level)})` : ''}
+                  {skill.proficiency_level
+                    ? ` (${safeText(skill.proficiency_level)})`
+                    : ""}
                 </Text>
               ))}
             </>
           )}
 
-         {socialItems.length > 0 && (
+          {socialItems.length > 0 && (
             <>
               <View style={styles.sidebarDivider} />
               <Text style={styles.sidebarSectionTitle}>Social Links</Text>
               {socialItems.map((item, idx) => (
                 <View key={idx} style={styles.socialRow}>
-                  <View style={{ width: 12, height: 12, marginRight: 6, alignItems: 'center', justifyContent: 'center' }}>
-                    {getSocialIcon(item.social_name, '#ffffff')}
+                  <View
+                    style={{
+                      width: 12,
+                      height: 12,
+                      marginRight: 6,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {getSocialIcon(item.social_name, "#ffffff")}
                   </View>
                   <Text style={{ ...styles.socialItem, marginBottom: 0 }}>
-                    <Text style={{fontWeight: 500}}>{safeText(item.social_name)}</Text>: {safeText(item.social_url)}
+                    <Text style={{ fontWeight: 500 }}>
+                      {safeText(item.social_name)}
+                    </Text>
+                    : {safeText(item.social_url)}
                   </Text>
                 </View>
               ))}
@@ -319,22 +401,37 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
         </View>
 
         {/* ---------- CONTENT ---------- */}
-         <View style={styles.content}>
+        <View style={styles.content}>
           {resume.summary && resume.summary.summary && (
             <View style={styles.contentSection}>
-              <Text style={{ ...styles.contentSectionTitle, color: accentColor }}>About Me</Text>
-              <Text style={styles.bodyText}>{safeText(resume.summary.summary)}</Text>
+              <Text
+                style={{ ...styles.contentSectionTitle, color: accentColor }}
+              >
+                About Me
+              </Text>
+              <Text style={styles.bodyText}>
+                {safeText(resume.summary.summary)}
+              </Text>
             </View>
           )}
 
           {resume.educations && resume.educations.length > 0 && (
             <View style={styles.contentSection}>
-              <Text style={{ ...styles.contentSectionTitle, color: accentColor }}>Education</Text>
+              <Text
+                style={{ ...styles.contentSectionTitle, color: accentColor }}
+              >
+                Education
+              </Text>
               {resume.educations.map((edu, idx) => (
                 <TimelineEntry
                   key={idx}
-                  title={`${safeText(edu.degree)}${edu.field_study ? ` in ${safeText(edu.field_study)}` : ''}${edu.institute_name ? ` (${safeText(edu.institute_name)})` : ''}`}
-                  subLine={[safeText(edu.location), formatToDateLine(edu.date, edu.year, '', '')].filter(Boolean).join(' — ')}
+                  title={`${safeText(edu.degree)}${edu.field_study ? ` in ${safeText(edu.field_study)}` : ""}${edu.institute_name ? ` (${safeText(edu.institute_name)})` : ""}`}
+                  subLine={[
+                    safeText(edu.location),
+                    formatToDateLine(edu.date, edu.year, "", ""),
+                  ]
+                    .filter(Boolean)
+                    .join(" — ")}
                 />
               ))}
             </View>
@@ -342,13 +439,26 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
 
           {resume.certificates && resume.certificates.length > 0 && (
             <View style={styles.contentSection}>
-              <Text style={{ ...styles.contentSectionTitle, color: accentColor }}>Certification</Text>
+              <Text
+                style={{ ...styles.contentSectionTitle, color: accentColor }}
+              >
+                Certification
+              </Text>
               {resume.certificates.map((cert, idx) => (
                 <TimelineEntry
                   key={idx}
-                  title={[safeText(cert.certificate_name), cert.issuing_organization ? `from ${safeText(cert.issuing_organization)}` : ''].filter(Boolean).join(' ')}
-                  dateLine={safeText(cert.issue_date)}
-                  description={cert.description ? safeText(cert.description) : ''}
+                  title={[
+                    safeText(cert.certificate_name),
+                    cert.issuing_organization
+                      ? `from ${safeText(cert.issuing_organization)}`
+                      : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  dateLine={formatSingleDate(cert.issue_date)}
+                  description={
+                    cert.description ? safeText(cert.description) : ""
+                  }
                 />
               ))}
             </View>
@@ -356,13 +466,29 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
 
           {resume.any_internships && resume.any_internships.length > 0 && (
             <View style={styles.contentSection}>
-              <Text style={{ ...styles.contentSectionTitle, color: accentColor }}>Internships</Text>
+              <Text
+                style={{ ...styles.contentSectionTitle, color: accentColor }}
+              >
+                Internships
+              </Text>
               {resume.any_internships.map((intern, idx) => (
                 <TimelineEntry
                   key={idx}
-                  title={[safeText(intern.job_title), intern.company_name ? `in ${safeText(intern.company_name)}` : ''].filter(Boolean).join(' ')}
+                  title={[
+                    safeText(intern.job_title),
+                    intern.company_name
+                      ? `in ${safeText(intern.company_name)}`
+                      : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
                   subLine={safeText(intern.location)}
-                  dateLine={formatToDateLine(intern.start_month, intern.start_year, intern.end_month, intern.end_year)}
+                  dateLine={formatToDateLine(
+                    intern.start_month,
+                    intern.start_year,
+                    intern.end_month,
+                    intern.end_year,
+                  )}
                 />
               ))}
             </View>
@@ -370,14 +496,32 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
 
           {resume.work_experiences && resume.work_experiences.length > 0 && (
             <View style={styles.contentSection}>
-              <Text style={{ ...styles.contentSectionTitle, color: accentColor }}>Work Experience</Text>
+              <Text
+                style={{ ...styles.contentSectionTitle, color: accentColor }}
+              >
+                Work Experience
+              </Text>
               {resume.work_experiences.map((work, idx) => (
                 <TimelineEntry
                   key={idx}
-                  title={[safeText(work.job_title), work.company_name ? `in ${safeText(work.company_name)}` : ''].filter(Boolean).join(' ')}
+                  title={[
+                    safeText(work.job_title),
+                    work.company_name
+                      ? `in ${safeText(work.company_name)}`
+                      : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
                   subLine={safeText(work.location)}
-                  dateLine={formatToDateLine(work.start_month, work.start_year, work.end_month, work.end_year)}
-                  description={work.description ? safeText(work.description) : ''}
+                  dateLine={formatToDateLine(
+                    work.start_month,
+                    work.start_year,
+                    work.end_month,
+                    work.end_year,
+                  )}
+                  description={
+                    work.description ? safeText(work.description) : ""
+                  }
                 />
               ))}
             </View>
@@ -385,10 +529,16 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
 
           {languages.length > 0 && (
             <View style={styles.contentSection}>
-              <Text style={{ ...styles.contentSectionTitle, color: accentColor }}>Languages</Text>
+              <Text
+                style={{ ...styles.contentSectionTitle, color: accentColor }}
+              >
+                Languages
+              </Text>
               {languages.map((lang, idx) => (
                 <Text key={idx} style={styles.languageItem}>
-                  <Text style={styles.languageLabel}>{safeText(lang.language)}: </Text>
+                  <Text style={styles.languageLabel}>
+                    {safeText(lang.language)}:{" "}
+                  </Text>
                   {safeText(lang.proficiency_level)}
                 </Text>
               ))}
@@ -397,9 +547,16 @@ const ResumeTemplate1Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
 
           {hobbies.length > 0 && (
             <View style={styles.contentSection}>
-              <Text style={{ ...styles.contentSectionTitle, color: accentColor }}>Hobbies</Text>
+              <Text
+                style={{ ...styles.contentSectionTitle, color: accentColor }}
+              >
+                Hobbies
+              </Text>
               <Text style={styles.languageItem}>
-                {hobbies.map((h) => safeText(h.hobbies || h)).filter(Boolean).join(', ')}
+                {hobbies
+                  .map((h) => safeText(h.hobbies || h))
+                  .filter(Boolean)
+                  .join(", ")}
               </Text>
             </View>
           )}

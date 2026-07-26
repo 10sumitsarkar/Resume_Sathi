@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function NavBar() {
+export default function NavBar({ className = "" }) {
     const [ddOpen, setDdOpen] = useState(false);
     const [offcanvasOpen, setOffcanvasOpen] = useState(false);
     const [offcanvasDdOpen, setOffcanvasDdOpen] = useState(false);
@@ -22,7 +22,7 @@ export default function NavBar() {
 
     return (
         <>
-            <nav className='navbar'>
+            <nav className={`navbar ${className}`.trim()}>
                 <div className="container-fluid custom-container d-flex align-items-center justify-content-between">
 
                     <Link prefetch={false} href="/" onClick={closeAll}>

@@ -1,10 +1,10 @@
 import { Font } from '@react-pdf/renderer';
 
 export const PALETTE_COLORS = {
-  'color-1': '#de21a2',
-  'color-2': '#5a21de',
-  'color-3': '#01cf27',
-  'color-4': '#de7921',
+  'color-1': '#9f036d',
+  'color-2': '#3e1d53',
+  'color-3': '#084c41',
+  'color-4': '#87300d',
   'color-5': '#de2124',
   'color-6': '#585858',
 };
@@ -255,4 +255,14 @@ export const formatDateRange = (startMonth, startYear, endMonth, endYear) => {
   if (start) return start;
   if (end) return end;
   return '';
+};
+
+export const formatSingleDate = (dateStr) => {
+  if (!dateStr) return '';
+  const d = new Date(dateStr);
+  if (isNaN(d)) return safeText(dateStr); // already plain text ho to wahi return
+  const day = d.getDate();
+  const month = d.toLocaleString('en-US', { month: 'long' });
+  const year = d.getFullYear();
+  return `${day} ${month} ${year}`;
 };

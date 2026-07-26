@@ -1,7 +1,31 @@
-import React from 'react';
-import { Document, Page, View, Text, Image, StyleSheet, Svg, Path, Line, Polygon } from '@react-pdf/renderer';
-import { PALETTE_COLORS, safeText, resolveProfileImage, formatDateRange } from './pdfHelpers';
-import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon, IconTick } from './PdfCommon';
+import React from "react";
+import {
+  Document,
+  Page,
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Svg,
+  Path,
+  Line,
+  Polygon,
+} from "@react-pdf/renderer";
+import {
+  PALETTE_COLORS,
+  safeText,
+  resolveProfileImage,
+  formatDateRange,
+  formatSingleDate,
+} from "./pdfHelpers";
+import {
+  IconEmail,
+  IconPhone,
+  IconLocation,
+  IconGlobe,
+  getSocialIcon,
+  IconTick,
+} from "./PdfCommon";
 
 /**
  * ResumeTemplate2Pdf — "Serene Centered" (Premium)
@@ -18,9 +42,13 @@ import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon, IconTick 
 
 // Convert a hex color (#rrggbb or #rgb) to an rgba() string with the given alpha.
 const hexToRgba = (hex, alpha) => {
-  if (!hex || typeof hex !== 'string') return `rgba(99,102,241,${alpha})`;
-  let h = hex.replace('#', '');
-  if (h.length === 3) h = h.split('').map((c) => c + c).join('');
+  if (!hex || typeof hex !== "string") return `rgba(99,102,241,${alpha})`;
+  let h = hex.replace("#", "");
+  if (h.length === 3)
+    h = h
+      .split("")
+      .map((c) => c + c)
+      .join("");
   const num = parseInt(h, 16);
   if (Number.isNaN(num)) return `rgba(99,102,241,${alpha})`;
   const r = (num >> 16) & 255;
@@ -31,8 +59,8 @@ const hexToRgba = (hex, alpha) => {
 
 const styles = StyleSheet.create({
   page: {
-   flexDirection: 'column',
-    fontFamily: 'Poppins',
+    flexDirection: "column",
+    fontFamily: "Poppins",
     paddingTop: 35,
     paddingBottom: 35,
     paddingLeft: 35,
@@ -41,15 +69,15 @@ const styles = StyleSheet.create({
 
   // ---------- Header ----------
   photoWrap: {
-    alignItems: 'center',
+    alignItems: "center",
     marginBottom: 12,
   },
   photoRing: {
     width: 92,
     height: 92,
     borderRadius: 46,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 4,
   },
   profileImage: {
@@ -61,18 +89,18 @@ const styles = StyleSheet.create({
     width: 84,
     height: 84,
     borderRadius: 42,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   profileInitials: {
     fontSize: 28,
-    fontWeight: '700',
-    color: '#ffffff',
+    fontWeight: "700",
+    color: "#ffffff",
   },
   name: {
     fontSize: 28,
-    fontWeight: '700',
-    textAlign: 'center',
+    fontWeight: "700",
+    textAlign: "center",
     marginBottom: 6,
     letterSpacing: 0.5,
   },
@@ -80,46 +108,46 @@ const styles = StyleSheet.create({
     width: 46,
     height: 2.5,
     borderRadius: 2,
-    alignSelf: 'center',
+    alignSelf: "center",
     marginBottom: 15,
   },
   jobTitle: {
     fontSize: 12,
-    textAlign: 'center',
-    color: '#6b7280',
+    textAlign: "center",
+    color: "#6b7280",
     marginBottom: 12,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     letterSpacing: 2.2,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   contactRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    alignItems: "center",
     rowGap: 10,
     columnGap: 2,
     marginBottom: 4,
   },
   contactItemWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   contactSeparator: {
     width: 1,
     height: 14,
-    backgroundColor: '#d1d5db',
+    backgroundColor: "#d1d5db",
     marginHorizontal: 7,
   },
   contactItem: {
     fontSize: 10,
-    color: '#374151',
+    color: "#374151",
   },
 
   // ---------- Section title ----------
   sectionTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginTop: 30,
     marginBottom: 20,
   },
@@ -129,8 +157,8 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 14,
-    fontWeight: '700',
-    textTransform: 'uppercase',
+    fontWeight: "700",
+    textTransform: "uppercase",
     letterSpacing: 2.6,
     marginLeft: 12,
     marginRight: 12,
@@ -141,44 +169,44 @@ const styles = StyleSheet.create({
 
   // ---------- Social ----------
   socialRow: {
-    flexDirection: 'column',
+    flexDirection: "column",
     marginBottom: 4,
     gap: 9,
   },
   socialItemWrap: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   socialItem: {
     fontSize: 10,
-    color: '#374151',
+    color: "#374151",
   },
   socialLabel: {
-    fontWeight: '700',
+    fontWeight: "700",
   },
 
   // ---------- Summary ----------
   bodyText: {
     fontSize: 11,
     lineHeight: 1.65,
-    color: '#3f4653',
-    textAlign: 'justify',
+    color: "#3f4653",
+    textAlign: "justify",
   },
 
   // ---------- Skills grid ----------
   skillsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   skillsCol: {
-    width: '50%',
+    width: "50%",
   },
   skillRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     gap: 8,
     marginBottom: 15,
     paddingRight: 15,
@@ -187,20 +215,20 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     fontSize: 9.5,
-    color: '#1f2937',
-    fontWeight: '400',
+    color: "#1f2937",
+    fontWeight: "400",
     marginRight: 8,
   },
   pill: {
     flexShrink: 0,
     fontSize: 8,
-    fontWeight: '500',
+    fontWeight: "500",
     borderRadius: 9,
     paddingTop: 3.5,
     paddingBottom: 3.5,
     paddingLeft: 9,
     paddingRight: 9,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     letterSpacing: 0.4,
   },
 
@@ -209,120 +237,146 @@ const styles = StyleSheet.create({
     marginBottom: 13,
   },
   entryRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "flex-start",
     marginBottom: 2,
   },
   entryTitle: {
     fontSize: 12,
-    fontWeight: '600',
-    color: '#111827',
+    fontWeight: "600",
+    color: "#111827",
   },
   entryDate: {
     fontSize: 10,
-    fontWeight: '600',
-    textTransform: 'uppercase',
+    fontWeight: "600",
+    textTransform: "uppercase",
     letterSpacing: 0.6,
   },
   entryLocationRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 8,
-     marginTop: 5,
+    marginTop: 5,
   },
   entryLocation: {
     fontSize: 10,
-    fontStyle: 'italic',
-    fontWeight: '500',
-    color: '#000000',
+    fontStyle: "italic",
+    fontWeight: "500",
+    color: "#000000",
   },
   entrySub: {
     fontSize: 9,
     lineHeight: 1.55,
-    color: '#4b5563',
+    color: "#4b5563",
     marginTop: 4,
   },
   bulletRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 3.5,
     paddingRight: 6,
   },
   bulletMark: {
     fontSize: 10,
     marginRight: 6,
-    color: '#374151',
+    color: "#374151",
   },
   bulletText: {
     fontSize: 10,
     lineHeight: 1.55,
-    color: '#3f4653',
+    color: "#3f4653",
     flex: 1,
   },
 
   // ---------- Languages ----------
   languageRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     marginBottom: 4,
     gap: 12,
   },
   languageView: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
   },
   languageItem: {
     fontSize: 10,
-    color: '#1f2937',
+    color: "#1f2937",
   },
   languageLabel: {
-    fontWeight: '700',
+    fontWeight: "700",
   },
 
   // ---------- Certificates / other generic list rows ----------
   simpleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginBottom: 9,
   },
 });
 
-const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = false, fontFamily = 'Poppins' }) => {
-  const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS['color-1'];
-  const bgColor = '#ffffff';
-  const textColor = '#374151';
+const ResumeTemplate2Pdf = ({
+  resume,
+  palette = "color-1",
+  forceFallbackFont = false,
+  fontFamily = "Poppins",
+}) => {
+  const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS["color-1"];
+  const bgColor = "#ffffff";
+  const textColor = "#374151";
   const pillBg = hexToRgba(accentColor, 0.1);
-//   const ringBg = hexToRgba(accentColor, 0.14);
+  //   const ringBg = hexToRgba(accentColor, 0.14);
 
   const personal = resume.personal_infomation || {};
-  const fullName = [personal.firstName, personal.lastName].filter(Boolean).join(' ') || resume.resume_name || 'Your Name';
+  const fullName =
+    [personal.firstName, personal.lastName].filter(Boolean).join(" ") ||
+    resume.resume_name ||
+    "Your Name";
   const jobTitle = safeText(personal.experience || personal.job_title);
-//   const profileSrc = resolveProfileImage(personal.photo);
-//   const initials = [personal.firstName, personal.lastName].filter(Boolean).map(x => x[0]).join('').slice(0, 2).toUpperCase();
+  //   const profileSrc = resolveProfileImage(personal.photo);
+  //   const initials = [personal.firstName, personal.lastName].filter(Boolean).map(x => x[0]).join('').slice(0, 2).toUpperCase();
 
-  const pageStyle = { ...styles.page, fontFamily: forceFallbackFont ? 'Helvetica' : (fontFamily || 'Poppins'), backgroundColor: bgColor };
+  const pageStyle = {
+    ...styles.page,
+    fontFamily: forceFallbackFont ? "Helvetica" : fontFamily || "Poppins",
+    backgroundColor: bgColor,
+  };
 
   const contactItems = [
-    personal.email ? { type: 'email', label: safeText(personal.email) } : null,
-    personal.phone ? { type: 'phone', label: safeText(personal.phone) } : null,
+    personal.email ? { type: "email", label: safeText(personal.email) } : null,
+    personal.phone ? { type: "phone", label: safeText(personal.phone) } : null,
     [personal.city, personal.state, personal.country].filter(Boolean).length > 0
-      ? { type: 'location', label: [personal.city, personal.state, personal.country].filter(Boolean).join(', ') }
+      ? {
+          type: "location",
+          label: [personal.city, personal.state, personal.country]
+            .filter(Boolean)
+            .join(", "),
+        }
       : null,
-    personal.website ? { type: 'globe', label: safeText(personal.website) } : null,
+    personal.website
+      ? { type: "globe", label: safeText(personal.website) }
+      : null,
   ].filter(Boolean);
 
-  const socialItems = resume.social_medias?.map((social) => ({
-    social_name: social.social_name || 'Other',
-    social_url: safeText(social.social_url),
-  })) || [];
+  const socialItems =
+    resume.social_medias?.map((social) => ({
+      social_name: social.social_name || "Other",
+      social_url: safeText(social.social_url),
+    })) || [];
 
   const SectionTitle = ({ children }) => (
     <View style={styles.sectionTitleRow}>
-      <View style={{ ...styles.sectionTitleLine, backgroundColor: accentColor }} />
-      <Text style={{ ...styles.sectionTitle, color: accentColor }}>{children}</Text>
-      <View style={{ ...styles.sectionTitleLine, backgroundColor: accentColor }} />
+      <View
+        style={{ ...styles.sectionTitleLine, backgroundColor: accentColor }}
+      />
+      <Text style={{ ...styles.sectionTitle, color: accentColor }}>
+        {children}
+      </Text>
+      <View
+        style={{ ...styles.sectionTitleLine, backgroundColor: accentColor }}
+      />
     </View>
   );
 
@@ -336,7 +390,13 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
     <View key={idx} style={styles.skillRow}>
       <Text style={styles.skillName}>{safeText(skill.skill_name)}</Text>
       {skill.proficiency_level && (
-        <Text style={{ ...styles.pill, backgroundColor: pillBg, color: accentColor }}>
+        <Text
+          style={{
+            ...styles.pill,
+            backgroundColor: pillBg,
+            color: accentColor,
+          }}
+        >
           {safeText(skill.proficiency_level)}
         </Text>
       )}
@@ -364,7 +424,7 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
           </View>
         )} */}
 
-        <Text style={{ ...styles.name, color: '#111827' }}>{fullName}</Text>
+        <Text style={{ ...styles.name, color: "#111827" }}>{fullName}</Text>
         <View style={{ ...styles.nameRule, backgroundColor: accentColor }} />
         {jobTitle && <Text style={styles.jobTitle}>{jobTitle}</Text>}
         {contactItems.length > 0 && (
@@ -373,10 +433,28 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
               <React.Fragment key={idx}>
                 {idx > 0 && <View style={styles.contactSeparator} />}
                 <View style={styles.contactItemWrap}>
-                  <View style={{ width: 13, height: 13, marginRight: 5, alignItems: 'center', justifyContent: 'center' }}>
-                    {item.type === 'email' ? <IconEmail color={accentColor} /> : item.type === 'phone' ? <IconPhone color={accentColor} /> : item.type === 'location' ? <IconLocation color={accentColor} /> : <IconGlobe color={accentColor} />}
+                  <View
+                    style={{
+                      width: 13,
+                      height: 13,
+                      marginRight: 5,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {item.type === "email" ? (
+                      <IconEmail color={accentColor} />
+                    ) : item.type === "phone" ? (
+                      <IconPhone color={accentColor} />
+                    ) : item.type === "location" ? (
+                      <IconLocation color={accentColor} />
+                    ) : (
+                      <IconGlobe color={accentColor} />
+                    )}
                   </View>
-                  <Text style={{ ...styles.contactItem, color: textColor }}>{item.label}</Text>
+                  <Text style={{ ...styles.contactItem, color: textColor }}>
+                    {item.label}
+                  </Text>
                 </View>
               </React.Fragment>
             ))}
@@ -387,7 +465,9 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
         {resume.summary && resume.summary.summary && (
           <View style={styles.section}>
             <SectionTitle>Summary</SectionTitle>
-            <Text style={styles.bodyText}>{safeText(resume.summary.summary)}</Text>
+            <Text style={styles.bodyText}>
+              {safeText(resume.summary.summary)}
+            </Text>
           </View>
         )}
 
@@ -397,10 +477,14 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
             <SectionTitle>Skills</SectionTitle>
             <View style={styles.skillsGrid}>
               <View style={styles.skillsCol}>
-                {skillsColA.map((skill, idx) => renderSkillRow(skill, `a-${idx}`))}
+                {skillsColA.map((skill, idx) =>
+                  renderSkillRow(skill, `a-${idx}`),
+                )}
               </View>
               <View style={styles.skillsCol}>
-                {skillsColB.map((skill, idx) => renderSkillRow(skill, `b-${idx}`))}
+                {skillsColB.map((skill, idx) =>
+                  renderSkillRow(skill, `b-${idx}`),
+                )}
               </View>
             </View>
           </View>
@@ -413,15 +497,24 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
             {resume.work_experiences.map((work, idx) => (
               <View key={idx} style={styles.entryBlock}>
                 <View style={styles.entryRow}>
-                  <Text style={styles.entryTitle}>{safeText(work.job_title)}</Text>
+                  <Text style={styles.entryTitle}>
+                    {safeText(work.job_title)}
+                  </Text>
                   <Text style={{ ...styles.entryDate, color: accentColor }}>
-                    {formatDateRange(work.start_month, work.start_year, work.end_month, work.end_year)}
+                    {formatDateRange(
+                      work.start_month,
+                      work.start_year,
+                      work.end_month,
+                      work.end_year,
+                    )}
                   </Text>
                 </View>
                 {(work.company_name || work.location) && (
                   <View style={styles.entryLocationRow}>
                     <Text style={{ ...styles.entryLocation }}>
-                      {[safeText(work.company_name), safeText(work.location)].filter(Boolean).join(', ')}
+                      {[safeText(work.company_name), safeText(work.location)]
+                        .filter(Boolean)
+                        .join(", ")}
                     </Text>
                   </View>
                 )}
@@ -432,7 +525,9 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                     .map((line, lIdx) => (
                       <View key={lIdx} style={styles.bulletRow}>
                         <Text style={styles.bulletMark}>•</Text>
-                        <Text style={styles.bulletText}>{line.replace(/^[-•]\s*/, '')}</Text>
+                        <Text style={styles.bulletText}>
+                          {line.replace(/^[-•]\s*/, "")}
+                        </Text>
                       </View>
                     ))}
               </View>
@@ -448,16 +543,19 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
               <View key={idx} style={styles.entryBlock}>
                 <View style={styles.entryRow}>
                   <Text style={styles.entryTitle}>
-                    {safeText(edu.degree)}{edu.field_study ? ` in ${safeText(edu.field_study)}` : ''}
+                    {safeText(edu.degree)}
+                    {edu.field_study ? ` in ${safeText(edu.field_study)}` : ""}
                   </Text>
                   <Text style={{ ...styles.entryDate, color: accentColor }}>
-                    {formatDateRange(edu.date, edu.year, '', '')}
+                    {formatDateRange(edu.date, edu.year, "", "")}
                   </Text>
                 </View>
                 {(edu.institute_name || edu.location) && (
                   <View style={styles.entryLocationRow}>
                     <Text style={{ ...styles.entryLocation }}>
-                      {[safeText(edu.institute_name), safeText(edu.location)].filter(Boolean).join(', ')}
+                      {[safeText(edu.institute_name), safeText(edu.location)]
+                        .filter(Boolean)
+                        .join(", ")}
                     </Text>
                   </View>
                 )}
@@ -473,15 +571,27 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
             {resume.any_internships.map((intern, idx) => (
               <View key={idx} style={styles.entryBlock}>
                 <View style={styles.entryRow}>
-                  <Text style={styles.entryTitle}>{safeText(intern.job_title)}</Text>
+                  <Text style={styles.entryTitle}>
+                    {safeText(intern.job_title)}
+                  </Text>
                   <Text style={{ ...styles.entryDate, color: accentColor }}>
-                    {formatDateRange(intern.start_month, intern.start_year, intern.end_month, intern.end_year)}
+                    {formatDateRange(
+                      intern.start_month,
+                      intern.start_year,
+                      intern.end_month,
+                      intern.end_year,
+                    )}
                   </Text>
                 </View>
                 {(intern.company_name || intern.location) && (
                   <View style={styles.entryLocationRow}>
                     <Text style={{ ...styles.entryLocation }}>
-                      {[safeText(intern.company_name), safeText(intern.location)].filter(Boolean).join(', ')}
+                      {[
+                        safeText(intern.company_name),
+                        safeText(intern.location),
+                      ]
+                        .filter(Boolean)
+                        .join(", ")}
                     </Text>
                   </View>
                 )}
@@ -497,13 +607,28 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
             {resume.certificates.map((cert, idx) => (
               <View key={idx} style={{ marginBottom: 10 }}>
                 <View style={styles.simpleRow}>
-                  <Text style={styles.entryTitle}>{safeText(cert.certificate_name)}</Text>
-                  <Text style={{ fontSize: 10, color: accentColor, fontWeight: '700' }}>
-                    {[safeText(cert.issuing_organization), safeText(cert.issue_date)].filter(Boolean).join('  ·  ')}
+                  <Text style={styles.entryTitle}>
+                    {safeText(cert.certificate_name)}
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 10,
+                      color: accentColor,
+                      fontWeight: "700",
+                    }}
+                  >
+                    {[
+                      safeText(cert.issuing_organization),
+                      formatSingleDate(cert.issue_date),
+                    ]
+                      .filter(Boolean)
+                      .join("  ·  ")}
                   </Text>
                 </View>
                 {cert.description && (
-                  <Text style={styles.entrySub}>{safeText(cert.description)}</Text>
+                  <Text style={styles.entrySub}>
+                    {safeText(cert.description)}
+                  </Text>
                 )}
               </View>
             ))}
@@ -516,15 +641,17 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
             <SectionTitle>Languages</SectionTitle>
             <View style={styles.languageRow}>
               {resume.languages.map((lang, idx) => (
-                
-              <view key={idx} style={styles.languageView}>
-                  <IconTick color={accentColor}/>
+                <view key={idx} style={styles.languageView}>
+                  <IconTick color={accentColor} />
                   <Text style={styles.languageItem}>
-            
-                  <Text style={{ ...styles.languageLabel, color: accentColor }}>{safeText(lang.language)}: </Text>
-                  {safeText(lang.proficiency_level)}
-                </Text>
-              </view>
+                    <Text
+                      style={{ ...styles.languageLabel, color: accentColor }}
+                    >
+                      {safeText(lang.language)}:{" "}
+                    </Text>
+                    {safeText(lang.proficiency_level)}
+                  </Text>
+                </view>
               ))}
             </View>
           </View>
@@ -537,11 +664,21 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
             <View style={styles.socialRow}>
               {socialItems.map((item, idx) => (
                 <View key={idx} style={styles.socialItemWrap}>
-                  <View style={{ width: 13, height: 13, marginRight: 5, alignItems: 'center', justifyContent: 'center' }}>
+                  <View
+                    style={{
+                      width: 13,
+                      height: 13,
+                      marginRight: 5,
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
                     {getSocialIcon(item.social_name, accentColor)}
                   </View>
                   <Text style={{ ...styles.socialItem, color: textColor }}>
-                    <Text style={{ ...styles.socialLabel, color: '#111827' }}>{item.social_name}: </Text>
+                    <Text style={{ ...styles.socialLabel, color: "#111827" }}>
+                      {item.social_name}:{" "}
+                    </Text>
                     {item.social_url}
                   </Text>
                 </View>
@@ -556,7 +693,9 @@ const ResumeTemplate2Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
             <SectionTitle>Hobbies</SectionTitle>
             <View style={styles.languageRow}>
               {resume.hobbies.map((hobby, idx) => (
-                <Text key={idx} style={styles.languageItem}>{safeText(hobby.hobbies || hobby)}</Text>
+                <Text key={idx} style={styles.languageItem}>
+                  {safeText(hobby.hobbies || hobby)}
+                </Text>
               ))}
             </View>
           </View>

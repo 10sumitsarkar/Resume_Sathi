@@ -1,0 +1,361 @@
+/* =========================================
+   ResumeTemplate7 — "Editorial" (Premium)
+   Cream page background, bold serif name with a thick rule beneath,
+   accent-colored small-caps section titles over a thin full-width
+   rule, a blockquote-style Profile/Summary, and clean ledger-style
+   entries (title/company left, date right) for Experience,
+   Internships, Education and Certificates.
+   --templateColor drives section titles, the entry dates, skill
+   pills, language labels, bullets, checkmarks and social icons.
+   Sections kept identical to the previous version — only the visual
+   language has changed: Summary, Skills, Experience, Internships,
+   Education and Training, Certificates, Languages, Activities &
+   Interests, Social.
+   ========================================= */
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;0,900;1,500;1,600&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+@media print {
+  @page { size: A4; margin: 0; }
+  html, body { margin: 0; padding: 0; width: 210mm; height: 297mm; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+  body * { visibility: hidden !important; }
+  .middle-resume-preview-div .review-resume-div, .middle-resume-preview-div .review-resume-div * { visibility: visible !important; }
+}
+
+.resume {
+  &.color-1 { --templateColor: #9f036d; }
+  &.color-2 { --templateColor: #3e1d53; }
+  &.color-3 { --templateColor: #084c41; }
+  &.color-4 { --templateColor: #87300d; }
+  &.color-5 { --templateColor: #de2124; }
+  &.color-6 { --templateColor: #585858; }
+  &.montserrat .rt7_body_font { font-family: "Montserrat", sans-serif; }
+  &.open_san .rt7_body_font   { font-family: "Open Sans", sans-serif; }
+  &.poppins .rt7_body_font    { font-family: "Poppins", sans-serif; }
+  &.roboto .rt7_body_font     { font-family: "Roboto", sans-serif; }
+}
+
+.resume.ResumeTemplate7 {
+  position: relative;
+  width: 800px;
+  min-height: 1131px;
+  margin: 0 auto;
+  background: #fffefd;
+  color: #262625;
+  font-family: "PT Serif", Georgia, "Times New Roman", serif;
+  font-size: 13px;
+  line-height: 1.6;
+  box-sizing: border-box;
+  padding: 46px 52px 40px;
+  overflow: hidden;
+
+  * { box-sizing: border-box; }
+  p, ul, li, h1, h2, h3, h4 { margin: 0; padding: 0; }
+  ul { list-style: none; }
+
+  /* thin accent strip along the very bottom edge — premium finish */
+  &:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 8px;
+    background: var(--templateColor, #b3372c);
+    opacity: 0.85;
+  }
+
+  /* ── HEADER ───────────────────────────── */
+  .rt7_header {
+    margin-bottom: 26px;
+
+    .rt7_name {
+      font-family: "Playfair Display", "PT Serif", Georgia, serif;
+      font-size: 40px;
+      font-weight: 800;
+      color: #1a1a1a;
+      letter-spacing: 0.2px;
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+
+    .rt7_name_rule {
+      height: 2.5px;
+      background: #1a1a1a;
+      margin-top: 14px;
+      margin-bottom: 10px;
+    }
+
+    .rt7_role {
+      font-family: "PT Serif", Georgia, serif;
+      font-size: 12.5px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: #55524d;
+      margin-bottom: 10px;
+    }
+
+    .rt7_role_rule {
+      height: 1px;
+      background: #cfc9bd;
+      margin-bottom: 14px;
+    }
+
+    .rt7_contact_row {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px 22px;
+    }
+
+    .rt7_contact_item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      color: #4a4a48;
+    }
+
+    .rt7_icon {
+      display: inline-flex;
+      align-items: center;
+      color: var(--templateColor, #b3372c);
+      svg { display: block; }
+    }
+  }
+
+  /* ── SECTION ──────────────────────────── */
+  .rt7_section {
+    margin-bottom: 26px;
+
+    &:last-child { margin-bottom: 0; }
+  }
+
+  .rt7_section_title {
+    font-family: "PT Serif", Georgia, serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.6px;
+    color: var(--templateColor, #b3372c);
+    margin-bottom: 8px;
+  }
+
+  .rt7_section_rule {
+    height: 1px;
+    background: #d8d2c5;
+    margin-bottom: 16px;
+  }
+
+  /* ── PROFILE / SUMMARY (blockquote style) ── */
+  .rt7_profile {
+    border-left: 3px solid var(--templateColor, #b3372c);
+    padding-left: 18px;
+  }
+
+  .rt7_text {
+    font-size: 13px;
+    color: #3a3936;
+    line-height: 1.8;
+  }
+
+  .rt7_text_italic {
+    font-style: italic;
+  }
+
+  /* ── SKILLS GRID ──────────────────────── */
+  .rt7_skills_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 26px;
+
+    ul {
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        font-size: 12.5px;
+        color: #333;
+        padding: 7px 0;
+        border-bottom: 1px solid #e6e0d3;
+        gap: 8px;
+
+        &:last-child { border-bottom: none; }
+
+        .rt7_skill_name {
+          flex: 1;
+          min-width: 0;
+          color: #262625;
+          overflow-wrap: anywhere;
+          word-break: break-word;
+        }
+
+        .rt7_skill_level {
+          font-size: 9.5px;
+          font-weight: 700;
+          letter-spacing: 0.4px;
+          text-transform: uppercase;
+          color: var(--templateColor, #b3372c);
+          border: 1px solid var(--templateColor, #b3372c);
+          border-radius: 3px;
+          padding: 2px 8px;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+
+  /* ── ENTRIES (Experience / Internships / Education / Certificates) ── */
+  .rt7_entry {
+    margin-bottom: 20px;
+
+    &:last-child { margin-bottom: 0; }
+
+    .rt7_entry_top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .rt7_entry_heading {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .rt7_entry_title {
+      font-family: "Playfair Display", "PT Serif", Georgia, serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+
+    .rt7_entry_company {
+      font-style: italic;
+      font-size: 12.5px;
+      color: #55524d;
+      margin-top: 2px;
+    }
+
+    .rt7_entry_date {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--templateColor, #b3372c);
+      white-space: nowrap;
+      padding-top: 3px;
+    }
+
+    .rt7_entry_location {
+      font-size: 11px;
+      color: #8a8680;
+      margin-top: 3px;
+    }
+
+    .rt7_entry_desc {
+      font-size: 12.5px;
+      color: #3a3936;
+      line-height: 1.75;
+      margin-top: 8px;
+    }
+  }
+
+  /* ── BULLETS ──────────────────────────── */
+  .rt7_bullets {
+    padding-left: 16px;
+    margin-top: 8px;
+
+    li {
+      font-size: 12.5px;
+      color: #3a3936;
+      list-style: disc;
+      margin-bottom: 5px;
+      line-height: 1.7;
+
+      &::marker { color: var(--templateColor, #b3372c); }
+
+      &:last-child { margin-bottom: 0; }
+    }
+  }
+
+  /* ── LANGUAGES (two-column, ruled) ────── */
+  .rt7_lang_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 30px;
+
+    .rt7_lang_item {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #d8d2c5;
+
+      .rt7_lang_name {
+        font-size: 14px;
+        color: #1a1a1a;
+      }
+
+      .rt7_lang_level {
+        font-size: 10.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.6px;
+        color: #8a8680;
+      }
+    }
+  }
+
+  /* ── ACTIVITIES & INTERESTS (checkmark bullets) ── */
+  .rt7_hobbies_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 26px;
+
+    li {
+      padding-left: 18px;
+      position: relative;
+      font-size: 12.5px;
+      color: #333;
+
+      &::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        top: 0;
+        color: var(--templateColor, #b3372c);
+        font-size: 12px;
+        font-weight: 700;
+      }
+    }
+  }
+
+  /* ── SOCIAL ───────────────────────────── */
+  .rt7_social_list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: #333;
+
+      strong { color: #1a1a1a; font-weight: 700; }
+      a { color: #55524d; text-decoration: underline; &:hover { color: var(--templateColor, #b3372c); } }
+
+      .rt7_social_icon {
+        display: inline-flex;
+        align-items: center;
+        color: var(--templateColor, #b3372c);
+        flex-shrink: 0;
+        svg { display: block; }
+      }
+    }
+  }
+}

@@ -1,7 +1,18 @@
-import React from 'react';
-import { Document, Page, View, Text, StyleSheet } from '@react-pdf/renderer';
-import { PALETTE_COLORS, safeText, formatDateRange } from './pdfHelpers';
-import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from './PdfCommon';
+import React from "react";
+import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
+import {
+  PALETTE_COLORS,
+  safeText,
+  formatDateRange,
+  formatSingleDate,
+} from "./pdfHelpers";
+import {
+  IconEmail,
+  IconPhone,
+  IconLocation,
+  IconGlobe,
+  getSocialIcon,
+} from "./PdfCommon";
 
 /**
  * ResumeTemplate6Pdf — "Minimal Ledger" (v2)
@@ -18,64 +29,65 @@ import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from './
  */
 
 const skillLevelToPercent = (level) => {
-  const l = (level || '').toLowerCase();
-  if (l.includes('master')) return 100;
-  if (l.includes('expert')) return 92;
-  if (l.includes('advanced')) return 80;
-  if (l.includes('proficient')) return 68;
-  if (l.includes('intermediate')) return 55;
-  if (l.includes('beginner') || l.includes('novice') || l.includes('basic')) return 30;
+  const l = (level || "").toLowerCase();
+  if (l.includes("master")) return 100;
+  if (l.includes("expert")) return 92;
+  if (l.includes("advanced")) return 80;
+  if (l.includes("proficient")) return 68;
+  if (l.includes("intermediate")) return 55;
+  if (l.includes("beginner") || l.includes("novice") || l.includes("basic"))
+    return 30;
   return 60;
 };
 
 const styles = StyleSheet.create({
   page: {
-    fontFamily: 'Poppins',
+    fontFamily: "Poppins",
     paddingTop: 35,
     paddingBottom: 35,
     paddingLeft: 35,
     paddingRight: 35,
-    color: '#1a1a1a',
+    color: "#1a1a1a",
   },
 
   // ---------- Header ----------
   nameText: {
     fontSize: 30,
-    fontWeight: '800',
-    textTransform: 'uppercase',
+    fontWeight: "800",
+    textTransform: "uppercase",
     lineHeight: 1.08,
     letterSpacing: 0.3,
   },
   headerRule: {
     height: 1,
-    backgroundColor: '#c9c9c9',
+    backgroundColor: "#c9c9c9",
     marginTop: 10,
     marginBottom: 8,
   },
   roleText: {
     fontSize: 12,
     letterSpacing: 3,
-    textTransform: 'uppercase',
-    color: '#3a3a3a',
+    textTransform: "uppercase",
+    color: "#3a3a3a",
     marginBottom: 8,
   },
   headerRuleBottom: {
     height: 1,
-    backgroundColor: '#c9c9c9',
+    backgroundColor: "#c9c9c9",
     marginBottom: 20,
   },
 
   // ---------- Section heading ----------
   sectionHeading: {
     fontSize: 13,
-    fontWeight: '800',
-    textTransform: 'uppercase',
+    fontWeight: "800",
+    textTransform: "uppercase",
     letterSpacing: 0.6,
     marginBottom: 6,
   },
   sectionRule: {
     height: 1,
-    backgroundColor: '#c9c9c9',
+    backgroundColor: "#c9c9c9",
     marginBottom: 12,
   },
   aboutSection: {
@@ -84,19 +96,19 @@ const styles = StyleSheet.create({
   aboutText: {
     fontSize: 11.5,
     lineHeight: 1.6,
-    color: '#333333',
+    color: "#333333",
   },
 
   // ---------- Body columns ----------
   bodyRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   leftCol: {
-    width: '40%',
+    width: "40%",
     paddingRight: 18,
   },
   rightCol: {
-    width: '60%',
+    width: "60%",
   },
   colSection: {
     marginBottom: 20,
@@ -104,38 +116,38 @@ const styles = StyleSheet.create({
 
   // Contact
   contactItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 9,
   },
   contactIconWrap: {
     width: 13,
     height: 13,
     marginRight: 7,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   contactText: {
     fontSize: 11,
-    color: '#333333',
+    color: "#333333",
     flex: 1,
     lineHeight: 1.35,
   },
 
   // Skills (flat list — no sub-headings)
   bulletLine: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 6,
   },
   bulletMark: {
     fontSize: 11,
     marginRight: 5,
-    color: '#1a1a1a',
+    color: "#1a1a1a",
   },
   bulletText: {
     fontSize: 11,
     lineHeight: 1.4,
-    color: '#333333',
+    color: "#333333",
     flex: 1,
   },
 
@@ -144,22 +156,22 @@ const styles = StyleSheet.create({
     marginBottom: 11,
   },
   languageTopRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 4,
   },
   languageName: {
     fontSize: 11.5,
-    color: '#1a1a1a',
-    fontWeight: '600',
+    color: "#1a1a1a",
+    fontWeight: "600",
   },
   languageLevel: {
     fontSize: 9.5,
-    color: '#6b6b6b',
+    color: "#6b6b6b",
   },
   languageBarTrack: {
     height: 6,
-    backgroundColor: '#e2e2e2',
+    backgroundColor: "#e2e2e2",
     borderRadius: 1,
   },
   languageBarFill: {
@@ -169,20 +181,20 @@ const styles = StyleSheet.create({
 
   // Social media
   socialItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginBottom: 9,
   },
   socialIconWrap: {
     width: 13,
     height: 13,
     marginRight: 7,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   socialText: {
     fontSize: 11,
-    color: '#333333',
+    color: "#333333",
     flex: 1,
   },
 
@@ -190,7 +202,7 @@ const styles = StyleSheet.create({
   hobbiesText: {
     fontSize: 11,
     lineHeight: 1.5,
-    color: '#333333',
+    color: "#333333",
   },
 
   // Right-col entries (Education / Certifications / Work Experience / Internships)
@@ -199,38 +211,56 @@ const styles = StyleSheet.create({
   },
   entryMeta: {
     fontSize: 10.5,
-    color: '#8a8a8a',
+    color: "#8a8a8a",
     marginBottom: 3,
   },
   entryTitle: {
     fontSize: 12,
-    fontWeight: '700',
-    color: '#1a1a1a',
+    fontWeight: "700",
+    color: "#1a1a1a",
     marginBottom: 4,
   },
   entryDescription: {
     fontSize: 11,
     lineHeight: 1.55,
-    color: '#333333',
+    color: "#333333",
   },
 });
 
-const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = false, fontFamily = 'Poppins' }) => {
-  const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS['color-1'];
+const ResumeTemplate6Pdf = ({
+  resume,
+  palette = "color-1",
+  forceFallbackFont = false,
+  fontFamily = "Poppins",
+}) => {
+  const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS["color-1"];
 
   const personal = resume.personal_infomation || {};
-  const fullName = [personal.firstName, personal.lastName].filter(Boolean).join(' ') || resume.resume_name || 'Your Name';
+  const fullName =
+    [personal.firstName, personal.lastName].filter(Boolean).join(" ") ||
+    resume.resume_name ||
+    "Your Name";
   const jobLevel = safeText(personal.experience || personal.job_title);
 
-  const pageStyle = { ...styles.page, fontFamily: forceFallbackFont ? 'Helvetica' : (fontFamily || 'Poppins') };
+  const pageStyle = {
+    ...styles.page,
+    fontFamily: forceFallbackFont ? "Helvetica" : fontFamily || "Poppins",
+  };
 
   const contactItems = [
-    personal.phone ? { type: 'phone', label: safeText(personal.phone) } : null,
-    personal.email ? { type: 'email', label: safeText(personal.email) } : null,
+    personal.phone ? { type: "phone", label: safeText(personal.phone) } : null,
+    personal.email ? { type: "email", label: safeText(personal.email) } : null,
     [personal.city, personal.state, personal.country].filter(Boolean).length > 0
-      ? { type: 'location', label: [personal.city, personal.state, personal.country].filter(Boolean).join(', ') }
+      ? {
+          type: "location",
+          label: [personal.city, personal.state, personal.country]
+            .filter(Boolean)
+            .join(", "),
+        }
       : null,
-    personal.website ? { type: 'globe', label: safeText(personal.website) } : null,
+    personal.website
+      ? { type: "globe", label: safeText(personal.website) }
+      : null,
   ].filter(Boolean);
 
   const skills = resume.skills || [];
@@ -262,7 +292,9 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
         {resume.summary && resume.summary.summary && (
           <View style={styles.aboutSection}>
             <SectionHeading noRule>About Me</SectionHeading>
-            <Text style={styles.aboutText}>{safeText(resume.summary.summary)}</Text>
+            <Text style={styles.aboutText}>
+              {safeText(resume.summary.summary)}
+            </Text>
           </View>
         )}
 
@@ -276,7 +308,15 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                 {contactItems.map((item, idx) => (
                   <View key={idx} style={styles.contactItem}>
                     <View style={styles.contactIconWrap}>
-                      {item.type === 'phone' ? <IconPhone color={accentColor} /> : item.type === 'email' ? <IconEmail color={accentColor} /> : item.type === 'location' ? <IconLocation color={accentColor} /> : <IconGlobe color={accentColor} />}
+                      {item.type === "phone" ? (
+                        <IconPhone color={accentColor} />
+                      ) : item.type === "email" ? (
+                        <IconEmail color={accentColor} />
+                      ) : item.type === "location" ? (
+                        <IconLocation color={accentColor} />
+                      ) : (
+                        <IconGlobe color={accentColor} />
+                      )}
                     </View>
                     <Text style={styles.contactText}>{item.label}</Text>
                   </View>
@@ -289,8 +329,12 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                 <SectionHeading>Skills</SectionHeading>
                 {skills.map((skill, idx) => (
                   <View key={idx} style={styles.bulletLine}>
-                    <Text style={{ ...styles.bulletMark, color: accentColor }}>•</Text>
-                    <Text style={styles.bulletText}>{safeText(skill.skill_name)}</Text>
+                    <Text style={{ ...styles.bulletMark, color: accentColor }}>
+                      •
+                    </Text>
+                    <Text style={styles.bulletText}>
+                      {safeText(skill.skill_name)}
+                    </Text>
                   </View>
                 ))}
               </View>
@@ -302,11 +346,21 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                 {languages.map((lang, idx) => (
                   <View key={idx} style={styles.languageBlock}>
                     <View style={styles.languageTopRow}>
-                      <Text style={styles.languageName}>{safeText(lang.language)}</Text>
-                      <Text style={styles.languageLevel}>{safeText(lang.proficiency_level)}</Text>
+                      <Text style={styles.languageName}>
+                        {safeText(lang.language)}
+                      </Text>
+                      <Text style={styles.languageLevel}>
+                        {safeText(lang.proficiency_level)}
+                      </Text>
                     </View>
                     <View style={styles.languageBarTrack}>
-                      <View style={{ ...styles.languageBarFill, width: `${skillLevelToPercent(lang.proficiency_level)}%`, backgroundColor: accentColor }} />
+                      <View
+                        style={{
+                          ...styles.languageBarFill,
+                          width: `${skillLevelToPercent(lang.proficiency_level)}%`,
+                          backgroundColor: accentColor,
+                        }}
+                      />
                     </View>
                   </View>
                 ))}
@@ -318,8 +372,12 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                 <SectionHeading>Social Media</SectionHeading>
                 {socialItems.map((item, idx) => (
                   <View key={idx} style={styles.socialItem}>
-                    <View style={styles.socialIconWrap}>{getSocialIcon(item.social_name, accentColor)}</View>
-                    <Text style={styles.socialText}>{safeText(item.social_url)}</Text>
+                    <View style={styles.socialIconWrap}>
+                      {getSocialIcon(item.social_name, accentColor)}
+                    </View>
+                    <Text style={styles.socialText}>
+                      {safeText(item.social_url)}
+                    </Text>
                   </View>
                 ))}
               </View>
@@ -329,7 +387,10 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
               <View style={styles.colSection}>
                 <SectionHeading>Hobbies</SectionHeading>
                 <Text style={styles.hobbiesText}>
-                  {hobbies.map((h) => safeText(h.hobbies || h)).filter(Boolean).join(', ')}
+                  {hobbies
+                    .map((h) => safeText(h.hobbies || h))
+                    .filter(Boolean)
+                    .join(", ")}
                 </Text>
               </View>
             )}
@@ -344,11 +405,14 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                   <View key={idx} style={styles.entryBlock}>
                     <Text style={styles.entryMeta}>
                       {safeText(edu.institute_name)}
-                      {edu.institute_name ? ' | ' : ''}
-                      {!edu.date || !edu.year ? 'Ongoing' : `${safeText(edu.date)}-${safeText(edu.year)}`}
+                      {edu.institute_name ? " | " : ""}
+                      {!edu.date || !edu.year
+                        ? "Ongoing"
+                        : `${safeText(edu.date)}-${safeText(edu.year)}`}
                     </Text>
                     <Text style={styles.entryTitle}>
-                      {safeText(edu.degree)}{edu.field_study ? ` ${safeText(edu.field_study)}` : ''}
+                      {safeText(edu.degree)}
+                      {edu.field_study ? ` ${safeText(edu.field_study)}` : ""}
                     </Text>
                   </View>
                 ))}
@@ -362,11 +426,17 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                   <View key={idx} style={styles.entryBlock}>
                     <Text style={styles.entryMeta}>
                       {safeText(cert.issuing_organization)}
-                      {cert.issuing_organization ? ' | ' : ''}
-                      {safeText(cert.issue_date)}
+                      {cert.issuing_organization ? " | " : ""}
+                      {formatSingleDate(cert.issue_date)}
                     </Text>
-                    <Text style={styles.entryTitle}>{safeText(cert.certificate_name)}</Text>
-                    {cert.description ? <Text style={styles.entryDescription}>{safeText(cert.description)}</Text> : null}
+                    <Text style={styles.entryTitle}>
+                      {safeText(cert.certificate_name)}
+                    </Text>
+                    {cert.description ? (
+                      <Text style={styles.entryDescription}>
+                        {safeText(cert.description)}
+                      </Text>
+                    ) : null}
                   </View>
                 ))}
               </View>
@@ -379,11 +449,22 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                   <View key={idx} style={styles.entryBlock}>
                     <Text style={styles.entryMeta}>
                       {safeText(work.company_name)}
-                      {work.company_name ? ' | ' : ''}
-                      {formatDateRange(work.start_month, work.start_year, work.end_month, work.end_year)}
+                      {work.company_name ? " | " : ""}
+                      {formatDateRange(
+                        work.start_month,
+                        work.start_year,
+                        work.end_month,
+                        work.end_year,
+                      )}
                     </Text>
-                    <Text style={styles.entryTitle}>{safeText(work.job_title)}</Text>
-                    {work.description ? <Text style={styles.entryDescription}>{safeText(work.description)}</Text> : null}
+                    <Text style={styles.entryTitle}>
+                      {safeText(work.job_title)}
+                    </Text>
+                    {work.description ? (
+                      <Text style={styles.entryDescription}>
+                        {safeText(work.description)}
+                      </Text>
+                    ) : null}
                   </View>
                 ))}
               </View>
@@ -396,10 +477,17 @@ const ResumeTemplate6Pdf = ({ resume, palette = 'color-1', forceFallbackFont = f
                   <View key={idx} style={styles.entryBlock}>
                     <Text style={styles.entryMeta}>
                       {safeText(intern.company_name)}
-                      {intern.company_name ? ' | ' : ''}
-                      {formatDateRange(intern.start_month, intern.start_year, intern.end_month, intern.end_year)}
+                      {intern.company_name ? " | " : ""}
+                      {formatDateRange(
+                        intern.start_month,
+                        intern.start_year,
+                        intern.end_month,
+                        intern.end_year,
+                      )}
                     </Text>
-                    <Text style={styles.entryTitle}>{safeText(intern.job_title)}</Text>
+                    <Text style={styles.entryTitle}>
+                      {safeText(intern.job_title)}
+                    </Text>
                   </View>
                 ))}
               </View>

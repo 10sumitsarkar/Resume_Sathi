@@ -18,6 +18,8 @@ import ResumeTemplate3 from '../templates/ResumeTemplate3';
 import ResumeTemplate4 from '../templates/ResumeTemplate4';
 import ResumeTemplate5 from '../templates/ResumeTemplate5'; 
 import ResumeTemplate6 from '../templates/ResumeTemplate6'; 
+import ResumeTemplate7 from '../templates/ResumeTemplate7'; 
+
 import "./resume-list.css";
 
 const AVAILABLE_TEMPLATES = {
@@ -27,6 +29,7 @@ const AVAILABLE_TEMPLATES = {
   ResumeTemplate4,
   ResumeTemplate5,
   ResumeTemplate6,
+  ResumeTemplate7,
 };
 
 const buildResumeText = (resume) => {

@@ -1,0 +1,1346 @@
+.typing-navbar {
+  position: static !important;
+}
+
+.tf-scope {
+  /* Brand color */
+  --rk-brand: #cc0000;
+  --rk-brand-deeper: #880000;
+  --rk-brand-light: #fff0f0;
+  --rk-brand-mid: #ffbbbb;
+
+  --text-color1: #000112;
+  --text-color2: #404653;
+  --text-color3: #001691;
+  --text-color4: #000b47;
+  --placeholder: rgba(102, 102, 102, 0.5);
+  --gray1: #404653;
+  --primary: #001691;
+  --blue1: #4400ff;
+  --voilet: #ac04e0;
+  --gradient-btn: linear-gradient(89.9deg, #cc0000 0%, #001691 99.8%);
+  --reverse-gradient-btn: linear-gradient(90deg, #001691 0%, #cc0000 100%);
+  --pink: #ff0088;
+}
+
+.tf-scope {
+  --tf-bg-void: #fbfbfd;
+  --tf-bg-surface: #ffffff;
+  --tf-bg-surface-2: #f5f5f7;
+  --tf-edge: #e8e8f0;
+  --tf-text-primary: var(--text-color1, #000112);
+  --tf-text-muted: var(--gray1, #404653);
+  --tf-mint: #12a454;
+  --tf-rose: #de2124;
+  --tf-amber: #c9860b;
+
+  background-color: var(--tf-bg-void);
+  color: var(--tf-text-primary);
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+.tf-scope a {
+  text-decoration: none;
+  color: inherit;
+  display: none;
+}
+
+.tf-scope button {
+  font-family: inherit;
+}
+
+.tf-scope * {
+  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+/* ---------- fonts ---------- */
+.tf-font-display {
+  font-family: "Poppins", ui-sans-serif, system-ui, sans-serif;
+  font-weight: 700;
+}
+
+.tf-font-mono {
+  font-family: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+
+/* ---------- fluid type scale ---------- */
+.tf-display-1 {
+  font-size: clamp(1.7rem, 1.35rem + 2vw, 3.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.tf-display-2 {
+  font-size: clamp(1.3rem, 1.1rem + 1vw, 1.9rem);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+.tf-display-3 {
+  font-size: clamp(1.05rem, 0.98rem + 0.4vw, 1.35rem);
+  line-height: 1.28;
+}
+
+.tf-fs-xs {
+  font-size: 0.75rem;
+}
+
+.tf-fs-sm {
+  font-size: 0.875rem;
+}
+
+.tf-fs-lg {
+  font-size: 1.0625rem;
+}
+
+.tf-fs-xl {
+  font-size: 1.3rem;
+}
+
+/* ---------- color utilities (all flat, no gradients) ---------- */
+.tf-text-brand {
+  color: var(--rk-brand, #cc0000);
+}
+
+.tf-bg-brand {
+  background-color: var(--rk-brand, #cc0000);
+}
+
+.tf-border-brand {
+  border-color: var(--rk-brand, #cc0000) !important;
+}
+
+.tf-text-ink {
+  color: var(--tf-text-primary);
+}
+
+.tf-text-muted {
+  color: var(--tf-text-muted);
+}
+
+.tf-bg-surface {
+  background-color: var(--tf-bg-surface);
+}
+
+.tf-bg-surface2 {
+  background-color: var(--tf-bg-surface-2);
+}
+
+.tf-border-edge {
+  border-color: var(--tf-edge) !important;
+}
+
+.tf-text-mint {
+  color: var(--tf-mint);
+}
+
+.tf-text-rose {
+  color: var(--tf-rose);
+}
+
+.tf-bg-rose-soft {
+  background-color: rgba(222, 33, 36, 0.1);
+}
+
+.tf-hover-border-brand:hover {
+  border-color: var(--rk-brand-mid, #ffbbbb) !important;
+}
+
+/* flat brand-red highlight for big numbers/emphasis (was a gradient clip) */
+.tf-text-gradient {
+  color: var(--rk-brand, #cc0000);
+}
+
+/* ---------- eyebrow / tag pill (matches site's .tl-eyebrow) ---------- */
+.tf-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--rk-brand, #cc0000);
+  background: var(--rk-brand-light, #fff0f0);
+  border: 1px solid var(--rk-brand-mid, #ffbbbb);
+  border-radius: 99px;
+  padding: 5px 14px;
+}
+
+.tf-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rk-brand, #cc0000);
+  flex-shrink: 0;
+}
+
+/* ---------- buttons — flat solid brand red, pill-shaped ---------- */
+.tf-btn-brand {
+  background: var(--rk-brand, #cc0000);
+  border: 1px solid var(--rk-brand, #cc0000);
+  border-radius: 100px;
+  color: #fff;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.tf-btn-brand:hover {
+  background: var(--rk-brand-deeper, #880000);
+  border-color: var(--rk-brand-deeper, #880000);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.tf-btn-brand:disabled,
+.tf-btn-brand.disabled {
+  opacity: 0.5;
+  transform: none;
+}
+
+/* ---------- surfaces ---------- */
+.tf-card {
+  background: var(--tf-bg-surface);
+  border: 1px solid var(--tf-edge);
+  border-radius: 15px;
+  box-shadow: 0 1px 2px rgba(20, 22, 30, 0.03), 0 8px 20px -14px rgba(20, 22, 30, 0.16);
+}
+
+.tf-main {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+/* ---------- shared typing pages ---------- */
+.tf-page {
+  padding: 15px 0 15px;
+}
+
+.tf-page-intro {
+  margin-bottom: 18px;
+}
+
+.tf-page-intro .tf-display-1 {
+  margin-bottom: 0;
+}
+
+.tf-learn-page {
+  padding-top: 25px;
+  padding-bottom: 34px;
+}
+
+/* Home hero uses the same hierarchy and button language as the main site. */
+.tf-home-hero {
+  padding: 50px 0 40px;
+}
+
+.tf-home-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--rk-brand-light);
+  color: var(--rk-brand-deeper);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.tf-home-badge>span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rk-brand);
+}
+
+.tf-home-title {
+  margin: 18px 0 16px;
+  color: #161b26;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(2rem, 1.55rem + 2.1vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.16;
+  letter-spacing: -.025em;
+}
+
+.tf-home-title span {
+  color: var(--rk-brand);
+}
+
+.tf-home-sub {
+  max-width: 620px;
+  margin: 0 0 22px;
+  color: #667085;
+  font-size: 1.05rem;
+  line-height: 1.6;
+}
+
+.tf-home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.tf-home-btn-primary,
+.tf-home-btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 11px 22px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: .92rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: .2s ease;
+}
+
+.tf-home-btn-primary {
+  background: #cc0000 !important;
+  color: #fff !important;
+}
+
+.tf-home-btn-primary:hover {
+  background: #880000 !important;
+  color: #fff !important;
+}
+
+.tf-home-btn-outline {
+  border-color: #d8dce5;
+  color: #161b26 !important;
+  background: #fff;
+}
+
+.tf-home-btn-outline:hover {
+  border-color: #cc0000;
+  color: #cc0000 !important;
+}
+
+/* ---------- practice mode selector ---------- */
+.tf-mode-grid {
+  display: flex;
+  gap: 14px;
+  margin: 0 0 12px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tf-mode-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.tf-mode-card {
+  position: relative;
+  max-width: 100%;
+  width: 100%;
+  min-height: 78px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 15px;
+  border: 1px solid var(--tf-edge)!important;
+  border-radius: 11px;
+  background: #fff;
+  color: var(--tf-text-primary);
+  box-shadow: 0 1px 2px rgba(20, 22, 30, .025);
+  transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
+@media (min-width:1200px) {
+  
+  display: flex!important;
+}
+}
+
+.tf-mode-card:hover {
+  border-color: var(--rk-brand)!important;
+}
+
+.tf-mode-card.is-active {
+  border-color: var(--rk-brand)!important;
+  box-shadow: 0 7px 18px -14px rgba(204, 0, 0, .45);
+}
+
+.tf-mode-icon {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tf-mode-icon-time {
+  color: #e3212a;
+  background: #ffebec;
+}
+
+.tf-mode-icon-words {
+  color: #1563d8;
+  background: #eaf2ff;
+  font-family: Georgia, serif;
+}
+
+.tf-mode-icon-quote {
+  color: #08a968;
+  background: #e3faef;
+}
+
+.tf-mode-icon-code {
+  color: #6d38df;
+  background: #f0eaff;
+  font-size: 13px;
+}
+
+.tf-mode-icon-custom {
+  color: #ee7b17;
+  background: #fff0df;
+}
+
+.tf-mode-title,
+.tf-mode-tag {
+  display: block;
+}
+
+.tf-mode-title {
+  font-size: .82rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tf-mode-tag {
+  margin-top: 3px;
+  color: #667085;
+  font-size: .73rem;
+  line-height: 1.25;
+}
+
+.tf-mode-check {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  color: var(--rk-brand);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.tf-option-row {
+  display: flex;
+  gap: 8px;
+  margin: 10px 0 20px;
+}
+
+.tf-option {
+  min-width: 62px;
+  padding: 6px 14px;
+  border: 1px solid var(--tf-edge);
+  border-radius: 9px;
+  background: #fff;
+  color: #344054;
+  font: 600 .78rem/1.2 "Poppins", sans-serif;
+}
+
+.tf-option:hover {
+  border-color: #ffb5b5;
+}
+
+.tf-option.is-active {
+  color: #fff;
+  background: var(--rk-brand);
+  border-color: var(--rk-brand);
+  box-shadow: 0 5px 10px -7px var(--rk-brand);
+}
+
+.tf-custom-text {
+  border-radius: 12px;
+  padding: 13px 15px;
+  box-shadow: none;
+}
+
+.tf-result-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.tf-result-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 89px;
+  padding: 15px;
+  background: #fff;
+  border: 1px solid var(--tf-edge);
+  border-radius: 12px;
+}
+
+.tf-result-icon {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  flex: 0 0 52px;
+  border-radius: 50%;
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.tf-result-icon.speed {
+  color: #ed2027;
+  background: #ffe7e8;
+}
+
+.tf-result-icon.accuracy {
+  color: #00a968;
+  background: #e2faef;
+}
+
+.tf-result-icon.duration {
+  color: #7443dd;
+  background: #eee7ff;
+}
+
+.tf-result-number {
+  font-size: 1.45rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.tf-result-label {
+  margin-top: 4px;
+  color: #667085;
+  font-size: .72rem;
+}
+
+.tf-session-result {
+  padding-top: 22px;
+}
+
+.tf-result-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.tf-result-actions .btn {
+  padding: 9px 17px;
+  font-size: .84rem;
+  font-weight: 600;
+}
+
+/* Compact session controls remain visible while the exercise is in view. */
+.tf-session-bar {
+  position: sticky;
+  top: 10px;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 62px;
+  margin: 4px 0 10px;
+  padding: 7px 10px;
+  border: 1px solid var(--tf-edge);
+  border-radius: 13px;
+  background: rgba(255, 255, 255, .94);
+  box-shadow: 0 7px 20px -18px rgba(16, 24, 40, .45);
+  backdrop-filter: blur(10px);
+}
+
+.tf-session-timer {
+  min-width: 68px;
+  display: grid;
+  place-content: center;
+  padding: 5px 12px;
+  text-align: center;
+  line-height: 1;
+  color: var(--rk-brand);
+}
+
+.tf-session-timer strong {
+  font-size: .92rem;
+}
+
+.tf-session-timer small {
+  margin-top: 3px;
+  color: #667085;
+  font-size: .49rem;
+  text-transform: uppercase;
+}
+
+.tf-session-wpm {
+  display: grid;
+  min-width: 54px;
+  padding-left: 15px;
+  border-left: 1px solid var(--tf-edge);
+  line-height: 1.05;
+}
+
+.tf-session-wpm strong {
+  font-size: 1.15rem;
+  color: var(--tf-text-primary);
+}
+
+.tf-session-wpm span {
+  margin-top: 3px;
+  color: #667085;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .05em;
+}
+
+.tf-session-paused {
+  color: var(--tf-rose);
+  font-size: .74rem;
+  font-weight: 600;
+}
+
+.tf-session-restart {
+  margin-left: auto;
+  padding: 7px 11px;
+  border: 1px solid var(--tf-edge);
+  border-radius: 8px;
+  background: #fff;
+  color: #475467;
+  font-size: .75rem;
+  font-weight: 600;
+}
+
+.tf-session-restart:hover {
+  border-color: #ffb5b5;
+  color: var(--rk-brand);
+}
+
+.tf-session-control {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .tf-practice-page .tf-practice-option-row {
+    display: none;
+  }
+
+  .tf-practice-page .tf-session-control {
+    position: absolute;
+    left: 50%;
+    display: block;
+    transform: translateX(-50%);
+  }
+
+  .tf-session-control .tf-option-row {
+    margin: 0;
+    gap: 7px;
+  }
+
+  .tf-session-control .tf-option {
+    min-width: 62px;
+    padding: 6px 13px;
+  }
+}
+
+/* Older metric row is superseded by the compact bar. */
+.tf-session-bar+.tf-font-mono {
+  display: none !important;
+}
+
+.tf-typing-text-viewport {
+  max-height: calc(1.65em * 8);
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+
+.tf-mobile-mode-select {
+  display: none;
+}
+
+/* Workspace is deliberately two-column at desktop, and one-column before it
+   becomes cramped. This also benefits lessons without special-case markup. */
+.tf-typing-workspace {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.tf-typing-workspace:not(.has-keyboard) {
+  display: block;
+}
+
+.tf-typing-workspace>.tf-card {
+  flex: 1 1 0;
+  min-width: 0;
+  margin-top: 0 !important;
+  min-height: 300px;
+}
+
+.tf-typing-workspace:not(.has-keyboard)>.tf-card {
+  width: 100%;
+}
+
+.tf-typing-keyboard {
+  display: flex;
+  align-items: center;
+  flex: 1 1 0;
+  min-width: 360px;
+}
+
+.tf-typing-keyboard .tf-keyboard {
+  width: 100%;
+  max-width: none !important;
+  min-height: 300px;
+}
+
+.tf-finger-hint {
+  display: none;
+}
+
+.tf-keycap {
+  background: #fff;
+  border: 1.5px solid #e8e8f8;
+  box-shadow: 0 1px 0 0 var(--tf-edge);
+  border-radius: 10px;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+/* Lesson header actions */
+.tf-lesson-header {
+  position: relative;
+  min-height: 42px;
+  margin-top: 25px;
+}
+
+.tf-lesson-heading {
+  min-height: 40px;
+}
+
+.tf-lesson-back {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 13px;
+  border: 1px solid #ffd0d0;
+  border-radius: 10px;
+  background: #fff7f7;
+  color: var(--rk-brand, #cc0000);
+  font: 700 .72rem/1 "Poppins", sans-serif;
+  letter-spacing: .01em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+}
+
+.tf-lesson-back:hover {
+  background: var(--rk-brand, #cc0000);
+  color: #fff;
+  box-shadow: 0 7px 16px -10px rgba(204, 0, 0, .7);
+  transform: translateY(-1px);
+}
+
+.tf-lesson-skip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 8px 14px;
+  border: 1px solid #ffd0d0;
+  border-radius: 999px;
+  background: #fff7f7;
+  color: var(--rk-brand, #cc0000);
+  font: 700 .74rem/1 "Poppins", sans-serif;
+  box-shadow: 0 5px 13px -11px rgba(204, 0, 0, .8);
+  transition: transform .15s ease, background .15s ease, color .15s ease, box-shadow .15s ease;
+}
+
+.tf-lesson-skip:hover,
+.tf-lesson-skip:focus-visible {
+  border-color: var(--rk-brand, #cc0000);
+  background: var(--rk-brand, #cc0000);
+  color: #fff;
+  box-shadow: 0 7px 16px -10px rgba(204, 0, 0, .75);
+  outline: none;
+  transform: translateY(-1px);
+}
+
+.tf-keycap:hover {
+  border-color: var(--rk-brand-mid, #ffbbbb);
+}
+
+.tf-brand-glow {
+  border: 1px solid var(--rk-brand) !important;
+  background-color: #fffafa !important;
+}
+
+/* ---------- layout helpers ---------- */
+.tf-max-w-xl {
+  max-width: 40rem;
+}
+
+.tf-max-w-2xl {
+  max-width: 48rem;
+}
+
+.tf-max-w-6xl {
+  max-width: 72rem;
+}
+
+.tf-lift-hover {
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.tf-lift-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 26px -16px rgba(20, 22, 30, 0.22);
+}
+
+.tf-transition {
+  transition: all 0.15s ease;
+}
+
+.tf-select-none {
+  user-select: none;
+}
+
+.tf-cursor-text {
+  cursor: text;
+}
+
+.tf-min-w-0 {
+  min-width: 0;
+}
+
+.tf-pre-wrap {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.tf-backdrop-blur {
+  backdrop-filter: blur(10px);
+  background-color: rgba(251, 251, 253, 0.85);
+}
+
+.tf-leading-relaxed {
+  line-height: 1.65;
+}
+
+.tf-tracking-tight {
+  letter-spacing: -0.01em;
+}
+
+.tf-z-40 {
+  z-index: 40;
+}
+
+.tf-py-10 {
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+}
+
+.tf-scroll-y {
+  overflow-y: auto;
+}
+
+/* ---------- typing engine specifics ---------- */
+.tf-progress-track {
+  height: 6px;
+  background: var(--tf-bg-surface-2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.tf-progress-fill {
+  height: 100%;
+  background: var(--rk-brand, #cc0000);
+  border-radius: 999px;
+  transition: width 0.15s linear;
+}
+
+/* ---------- sub navigation (Home / Learn / Practice / Stats) ---------- */
+.tf-subnav-wrap {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: rgba(251, 251, 253, 0.92);
+  backdrop-filter: blur(6px);
+  padding-block: 10px;
+  border-bottom: 1px solid var(--tf-edge, #e8e8f0);
+}
+
+.tf-subnav-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tf-subnav-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--gray1, #404653);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tf-subnav-back svg {
+  flex-shrink: 0;
+}
+
+.tf-subnav-back:hover {
+  background: var(--rk-brand-light, #fff0f0);
+  color: var(--rk-brand, #cc0000);
+}
+
+.tf-subnav-pill {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tf-subnav-pill::-webkit-scrollbar {
+  display: none;
+}
+
+.tf-subnav-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray1, #404653);
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tf-subnav-item svg {
+  flex-shrink: 0;
+}
+
+.tf-subnav-item:hover {
+  background: var(--rk-brand-light, #fff0f0);
+  color: var(--rk-brand, #cc0000);
+}
+
+.tf-subnav-item.active {
+  background: var(--rk-brand, #cc0000);
+  color: #fff;
+}
+/* ---------- virtual keyboard — scales down instead of overflowing ---------- */
+.tf-keyboard {
+  container-type: inline-size;
+  --tf-key-gap: clamp(2px, 1.6cqw, 8px);
+  --tf-key: clamp(16px, calc((100cqw - 130px) / 13), 36px);
+  max-width: 100%;
+}
+
+.tf-keyboard-scroll {
+  overflow: hidden;
+  padding-block: 2px;
+}
+
+.tf-keyboard-scroll > div {
+  width: 100% !important;
+}
+
+.tf-keyboard-row {
+  gap: var(--tf-key-gap);
+}
+
+@media (max-width: 767px) {
+  .tf-keyboard .tf-fs-xs {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .tf-typing-workspace {
+    display: block;
+  }
+
+  .tf-typing-workspace>.tf-card {
+    min-height: 0;
+  }
+
+  .tf-typing-keyboard {
+    min-width: 0;
+    margin-top: 14px;
+  }
+}
+
+@media (max-width: 767px) {
+  .tf-page {
+    padding: 24px 0 30px;
+  }
+
+  .tf-mode-card {
+    min-height: 72px;
+    gap: 10px;
+    padding: 11px;
+  }
+
+  .tf-mode-icon {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+    font-size: 17px;
+  }
+
+  .tf-mode-title {
+    font-size: .74rem;
+  }
+
+  .tf-mode-tag {
+    font-size: .64rem;
+  }
+
+  .tf-result-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .tf-result-card {
+    justify-content: flex-start;
+    min-height: 70px;
+    padding: 10px 16px;
+  }
+
+  .tf-result-icon {
+    width: 43px;
+    height: 43px;
+    flex-basis: 43px;
+    font-size: 22px;
+  }
+
+  .tf-practice-page .tf-mode-grid {
+    display: none;
+  }
+
+  .tf-mobile-mode-select {
+    position: relative;
+    display: grid;
+    gap: 6px;
+    margin: 3px 0 13px;
+    color: #475467;
+    font-size: .75rem;
+    font-weight: 700;
+  }
+
+  .tf-mode-select-label {
+    color: #475467;
+  }
+
+  .tf-mode-select-trigger {
+    width: 100%;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 9px 14px;
+    border: 1px solid #dce1ea;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 7px 18px -17px rgba(16, 24, 40, .8);
+    color: var(--tf-text-primary);
+    font: 600 .84rem "Poppins", sans-serif;
+    text-align: left;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+
+  .tf-mode-select-trigger span,
+  .tf-mode-select-menu button > span:nth-child(2) {
+    min-width: 0;
+  }
+
+  .tf-mode-select-trigger b,
+  .tf-mode-select-trigger small,
+  .tf-mode-select-menu b,
+  .tf-mode-select-menu small {
+    display: block;
+  }
+
+  .tf-mode-select-trigger small,
+  .tf-mode-select-menu small {
+    margin-top: 2px;
+    color: #667085;
+    font-size: .68rem;
+    font-weight: 500;
+  }
+
+  .tf-mode-select-trigger i {
+    flex: 0 0 auto;
+    color: var(--rk-brand);
+    font-size: 1.2rem;
+    font-style: normal;
+    line-height: 1;
+    transition: transform .15s ease;
+  }
+
+  .tf-mode-select-trigger[aria-expanded="true"] i {
+    transform: rotate(180deg);
+  }
+
+  .tf-mode-select-trigger:focus-visible {
+    border-color: var(--rk-brand);
+    box-shadow: 0 0 0 3px rgba(204, 0, 0, .1);
+    outline: none;
+  }
+
+  .tf-mode-select-menu {
+    position: absolute;
+    z-index: 10;
+    top: calc(100% + 6px);
+    right: 0;
+    left: 0;
+    display: grid;
+    gap: 3px;
+    max-height: 270px;
+    overflow-y: auto;
+    padding: 6px;
+    border: 1px solid #dce1ea;
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0 14px 30px -16px rgba(16, 24, 40, .4);
+  }
+
+  .tf-mode-select-menu button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 8px;
+    border: 0;
+    border-radius: 9px;
+    background: transparent;
+    color: var(--tf-text-primary);
+    text-align: left;
+  }
+
+  .tf-mode-select-menu button:hover,
+  .tf-mode-select-menu button:focus-visible,
+  .tf-mode-select-menu button.is-selected {
+    background: #fff4f4;
+    outline: none;
+  }
+
+  .tf-mode-select-menu .tf-mode-icon {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+    font-size: .86rem;
+  }
+
+  .tf-mode-select-menu em {
+    margin-left: auto;
+    color: var(--rk-brand);
+    font-size: .9rem;
+    font-style: normal;
+  }
+
+  .tf-option-row {
+    width: calc(100% + 2px);
+    overflow-x: auto;
+    margin: 0 0 15px;
+    padding: 2px 1px 8px;
+    scrollbar-width: none;
+  }
+
+  .tf-option {
+    min-width: 96px;
+    flex: 0 0 auto;
+    border-radius: 999px;
+  }
+
+  .tf-session-bar {
+    top: 6px;
+    min-height: 58px;
+  }
+
+  .tf-session-timer {
+    min-width: 62px;
+    padding-inline: 8px;
+  }
+
+  .tf-session-restart span {
+    display: none;
+  }
+
+  .tf-session-paused {
+    display: none;
+  }
+
+  .tf-result-actions {
+    flex-direction: column;
+  }
+
+  .tf-result-actions .btn {
+    width: 100%;
+  }
+}
+
+
+@media (max-width: 400px) {
+  .tf-keyboard .tf-fs-xs {
+    font-size: 0.58rem;
+  }
+}
+
+/* ---------- keyframes ---------- */
+@keyframes tf-caret-blink {
+
+  0%,
+  49% {
+    opacity: 1;
+  }
+
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes tf-float-up {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.95;
+  }
+
+  100% {
+    transform: translateY(-46px) rotate(var(--rot, 0deg));
+    opacity: 0;
+  }
+}
+
+@keyframes tf-rise-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tf-animate-caret {
+  animation: tf-caret-blink 1s steps(1) infinite;
+}
+
+.tf-animate-keycap {
+  animation: tf-float-up 0.7s ease-out forwards;
+}
+
+.tf-animate-rise {
+  animation: tf-rise-in 0.5s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .tf-scope *,
+  .tf-scope *::before,
+  .tf-scope *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.tf-scope a:focus-visible,
+.tf-scope button:focus-visible,
+.tf-scope textarea:focus-visible,
+.tf-scope [tabindex]:focus-visible {
+  outline: 2px solid var(--rk-brand, #cc0000);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* =========================================================
+   RESPONSIVE — real fixes, not an afterthought
+   ========================================================= */
+
+/* container padding was a flat 60px with no breakpoint at all —
+   that alone was pushing content off-screen / crushing it on phones */
+@media (max-width: 575px) {
+
+  .tf-scope .custom-container,
+  .tf-subnav-wrap .custom-container {
+    padding-inline: 16px;
+  }
+}
+
+@media (min-width: 576px) and (max-width: 991px) {
+
+  .tf-scope .custom-container,
+  .tf-subnav-wrap .custom-container {
+    padding-inline: 28px;
+  }
+}
+
+@media (max-width: 767px) {
+  .tf-py-10 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  /* typing box: tighter padding, still comfortable to tap/read */
+  .tf-card.tf-font-mono {
+    padding: 16px 14px !important;
+  }
+
+  /* hero/lesson-complete CTA rows: full-width stacked buttons,
+     like the rest of the site does on mobile */
+  .tf-scope .buttons-row-mobile-full {
+    flex-direction: column;
+  }
+
+  .tf-scope .buttons-row-mobile-full>a,
+  .tf-scope .buttons-row-mobile-full>button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 575px) {
+  .tf-subnav-wrap {
+    padding-block: 8px;
+  }
+
+  .tf-subnav-item {
+    padding: 5px 12px;
+    font-size: 13px;
+  }
+
+  .tf-display-1,
+  .tf-display-2 {
+    text-align: left;
+  }
+}

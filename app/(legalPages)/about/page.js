@@ -1,5 +1,7 @@
 import AboutClient from './client';
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.resumesathi.com';
+
 export const metadata = {
   title: 'About Us',
   description:
@@ -11,7 +13,7 @@ export const metadata = {
     'ResumeSathi story',
   ],
   alternates: {
-    canonical: '/about',
+    canonical: `${siteUrl}/about`,
   },
   robots: {
     index: true,
@@ -21,7 +23,7 @@ export const metadata = {
     title: 'About Us',
     description:
       'ResumeSathi is a free, ATS-optimized resume builder built for job seekers everywhere.',
-    url: '/about',
+    url: `${siteUrl}/about`,
     siteName: 'ResumeSathi',
     type: 'website',
     images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],

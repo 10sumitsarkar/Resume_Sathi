@@ -1,14 +1,16 @@
 import PdfCompressor from "./PdfCompressor";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.resumesathi.com';
+
 export const metadata = {
   title: "Compress PDF",
   description: "Compress PDF files online for free with ResumeSathi's secure and simple PDF compression tool.",
   keywords: ["compress PDF", "reduce PDF size", "PDF compressor", "online PDF tool"],
-  alternates: { canonical: "/tools/compress-pdf" },
+  alternates: { canonical: `${siteUrl}/tools/pdf-compressor` },
   openGraph: {
     title: "Compress PDF",
     description: "Compress PDF files online for free with ResumeSathi's secure and simple PDF compression tool.",
-    url: "/tools/compress-pdf",
+    url: `${siteUrl}/tools/pdf-compressor`,
     type: "website",
     siteName: "ResumeSathi",
     images: [{ url: "/front-assets/images/og/tools-og.png", width: 1200, height: 630, alt: "PDF compress tool" }],

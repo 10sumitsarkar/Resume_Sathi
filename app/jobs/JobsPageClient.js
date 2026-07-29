@@ -2,8 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { Suspense } from "react";
-import { useSearchParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import './jobs.css';
 
 const IconBlog = () => (
@@ -444,9 +443,6 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
 }
 
 function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
-  const searchParams = useSearchParams();
-  const initialSearch = searchParams?.get('search') || searchParams?.get('q') || '';
-
   // 👇 SSR se aaye hue initial data se state seed karo — is-tarah pehla
   // render (jo Googlebot dekhta hai) already jobs se bhara hoga, khaali nahi.
   const [articles, setArticles] = useState(() => sortJobsByExpiry(initialArticles).slice(0, PAGE_SIZE));
@@ -457,8 +453,24 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
       .slice(0, 3)
   );
   const [categories, setCategories] = useState(initialCategories);
-  const [search, setSearch] = useState(initialSearch);
-  const [searchInput, setSearchInput] = useState(initialSearch);
+  // 👇 NAYA: static export (no Node server) me useSearchParams() use nahi karte —
+  // wo hook Suspense boundary maangta hai aur build ke time uska fallback hi
+  // static HTML me bake ho jaata hai (Googlebot ko sirf "Loading..." dikhta hai).
+  // Iski jagah plain window.location.search read karte hain, sirf client-side,
+  // jisse main content kabhi kisi fallback ke peeche block nahi hota.
+  const [search, setSearch] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('search') || params.get('q') || '';
+    if (q) {
+      setSearch(q);
+      setSearchInput(q);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [categoryId, setCategoryId] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(initialArticles.length > PAGE_SIZE);
@@ -889,8 +901,6 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
 export default function JobsPageClient({ initialArticles = [], initialCategories = [] }) {
   return (
-    <Suspense fallback={<div className="rk-loading">Loading...</div>}>
-      <BlogPageContent initialArticles={initialArticles} initialCategories={initialCategories} />
-    </Suspense>
+    <BlogPageContent initialArticles={initialArticles} initialCategories={initialCategories} />
   );
 }

@@ -1,5 +1,3 @@
-
-
 "use client";
 
 import { useState, useRef, useCallback } from "react";
@@ -7,95 +5,141 @@ import dynamic from "next/dynamic";
 import { PDFDocument } from "pdf-lib";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import '../../../tools-css/merge-pdf.css';
+import "../../../tools-css/merge-pdf.css";
 
-const PdfPreviewClient = dynamic(
-  () => import("./PdfPreviewClient"),
-  {
-    ssr: false,
-  }
-);
+const PdfPreviewClient = dynamic(() => import("./PdfPreviewClient"), {
+  ssr: false,
+});
 
 export default function PdfMergePage() {
-    const [files, setFiles] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [draggedIndex, setDraggedIndex] = useState(null);
-    const [dropTargetIndex, setDropTargetIndex] = useState(null);
-    const [dropZoneDragOver, setDropZoneDragOver] = useState(false);
-    const [pageDragOver, setPageDragOver] = useState(false);
+  const [files, setFiles] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [draggedIndex, setDraggedIndex] = useState(null);
+  const [dropTargetIndex, setDropTargetIndex] = useState(null);
+  const [dropZoneDragOver, setDropZoneDragOver] = useState(false);
+  const [pageDragOver, setPageDragOver] = useState(false);
 
-    const fileInputRef = useRef(null);
-    const addMoreRef = useRef(null);
+  const fileInputRef = useRef(null);
+  const addMoreRef = useRef(null);
 
-    // ── touch drag state (refs to avoid re-renders during move) ──
-    const touchDragIndex = useRef(null);   // which card is being dragged
-    const touchClone = useRef(null);   // floating ghost element
-    const touchOffsetX = useRef(0);
-    const touchOffsetY = useRef(0);
-    const touchCurrentTarget = useRef(null);  // index card is hovering over
+  // ── touch drag state (refs to avoid re-renders during move) ──
+  const touchDragIndex = useRef(null); // which card is being dragged
+  const touchClone = useRef(null); // floating ghost element
+  const touchOffsetX = useRef(0);
+  const touchOffsetY = useRef(0);
+  const touchCurrentTarget = useRef(null); // index card is hovering over
 
-    // ── add files ─────────────────────────────────────────────────
-    const addFiles = useCallback((rawFiles) => {
-        const pdfFiles = Array.from(rawFiles)
-            .filter((f) => f.type === "application/pdf")
-            .map((file) => ({
-                id: crypto.randomUUID(),
-                file,
-                preview: URL.createObjectURL(file),
-            }));
-        if (!pdfFiles.length) { toast.error("Only PDF files are accepted"); return; }
-        setFiles((prev) => [...prev, ...pdfFiles]);
-    }, []);
+  // ── add files ─────────────────────────────────────────────────
+  const addFiles = useCallback((rawFiles) => {
+    const pdfFiles = Array.from(rawFiles)
+      .filter((f) => f.type === "application/pdf")
+      .map((file) => ({
+        id: crypto.randomUUID(),
+        file,
+        preview: URL.createObjectURL(file),
+      }));
+    if (!pdfFiles.length) {
+      toast.error("Only PDF files are accepted");
+      return;
+    }
+    setFiles((prev) => [...prev, ...pdfFiles]);
+  }, []);
 
-    const handleFileInputChange = (e) => { addFiles(e.target.files); e.target.value = ""; };
+  const handleFileInputChange = (e) => {
+    addFiles(e.target.files);
+    e.target.value = "";
+  };
 
-    // ── drop zone (OS file drop) ──────────────────────────────────
-    const handleDropZoneDragOver = (e) => { e.preventDefault(); e.stopPropagation(); setDropZoneDragOver(true); };
-    const handleDropZoneDragLeave = (e) => { e.preventDefault(); e.stopPropagation(); setDropZoneDragOver(false); };
-    const handleDropZoneDrop = (e) => { e.preventDefault(); e.stopPropagation(); setDropZoneDragOver(false); addFiles(e.dataTransfer.files); };
+  // ── drop zone (OS file drop) ──────────────────────────────────
+  const handleDropZoneDragOver = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDropZoneDragOver(true);
+  };
+  const handleDropZoneDragLeave = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDropZoneDragOver(false);
+  };
+  const handleDropZoneDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setDropZoneDragOver(false);
+    addFiles(e.dataTransfer.files);
+  };
 
-    // ── page-level OS drop (when files already exist) ─────────────
-    const handlePageDragOver = (e) => { if (draggedIndex !== null) return; e.preventDefault(); setPageDragOver(true); };
-    const handlePageDragLeave = (e) => { if (draggedIndex !== null) return; if (!e.currentTarget.contains(e.relatedTarget)) setPageDragOver(false); };
-    const handlePageDrop = (e) => { if (draggedIndex !== null) return; e.preventDefault(); setPageDragOver(false); addFiles(e.dataTransfer.files); };
+  // ── page-level OS drop (when files already exist) ─────────────
+  const handlePageDragOver = (e) => {
+    if (draggedIndex !== null) return;
+    e.preventDefault();
+    setPageDragOver(true);
+  };
+  const handlePageDragLeave = (e) => {
+    if (draggedIndex !== null) return;
+    if (!e.currentTarget.contains(e.relatedTarget)) setPageDragOver(false);
+  };
+  const handlePageDrop = (e) => {
+    if (draggedIndex !== null) return;
+    e.preventDefault();
+    setPageDragOver(false);
+    addFiles(e.dataTransfer.files);
+  };
 
-    // ── desktop drag-reorder ──────────────────────────────────────
-    const handleCardDragStart = (e, index) => { e.stopPropagation(); setDraggedIndex(index); };
-    const handleCardDragOver = (e, index) => { e.preventDefault(); e.stopPropagation(); if (draggedIndex !== null && draggedIndex !== index) setDropTargetIndex(index); };
-    const handleCardDrop = (e, index) => {
-        e.preventDefault(); e.stopPropagation();
-        if (draggedIndex === null || draggedIndex === index) { setDraggedIndex(null); setDropTargetIndex(null); return; }
-        const updated = [...files];
-        const [moved] = updated.splice(draggedIndex, 1);
-        updated.splice(index, 0, moved);
-        setFiles(updated);
-        setDraggedIndex(null);
-        setDropTargetIndex(null);
-    };
-    const handleCardDragEnd = () => { setDraggedIndex(null); setDropTargetIndex(null); };
+  // ── desktop drag-reorder ──────────────────────────────────────
+  const handleCardDragStart = (e, index) => {
+    e.stopPropagation();
+    setDraggedIndex(index);
+  };
+  const handleCardDragOver = (e, index) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (draggedIndex !== null && draggedIndex !== index)
+      setDropTargetIndex(index);
+  };
+  const handleCardDrop = (e, index) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (draggedIndex === null || draggedIndex === index) {
+      setDraggedIndex(null);
+      setDropTargetIndex(null);
+      return;
+    }
+    const updated = [...files];
+    const [moved] = updated.splice(draggedIndex, 1);
+    updated.splice(index, 0, moved);
+    setFiles(updated);
+    setDraggedIndex(null);
+    setDropTargetIndex(null);
+  };
+  const handleCardDragEnd = () => {
+    setDraggedIndex(null);
+    setDropTargetIndex(null);
+  };
 
-    // ── TOUCH drag-reorder ────────────────────────────────────────
-    const handleTouchStart = (e, index) => {
-        // only trigger from the handle (data-drag-handle attribute)
-        if (!e.target.closest('[data-drag-handle]')) return;
+  // ── TOUCH drag-reorder ────────────────────────────────────────
+  const handleTouchStart = (e, index) => {
+    // only trigger from the handle (data-drag-handle attribute)
+    if (!e.target.closest("[data-drag-handle]")) return;
 
-        e.preventDefault(); // prevent scroll while dragging
+    e.preventDefault(); // prevent scroll while dragging
 
-        const touch = e.touches[0];
-        const card = e.currentTarget;
-        const rect = card.getBoundingClientRect();
+    const touch = e.touches[0];
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
 
-        touchDragIndex.current = index;
-        touchCurrentTarget.current = index;
-        touchOffsetX.current = touch.clientX - rect.left;
-        touchOffsetY.current = touch.clientY - rect.top;
+    touchDragIndex.current = index;
+    touchCurrentTarget.current = index;
+    touchOffsetX.current = touch.clientX - rect.left;
+    touchOffsetY.current = touch.clientY - rect.top;
 
-        // build a fully self-contained ghost (no cloneNode — canvas won't copy)
-        const fileName = files[index]?.file?.name ?? "";
-        const fileSize = files[index] ? (files[index].file.size / 1024 / 1024).toFixed(2) + " MB" : "";
+    // build a fully self-contained ghost (no cloneNode — canvas won't copy)
+    const fileName = files[index]?.file?.name ?? "";
+    const fileSize = files[index]
+      ? (files[index].file.size / 1024 / 1024).toFixed(2) + " MB"
+      : "";
 
-        const ghost = document.createElement("div");
-        ghost.style.cssText = `
+    const ghost = document.createElement("div");
+    ghost.style.cssText = `
             position: fixed;
             left: ${rect.left}px;
             top: ${rect.top}px;
@@ -112,7 +156,7 @@ export default function PdfMergePage() {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         `;
 
-        ghost.innerHTML = `
+    ghost.innerHTML = `
             <div style="
                 height: 160px;
                 background: #fff0f0;
@@ -161,321 +205,572 @@ export default function PdfMergePage() {
             ">${index + 1}</div>
         `;
 
-        document.body.appendChild(ghost);
-        touchClone.current = ghost;
+    document.body.appendChild(ghost);
+    touchClone.current = ghost;
 
-        setDraggedIndex(index);
-    };
+    setDraggedIndex(index);
+  };
 
-    const handleTouchMove = (e) => {
-        if (touchDragIndex.current === null) return;
-        e.preventDefault();
+  const handleTouchMove = (e) => {
+    if (touchDragIndex.current === null) return;
+    e.preventDefault();
 
-        const touch = e.touches[0];
+    const touch = e.touches[0];
 
-        // move ghost
-        if (touchClone.current) {
-            touchClone.current.style.left = `${touch.clientX - touchOffsetX.current}px`;
-            touchClone.current.style.top = `${touch.clientY - touchOffsetY.current}px`;
-        }
+    // move ghost
+    if (touchClone.current) {
+      touchClone.current.style.left = `${touch.clientX - touchOffsetX.current}px`;
+      touchClone.current.style.top = `${touch.clientY - touchOffsetY.current}px`;
+    }
 
-        // find which card is under finger
-        touchClone.current && (touchClone.current.style.display = 'none');
-        const el = document.elementFromPoint(touch.clientX, touch.clientY);
-        touchClone.current && (touchClone.current.style.display = '');
+    // find which card is under finger
+    touchClone.current && (touchClone.current.style.display = "none");
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    touchClone.current && (touchClone.current.style.display = "");
 
-        const cardEl = el?.closest('[data-card-index]');
-        if (cardEl) {
-            const overIndex = parseInt(cardEl.getAttribute('data-card-index'), 10);
-            if (overIndex !== touchCurrentTarget.current) {
-                touchCurrentTarget.current = overIndex;
-                setDropTargetIndex(overIndex);
-            }
-        }
-    };
+    const cardEl = el?.closest("[data-card-index]");
+    if (cardEl) {
+      const overIndex = parseInt(cardEl.getAttribute("data-card-index"), 10);
+      if (overIndex !== touchCurrentTarget.current) {
+        touchCurrentTarget.current = overIndex;
+        setDropTargetIndex(overIndex);
+      }
+    }
+  };
 
-    const handleTouchEnd = () => {
-        if (touchDragIndex.current === null) return;
+  const handleTouchEnd = () => {
+    if (touchDragIndex.current === null) return;
 
-        // remove ghost
-        if (touchClone.current) {
-            document.body.removeChild(touchClone.current);
-            touchClone.current = null;
-        }
+    // remove ghost
+    if (touchClone.current) {
+      document.body.removeChild(touchClone.current);
+      touchClone.current = null;
+    }
 
-        const from = touchDragIndex.current;
-        const to = touchCurrentTarget.current;
+    const from = touchDragIndex.current;
+    const to = touchCurrentTarget.current;
 
-        if (from !== null && to !== null && from !== to) {
-            setFiles((prev) => {
-                const updated = [...prev];
-                const [moved] = updated.splice(from, 1);
-                updated.splice(to, 0, moved);
-                return updated;
-            });
-        }
+    if (from !== null && to !== null && from !== to) {
+      setFiles((prev) => {
+        const updated = [...prev];
+        const [moved] = updated.splice(from, 1);
+        updated.splice(to, 0, moved);
+        return updated;
+      });
+    }
 
-        touchDragIndex.current = null;
-        touchCurrentTarget.current = null;
-        setDraggedIndex(null);
-        setDropTargetIndex(null);
-    };
+    touchDragIndex.current = null;
+    touchCurrentTarget.current = null;
+    setDraggedIndex(null);
+    setDropTargetIndex(null);
+  };
 
-    // ── remove ────────────────────────────────────────────────────
-    const removeFile = (index) => {
-        const updated = [...files];
-        URL.revokeObjectURL(updated[index].preview);
-        updated.splice(index, 1);
-        setFiles(updated);
-    };
+  // ── remove ────────────────────────────────────────────────────
+  const removeFile = (index) => {
+    const updated = [...files];
+    URL.revokeObjectURL(updated[index].preview);
+    updated.splice(index, 1);
+    setFiles(updated);
+  };
 
-    // ── merge ─────────────────────────────────────────────────────
-    const mergePDFs = async () => {
-        if (files.length < 2) { toast.error("Please upload at least 2 PDFs"); return; }
-        try {
-            setLoading(true);
-            const mergedPdf = await PDFDocument.create();
-            for (const item of files) {
-                const bytes = await item.file.arrayBuffer();
-                const pdf = await PDFDocument.load(bytes, { ignoreEncryption: true });
-                const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                pages.forEach((p) => mergedPdf.addPage(p));
-            }
-            const mergedBytes = await mergedPdf.save();
-            const blob = new Blob([mergedBytes], { type: "application/pdf" });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url; a.download = "merged.pdf"; a.click();
-            URL.revokeObjectURL(url);
-            toast.success("PDF merged & downloaded!");
-        } catch (err) {
-            console.error(err);
-            toast.error("Failed to merge PDFs. File may be corrupted.");
-        } finally {
-            setLoading(false);
-        }
-    };
+  // ── merge ─────────────────────────────────────────────────────
+  const mergePDFs = async () => {
+    if (files.length < 2) {
+      toast.error("Please upload at least 2 PDFs");
+      return;
+    }
+    try {
+      setLoading(true);
+      const mergedPdf = await PDFDocument.create();
+      for (const item of files) {
+        const bytes = await item.file.arrayBuffer();
+        const pdf = await PDFDocument.load(bytes, { ignoreEncryption: true });
+        const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        pages.forEach((p) => mergedPdf.addPage(p));
+      }
+      const mergedBytes = await mergedPdf.save();
+      const blob = new Blob([mergedBytes], { type: "application/pdf" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "merged.pdf";
+      a.click();
+      URL.revokeObjectURL(url);
+      toast.success("PDF merged & downloaded!");
+    } catch (err) {
+      console.error(err);
+      toast.error("Failed to merge PDFs. File may be corrupted.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    return (
-        <div className='tools-right-div custom-container py-custom pb-120'>
+  return (
+    <div className="tools-right-div custom-container py-custom pb-120">
+      <section
+        className={`merge-pdf-tool${pageDragOver ? " page-drag-over" : ""}`}
+        onDragOver={files.length > 0 ? handlePageDragOver : undefined}
+        onDragLeave={files.length > 0 ? handlePageDragLeave : undefined}
+        onDrop={files.length > 0 ? handlePageDrop : undefined}
+      >
+        {/* Header */}
+        <div className="tool-header">
+          <h1>
+            Merge <span>PDF</span> Files
+          </h1>
+          <p>
+            Merge multiple PDF files into a single document in your preferred
+            order. <br /> <span> Fast, secure, and hassle-free</span>{" "}
+          </p>
+          {files.length > 0 && (
+            <div className="drag-hint">
+              <svg
+                className="me-1"
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" y1="8" x2="12" y2="12" />
+                <line x1="12" y1="16" x2="12.01" y2="16" />
+              </svg>
+              <span className="drag-hint-desktop">
+                Drag cards left or right to reorder before merging
+              </span>
+              <span className="drag-hint-mobile">
+                Hold the ⠿ handle on any card and drag to reorder
+              </span>
+            </div>
+          )}
+        </div>
 
-            <section
-                className={`merge-pdf-tool${pageDragOver ? " page-drag-over" : ""}`}
-                onDragOver={files.length > 0 ? handlePageDragOver : undefined}
-                onDragLeave={files.length > 0 ? handlePageDragLeave : undefined}
-                onDrop={files.length > 0 ? handlePageDrop : undefined}
+        {/* Drop zone — hidden once files added */}
+        {files.length === 0 && (
+          <div
+            className={`drop-zone${dropZoneDragOver ? " drag-over" : ""}`}
+            onDragOver={handleDropZoneDragOver}
+            onDragLeave={handleDropZoneDragLeave}
+            onDrop={handleDropZoneDrop}
+          >
+            <input
+              ref={fileInputRef}
+              className="drop-zone-input"
+              type="file"
+              multiple
+              accept=".pdf"
+              onChange={handleFileInputChange}
+            />
+            <div className="drop-zone-icon">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+            </div>
+            <div className="drop-zone-title">
+              {dropZoneDragOver
+                ? "Release to add PDFs"
+                : "Drag & Drop PDF files here"}
+            </div>
+            <div className="drop-zone-sub">
+              or <span>browse from your device</span>
+            </div>
+            <button
+              className="drop-zone-btn"
+              onClick={() => fileInputRef.current?.click()}
+              type="button"
             >
-                {/* Header */}
-                <div className="tool-header">
-                    <h1>Merge <span>PDF</span> Files</h1>
-                    <p>Merge multiple PDF files into a single document in your preferred order. <br /> <span> Fast, secure, and hassle-free</span> </p>
-                    {files.length > 0 && (
-                        <div className="drag-hint">
-                            <svg className="me-1" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                                <circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="12" /><line x1="12" y1="16" x2="12.01" y2="16" />
-                            </svg>
-                            <span className="drag-hint-desktop">Drag cards left or right to reorder before merging</span>
-                            <span className="drag-hint-mobile">Hold the ⠿ handle on any card and drag to reorder</span>
-                        </div>
-                    )}
-                </div>
+              Select PDF Files
+            </button>
+          </div>
+        )}
 
-                {/* Drop zone — hidden once files added */}
-                {files.length === 0 && (
-                    <div
-                        className={`drop-zone${dropZoneDragOver ? " drag-over" : ""}`}
-                        onDragOver={handleDropZoneDragOver}
-                        onDragLeave={handleDropZoneDragLeave}
-                        onDrop={handleDropZoneDrop}
+        {/* Page-level OS drop overlay */}
+        {pageDragOver && (
+          <div className="page-drop-overlay">
+            <div className="page-drop-inner">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+              <p>Drop PDFs to add</p>
+            </div>
+          </div>
+        )}
+
+        {/* Files section */}
+        {files.length > 0 && (
+          <>
+            <div className="pdf-grid mb-3 mb-md-5">
+              {files.map((item, index) => (
+                <div
+                  key={item.id}
+                  data-card-index={index}
+                  className={[
+                    "pdf-card",
+                    draggedIndex === index ? "dragging" : "",
+                    dropTargetIndex === index && draggedIndex !== index
+                      ? "drag-target"
+                      : "",
+                  ]
+                    .filter(Boolean)
+                    .join(" ")}
+                  draggable
+                  onDragStart={(e) => handleCardDragStart(e, index)}
+                  onDragOver={(e) => handleCardDragOver(e, index)}
+                  onDrop={(e) => handleCardDrop(e, index)}
+                  onDragEnd={handleCardDragEnd}
+                  onTouchStart={(e) => handleTouchStart(e, index)}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                >
+                  {/* Drag handle — touch pe yahan se pakad ke drag karo */}
+                  <div
+                    className="drag-handle"
+                    data-drag-handle="true"
+                    title="Drag to reorder"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
                     >
-                        <input ref={fileInputRef} className="drop-zone-input" type="file" multiple accept=".pdf" onChange={handleFileInputChange} />
-                        <div className="drop-zone-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="17 8 12 3 7 8" />
-                                <line x1="12" y1="3" x2="12" y2="15" />
-                            </svg>
-                        </div>
-                        <div className="drop-zone-title">{dropZoneDragOver ? "Release to add PDFs" : "Drag & Drop PDF files here"}</div>
-                        <div className="drop-zone-sub">or <span>browse from your device</span></div>
-                        <button className="drop-zone-btn" onClick={() => fileInputRef.current?.click()} type="button">Select PDF Files</button>
+                      <circle
+                        cx="9"
+                        cy="5"
+                        r="1"
+                        fill="currentColor"
+                        stroke="none"
+                      />
+                      <circle
+                        cx="9"
+                        cy="12"
+                        r="1"
+                        fill="currentColor"
+                        stroke="none"
+                      />
+                      <circle
+                        cx="9"
+                        cy="19"
+                        r="1"
+                        fill="currentColor"
+                        stroke="none"
+                      />
+                      <circle
+                        cx="15"
+                        cy="5"
+                        r="1"
+                        fill="currentColor"
+                        stroke="none"
+                      />
+                      <circle
+                        cx="15"
+                        cy="12"
+                        r="1"
+                        fill="currentColor"
+                        stroke="none"
+                      />
+                      <circle
+                        cx="15"
+                        cy="19"
+                        r="1"
+                        fill="currentColor"
+                        stroke="none"
+                      />
+                    </svg>
+                  </div>
+
+                  <div className="pdf-order">{index + 1}</div>
+
+                  <button
+                    className="pdf-remove"
+                    onClick={() => removeFile(index)}
+                    type="button"
+                    title="Remove"
+                  >
+                    ×
+                  </button>
+
+                  <div className="pdf-preview-wrap">
+                    <PdfPreviewClient file={item.preview} />
+                  </div>
+
+                  <div className="pdf-info">
+                    <div className="pdf-name" title={item.file.name}>
+                      {item.file.name}
                     </div>
-                )}
-
-                {/* Page-level OS drop overlay */}
-                {pageDragOver && (
-                    <div className="page-drop-overlay">
-                        <div className="page-drop-inner">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                <polyline points="17 8 12 3 7 8" />
-                                <line x1="12" y1="3" x2="12" y2="15" />
-                            </svg>
-                            <p>Drop PDFs to add</p>
-                        </div>
+                    <div className="pdf-size">
+                      {(item.file.size / 1024 / 1024).toFixed(2)} MB
                     </div>
-                )}
-
-                {/* Files section */}
-                {files.length > 0 && (
-                    <>
-                        <div className="pdf-grid mb-3 mb-md-5">
-                            {files.map((item, index) => (
-                                <div
-                                    key={item.id}
-                                    data-card-index={index}
-                                    className={[
-                                        "pdf-card",
-                                        draggedIndex === index ? "dragging" : "",
-                                        dropTargetIndex === index && draggedIndex !== index ? "drag-target" : "",
-                                    ].filter(Boolean).join(" ")}
-                                    draggable
-                                    onDragStart={(e) => handleCardDragStart(e, index)}
-                                    onDragOver={(e) => handleCardDragOver(e, index)}
-                                    onDrop={(e) => handleCardDrop(e, index)}
-                                    onDragEnd={handleCardDragEnd}
-                                    onTouchStart={(e) => handleTouchStart(e, index)}
-                                    onTouchMove={handleTouchMove}
-                                    onTouchEnd={handleTouchEnd}
-                                >
-                                    {/* Drag handle — touch pe yahan se pakad ke drag karo */}
-                                    <div className="drag-handle" data-drag-handle="true" title="Drag to reorder">
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                            <circle cx="9" cy="5" r="1" fill="currentColor" stroke="none" />
-                                            <circle cx="9" cy="12" r="1" fill="currentColor" stroke="none" />
-                                            <circle cx="9" cy="19" r="1" fill="currentColor" stroke="none" />
-                                            <circle cx="15" cy="5" r="1" fill="currentColor" stroke="none" />
-                                            <circle cx="15" cy="12" r="1" fill="currentColor" stroke="none" />
-                                            <circle cx="15" cy="19" r="1" fill="currentColor" stroke="none" />
-                                        </svg>
-                                    </div>
-
-                                    <div className="pdf-order">{index + 1}</div>
-
-                                    <button className="pdf-remove" onClick={() => removeFile(index)} type="button" title="Remove">×</button>
-
-                                    <div className="pdf-preview-wrap">
-                                        <PdfPreviewClient file={item.preview} />
-                                    </div>
-
-                                    <div className="pdf-info">
-                                        <div className="pdf-name" title={item.file.name}>{item.file.name}</div>
-                                        <div className="pdf-size">{(item.file.size / 1024 / 1024).toFixed(2)} MB</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-
-
-                    </>
-                )}
-
-                {loading && (
-                    <div className="loader-overlay">
-                        <div className="loader-inner-div">
-                            <div className="box" id="loader1"></div>
-                            <div className="box" id="loader2"></div>
-                            <div className="box" id="loader3"></div>
-                            <div className="box" id="loader4"></div>
-                            <div className="box" id="loader5"></div>
-                        </div>
-                        <div className="loader-text">Merging your PDFs…</div>
-                    </div>
-                )}
-
-                <ToastContainer position="top-right" />
-
-
-            </section>
-            {files.length > 0 && (
-                <div className="tools-bottom-button-div">
-                    <input ref={addMoreRef} type="file" multiple accept=".pdf" style={{ display: "none" }} onChange={handleFileInputChange} />
-                    <button className="tool-outline-btn" type="button" onClick={() => addMoreRef.current?.click()}>
-                        <span className="file-count">{files.length}</span>
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
-                        </svg>
-                        Add More
-                    </button>
-                    <button className="tool-solid-btn" type="button" onClick={mergePDFs} disabled={loading || files.length < 2}>
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                            <path d="M8 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4" />
-                            <path d="M16 6h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4" />
-                            <line x1="12" y1="2" x2="12" y2="22" />
-                        </svg>
-                        Merge <span className="d-none d-sm-block"> &amp; Download</span> 
-                    </button>
+                  </div>
                 </div>
-            )}
+              ))}
+            </div>
+          </>
+        )}
 
-            {/* ============================================================
+        {loading && (
+          <div className="loader-overlay">
+            <div className="loader-inner-div">
+              <div className="box" id="loader1"></div>
+              <div className="box" id="loader2"></div>
+              <div className="box" id="loader3"></div>
+              <div className="box" id="loader4"></div>
+              <div className="box" id="loader5"></div>
+            </div>
+            <div className="loader-text">Merging your PDFs…</div>
+          </div>
+        )}
+
+        <ToastContainer position="top-right" />
+      </section>
+      {files.length > 0 && (
+        <div className="tools-bottom-button-div">
+          <input
+            ref={addMoreRef}
+            type="file"
+            multiple
+            accept=".pdf"
+            style={{ display: "none" }}
+            onChange={handleFileInputChange}
+          />
+          <button
+            className="tool-outline-btn"
+            type="button"
+            onClick={() => addMoreRef.current?.click()}
+          >
+            <span className="file-count">{files.length}</span>
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Add More
+          </button>
+          <button
+            className="tool-solid-btn"
+            type="button"
+            onClick={mergePDFs}
+            disabled={loading || files.length < 2}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M8 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4" />
+              <path d="M16 6h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4" />
+              <line x1="12" y1="2" x2="12" y2="22" />
+            </svg>
+            Merge <span className="d-none d-sm-block"> &amp; Download</span>
+          </button>
+        </div>
+      )}
+
+      {/* ============================================================
    MERGE PDF — INFO / CONTENT SECTION
    Paste below the tool component's closing tag.
    ============================================================ */}
 
-<section className="pdf-merge-info">
-
-  <div className="info-block">
-    <h2>Merge Multiple PDF Files Into One</h2>
-    <p>
-      Recruitment forms, resume applications, and government portals often
-      ask for a single PDF containing your resume, certificates, and ID
-      proof. This tool combines separate PDF files into one document,
-      in whatever order you set.
-    </p>
-    <p>
-      Upload your files, drag the cards to reorder them, and download the
-      merged PDF. No login is required, and you can merge multiple PDF files directly in your browser.
-    </p>
-  </div>
-
-  <div className="info-block">
-    <h3>Where This Is Commonly Used</h3>
-    <ul className="info-list">
-      <li><b>Sarkari job applications</b> — many portals require one combined PDF for resume, marksheets, and category certificate.</li>
-      <li><b>Resume submissions</b> — combining a cover letter with the resume into a single file.</li>
-      <li><b>Scanned documents</b> — joining pages scanned separately from a phone into one PDF.</li>
-    </ul>
-  </div>
-
-  <div className="info-block">
-    <h3>Notes</h3>
-    <ul className="info-list info-list--plain">
-      <li>Files are merged in the order shown. Rearrange them before clicking Merge & Download.</li>
-      <li>Original files are not modified.</li>
-      <li>Processing happens in your browser; files are not stored on a server.</li>
-    </ul>
-  </div>
-
-  <div className="info-block">
-    <h3>Questions</h3>
-    <div className="faq-list">
-
-      <details className="faq-item">
-        <summary>Is this free?</summary>
-        <p>Yes, no login required.</p>
-      </details>
-
-      <details className="faq-item">
-        <summary>How many files can I merge at once?</summary>
-        <p>There's no fixed limit, you can add as many PDFs as you need."</p>
-      </details>
-
-      <details className="faq-item">
-        <summary>Can I change the order after uploading?</summary>
-        <p>Yes, drag the cards left or right before merging.</p>
-      </details>
-
-      <details className="faq-item">
-        <summary>Are my files uploaded anywhere?</summary>
-        <p>No, merging happens in your browser and files aren't retained.</p>
-      </details>
-
-    </div>
-  </div>
-
-</section>
+      <section className="pdf-merge-info">
+        <div className="info-block">
+          <h2>Merge Multiple PDF Files Into One</h2>
+          <p>
+            A lot of forms ask for one single PDF, but your documents are
+            usually spread across separate files. Government job portals want
+            your resume, certificates, and ID proof together in one upload.
+            Companies want a resume with the cover letter attached, not two
+            separate attachments in an email. And honestly, sometimes you've
+            just scanned a few pages from your phone and now there are four or
+            five files lying around that should really be one. This tool takes
+            whatever PDFs you give it and joins them, in whatever order you
+            want, so you end up with a single file you can actually submit
+            somewhere.
+          </p>
         </div>
 
-    );
+        <div className="info-block">
+          <h3>Where People Actually Use This</h3>
+          <p>
+            Government job applications in India come up a lot here many portals
+            flat out reject multiple attachments and want everything bundled
+            into one PDF with your resume, mark sheets, category certificate,
+            sometimes even a photo. Job seekers use it for resumes too, joining
+            a cover letter to the resume before sending it out, since two
+            attachments in an email can look a bit messy. Then there's the more
+            everyday case, scanning pages one at a time on a phone and ending up
+            with a pile of separate files that need to become one PDF before you
+            can send them anywhere.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Reordering Your Files</h3>
+          <p>
+            After you upload, each file shows up as a card with a number on it,
+            showing the order it'll appear in once merged. If that's not right,
+            no need to start over just drag the card where you want it. On a
+            laptop or desktop, click and drag. On a phone, there's a small
+            handle icon on each card, hold that and move it around. The numbers
+            update as you go so you can see the final order before you commit to
+            merging. Worth double-checking this before you download, since
+            fixing it after is more work than fixing it now.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Does It Affect Quality?</h3>
+          <p>
+            Not really. Merging is just putting pages from separate files into
+            one new file. Nothing gets compressed or resized in the process, and
+            the content inside each page stays exactly as it was. So a high-res
+            scan comes out the other end still high-res, and a document exported
+            from Word still looks like it did before. Your original files aren't
+            touched either they stay right where they were on your device the
+            whole time, since the tool is only reading them to build the new
+            merged version.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Notes</h3>
+          <p>
+            The final order follows exactly what you see on screen, so take a
+            second to check the card order before hitting Merge & Download.
+            Everything runs inside your browser on your own device, meaning
+            there's no server involved at any point and nothing gets uploaded or
+            saved anywhere. Once the tab is closed, that's it, there's nothing
+            left sitting around.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Questions</h3>
+          <div className="faq-list">
+            <details className="faq-item">
+              <summary>Is this free?</summary>
+              <p>
+                Yep, completely free, no signup or login needed. Use it as many
+                times as you want.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>How many files can I merge at once?</summary>
+              <p>
+                No real limit here. Two files or twenty, either works. A big
+                batch of large files might just take a bit longer to process,
+                that's about it.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I change the order after uploading?</summary>
+              <p>
+                Yes, and that's basically the point of the drag feature. Move
+                the cards around however you like before merging. On mobile, use
+                the small handle on the card to drag it.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Are my files sent to a server anywhere?</summary>
+              <p>
+                No, this all happens right in your browser. Your files stay on
+                your device the entire time and there's nothing saved once you
+                leave the page.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Does merging lower the quality of my PDFs?</summary>
+              <p>
+                No. The pages get joined as they are, nothing gets compressed or
+                resized along the way. What you upload is what you get back,
+                just combined.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I merge PDFs that have a password?</summary>
+              <p>
+                If a PDF is heavily locked down, it's usually easier to remove
+                the password first with an unlock tool and then merge it here.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Will my original files get changed?</summary>
+              <p>
+                No, they stay exactly as they are on your device. The tool reads
+                them to build a new file, that's all, your originals are left
+                alone.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>What if I upload the wrong file by mistake?</summary>
+              <p>
+                There's a small remove button on each card, so just take it off
+                the list before merging. No need to restart the whole thing.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I merge scans from my phone?</summary>
+              <p>
+                Definitely, this is actually one of the most common reasons
+                people use this. Upload the scanned pages, arrange them, merge
+                into one file.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Do I need to download any software?</summary>
+              <p>
+                Nope, it all works in your browser, laptop or phone doesn't
+                matter. Open the page, upload, done.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
 }

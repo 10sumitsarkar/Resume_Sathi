@@ -6,9 +6,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/pdf-compressor.css";
 
-const PdfPreviewClient = dynamic(() => import("../../(pdfMerge)/merge-pdf/PdfPreviewClient"), {
-  ssr: false,
-});
+const PdfPreviewClient = dynamic(
+  () => import("../../(pdfMerge)/merge-pdf/PdfPreviewClient"),
+  {
+    ssr: false,
+  },
+);
 
 const OPTIONS = [
   {
@@ -100,7 +103,7 @@ export default function PdfCompressor() {
 
   const addFile = (rawFiles) => {
     const picked = Array.from(rawFiles).find(
-      (f) => f.type === "application/pdf"
+      (f) => f.type === "application/pdf",
     );
     if (!picked) {
       toast.error("Only PDF files are accepted");
@@ -180,7 +183,7 @@ export default function PdfCompressor() {
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
 
       const data = await response.json();
@@ -199,11 +202,11 @@ export default function PdfCompressor() {
   };
 
   // ── download compressed file (direct download, no new tab) ───
-const downloadResult = () => {
-  if (!result?.download_url) return;
+  const downloadResult = () => {
+    if (!result?.download_url) return;
 
-  window.location.href = result.download_url;
-};
+    window.location.href = result.download_url;
+  };
 
   const savedPct = result ? parsePercentage(result.saved_percentage) : 0;
 
@@ -256,7 +259,9 @@ const downloadResult = () => {
               </svg>
             </div>
             <div className="drop-zone-title">
-              {dropZoneDragOver ? "Release to add PDF" : "Drag & Drop PDF file here"}
+              {dropZoneDragOver
+                ? "Release to add PDF"
+                : "Drag & Drop PDF file here"}
             </div>
             <div className="drop-zone-sub">
               or <span>browse from your device</span>
@@ -297,7 +302,9 @@ const downloadResult = () => {
           <div className="pdf-workspace">
             {/* Left: PDF preview card */}
             <div className="pdf-card-wrap">
-              <h2 className="section-subtitle d-none d-md-block">PDF Preview</h2>
+              <h2 className="section-subtitle d-none d-md-block">
+                PDF Preview
+              </h2>
               <div className="pdf-card">
                 <button
                   className="pdf-remove"
@@ -318,28 +325,28 @@ const downloadResult = () => {
                   </div>
                   <div className="pdf-size">{formatSize(file.size)}</div>
                 </div>
-                
               </div>
               <button
-                  className="mobile-quality-trigger"
-                  type="button"
-                  onClick={() => setShowQualityModal(true)}
+                className="mobile-quality-trigger"
+                type="button"
+                onClick={() => setShowQualityModal(true)}
+              >
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                 >
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <circle cx="12" cy="12" r="3" />
-                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
-                  </svg>
-                  {OPTIONS.find((o) => o.value === quality)?.title || "Compression Level"}
-                </button>
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+                {OPTIONS.find((o) => o.value === quality)?.title ||
+                  "Compression Level"}
+              </button>
             </div>
 
             {/* Right: Compression level options */}
@@ -374,9 +381,9 @@ const downloadResult = () => {
         {file && result && (
           <div className="pdf-result-wrap">
             <div className="compress-result">
-              <h2 className="section-subtitle d-none">Compression Complete 🎉</h2>
-
-              
+              <h2 className="section-subtitle d-none">
+                Compression Complete 🎉
+              </h2>
 
               <div className="result-ring-wrap">
                 <CompressionRing percentage={savedPct} />
@@ -426,10 +433,7 @@ const downloadResult = () => {
             className="quality-modal-overlay"
             onClick={() => setShowQualityModal(false)}
           >
-            <div
-              className="quality-modal"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="quality-modal" onClick={(e) => e.stopPropagation()}>
               <div className="quality-modal-header">
                 <h2 className="section-subtitle">Compression Level</h2>
                 <button
@@ -481,10 +485,7 @@ const downloadResult = () => {
             className="preview-modal-overlay"
             onClick={() => setShowPreviewModal(false)}
           >
-            <div
-              className="preview-modal"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="preview-modal" onClick={(e) => e.stopPropagation()}>
               <div className="quality-modal-header">
                 <h2 className="section-subtitle">PDF Preview</h2>
                 <button
@@ -557,7 +558,20 @@ const downloadResult = () => {
               onClick={compressPdf}
               disabled={loading}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M8 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4"></path><path d="M16 6h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4"></path><line x1="12" y1="2" x2="12" y2="22"></line></svg>
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M8 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h4"></path>
+                <path d="M16 6h4a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-4"></path>
+                <line x1="12" y1="2" x2="12" y2="22"></line>
+              </svg>
               {loading ? "Compressing..." : "Compress"}{" "}
               <span className="d-none d-sm-block">&amp; Download</span>
             </button>
@@ -590,123 +604,244 @@ const downloadResult = () => {
       )}
 
       <section className="pdf-compress-info">
+        <div className="info-block">
+          <h2>Compress PDF Without Losing Quality</h2>
+          <p>
+            Almost every job portal, government application form, or online
+            submission site has some kind of file size limit, and it's usually
+            smaller than you'd expect. Two or three megabytes is common, and
+            that's often not enough for a scanned certificate or a resume with a
+            photo on it. If your file gets rejected for being too large, this
+            tool brings the size down while keeping the text readable and the
+            document usable. Upload your PDF, pick how much you want it
+            compressed, and the smaller file downloads within a few seconds. No
+            account needed, no waiting around.
+          </p>
+          <p>
+            There isn't one perfect compression setting for every file. A
+            scanned document with a lot of image data behaves very differently
+            from a plain text PDF exported from Word, so the tool gives you a
+            few levels to choose from depending on what you're working with and
+            how strict the upload limit actually is.
+          </p>
+        </div>
 
-  <div className="info-block">
-    <h2>Compress PDF Without Losing Quality</h2>
-    <p>Many websites only allow PDF files up to a certain size, especially job portals, government application forms, and online submission websites. If your resume, certificate, marksheet, or scanned document is too large to upload, this PDF Compressor can help reduce its file size while keeping the text clear and the document easy to read. Simply upload your PDF, choose a compression level, and download the compressed file in a few seconds.</p>
-    <p>Provides the highest level of compression to reduce file size as much as possible. Best for documents with strict upload limits.</p>
-  </div>
+        <div className="info-block">
+          <h3>Why People Usually Need This</h3>
+          <ul className="info-list">
+            <li>
+              <b>Sarkari job applications</b> : recruitment portals like SSC,
+              state PSCs, and railway recruitment sites often cap file size for
+              resumes, certificates, and ID proof, sometimes at just 1 or 2 MB.
+            </li>
+            <li>
+              <b>Email attachments</b> : a smaller file is just easier to send,
+              especially if someone's on a weak mobile connection or the inbox
+              has a size limit on attachments.
+            </li>
+            <li>
+              <b>Resume uploads</b> : a lot of ATS platforms and job boards
+              reject resumes past a certain size, so compression becomes a
+              necessary step before you can even submit.
+            </li>
+            <li>
+              <b>Scanned documents</b> : PDFs made from a phone camera or a
+              scanning app are almost always bigger than they need to be, and
+              usually shrink a lot without the text becoming hard to read.
+            </li>
+          </ul>
+        </div>
 
-  <div className="info-block">
-    <h3>Why People Usually Need This</h3>
-  <ul className="info-list">
-  <li>
-    <b>Sarkari job applications</b> — Many recruitment portals, including
-    SSC, state PSCs, and railway recruitment websites, have file size
-    limits for uploading resumes, certificates, and ID proof.
-  </li>
+        <div className="info-block">
+          <h3>Compression Levels</h3>
+          <p>
+            Different documents need different amounts of compression, so there
+            are three levels to pick from here, depending on what matters more
+            for your file smaller size or sharper quality.
+          </p>
 
-  <li>
-    <b>Email attachments</b> — Smaller PDF files are easier to send and
-    receive, especially when sharing documents over mobile networks.
-  </li>
+          <div className="info-cards">
+            <div className="info-card">
+              <span className="info-card-tag">Extreme</span>
+              <p>
+                Squeezes the file down as much as possible. Good option when a
+                portal has a very strict upload limit and you just need the file
+                to fit, even if image quality drops a bit.
+              </p>
+            </div>
+            <div className="info-card info-card--highlight">
+              <span className="info-card-tag">Recommended</span>
+              <p>
+                A middle ground between size and quality. Text stays sharp and
+                images still look fine for things like resumes, certificates,
+                and everyday documents. Works for most people most of the time.
+              </p>
+            </div>
+            <div className="info-card">
+              <span className="info-card-tag">Less Compression</span>
+              <p>
+                Trims the file size down with almost no visible change in
+                quality. Better suited to PDFs with photos, diagrams, or
+                anything where visual detail actually matters.
+              </p>
+            </div>
+          </div>
+        </div>
 
-  <li>
-    <b>Resume uploads</b> — Many ATS and job portals accept PDF resumes
-    only up to a specific file size, making compression necessary before
-    uploading.
-  </li>
+        <div className="info-block">
+          <h3>How Much Smaller Will My File Get?</h3>
+          <p>
+            This really depends on what's inside your PDF. A text-heavy
+            document, like a plain resume with no images, usually only shrinks a
+            little, because there isn't much to compress in the first place text
+            takes up very little space compared to images. Scanned documents are
+            a different story. Since a scan is basically one big image per page,
+            there's a lot more room to compress, and you'll often see the file
+            size drop by more than half, sometimes a lot more depending on how
+            the scan was originally saved. If your file barely shrinks after
+            compressing, it's usually a sign that it was already fairly
+            text-based to begin with, not that something went wrong with the
+            tool.
+          </p>
+        </div>
 
-  <li>
-    <b>Scanned documents</b> — PDFs created using mobile camera or scanner
-    apps are often larger than necessary and can usually be reduced
-    without affecting readability.
-  </li>
-</ul>
-  </div>
+        <div className="info-block">
+          <h3>Choosing the Right Level for Your Situation</h3>
+          <p>
+            Honestly it comes down to what you're using the file for. Say you're
+            uploading a resume somewhere with a tight 2 MB cap go with Extreme
+            and just double-check the text still reads fine after. Sending a
+            certificate over email where the limit's more relaxed? Recommended
+            handles that without the document looking any different really. And
+            if there are diagrams or photos in there that someone actually needs
+            to look at closely, Less Compression keeps it closer to the original
+            while still shaving off some size. Nothing stopping you from trying
+            a couple of these and comparing before picking one to actually
+            submit.
+          </p>
+        </div>
 
-<div className="info-block">
-    <h3>Compression Levels</h3>
+        <div className="info-block">
+          <h3>Things to Keep in Mind</h3>
+          <ul className="info-list info-list--plain">
+            <li>
+              Hold on to your original PDF until you've checked that the
+              compressed version still looks right.
+            </li>
+            <li>
+              Password-protected PDFs sometimes don't compress as much, since
+              the encryption limits what the tool can rework.
+            </li>
+            <li>
+              Text-only PDFs will usually show a smaller reduction than scanned
+              or image-heavy files, and that's expected.
+            </li>
+            <li>
+              If quality matters more than size for a particular file, Less
+              Compression is usually the safer pick.
+            </li>
+          </ul>
+        </div>
 
-    <div className="info-cards">
-      <div className="info-card">
-      <span className="info-card-tag">Extreme</span>
-      <p>
-       Provides the highest level of compression to reduce file size as much as possible. Best for documents with strict upload limits.
-      </p>
-    </div>
-      <div className="info-card info-card--highlight">
-      <span className="info-card-tag">Recommended</span>
-      <p>
-        Balances file size and quality. Text remains clear, and images stay
-        suitable for most resumes, certificates, and everyday documents.
-      </p>
-    </div>
-      <div className="info-card">
-      <span className="info-card-tag">Less Compression</span>
-      <p>
-       Reduces file size with very little change in quality. Best for PDFs that contain photos or diagrams.
-      </p>
-    </div>
-    </div>
-  </div>
+        <div className="info-block">
+          <h3>Frequently Asked Questions</h3>
 
-<div className="info-block">
-  <h3>How Much Smaller Will My File Get?</h3>
-  <p>
-    Compression results vary depending on your PDF. Text-only documents
-    usually shrink only slightly, while scanned documents and PDFs with
-    many images will compress much more.
-  </p>
-</div>
+          <div className="faq-list">
+            <details className="faq-item">
+              <summary>Is this tool free?</summary>
+              <p>
+                Yes, completely free. No account, no payment, no limit on how
+                many times you use it.
+              </p>
+            </details>
 
-<div className="info-block">
-  <h3>Things to Keep in Mind</h3>
+            <details className="faq-item">
+              <summary>Will compression reduce PDF quality?</summary>
+              <p>
+                A little, depending on the level you pick. Recommended keeps
+                text sharp and is fine for most resumes and documents. If
+                quality matters more than size for you, go with Less Compression
+                instead.
+              </p>
+            </details>
 
-  <ul className="info-list info-list--plain">
-    <li>Keep the original PDF until you've checked the compressed file.</li>
-    <li>Password protected PDFs may not compress as much.</li>
-    <li>Text only PDFs usually show only a small size reduction.</li>
-  </ul>
-</div>
+            <details className="faq-item">
+              <summary>Does it work on mobile?</summary>
+              <p>Yes, works fine from any mobile browser, no app needed.</p>
+            </details>
 
-<div className="info-block">
-  <h3>Frequently Asked Questions</h3>
+            <details className="faq-item">
+              <summary>Are my files stored anywhere?</summary>
+              <p>
+                No. Your file gets processed for compression and that's it,
+                nothing gets kept or saved afterward.
+              </p>
+            </details>
 
-  <div className="faq-list">
+            <details className="faq-item">
+              <summary>What's the maximum file size I can upload?</summary>
+              <p>
+                That changes based on whatever limit is currently set on the
+                tool. If a file won't upload, chances are it's just over that.
+              </p>
+            </details>
 
-    <details className="faq-item">
-      <summary>Is this tool free?</summary>
-      <p>Yes. You can compress PDF files without creating an account or paying any fee.</p>
-    </details>
+            <details className="faq-item">
+              <summary>
+                Why did my file barely shrink after compressing?
+              </summary>
+              <p>
+                Most likely it was already mostly text. There just isn't a lot
+                to squeeze out of plain text compared to images, so scanned
+                files usually shrink way more than something like a
+                Word-exported resume.
+              </p>
+            </details>
 
-    <details className="faq-item">
-      <summary>Will compression reduce PDF quality?</summary>
-      <p>
-        The Recommended mode keeps text clear and is suitable for most
-        resumes and documents. For the best quality, choose Less Compression.
-      </p>
-    </details>
+            <details className="faq-item">
+              <summary>Can I compress a scanned document?</summary>
+              <p>
+                Yes, and scanned PDFs actually tend to compress the most, since
+                each page is basically one big image and there's plenty of room
+                to reduce.
+              </p>
+            </details>
 
-    <details className="faq-item">
-      <summary>Does it work on mobile?</summary>
-      <p>Yes. You can compress PDFs directly from any mobile browser.</p>
-    </details>
+            <details className="faq-item">
+              <summary>Should I always pick Extreme compression?</summary>
+              <p>
+                Not necessarily. Extreme is great when you're up against a
+                strict upload limit, but it can affect image quality more than
+                the other levels. If your file already fits comfortably,
+                Recommended or Less Compression is usually a better balance.
+              </p>
+            </details>
 
-    <details className="faq-item">
-      <summary>Are my files stored?</summary>
-      <p>No. Files are processed only for compression and are not stored afterward.</p>
-    </details>
+            <details className="faq-item">
+              <summary>
+                Will compressing a password-protected PDF work the same way?
+              </summary>
+              <p>
+                Not quite as well usually. The encryption gets in the way of how
+                much the tool can rework the file, so heavily protected PDFs
+                tend to shrink less than you'd expect.
+              </p>
+            </details>
 
-    <details className="faq-item">
-      <summary>What is the maximum file size?</summary>
-      <p>The maximum upload size depends on the current tool limits.</p>
-    </details>
-
-  </div>
-</div>
-
-</section>
+            <details className="faq-item">
+              <summary>
+                Can I compress the file more than once if it's still too big?
+              </summary>
+              <p>
+                You can, but repeated compression usually gives diminishing
+                results and can start hurting quality noticeably. It's better to
+                go back to the original file and pick a stronger compression
+                level in one pass instead.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

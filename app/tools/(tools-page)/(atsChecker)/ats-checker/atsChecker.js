@@ -434,39 +434,98 @@ export default function AtsChecker() {
   <div className="info-block">
     <h2>What This Tool Checks</h2>
     <p>
-      Applicant Tracking Systems scan resumes before a recruiter sees them.
-      Missing sections, wrong formatting, or low keyword match can get a
-      resume filtered out automatically. This tool scores your resume
-      against 7 factors ATS software commonly checks, then shows what to
-      fix.
+      Before a recruiter opens your resume, a software system usually
+      scans it first. This is called an ATS, and most companies use one
+      today, even small ones. If your resume is missing a section, or
+      the format confuses the software, it can get rejected before any
+      human sees it. You never even find out why. This tool looks at
+      your resume and checks it against 7 things ATS software usually
+      looks for email, phone number, LinkedIn, work experience,
+      education, skills, and a summary. Based on that it gives you a
+      score out of 100 and tells you what's missing so you can fix it
+      before you apply anywhere.
     </p>
   </div>
 
   <div className="info-block">
     <h3>How Scoring Works</h3>
     <p>
-      Upload a PDF or DOCX resume. The tool checks for a valid email,
-      phone number, LinkedIn profile, work experience, education, skills
-      section, and a professional summary. Each present section adds to
-      your score out of 100.
+      Just upload your resume, either as a PDF or a DOCX file. The tool
+      reads through the text and checks if it can find each of the 7
+      sections: a working email, a phone number, a LinkedIn link, your
+      work history, education, skills, and a short summary at the top.
+      Every section it finds adds to your score. A lot of people are
+      surprised their score is low even though their resume looks fine
+      to them. Usually it's because one or two sections are missing, or
+      the software just can't read them properly, even if a human eye
+      would catch it easily.
     </p>
   </div>
 
   <div className="info-block">
     <h3>Job Description Matching</h3>
     <p>
-      Paste a job description to compare it against your resume. The tool
-      lists which keywords from the JD are present and which are missing,
-      so you can add relevant terms before applying.
+      You can also paste in a job description and the tool will compare
+      it to your resume. It pulls out the important words from the job
+      post things like specific skills, tools, or job titles and
+      shows you which ones your resume already has and which ones are
+      missing. A lot of ATS systems actually rank resumes based on how
+      many of these words match before a recruiter even looks at them
+      manually. So two people with similar experience can get very
+      different results just because one used the same wording as the
+      job post and the other didn't.
+    </p>
+  </div>
+
+  <div className="info-block">
+    <h3>Why This Actually Matters</h3>
+    <p>
+      A lot of resumes get rejected for reasons that have nothing to do
+      with the person's actual skills. Maybe the contact info was put in
+      the header, and the ATS software skipped that part completely.
+      Maybe the resume used a table for job titles and dates, and the
+      software read it in the wrong order or missed it. These are small
+      formatting choices, but they can knock a genuinely good candidate
+      out of the running before anyone even reads their resume properly.
+      Once you know this happens, it's easier to avoid it.
+    </p>
+  </div>
+
+  <div className="info-block">
+    <h3>Mistakes People Make Without Realizing</h3>
+    <p>
+      Putting your email or phone number in the header or footer is a
+      common one some ATS tools just don't read that area. Using
+      tables for your job history is another, since the software can
+      read the cells out of order. Writing your skills in vague words
+      instead of the exact terms from the job post also hurts your
+      match score. And a lot of people skip the summary section
+      entirely, thinking it's not important, when actually both the
+      software and the recruiter usually look for it right at the top.
+    </p>
+  </div>
+
+  <div className="info-block">
+    <h3>How To Use The Keyword List Properly</h3>
+    <p>
+      When you see the list of missing keywords, don't just paste all
+      of them into your resume blindly. Go through the list and only
+      add the ones that are actually true for you something you've
+      really done or used. Add them in a normal sentence, not just as a
+      random word dropped in. If a keyword doesn't fit your background
+      at all, skip it. Recruiters do read the resume eventually, and
+      keywords with no real substance behind them usually stand out in
+      a bad way.
     </p>
   </div>
 
   <div className="info-block">
     <h3>Notes</h3>
     <ul className="info-list info-list--plain">
-      <li>Nothing is uploaded to a server — checking happens in your browser.</li>
-      <li>Works with PDF and DOCX resumes.</li>
-      <li>Re-run the check after editing to confirm the score improved.</li>
+      <li>Your resume is checked inside your browser. Nothing gets uploaded to a server.</li>
+      <li>Works with PDF and DOCX files, and scanned PDFs through OCR.</li>
+      <li>Run the check again after editing to see if your score went up.</li>
+      <li>Keyword matching only works once you paste in a job description.</li>
     </ul>
   </div>
 
@@ -476,17 +535,106 @@ export default function AtsChecker() {
 
       <details className="faq-item">
         <summary>Is this free?</summary>
-        <p>Yes, no login required.</p>
+        <p>
+          Yes, it's completely free. No signup, no card details, no
+          limit on how many times you can use it. Upload, check your
+          score, paste a job description, run it again as many times as
+          you want.
+        </p>
       </details>
 
       <details className="faq-item">
         <summary>Does a high score guarantee an interview?</summary>
-        <p>No. It means your resume is less likely to get filtered out by ATS software. The rest depends on your experience and the role.</p>
+        <p>
+          No, and I don't want to promise something untrue here. A high
+          score just means your resume is less likely to get filtered
+          out by the software. What happens after that whether you
+          get called for an interview depends on your actual
+          experience and how well you do after that point.
+        </p>
       </details>
 
       <details className="faq-item">
         <summary>Is my resume stored anywhere?</summary>
-        <p>No, it's processed in-browser and not saved.</p>
+        <p>
+          No. Everything happens inside your own browser. Your file is
+          never sent anywhere. Close the tab and it's gone.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>What file types can I upload?</summary>
+        <p>
+          PDF and DOCX, which covers most resumes people already have.
+          If yours is in Google Docs or something else, just export it
+          as a PDF first. Scanned PDFs work too, through OCR, though the
+          result depends on how clear the scan is.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>My resume looks fine but the score is low. Why?</summary>
+        <p>
+          The software doesn't see your resume the way you do. It reads
+          raw text only. If you're using tables, columns, or icons, the
+          software might not read that content correctly even though it
+          looks perfectly normal to your eyes.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Should I avoid fancy templates with columns and icons?</summary>
+        <p>
+          If you're applying somewhere that likely uses an ATS, yes, a
+          simple layout usually works better. Multi-column resumes look
+          nice but the software can read the text in the wrong order or
+          skip parts of it. Save the fancier designs for situations
+          where you know a person will look at it first.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>How often should I check my resume?</summary>
+        <p>
+          Check it once to get a starting score, fix what it flags, then
+          check again. It's also worth running the keyword match every
+          time you apply somewhere new, since job posts use different
+          wording even for similar roles.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Does this work exactly like the ATS my target company uses?</summary>
+        <p>
+          Not exactly, since there are many different ATS platforms out
+          there and each works a little differently. This tool checks
+          the things that show up across most of them sections,
+          contact info, keyword match. It's a solid general check, but
+          it can't promise to match one specific company's system
+          exactly.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>What's a good score to aim for?</summary>
+        <p>
+          Anywhere in the "Good" or "Excellent" range gives you a decent
+          shot. Don't force a perfect score by adding things that aren't
+          true about you. A slightly lower score with honest content is
+          better than a high score that falls apart when someone asks
+          you a follow-up question.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Is this only useful for tech jobs?</summary>
+        <p>
+          No, it works for any field. ATS software is used in marketing,
+          finance, healthcare, sales, and pretty much everywhere else
+          too. The keyword matching is actually just as useful outside
+          tech, since non-tech job posts often have specific terms and
+          certifications that matter a lot.
+        </p>
       </details>
 
     </div>

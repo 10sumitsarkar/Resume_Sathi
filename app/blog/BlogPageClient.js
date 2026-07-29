@@ -2,8 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import Head from 'next/head';
-import { Suspense } from "react";
-import { useSearchParams, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import './blog.css';
 
 const IconBlog = () => (
@@ -368,9 +367,6 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
 }
 
 function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
-  const searchParams = useSearchParams();
-  const initialSearch = searchParams?.get('search') || searchParams?.get('q') || '';
-
   // 👇 SSR se aaye hue initial data se state seed karo — pehla render
   // (jo Googlebot dekhta hai) already articles se bhara hoga.
   const [articles, setArticles] = useState(() => initialArticles.slice(0, PAGE_SIZE));
@@ -381,8 +377,23 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
       .slice(0, 3)
   );
   const [categories, setCategories] = useState(initialCategories);
-  const [search, setSearch] = useState(initialSearch);
-  const [searchInput, setSearchInput] = useState(initialSearch);
+  // 👇 NAYA: static export (no Node server) me useSearchParams() nahi use karte —
+  // yeh Suspense boundary maangta hai aur build ke time uska fallback hi static
+  // HTML me bake ho jaata hai. Iski jagah plain window.location.search read
+  // karte hain, sirf client-side, taaki main content kabhi block na ho.
+  const [search, setSearch] = useState('');
+  const [searchInput, setSearchInput] = useState('');
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('search') || params.get('q') || '';
+    if (q) {
+      setSearch(q);
+      setSearchInput(q);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const [categoryId, setCategoryId] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(initialArticles.length > PAGE_SIZE);
@@ -738,8 +749,6 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
 export default function BlogPageClient({ initialArticles = [], initialCategories = [] }) {
   return (
-    <Suspense fallback={<div className="rk-loading">Loading...</div>}>
-      <BlogPageContent initialArticles={initialArticles} initialCategories={initialCategories} />
-    </Suspense>
+    <BlogPageContent initialArticles={initialArticles} initialCategories={initialCategories} />
   );
 }

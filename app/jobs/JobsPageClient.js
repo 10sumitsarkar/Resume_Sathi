@@ -14,7 +14,7 @@ const IconBlog = () => (
 const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
 const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_IMAGE = '/front-assets/images/og/job-og.png';
-const PAGE_SIZE = 10;
+const PAGE_SIZE = 12;
 const SUGGESTION_LIMIT = 6;
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
 const JOBS_DEFAULT_TITLE = 'Latest Jobs | Resume & Career Opportunities';

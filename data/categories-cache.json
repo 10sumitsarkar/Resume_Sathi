@@ -64,5 +64,16 @@
     "updated_at": "2026-07-26T19:31:29.000000Z",
     "deleted_at": null,
     "created_by": 1
+  },
+  {
+    "id": 15,
+    "course_name": "Teaching",
+    "course_url": "teaching",
+    "course_image": "courses/book-open-thin-svgrepo-com.svg",
+    "description": "Teacher recruitment notifications for STET, CTET-based and other government teaching posts across states.",
+    "created_at": "2026-07-30T05:06:00.000000Z",
+    "updated_at": "2026-07-30T05:10:33.000000Z",
+    "deleted_at": null,
+    "created_by": 1
   }
 ]

@@ -528,7 +528,7 @@
   font-weight: 600;
   color: var(--rk-text);
   text-decoration: none;
-  line-height: 1.3!important;
+  line-height: 1.3 !important;
 }
 
 .rk-widget-latest li a:hover {
@@ -541,7 +541,7 @@
   border: none;
   color: var(--rk-white);
   text-align: center;
-  
+
 }
 
 .rk-widget-cta h4 {
@@ -853,13 +853,18 @@
 .rk-article-meta svg {
   position: relative;
   top: -2px;
+
   path {
-  fill: var(--rk-red);
-}
+    fill: var(--rk-red);
+  }
 }
 
 .rk-article-content {
   background: var(--rk-white);
+
+  .table-responsive a{
+    white-space: nowrap;
+  }
 }
 
 .rk-article-hero-img {
@@ -965,9 +970,11 @@
   margin: 20px 0;
   font-size: 14px;
 }
-.rk-article-text th{
+
+.rk-article-text th {
   white-space: nowrap;
 }
+
 .rk-article-text th,
 .rk-article-text td {
   border: 1px solid var(--rk-border);
@@ -1157,3 +1164,228 @@
   color: var(--rk-text-muted);
   line-height: 1.6;
 }
+
+
+/* Faq and quize start */
+ 
+/* ============================================================
+   TRE 4.0 - FAQ + MCQ Practice Section Styling
+   Theme Color: var(--rk-primary, #cc0000)
+
+   Notes:
+   - Koi <a> tag options ke liye use nahi kiya gaya - options
+     ab <li> hain, jo naturally non-clickable, non-navigable
+     hote hain. Isse page par unnecessary link elements kam
+     hote hain, jo crawl budget aur PageSpeed dono ke liye
+     accha signal hai.
+   - A/B/C/D letter ab HTML/JS se nahi, CSS counters se
+     generate hote hain (counter-reset / counter-increment).
+     Content plain text hai, koi hidden/extra markup nahi.
+   - <details>/<summary> native collapse deta hai, koi JS
+     zaroori nahi.
+   ============================================================ */
+
+:root{
+  --rk-primary: #cc0000;
+}
+
+/* ---------------- FAQ SECTION ---------------- */
+
+.tre-faq-list{
+  display: block;
+}
+
+.tre-faq-item{
+  border: 1px solid rgba(204,0,0,0.15);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  transition: box-shadow .2s ease;
+}
+
+.tre-faq-item:hover{
+  box-shadow: 0 3px 10px rgba(204,0,0,0.12);
+}
+
+.tre-faq-item summary{
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 46px 14px 18px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #222;
+  position: relative;
+  background: rgba(204,0,0,0.03);
+  transition: background .2s ease, color .2s ease;
+}
+
+.tre-faq-item summary::-webkit-details-marker{
+  display: none;
+}
+.tre-faq-item summary::marker{
+  content: "";
+}
+
+.tre-faq-item summary::after{
+  content: "+";
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--rk-primary, #cc0000);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 1;
+  transition: transform .25s ease;
+}
+
+.tre-faq-item[open] summary::after{
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.tre-faq-item[open] summary{
+  color: var(--rk-primary, #cc0000);
+  background: rgba(204,0,0,0.07);
+  border-bottom: 1px solid rgba(204,0,0,0.15);
+}
+
+.tre-faq-item p{
+  margin: 0;
+  padding: 14px 18px 18px;
+  color: #444;
+  line-height: 1.6;
+  font-size: 14.5px;
+}
+
+/* ---------------- MCQ QUIZ SECTION ---------------- */
+
+.tre-quiz-wrap{
+  border: 1px solid rgba(204,0,0,0.15);
+  border-radius: 12px;
+  padding: 20px;
+  background: #fffafa;
+  margin-top: 24px;
+}
+
+.tre-quiz-header{
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--rk-primary, #cc0000)!important;
+  margin: 0 0 4px!important;
+}
+
+.tre-quiz-sub{
+  font-size: 13px;
+  color: #777;
+  margin: 0 0 18px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid rgba(204,0,0,0.12);
+}
+
+.tre-q-card{
+  margin-bottom: 35px;
+}
+
+.tre-q-text{
+  font-size: 15px;
+  font-weight: 600;
+  color: #222;
+  margin: 0 0 12px;
+  line-height: 1.5;
+}
+
+.tre-q-num{
+  color: var(--rk-primary, #cc0000);
+  margin-right: 6px;
+}
+
+/* options list - flex + wrap, plain <li>, not clickable/navigable */
+.tre-quiz-options{
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0!important;
+  padding: 0!important;
+  counter-reset: tre-opt-counter;
+}
+
+.tre-opt-item{
+  counter-increment: tre-opt-counter;
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 7px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background: #fafafa;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.3;
+  cursor: default;
+  user-select: none;
+  margin: 0!important;
+}
+
+/* A / B / C / D badge generated purely by CSS counters */
+.tre-opt-item::before{
+  content: counter(tre-opt-counter, upper-alpha);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--rk-primary, #cc0000);
+  color: #fff;
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+.tre-opt-item.opt-wrong{
+  opacity: 0.85;
+}
+
+.tre-opt-item.opt-right{
+  border-color: #2e7d32;
+  background: #eaf7ec;
+  color: #1b5e20;
+  font-weight: 600;
+}
+
+.tre-opt-item.opt-right::before{
+  background: #2e7d32;
+}
+
+.tre-opt-item.opt-right::after{
+  content: "\2713";
+  margin-left: 8px;
+  color: #2e7d32;
+  font-weight: 700;
+}
+
+/* ---------------- MOBILE RESPONSIVE ---------------- */
+
+@media (max-width: 480px){
+  .tre-quiz-wrap{
+    padding: 14px;
+  }
+  .tre-q-text{
+    font-size: 14px;
+  }
+  .tre-opt-item{
+    font-size: 13px;
+    padding: 5px 7px;
+    flex: 1 1 calc(50% - 10px);
+  }
+}
+ /* Faq and quize start */

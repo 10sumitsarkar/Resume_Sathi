@@ -17,6 +17,10 @@ export function getApiBase() {
   return `${getBackendBase()}/api`;
 }
 
+export function getContentCacheUrl(filename) {
+  return `${getApiBase()}/public-cache/${String(filename).replace(/^\/+/, '')}`;
+}
+
 export function resolveApiMediaUrl(url, fallbackImage) {
   if (!url) return fallbackImage;
   if (/^https?:\/\//i.test(url) || String(url).startsWith('//')) {

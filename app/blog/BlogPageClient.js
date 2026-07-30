@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getApiBase, resolveApiMediaUrl } from '../lib/apiConfig';
+import { getContentCacheUrl, resolveApiMediaUrl } from '../lib/apiConfig';
 import './blog.css';
 
 const IconBlog = () => (
@@ -52,6 +52,30 @@ function getDescription(item) {
 
 function getCategoryLabel(item) {
   return item.category?.article_name || item.category?.name || item.category?.title || 'General';
+}
+
+function normalizeItems(data) {
+  return Array.isArray(data) ? data : (data?.items || data?.results || []);
+}
+
+function filterArticles(items, search, categoryId) {
+  const normalizedSearch = search.trim().toLowerCase();
+  const selectedCategory = categoryId ? Number(categoryId) : null;
+
+  return items.filter((item) => {
+    const haystack = [
+      getTitle(item),
+      getDescription(item),
+      getCategoryLabel(item),
+      item.url_name || '',
+      item.slug || '',
+    ].join(' ').toLowerCase();
+
+    const matchesSearch = !normalizedSearch || haystack.includes(normalizedSearch);
+    const matchesCategory = !selectedCategory || Number(item.article_type || item.category_id || item.category?.id) === selectedCategory;
+
+    return matchesSearch && matchesCategory;
+  });
 }
 
 /* -------------------- Search dropdown (shared by sidebar + offcanvas) -------------------- */
@@ -341,20 +365,15 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const fetchArticles = async (targetPage = 1) => {
     setLoading(true);
     try {
-      const params = new URLSearchParams();
-      if (search) params.set('search', search);
-      if (categoryId) params.set('category_id', String(categoryId));
-      params.set('limit', String(PAGE_SIZE));
-      params.set('page', String(targetPage));
-
-      const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
+      const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
       const data = await response.json();
-      const pagedItems = Array.isArray(data) ? data : (data.items || data.results || []);
-      const total = Array.isArray(data) ? null : (data.total ?? null);
+      const filteredItems = filterArticles(normalizeItems(data), search, categoryId);
+      const pagedItems = filteredItems.slice((targetPage - 1) * PAGE_SIZE, targetPage * PAGE_SIZE);
+      const total = filteredItems.length;
 
       setArticles(pagedItems);
       setPage(targetPage);
-      setHasMore(total !== null ? targetPage * PAGE_SIZE < total : pagedItems.length === PAGE_SIZE);
+      setHasMore(targetPage * PAGE_SIZE < total);
     } catch (error) {
       console.error(error);
       // ðŸ‘‡ Sirf tab khaali karo jab humare paas already koi achha
@@ -372,12 +391,12 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const fetchSidebar = async () => {
     try {
       const [latestRes, categoriesRes] = await Promise.all([
-        fetch(`${getApiBase()}/articles/latest?limit=3`, { cache: 'no-store' }),
-        fetch(`${getApiBase()}/article-categories`, { cache: 'no-store' }),
+        fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' }),
+        fetch(`${getContentCacheUrl('article-categories.json')}?v=${Date.now()}`, { cache: 'no-store' }),
       ]);
       const latestData = await latestRes.json();
       const categoriesData = await categoriesRes.json();
-      setLatest(Array.isArray(latestData) ? latestData : []);
+      setLatest(normalizeItems(latestData).slice(0, 3));
       setCategories(Array.isArray(categoriesData) ? categoriesData : []);
     } catch (error) {
       console.error(error);
@@ -440,13 +459,9 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const params = new URLSearchParams();
-        params.set('search', term);
-        params.set('limit', String(SUGGESTION_LIMIT));
-        params.set('page', '1');
-        const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
+        const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
         const data = await response.json();
-        const items = Array.isArray(data) ? data : (data.items || data.results || []);
+        const items = filterArticles(normalizeItems(data), term, null);
         setSuggestions(items.slice(0, SUGGESTION_LIMIT));
         setShowSuggestions(true);
       } catch (error) {

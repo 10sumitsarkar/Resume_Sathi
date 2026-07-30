@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { getApiBase } from "../../../../lib/apiConfig";
 import "../../../tools-css/pdf-compressor.css";
 
 const PdfPreviewClient = dynamic(
@@ -178,8 +177,10 @@ export default function PdfCompressor() {
       const formData = new FormData();
       formData.append("pdf", file);
       formData.append("quality", quality);
+      formData.append("compression", quality);
+      formData.append("level", quality);
 
-      const response = await fetch(`${getApiBase()}/pdf/compress`, {
+      const response = await fetch("https://api.resumesathi.com/api/pdf/compress", {
         method: "POST",
         body: formData,
       });

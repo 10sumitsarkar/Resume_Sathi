@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import FooterNav from "../components/FooterNav";
-import { getApiBase, resolveApiMediaUrl } from "../lib/apiConfig";
+import { getContentCacheUrl, resolveApiMediaUrl } from "../lib/apiConfig";
 import "../../public/front-assets/css/home.css";
 
 // ── SVG Icon Library ──────────────────────────────────────────────────────
@@ -1467,8 +1467,8 @@ export default function ResumeListClient({
     const fetchData = async () => {
       try {
         const [jobsResponse, articlesResponse] = await Promise.all([
-          fetch(`${getApiBase()}/courses?limit=8`, { cache: 'no-store' }),
-          fetch(`${getApiBase()}/articles?limit=6`, { cache: 'no-store' }),
+          fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' }),
+          fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' }),
         ]);
 
         const jobsData = jobsResponse.ok ? await jobsResponse.json() : [];

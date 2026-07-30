@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { getApiBase, getBackendBase, resolveApiMediaUrl } from '../../lib/apiConfig';
+import { getApiBase, getBackendBase, getContentCacheUrl, resolveApiMediaUrl } from '../../lib/apiConfig';
 import '../jobs.css';
 
 const DEFAULT_IMAGE = '/front-assets/images/og/job-og.png';
@@ -260,7 +260,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     if (!slug) return;
     setLoading(true);
     try {
-      const response = await fetch(`${getApiBase()}/courses`, { cache: 'no-store' });
+      const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
       const data = await response.json();
       const jobs = Array.isArray(data) ? data : (data.items || data.results || []);
       const matchedJob = jobs.find((item) => {
@@ -278,7 +278,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchLatest = async () => {
     try {
-      const response = await fetch(`${getApiBase()}/courses`, { cache: 'no-store' });
+      const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
       const data = await response.json();
       const jobs = Array.isArray(data) ? data : (data.items || data.results || []);
       setLatest(jobs.slice(0, 5));
@@ -290,7 +290,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${getApiBase()}/course-categories`, { cache: 'no-store' });
+      const response = await fetch(`${getContentCacheUrl('job-categories.json')}?v=${Date.now()}`, { cache: 'no-store' });
       const data = await response.json();
       setCategories(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -337,7 +337,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const response = await fetch(`${getApiBase()}/courses`, { cache: 'no-store' });
+        const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
         const data = await response.json();
         const jobs = Array.isArray(data) ? data : (data.items || data.results || []);
         const filteredSuggestions = jobs.filter((item) => {

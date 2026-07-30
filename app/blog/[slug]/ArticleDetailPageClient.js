@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { getApiBase, getBackendBase, resolveApiMediaUrl } from '../../lib/apiConfig';
+import { getApiBase, getBackendBase, getContentCacheUrl, resolveApiMediaUrl } from '../../lib/apiConfig';
 import '../blog.css';
 
 const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.png';
@@ -56,7 +56,7 @@ function formatDate(dateString) {
 
 function getSlug(item) {
   if (!item) return '';
-  const raw = item.slug || item.url_name || item.canonical_tag || '';
+  const raw = typeof item === 'string' ? item : item.slug || item.url_name || item.canonical_tag || '';
   let value = String(raw).trim().split('/').filter(Boolean).pop() || '';
   try {
     value = decodeURIComponent(value);
@@ -73,6 +73,27 @@ function getTitle(item) {
 
 function getCategoryLabel(item) {
   return item?.category?.article_name || item?.category?.name || item?.category?.title || 'General';
+}
+
+function getArticleContentSections(article) {
+  if (!article) return [];
+
+  if (Array.isArray(article.contents) && article.contents.length > 0) {
+    return article.contents
+      .map((item, index) => ({
+        id: item?.id || `contents-${index}`,
+        html: item?.content || item?.body || item?.description || '',
+      }))
+      .filter((item) => item.html);
+  }
+
+  if (article.content && typeof article.content === 'object') {
+    const html = article.content.content || article.content.body || article.content.description || '';
+    return html ? [{ id: article.content.id || 'content', html }] : [];
+  }
+
+  const html = article.content || article.body || article.description || '';
+  return html ? [{ id: 'content', html }] : [];
 }
 
 function applyDocumentMeta(meta) {
@@ -237,12 +258,17 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     if (!slug) return;
     setLoading(true);
     try {
-      const response = await fetch(`${getApiBase()}/articles/slug/${encodeURIComponent(slug)}`, { cache: 'no-store' });
+      const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Article request failed with status ${response.status}`);
+      }
       const data = await response.json();
-      setArticle(data);
+      const articles = Array.isArray(data) ? data : (data.items || data.results || []);
+      const matchedArticle = articles.find((item) => getSlug(item) === getSlug(slug));
+      setArticle(matchedArticle || null);
     } catch (err) {
       console.error(err);
-      setArticle(null);
+      setArticle(initialArticle || null);
     } finally {
       setLoading(false);
     }
@@ -250,9 +276,10 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchLatest = async () => {
     try {
-      const response = await fetch(`${getApiBase()}/articles/latest?limit=5`, { cache: 'no-store' });
+      const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
       const data = await response.json();
-      setLatest(Array.isArray(data) ? data : []);
+      const articles = Array.isArray(data) ? data : (data.items || data.results || []);
+      setLatest(articles.slice(0, 5));
     } catch (err) {
       console.error(err);
       setLatest([]);
@@ -261,7 +288,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${getApiBase()}/article-categories`, { cache: 'no-store' });
+      const response = await fetch(`${getContentCacheUrl('article-categories.json')}?v=${Date.now()}`, { cache: 'no-store' });
       const data = await response.json();
       setCategories(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -361,7 +388,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const response = await fetch(`${getApiBase()}/articles`, { cache: 'no-store' });
+        const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
         const data = await response.json();
         const articles = Array.isArray(data) ? data : (data.items || data.results || []);
         const filteredSuggestions = articles.filter((item) => {
@@ -449,6 +476,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
   const selectedCategoryId = article.category?.id || article.category_id || null;
   const authorName = article.user?.name || 'Admin';
   const heroImage = article.hero_image || article.image || article.meta_image || article.og_image;
+  const contentSections = getArticleContentSections(article);
 
   return (
     <div className="rk-blog-scope">
@@ -491,13 +519,15 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
             <div className="col-md-8 col-lg-9">
               <article className="rk-article-content">
                 <div className="rk-article-text">
-                  {article.contents?.length > 0 && article.contents.map((contentItem) => (
+                  {contentSections.length > 0 ? contentSections.map((contentItem) => (
                     <div
                       key={contentItem.id}
                       className="rk-article-section"
-                      dangerouslySetInnerHTML={{ __html: normalizeHtmlContent(contentItem.content) }}
+                      dangerouslySetInnerHTML={{ __html: normalizeHtmlContent(contentItem.html) }}
                     />
-                  ))}
+                  )) : (
+                    <p className="rk-comments-empty">Article content is not available right now.</p>
+                  )}
                 </div>
 
                 <div className="rk-article-comments">

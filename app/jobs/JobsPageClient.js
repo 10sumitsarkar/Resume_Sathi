@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getApiBase, resolveApiMediaUrl } from '../lib/apiConfig';
+import { getContentCacheUrl, resolveApiMediaUrl } from '../lib/apiConfig';
 import './jobs.css';
 
 const IconBlog = () => (
@@ -418,7 +418,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const fetchArticles = async (targetPage = 1) => {
     setLoading(true);
     try {
-      const response = await fetch(`${getApiBase()}/courses?limit=500`, { cache: 'no-store' });
+      const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
       const data = await response.json();
       const items = Array.isArray(data) ? data : (data.items || data.results || []);
 
@@ -465,8 +465,8 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const fetchSidebar = async () => {
     try {
       const [jobsRes, categoriesRes] = await Promise.all([
-        fetch(`${getApiBase()}/courses?limit=500`, { cache: 'no-store' }),
-        fetch(`${getApiBase()}/course-categories`, { cache: 'no-store' }),
+        fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' }),
+        fetch(`${getContentCacheUrl('job-categories.json')}?v=${Date.now()}`, { cache: 'no-store' }),
       ]);
       const jobsData = await jobsRes.json();
       const categoriesData = await categoriesRes.json();
@@ -594,7 +594,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const response = await fetch(`${getApiBase()}/courses?limit=500`, { cache: 'no-store' });
+        const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
         const data = await response.json();
         const items = Array.isArray(data) ? data : (data.items || data.results || []);
         const filteredSuggestions = items.filter((item) => {

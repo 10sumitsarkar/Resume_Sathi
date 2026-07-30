@@ -6,13 +6,13 @@ import Footer from '../../components/Footer';
 import FooterNav from '../../components/FooterNav';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getApiBase } from '../../lib/apiConfig';
 import '../legal-pages.css';
 
 const CONTACT_EMAIL = 'support@resumesathi.com';
 const CONTACT_PHONE = '+91 00000 00000';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.resumesathi.com';
-const CONTACT_API_ENDPOINT = `${API_BASE_URL}/api/contact`;
+const CONTACT_API_ENDPOINT = `${getApiBase()}/contact`;
 
 const INITIAL_STATE = {
   name: '',

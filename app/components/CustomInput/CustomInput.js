@@ -115,6 +115,17 @@ export default function CustomInput({
   const goMonth = (offset) =>
     setVisibleMonth((m) => new Date(m.getFullYear(), m.getMonth() + offset, 1));
 
+  const setDateMonth = (month) =>
+    setVisibleMonth((m) => new Date(m.getFullYear(), Number(month), 1));
+
+  const setDateYear = (year) =>
+    setVisibleMonth((m) => new Date(Number(year), m.getMonth(), 1));
+
+  const datePickerYears = Array.from({ length: 80 }, (_, i) => {
+    const year = new Date().getFullYear() + 10 - i;
+    return year;
+  });
+
   const pickDate = (day) => {
     const dt = new Date(
       visibleMonth.getFullYear(),
@@ -283,10 +294,26 @@ export default function CustomInput({
                   ‹
                 </button>
                 <div className="rk-month-title">
-                  {visibleMonth.toLocaleString(undefined, {
-                    month: "long",
-                    year: "numeric",
-                  })}
+                  <select
+                    value={visibleMonth.getMonth()}
+                    onChange={(e) => setDateMonth(e.target.value)}
+                    className="rk-date-month-select"
+                  >
+                    {Array.from({ length: 12 }, (_, index) => (
+                      <option key={index} value={index}>
+                        {new Date(2026, index, 1).toLocaleString(undefined, { month: "long" })}
+                      </option>
+                    ))}
+                  </select>
+                  <select
+                    value={visibleMonth.getFullYear()}
+                    onChange={(e) => setDateYear(e.target.value)}
+                    className="rk-date-year-select"
+                  >
+                    {datePickerYears.map((year) => (
+                      <option key={year} value={year}>{year}</option>
+                    ))}
+                  </select>
                 </div>
                 <button
                   type="button"

@@ -151,6 +151,27 @@
 .rk-month-title {
     font-weight: 700;
     color: #0f172a;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.rk-date-month-select,
+.rk-date-year-select {
+    border: 1px solid #eef2ff;
+    border-radius: 8px;
+    background: #fff;
+    color: #111827;
+    padding: 7px 8px;
+    font-size: 13px;
+    font-weight: 700;
+    outline: none;
+}
+
+.rk-date-month-select:focus,
+.rk-date-year-select:focus {
+    border-color: #cc0000;
+    box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.08);
 }
 
 .rk-month-nav {

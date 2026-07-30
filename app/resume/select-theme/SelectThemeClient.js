@@ -10,6 +10,7 @@ import ResumeTemplate6 from '../templates/ResumeTemplate6'
 import ResumeTemplate7 from '../templates/ResumeTemplate7'
 import { useDispatch, useSelector } from 'react-redux'
 import { setResumeConfigration } from '../reducer/resume-reducer'
+import { getResumeCustomizationClasses } from '../utils/fontSize'
 
 
 const AVAILABLE_TEMPLATES = [
@@ -41,6 +42,7 @@ export default function selectTheme() {
         ...configuration,
         layout_style: 'all',
     });
+    const customizationClasses = getResumeCustomizationClasses(customizeData);
 
 
 
@@ -213,7 +215,7 @@ export default function selectTheme() {
                                             <input type="radio" name="selectResume" checked={customizeData?.selected_theme === template.id}
                                                 onChange={() => handleCustomizationChange('selected_theme', template.id)} hidden />
                                             <img src="/front-assets/images/icons/resume-selected.svg" className='img-fluid resume-selected-icon' alt="Checked" />
-                                            <TemplateComponent isStatic={true} additionalClass={`${customizeData.color_palette} ${customizeData.font_style}`} />
+                                            <TemplateComponent isStatic={true} additionalClass={customizationClasses} />
                                         </label>
                                     </div>
                                 );

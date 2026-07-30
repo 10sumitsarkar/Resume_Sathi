@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import {
   Document,
   Page,
@@ -23,7 +23,7 @@ import {
 } from "./PdfCommon";
 
 /**
- * ResumeTemplate3Pdf — "Executive Panel"
+ * ResumeTemplate3Pdf - "Executive Panel"
  * Full-width dark header band (photo, name, tag, contact row) on top.
  * Below it, a light sidebar (skills with level bars, languages, social,
  * hobbies) and a white content column (profile + work / intern /
@@ -58,7 +58,7 @@ const mixColor = (hex, mixHex, weight) => {
   const b = clamp255(c1.b + (c2.b - c1.b) * weight);
   return `rgb(${r},${g},${b})`;
 };
-// amount 0..1 — how far toward white/black to blend the accent color.
+// amount 0..1 - how far toward white/black to blend the accent color.
 const lighten = (hex, amount) => mixColor(hex, "#ffffff", amount);
 const darken = (hex, amount) => mixColor(hex, "#000000", amount);
 
@@ -122,13 +122,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   headerName: {
-    fontSize: 21,
+    fontSize: 19,
     fontWeight: "700",
     color: "#ffffff",
     marginBottom: 8,
   },
   headerTag: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     textTransform: "uppercase",
     letterSpacing: 1.6,
     marginBottom: 10,
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   headerContactText: {
-    fontSize: 9,
+    fontSize: 10,
     marginLeft: 5,
   },
 
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sidebarHeading: {
-    fontSize: 11,
+    fontSize: 12,
     fontWeight: "700",
     textTransform: "uppercase",
     letterSpacing: 0.8,
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   skillName: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     fontWeight: "600",
     marginBottom: 5,
   },
@@ -197,11 +197,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   bulletMark: {
-    fontSize: 9,
+    fontSize: 10,
     marginRight: 5,
   },
   bulletText: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     lineHeight: 1.4,
     flex: 1,
   },
@@ -211,7 +211,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   socialText: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     marginLeft: 7,
   },
 
@@ -220,14 +220,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#ffffff",
     paddingTop: 26,
-    paddingHorizontal: 32,
+    paddingHorizontal: 20,
     paddingBottom: 26,
   },
   contentSection: {
     marginBottom: 20,
   },
   contentHeading: {
-    fontSize: 12,
+    fontSize: 11.5,
     fontWeight: "700",
     textTransform: "uppercase",
     letterSpacing: 0.8,
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   bodyText: {
-    fontSize: 10,
+    fontSize: 11,
     lineHeight: 1.6,
     textAlign: "justify",
   },
@@ -281,25 +281,29 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
+    gap: 8,
   },
   entryTitle: {
-    fontSize: 10.5,
+    fontSize: 10.8,
     fontWeight: "700",
   },
   entryDate: {
-    fontSize: 9.5,
+    fontSize: 9.2,
   },
   entrySubLine: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     fontStyle: "italic",
-    marginTop: 3,
+    marginTop: 5,
   },
   entryDescription: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     lineHeight: 1.55,
-    marginTop: 4,
+    marginTop: 8,
+    marginBottom: 0,
   },
 });
+
+const BULLET = String.fromCharCode(8226);
 
 const ResumeTemplate3Pdf = ({
   resume,
@@ -311,7 +315,7 @@ const ResumeTemplate3Pdf = ({
 
   // ---------- Theme ----------
   // Accent-derived: headings, underlines, ring-icons, bullet marks, skill-bar fill.
-  // Neutral (fixed): body text, descriptions, sub-lines, header icons/text —
+  // Neutral (fixed): body text, descriptions, sub-lines, header icons/text -
   // so the page doesn't end up entirely red/accent-tinted.
   const theme = {
     headerBg: darken(accentColor, 0.8),
@@ -541,7 +545,7 @@ const ResumeTemplate3Pdf = ({
                     <Text
                       style={{ ...styles.bulletMark, color: theme.bulletMark }}
                     >
-                      •
+                      {BULLET}
                     </Text>
                     <Text
                       style={{ ...styles.bulletText, color: theme.bulletText }}
@@ -588,7 +592,7 @@ const ResumeTemplate3Pdf = ({
                     <Text
                       style={{ ...styles.bulletMark, color: theme.bulletMark }}
                     >
-                      •
+                      {BULLET}
                     </Text>
                     <Text
                       style={{ ...styles.bulletText, color: theme.bulletText }}
@@ -621,7 +625,7 @@ const ResumeTemplate3Pdf = ({
                     title={[
                       safeText(work.job_title),
                       work.company_name
-                        ? `— ${safeText(work.company_name)}`
+                        ? `- ${safeText(work.company_name)}`
                         : "",
                     ]
                       .filter(Boolean)
@@ -639,7 +643,7 @@ const ResumeTemplate3Pdf = ({
                         : "",
                     ]
                       .filter(Boolean)
-                      .join(" • ")}
+                      .join(" - ")}
                     description={
                       work.description ? safeText(work.description) : ""
                     }
@@ -657,7 +661,7 @@ const ResumeTemplate3Pdf = ({
                     title={[
                       safeText(intern.job_title),
                       intern.company_name
-                        ? `— ${safeText(intern.company_name)}`
+                        ? `- ${safeText(intern.company_name)}`
                         : "",
                     ]
                       .filter(Boolean)
@@ -675,7 +679,7 @@ const ResumeTemplate3Pdf = ({
                         : "",
                     ]
                       .filter(Boolean)
-                      .join(" • ")}
+                      .join(" - ")}
                   />
                 ))}
               </View>
@@ -709,7 +713,7 @@ const ResumeTemplate3Pdf = ({
                     title={[
                       safeText(cert.certificate_name),
                       cert.issuing_organization
-                        ? `— ${safeText(cert.issuing_organization)}`
+                        ? `- ${safeText(cert.issuing_organization)}`
                         : "",
                     ]
                       .filter(Boolean)
@@ -730,3 +734,12 @@ const ResumeTemplate3Pdf = ({
 };
 
 export default ResumeTemplate3Pdf;
+
+
+
+
+
+
+
+
+

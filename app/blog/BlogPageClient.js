@@ -1,8 +1,8 @@
-"use client";
+﻿"use client";
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Head from 'next/head';
 import { usePathname } from 'next/navigation';
+import { getApiBase, resolveApiMediaUrl } from '../lib/apiConfig';
 import './blog.css';
 
 const IconBlog = () => (
@@ -11,41 +11,12 @@ const IconBlog = () => (
   </svg>
 );
 
-const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
-const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.png';
 const PAGE_SIZE = 10;
 const SUGGESTION_LIMIT = 6;
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
-const BLOG_DEFAULT_TITLE = 'Career Blog | Resume & Job Search Tips';
-const BLOG_DEFAULT_DESCRIPTION = 'Explore expert blog articles on resumes, interviews, career growth, and job search strategies.';
-
-function getBlogPageMeta(searchQuery = '', categoryName = '') {
-  const trimmedQuery = (searchQuery || '').trim();
-  const title = trimmedQuery
-    ? `Search: ${trimmedQuery} | Career Blog`
-    : categoryName
-      ? `${categoryName} | Career Blog`
-      : BLOG_DEFAULT_TITLE;
-  const description = trimmedQuery
-    ? `Find useful articles related to ${trimmedQuery} and other career growth topics on our blog.`
-    : BLOG_DEFAULT_DESCRIPTION;
-  const canonical = `${SITE_URL}/blog${trimmedQuery ? `?search=${encodeURIComponent(trimmedQuery)}` : ''}`;
-  return {
-    title,
-    description,
-    keywords: 'resume tips, career advice, interview tips, job search, professional growth',
-    canonical,
-    image: `${SITE_URL}/front-assets/images/og/blog-og.png`,
-  };
-}
 
 function resolveMediaUrl(url) {
-  if (!url) return DEFAULT_IMAGE;
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) {
-    return url;
-  }
-  return `${BACKEND_BASE}/${url.replace(/^\/+/, '')}`;
+  return resolveApiMediaUrl(url, DEFAULT_IMAGE);
 }
 
 function formatDate(dateString) {
@@ -77,57 +48,6 @@ function getTitle(item) {
 function getDescription(item) {
   if (!item) return '';
   return item.description || item.meta_description || item.short_description || item.excerpt || '';
-}
-
-function applyDocumentMeta(meta) {
-  if (typeof document === 'undefined') return;
-
-  document.title = meta.title || 'Career Blog';
-
-  const descriptionTag = document.querySelector('meta[name="description"]');
-  if (descriptionTag) {
-    descriptionTag.setAttribute('content', meta.description || '');
-  }
-
-  const keywordsTag = document.querySelector('meta[name="keywords"]');
-  if (keywordsTag) {
-    keywordsTag.setAttribute('content', meta.keywords || '');
-  }
-
-  const canonicalTag = document.querySelector('link[rel="canonical"]');
-  if (canonicalTag) {
-    canonicalTag.setAttribute('href', meta.canonical || '');
-  }
-
-  const ogTitleTag = document.querySelector('meta[property="og:title"]');
-  if (ogTitleTag) {
-    ogTitleTag.setAttribute('content', meta.title || '');
-  }
-
-  const ogDescriptionTag = document.querySelector('meta[property="og:description"]');
-  if (ogDescriptionTag) {
-    ogDescriptionTag.setAttribute('content', meta.description || '');
-  }
-
-  const ogImageTag = document.querySelector('meta[property="og:image"]');
-  if (ogImageTag) {
-    ogImageTag.setAttribute('content', meta.image || '');
-  }
-
-  const twitterTitleTag = document.querySelector('meta[name="twitter:title"]');
-  if (twitterTitleTag) {
-    twitterTitleTag.setAttribute('content', meta.title || '');
-  }
-
-  const twitterDescriptionTag = document.querySelector('meta[name="twitter:description"]');
-  if (twitterDescriptionTag) {
-    twitterDescriptionTag.setAttribute('content', meta.description || '');
-  }
-
-  const twitterImageTag = document.querySelector('meta[name="twitter:image"]');
-  if (twitterImageTag) {
-    twitterImageTag.setAttribute('content', meta.image || '');
-  }
 }
 
 function getCategoryLabel(item) {
@@ -339,7 +259,7 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
       <ul>
         {pages.map((p, idx) =>
           p === '...' ? (
-            <li key={`dots-${idx}`} className="rk-page-dots">…</li>
+            <li key={`dots-${idx}`} className="rk-page-dots">â€¦</li>
           ) : (
             <li key={p}>
               <button
@@ -367,7 +287,7 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
 }
 
 function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
-  // 👇 SSR se aaye hue initial data se state seed karo — pehla render
+  // ðŸ‘‡ SSR se aaye hue initial data se state seed karo â€” pehla render
   // (jo Googlebot dekhta hai) already articles se bhara hoga.
   const [articles, setArticles] = useState(() => initialArticles.slice(0, PAGE_SIZE));
   const [latest, setLatest] = useState(() =>
@@ -377,7 +297,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
       .slice(0, 3)
   );
   const [categories, setCategories] = useState(initialCategories);
-  // 👇 NAYA: static export (no Node server) me useSearchParams() nahi use karte —
+  // ðŸ‘‡ NAYA: static export (no Node server) me useSearchParams() nahi use karte â€”
   // yeh Suspense boundary maangta hai aur build ke time uska fallback hi static
   // HTML me bake ho jaata hai. Iski jagah plain window.location.search read
   // karte hain, sirf client-side, taaki main content kabhi block na ho.
@@ -409,7 +329,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const offcanvasSearchWrapRef = useRef(null);
   const offcanvasCloseRef = useRef(null);
 
-  // 👇 Pehle mount pe agar SSR data already sahi hai (default view — koi
+  // ðŸ‘‡ Pehle mount pe agar SSR data already sahi hai (default view â€” koi
   // search/category nahi), to client-side fetch skip karo. Isse Googlebot
   // ke liye SSR data kabhi overwrite/empty nahi hoga agar API robots.txt
   // se blocked ho.
@@ -417,38 +337,28 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const skippedInitialSidebarFetch = useRef(false);
 
   const selectedCategory = categoryId;
-  const selectedCategoryName = categories.find((cat) => cat.id === categoryId)?.article_name
-    || categories.find((cat) => cat.id === categoryId)?.name
-    || categories.find((cat) => cat.id === categoryId)?.title
-    || '';
-  const blogPageMeta = getBlogPageMeta(search, selectedCategoryName);
-
-  useEffect(() => {
-    applyDocumentMeta(blogPageMeta);
-  }, [blogPageMeta.title, blogPageMeta.description, blogPageMeta.keywords, blogPageMeta.canonical, blogPageMeta.image]);
 
   const fetchArticles = async (targetPage = 1) => {
     setLoading(true);
     try {
-      // Shared hosting serves a static export, so only show records whose
-      // detail pages were generated from the build-time cache.
-      const normalizedSearch = search.trim().toLowerCase();
-      const items = initialArticles.filter((item) => {
-        const haystack = [getTitle(item), getDescription(item), getCategoryLabel(item)].join(' ').toLowerCase();
-        const itemCategoryId = item.category_id || item.article_category_id || item.category?.id;
-        return (!normalizedSearch || haystack.includes(normalizedSearch))
-          && (!categoryId || Number(itemCategoryId) === Number(categoryId));
-      });
-      const total = items.length;
-      const pagedItems = items.slice((targetPage - 1) * PAGE_SIZE, targetPage * PAGE_SIZE);
+      const params = new URLSearchParams();
+      if (search) params.set('search', search);
+      if (categoryId) params.set('category_id', String(categoryId));
+      params.set('limit', String(PAGE_SIZE));
+      params.set('page', String(targetPage));
+
+      const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
+      const data = await response.json();
+      const pagedItems = Array.isArray(data) ? data : (data.items || data.results || []);
+      const total = Array.isArray(data) ? null : (data.total ?? null);
 
       setArticles(pagedItems);
       setPage(targetPage);
-      setHasMore(targetPage * PAGE_SIZE < total);
+      setHasMore(total !== null ? targetPage * PAGE_SIZE < total : pagedItems.length === PAGE_SIZE);
     } catch (error) {
       console.error(error);
-      // 👇 Sirf tab khaali karo jab humare paas already koi achha
-      // SSR data na ho — warna network fail hone par good content
+      // ðŸ‘‡ Sirf tab khaali karo jab humare paas already koi achha
+      // SSR data na ho â€” warna network fail hone par good content
       // overwrite ho jaayega (jaise robots.txt block ki wajah se).
       if (initialArticles.length === 0) {
         setArticles([]);
@@ -461,8 +371,14 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
   const fetchSidebar = async () => {
     try {
-      setLatest(initialArticles.slice().sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0)).slice(0, 3));
-      setCategories(initialCategories);
+      const [latestRes, categoriesRes] = await Promise.all([
+        fetch(`${getApiBase()}/articles/latest?limit=3`, { cache: 'no-store' }),
+        fetch(`${getApiBase()}/article-categories`, { cache: 'no-store' }),
+      ]);
+      const latestData = await latestRes.json();
+      const categoriesData = await categoriesRes.json();
+      setLatest(Array.isArray(latestData) ? latestData : []);
+      setCategories(Array.isArray(categoriesData) ? categoriesData : []);
     } catch (error) {
       console.error(error);
       if (initialArticles.length === 0) setLatest([]);
@@ -473,10 +389,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   useEffect(() => {
     if (!skippedInitialSidebarFetch.current) {
       skippedInitialSidebarFetch.current = true;
-      if (initialArticles.length > 0 || initialCategories.length > 0) {
-        // SSR data already seeded — skip pehla client fetch
-        return;
-      }
+      // Initial JSON sirf first paint ke liye hai; live data API se refresh hota hai.
     }
     fetchSidebar();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -496,11 +409,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   useEffect(() => {
     if (!skippedInitialArticlesFetch.current) {
       skippedInitialArticlesFetch.current = true;
-      if (!search && !categoryId && initialArticles.length > 0) {
-        // Default view aur SSR data already maujood hai — client fetch skip
-        // karo taaki Googlebot ke render mein data overwrite/empty na ho.
-        return;
-      }
+      // Initial JSON sirf first paint ke liye hai; live data API se refresh hota hai.
     }
     fetchArticles(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -531,8 +440,13 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const normalizedTerm = term.toLowerCase();
-        const items = initialArticles.filter((item) => [getTitle(item), getDescription(item), getCategoryLabel(item)].join(' ').toLowerCase().includes(normalizedTerm));
+        const params = new URLSearchParams();
+        params.set('search', term);
+        params.set('limit', String(SUGGESTION_LIMIT));
+        params.set('page', '1');
+        const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
+        const data = await response.json();
+        const items = Array.isArray(data) ? data : (data.items || data.results || []);
         setSuggestions(items.slice(0, SUGGESTION_LIMIT));
         setShowSuggestions(true);
       } catch (error) {
@@ -590,22 +504,6 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
   return (
     <>
-      <Head>
-        <title>{blogPageMeta.title}</title>
-        <meta name="description" content={blogPageMeta.description} />
-        <meta name="keywords" content={blogPageMeta.keywords} />
-        <link rel="canonical" href={blogPageMeta.canonical} />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content={blogPageMeta.title} />
-        <meta property="og:description" content={blogPageMeta.description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={blogPageMeta.canonical} />
-        <meta property="og:image" content={blogPageMeta.image} />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={blogPageMeta.title} />
-        <meta name="twitter:description" content={blogPageMeta.description} />
-        <meta name="twitter:image" content={blogPageMeta.image} />
-      </Head>
 
       <div className="rk-blog-scope">
       <section className="container-fluid custom-container small-hero-area">
@@ -619,7 +517,15 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
           <p className='fs-mob-16'>Browse the latest articles, learn new tips, and explore career insights curated for job seekers like you.</p>
         </div>
         <div className='right-part d-none d-md-block'>
-          <img src={'/front-assets/images/blog-hero.webp'} className='img-fluid' width={500} />
+          <img
+            src="/front-assets/images/blog-hero.webp"
+            className='img-fluid'
+            width={500}
+            height={360}
+            alt="ResumeSathi career blog articles and resume tips"
+            loading="eager"
+            fetchPriority="high"
+          />
         </div>
       </section>
 
@@ -752,3 +658,4 @@ export default function BlogPageClient({ initialArticles = [], initialCategories
     <BlogPageContent initialArticles={initialArticles} initialCategories={initialCategories} />
   );
 }
+

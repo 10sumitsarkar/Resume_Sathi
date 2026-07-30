@@ -1975,11 +1975,13 @@ a {
 
     textarea {
       color: var(--text-color2);
+      border: 1.5px solid #efe8ff;
       font-size: 16px;
       font-weight: 400;
       padding: 15px 15px;
       border-radius: 15px;
       box-shadow: none !important;
+      outline: none;
       width: 100%;
 
       &::placeholder {
@@ -1987,7 +1989,7 @@ a {
       }
 
       &:focus {
-        border: 1px solid #4400ff4a;
+            border: 1.5px solid #4400ff4a!important;
       }
 
       &.is-invalid {

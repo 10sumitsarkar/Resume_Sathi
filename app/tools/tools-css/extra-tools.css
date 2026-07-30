@@ -1,0 +1,348 @@
+.extra-tool .extra-panel {
+  max-width: 860px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.extra-file-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  background: #fff8f8;
+  border: 1px solid rgba(204, 0, 0, 0.14);
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.extra-file-card strong {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.extra-file-card span {
+  color: #cc0000;
+  font-size: 13px;
+  font-weight: 700;
+  flex: none;
+}
+
+.extra-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #111;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.extra-field input,
+.extra-textarea {
+  width: 100%;
+  border: 1.5px solid #d1d5db;
+  border-radius: 10px;
+  padding: 11px 12px;
+  color: #111;
+  font-size: 15px;
+  outline: none;
+}
+
+.extra-field input:focus,
+.extra-textarea:focus {
+  border-color: #cc0000;
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.08);
+}
+
+.extra-textarea {
+  min-height: 280px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.extra-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.extra-workspace {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(300px, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.extra-workspace-wide {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 340px);
+}
+
+.extra-side-panel {
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 18px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.extra-preview-card {
+  position: relative;
+  max-width: 260px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.extra-preview-card:hover {
+  border-color: #cc0000;
+  box-shadow: 0 4px 16px rgba(204, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.extra-preview-icon {
+  height: 190px;
+  background: #fff0f0;
+  color: #cc0000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.extra-preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+}
+
+.extra-preset-row button {
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+  color: #333;
+  padding: 8px 11px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: border-color 0.2s, color 0.2s, background 0.2s;
+}
+
+.extra-preset-row button:hover {
+  border-color: #cc0000;
+  color: #cc0000;
+  background: #fff8f8;
+}
+
+.extra-summary-card {
+  background: #fff8f8;
+  border: 1px solid rgba(204, 0, 0, 0.14);
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+}
+
+.extra-summary-card strong {
+  display: block;
+  color: #cc0000;
+  font-size: 36px;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.extra-summary-card span,
+.extra-note {
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.extra-note {
+  margin: 14px 0 0;
+  line-height: 1.55;
+}
+
+.extra-image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.extra-image-card {
+  position: relative;
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.extra-image-card img {
+  width: 100%;
+  height: 190px;
+  object-fit: cover;
+  display: block;
+}
+
+.extra-image-card button,
+.extra-image-card span {
+  position: absolute;
+  top: 8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  font-weight: 700;
+}
+
+.extra-image-card button {
+  right: 8px;
+  background: #dc2626;
+  color: #fff;
+}
+
+.extra-image-card span {
+  left: 8px;
+  background: #fff;
+  color: #111;
+  font-size: 12px;
+}
+
+.extra-two-col {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.extra-document-preview {
+  min-height: 460px;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.age-result-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.age-result-grid div,
+.extra-empty {
+  background: #fff8f8;
+  border: 1px solid rgba(204, 0, 0, 0.14);
+  border-radius: 14px;
+  padding: 18px;
+  text-align: center;
+}
+
+.age-result-grid strong {
+  display: block;
+  color: #cc0000;
+  font-size: 32px;
+  line-height: 1;
+}
+
+.age-result-grid span,
+.extra-empty {
+  color: #555;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.signature-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.signature-preview {
+  background: #fff;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 18px;
+  overflow: auto;
+  text-align: center;
+}
+
+.signature-stage {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+}
+
+.signature-stage img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+
+.signature-crop-box {
+  position: absolute;
+  border: 2px solid #cc0000;
+  background: rgba(204, 0, 0, 0.08);
+  cursor: move;
+  touch-action: none;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.22);
+}
+
+.signature-crop-handle {
+  position: absolute;
+  right: -7px;
+  bottom: -7px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #cc0000;
+  border: 2px solid #fff;
+  cursor: nwse-resize;
+  touch-action: none;
+}
+
+@media (max-width: 767px) {
+  .extra-tool .extra-panel {
+    padding: 18px;
+  }
+
+  .extra-actions,
+  .extra-two-col,
+  .age-result-grid,
+  .signature-workspace,
+  .extra-workspace,
+  .extra-workspace-wide {
+    grid-template-columns: 1fr;
+  }
+
+  .extra-actions {
+    display: grid;
+  }
+
+  .age-result-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .extra-image-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .extra-image-card img {
+    height: 160px;
+  }
+}

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
 import {
   PALETTE_COLORS,
@@ -19,10 +19,10 @@ const styles = StyleSheet.create({
   page: {
     flexDirection: "column",
     fontFamily: "Poppins",
-    paddingTop: 40,
-    paddingBottom: 40,
-    paddingLeft: 46,
-    paddingRight: 46,
+    paddingTop: 35,
+    paddingBottom: 35,
+    paddingLeft: 35,
+    paddingRight: 35,
     backgroundColor: "#fffefd",
     color: "#262625",
   },
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 
   // ---------- Header ----------
   name: {
-    fontSize: 32,
+    fontSize: 22,
     fontWeight: "800",
     color: "#1a1a1a",
     textTransform: "uppercase",
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
   role: {
-    fontSize: 11,
+    fontSize: 10.5,
     letterSpacing: 3.2,
     textTransform: "uppercase",
     color: "#55524d",
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   contactItem: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#4a4a48",
   },
 
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   sectionTitle: {
-    fontSize: 12.5,
+    fontSize: 11.5,
     fontWeight: "700",
     textTransform: "uppercase",
     letterSpacing: 2.2,
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   bodyText: {
-    fontSize: 10.5,
+    fontSize: 11.5,
     lineHeight: 1.75,
     color: "#3a3936",
     fontStyle: "italic",
@@ -140,13 +140,13 @@ const styles = StyleSheet.create({
   skillName: {
     flex: 1,
     minWidth: 0,
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#262625",
     marginRight: 8,
   },
   pill: {
     flexShrink: 0,
-    fontSize: 7.5,
+    fontSize: 8.5,
     fontWeight: "700",
     borderRadius: 3,
     borderWidth: 1,
@@ -171,29 +171,29 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   entryTitle: {
-    fontSize: 13.5,
+    fontSize: 10.5,
     fontWeight: "700",
     color: "#1a1a1a",
   },
   entryCompany: {
-    fontSize: 10,
+    fontSize: 11,
     fontStyle: "italic",
     color: "#55524d",
     marginTop: 2,
   },
   entryDate: {
-    fontSize: 9,
+    fontSize: 9.2,
     fontWeight: "700",
     whiteSpace: "nowrap",
     paddingTop: 2,
   },
   entryLocation: {
-    fontSize: 9,
+    fontSize: 10,
     color: "#8a8680",
     marginTop: 3,
   },
   entryDescription: {
-    fontSize: 10,
+    fontSize: 11,
     lineHeight: 1.6,
     color: "#3a3936",
     marginTop: 7,
@@ -205,11 +205,11 @@ const styles = StyleSheet.create({
     paddingRight: 6,
   },
   bulletMark: {
-    fontSize: 9,
+    fontSize: 10,
     marginRight: 6,
   },
   bulletText: {
-    fontSize: 10,
+    fontSize: 11,
     lineHeight: 1.6,
     color: "#3a3936",
     flex: 1,
@@ -232,11 +232,11 @@ const styles = StyleSheet.create({
     borderBottomColor: "#d8d2c5",
   },
   languageName: {
-    fontSize: 11.5,
+    fontSize: 12.5,
     color: "#1a1a1a",
   },
   languageLevel: {
-    fontSize: 8.5,
+    fontSize: 9.5,
     textTransform: "uppercase",
     letterSpacing: 0.5,
     color: "#8a8680",
@@ -252,7 +252,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   socialItem: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#3a3936",
   },
   socialLabel: {
@@ -273,15 +273,17 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   hobbyTick: {
-    fontSize: 9,
+    fontSize: 10,
     fontWeight: "700",
     marginRight: 5,
   },
   hobbyText: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#333333",
   },
 });
+
+const BULLET = String.fromCharCode(8226);
 
 const ResumeTemplate7Pdf = ({
   resume,
@@ -359,8 +361,8 @@ const ResumeTemplate7Pdf = ({
       {bullets && bullets.length > 0
         ? bullets.map((line, i) => (
             <View key={i} style={styles.bulletRow}>
-              <Text style={{ ...styles.bulletMark, color: accentColor }}>•</Text>
-              <Text style={styles.bulletText}>{line.replace(/^[-•]\s*/, "")}</Text>
+              <Text style={{ ...styles.bulletMark, color: accentColor }}>{BULLET}</Text>
+              <Text style={styles.bulletText}>{line.replace(/^-+\s*/, "")}</Text>
             </View>
           ))
         : null}
@@ -428,7 +430,7 @@ const ResumeTemplate7Pdf = ({
               <Entry
                 key={idx}
                 title={safeText(work.job_title)}
-                company={[safeText(work.company_name), safeText(work.employee_type)].filter(Boolean).join(" · ")}
+                company={[safeText(work.company_name), safeText(work.employee_type)].filter(Boolean).join(" / ")}
                 location={safeText(work.location)}
                 dateLabel={formatDateRange(work.start_month, work.start_year, work.end_month, work.end_year)}
                 bullets={
@@ -449,7 +451,7 @@ const ResumeTemplate7Pdf = ({
               <Entry
                 key={idx}
                 title={safeText(intern.job_title)}
-                company={[safeText(intern.company_name), safeText(intern.employee_type)].filter(Boolean).join(" · ")}
+                company={[safeText(intern.company_name), safeText(intern.employee_type)].filter(Boolean).join(" / ")}
                 location={safeText(intern.location)}
                 dateLabel={formatDateRange(intern.start_month, intern.start_year, intern.end_month, intern.end_year)}
               />
@@ -531,7 +533,7 @@ const ResumeTemplate7Pdf = ({
             <View style={styles.hobbiesRow}>
               {resume.hobbies.map((hobby, idx) => (
                 <View key={idx} style={styles.hobbyItem}>
-                  <Text style={{ ...styles.hobbyTick, color: accentColor }}>✓</Text>
+                  <Text style={{ ...styles.hobbyTick, color: accentColor }}>{BULLET}</Text>
                   <Text style={styles.hobbyText}>{safeText(hobby.hobbies || hobby)}</Text>
                 </View>
               ))}
@@ -544,3 +546,12 @@ const ResumeTemplate7Pdf = ({
 };
 
 export default ResumeTemplate7Pdf;
+
+
+
+
+
+
+
+
+

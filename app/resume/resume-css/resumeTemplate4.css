@@ -271,3 +271,15 @@ gap: 15px;
     }
   }
 }
+/* Readability bump */
+.ResumeTemplate4 p,
+.ResumeTemplate4 li,
+.ResumeTemplate4 .resume4_entry_date,
+.ResumeTemplate4 .resume4_entry_desc {
+  font-size: 1.04em;
+}
+
+.ResumeTemplate4 .resume4_section_title,
+.ResumeTemplate4 .resume4_entry_title {
+  font-size: 1.06em;
+}

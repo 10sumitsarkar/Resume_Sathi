@@ -57,14 +57,6 @@ const id = searchParams.get('id');
   const workExperienceFormData = watch(); // Get real-time form values
 
   useEffect(() => {
-    if (!workExperienceFormData.end_month && !workExperienceFormData.end_year) {
-      setStillEnrolled(true);
-    } else {
-      setStillEnrolled(false);
-    }
-  }, [workExperienceFormData.end_month, workExperienceFormData.end_year]);
-
-  useEffect(() => {
     if (work_experiences.length < 1) {
       setFormOpened(true);
     } else {
@@ -97,6 +89,7 @@ const id = searchParams.get('id');
       end_year: "",
       description: '',
     });
+    setStillEnrolled(false);
     setFormOpened(true);
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -133,6 +126,7 @@ const id = searchParams.get('id');
       setEditStatus(true);
       document.getElementById("saveDetails").innerText = "Update";
       setFormOpened(true);
+      setStillEnrolled(!workExperienceToEdit.end_month && !workExperienceToEdit.end_year);
       reset(workExperienceToEdit);
       setTimeout(() => {
         formRef.current?.scrollIntoView({ behavior: "smooth" });

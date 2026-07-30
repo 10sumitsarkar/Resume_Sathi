@@ -12,6 +12,7 @@ import ResumeTemplate7 from "../templates/ResumeTemplate7";
 import "../resume-css/resumeTemp.css";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "next/navigation";
+import { getResumeCustomizationClasses } from "../utils/fontSize";
 
 export default function ReviewResume({ isMainPreview = false }) {
   const [isHydrated, setIsHydrated] = useState(false);
@@ -40,6 +41,7 @@ const id = searchParams.get('id');
   );
   const SelectedTemplate =
     templateMap[configurationData.selected_theme] || ResumeTemplate1;
+  const customizationClasses = getResumeCustomizationClasses(configurationData);
 
   if (!isHydrated) return null;
 
@@ -49,7 +51,7 @@ const id = searchParams.get('id');
         {SelectedTemplate ? (
           <SelectedTemplate
             isForDownload={isMainPreview}
-            additionalClass={`${configurationData.color_palette} ${configurationData.font_style}`}
+            additionalClass={customizationClasses}
           />
         ) : (
           <></>
@@ -78,7 +80,7 @@ const id = searchParams.get('id');
             {SelectedTemplate ? (
                 <SelectedTemplate
                   isForDownload={false}
-                  additionalClass={`${configurationData.color_palette} ${configurationData.font_style}`}
+                  additionalClass={customizationClasses}
                 />
               ) : (
                 <></>

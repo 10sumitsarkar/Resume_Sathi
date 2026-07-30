@@ -320,19 +320,18 @@ export default function ResumeTemplate6({
         {showStaticData ? (
           <div className={`resume ResumeTemplate6 ${additionalClass}`}>
             <div className="rt6_header">
-              <p className="rt6_name resume-name">Your Name</p>
+              <p className="rt6_name resume-name">Rohan Malhotra</p>
               <div className="rt6_rule" />
-              <p className="rt6_role resume-job-title">Job Title</p>
+              <p className="rt6_role resume-job-title">Digital Marketing Manager</p>
               <div className="rt6_rule" />
             </div>
 
             <div className="rt6_block rt6_about">
               <h3 className="rt6_heading">About Me</h3>
               <p className="rt6_body_text resume-about-me">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                nisi ut aliquip ex ea commodo consequat.
+                Digital marketing manager with 6+ years of experience planning
+                growth campaigns, improving paid acquisition, and building
+                content funnels for SaaS and consumer brands.
               </p>
             </div>
 
@@ -346,25 +345,25 @@ export default function ResumeTemplate6({
                       <span className="rt6_icon">
                         <IconPhone />
                       </span>
-                      <span>+91-1234567890</span>
+                      <span>+91 98123 45678</span>
                     </li>
                     <li>
                       <span className="rt6_icon">
                         <IconEmail />
                       </span>
-                      <span>resume@example.com</span>
+                      <span>rohan.malhotra@email.com</span>
                     </li>
                     <li>
                       <span className="rt6_icon">
                         <IconLocation />
                       </span>
-                      <span>City, State</span>
+                      <span>Gurugram, Haryana</span>
                     </li>
                     <li>
                       <span className="rt6_icon">
                         <IconGlobe />
                       </span>
-                      <span>www.example.com</span>
+                      <span>rohanmalhotra.in</span>
                     </li>
                   </ul>
                 </div>
@@ -408,9 +407,9 @@ export default function ResumeTemplate6({
                   <div className="rt6_heading_rule" />
                   <ul className="rt6_social_list">
                     {[
-                      ["Twitter", "twitter.com/example"],
-                      ["LinkedIn", "linkedin.com/in/example"],
-                      ["Instagram", "instagram.com/example"],
+                      ["Twitter", "twitter.com/rohanmarkets"],
+                      ["LinkedIn", "linkedin.com/in/rohanmalhotra"],
+                      ["Instagram", "instagram.com/rohan.growth"],
                     ].map(([name, url]) => (
                       <li key={name}>
                         <span className="rt6_icon">{getSocialIcon(name)}</span>
@@ -436,13 +435,13 @@ export default function ResumeTemplate6({
                   {[
                     {
                       title: "Business Administration",
-                      org: "Borcelle University",
-                      date: "2027-2030",
+                      org: "NMIMS Mumbai",
+                      date: "2017 - 2019",
                     },
                     {
                       title: "Communication",
-                      org: "Borcelle University",
-                      date: "2024-2027",
+                      org: "Delhi University",
+                      date: "2013 - 2016",
                     },
                   ].map((e, i) => (
                     <div className="rt6_entry" key={i}>
@@ -475,15 +474,15 @@ export default function ResumeTemplate6({
                   {[
                     {
                       title: "Marketing Executive",
-                      org: "Salford & Co.",
-                      date: "2032 - 2035",
-                      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                      org: "GrowthLoop Media",
+                      date: "2022 - Present",
+                      desc: "Managed performance campaigns across Google, Meta, and LinkedIn, improving qualified leads by 42% while reducing cost per lead by 18%.",
                     },
                     {
                       title: "Digital Marketing Specialist",
-                      org: "Salford & Co.",
-                      date: "2030 - 2032",
-                      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+                      org: "BluePeak Digital",
+                      date: "2019 - 2022",
+                      desc: "Planned content calendars, optimized SEO landing pages, and launched email nurture journeys for B2B software clients.",
                     },
                   ].map((e, i) => (
                     <div className="rt6_entry" key={i}>

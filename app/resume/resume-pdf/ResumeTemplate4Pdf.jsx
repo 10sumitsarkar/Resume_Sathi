@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
 import {
   PALETTE_COLORS,
@@ -9,7 +9,7 @@ import {
 import { IconTick, getSocialIcon } from "./PdfCommon";
 
 /**
- * ResumeTemplate4Pdf — "Classic Divider"
+ * ResumeTemplate4Pdf - "Classic Divider"
  * Left-aligned single-column layout. Red accent section headings each
  * followed by a thin accent-colored underline, with a neutral dark
  * divider line separating one section block from the next. Entries show
@@ -30,14 +30,14 @@ const styles = StyleSheet.create({
 
   // ---------- Header ----------
   name: {
-    fontSize: 24,
+    fontSize: 19,
     fontWeight: "700",
     letterSpacing: 0.5,
     textTransform: "uppercase",
     marginBottom: 6,
   },
   jobTitle: {
-    fontSize: 11,
+    fontSize: 10.5,
     fontWeight: "700",
     color: "#374151",
     textTransform: "uppercase",
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   contactLine: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#4b5563",
     marginBottom: 14,
   },
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   sectionTitle: {
-    fontSize: 12.5,
+    fontSize: 11.5,
     fontWeight: "800",
     textTransform: "uppercase",
     letterSpacing: 1,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
 
   // ---------- Summary ----------
   bodyText: {
-    fontSize: 10,
+    fontSize: 11,
     lineHeight: 1.6,
     color: "#374151",
     textAlign: "justify",
@@ -94,29 +94,29 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   entryTitle: {
-    fontSize: 11,
+    fontSize: 10.5,
     fontWeight: "700",
     color: "#111827",
   },
   entryDate: {
-    fontSize: 10,
+    fontSize: 9.2,
     fontWeight: "700",
     color: "#111827",
   },
   entrySubLine: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     fontStyle: "italic",
     color: "#6b7280",
     marginBottom: 6,
   },
   entryDescription: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     lineHeight: 1.5,
     color: "#374151",
     marginTop: 2,
   },
   entryDescriptionItalic: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     lineHeight: 1.5,
     fontStyle: "italic",
     color: "#6b7280",
@@ -135,14 +135,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   skillText: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#1f2937",
     marginLeft: 5,
   },
 
   // ---------- Additional info ----------
   infoLine: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     lineHeight: 1.6,
     color: "#374151",
     marginBottom: 6,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   infoLabel: {
     fontWeight: "700",
     color: "#111827",
-    fontSize: 10,
+    fontSize: 11,
   },
   socialColumn: {
     flexDirection: "column",
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   socialItemText: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#374151",
     marginLeft: 5,
   },
@@ -290,7 +290,7 @@ const ResumeTemplate4Pdf = ({
                     .filter((line) => line.trim().length > 0)
                     .map((line, lIdx) => (
                       <Text key={lIdx} style={styles.entryDescription}>
-                        {line.replace(/^[-•]\s*/, "")}
+                        {line.replace(/^-+\s*/, "")}
                       </Text>
                     ))}
               </View>
@@ -456,3 +456,12 @@ const ResumeTemplate4Pdf = ({
 };
 
 export default ResumeTemplate4Pdf;
+
+
+
+
+
+
+
+
+

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import {
   Document,
   Page,
@@ -29,7 +29,7 @@ import {
 } from "./PdfCommon";
 
 /**
- * ResumeTemplate5Pdf — "Gradient Rows"
+ * ResumeTemplate5Pdf - "Gradient Rows"
  * Full-page soft diagonal gradient background (green -> lavender).
  * Header: square photo + big name + role tag.
  * Every section is a two-column ROW: a narrow left label/date column
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     objectFit: "cover",
   },
   photoFallbackText: {
-    fontSize: 22,
+    fontSize: 21,
     fontWeight: "700",
     textAlign: "center",
     marginTop: 22,
@@ -88,12 +88,12 @@ const styles = StyleSheet.create({
     flexGrow: 1,
   },
   nameText: {
-    fontSize: 26,
+    fontSize: 19,
     fontWeight: "800",
     letterSpacing: 0.5,
   },
   roleText: {
-    fontSize: 12,
+    fontSize: 10.8,
     color: "#4b5563",
     marginTop: 2,
   },
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   sectionTitle: {
-    fontSize: 11,
+    fontSize: 11.2,
     fontWeight: "800",
     textTransform: "uppercase",
     letterSpacing: 0.8,
@@ -140,42 +140,42 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   contactText: {
-    fontSize: 8.5,
+    fontSize: 9.5,
     color: "#333333",
     flex: 1,
     lineHeight: 1.3,
   },
 
   bodyText: {
-    fontSize: 9,
+    fontSize: 10,
     lineHeight: 1.6,
     color: "#374151",
   },
 
   // Entry (experience / internships / education / certifications)
   entryDate: {
-    fontSize: 9.5,
+    fontSize: 9.2,
     fontWeight: "700",
   },
   entryOrg: {
-    fontSize: 8.5,
+    fontSize: 9.5,
     color: "#6b7280",
     marginTop: 2,
   },
   entryTitle: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     fontWeight: "700",
     color: "#111827",
     marginBottom: 4,
   },
   entrySub: {
-    fontSize: 9,
+    fontSize: 10,
     color: "#555555",
     fontStyle: "italic",
     marginBottom: 4,
   },
   entryDesc: {
-    fontSize: 8.5,
+    fontSize: 9.5,
     lineHeight: 1.5,
     color: "#374151",
   },
@@ -198,7 +198,7 @@ const styles = StyleSheet.create({
     marginRight: 6,
   },
   bulletText: {
-    fontSize: 9,
+    fontSize: 10,
     color: "#374151",
   },
 
@@ -216,11 +216,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   socialText: {
-    fontSize: 9,
+    fontSize: 10,
     color: "#374151",
   },
   socialLink: {
-    fontSize: 9,
+    fontSize: 10,
     color: "#374151",
     textDecoration: "underline",
   },
@@ -395,7 +395,7 @@ const ResumeTemplate5Pdf = ({
                     <Text style={styles.entrySub}>
                       {[safeText(work.location), safeText(work.employee_type)]
                         .filter(Boolean)
-                        .join(" • ")}
+                        .join(" - ")}
                     </Text>
                   ) : null}
                   {work.description ? (
@@ -440,7 +440,7 @@ const ResumeTemplate5Pdf = ({
                         safeText(intern.employee_type),
                       ]
                         .filter(Boolean)
-                        .join(" • ")}
+                        .join(" - ")}
                     </Text>
                   ) : null}
                 </View>
@@ -559,7 +559,7 @@ const ResumeTemplate5Pdf = ({
                   <Text style={styles.bulletText}>
                     {safeText(lang.language)}
                     {lang.proficiency_level
-                      ? ` — ${safeText(lang.proficiency_level)}`
+                      ? ` - ${safeText(lang.proficiency_level)}`
                       : ""}
                   </Text>
                 </View>
@@ -621,3 +621,12 @@ const ResumeTemplate5Pdf = ({
 };
 
 export default ResumeTemplate5Pdf;
+
+
+
+
+
+
+
+
+

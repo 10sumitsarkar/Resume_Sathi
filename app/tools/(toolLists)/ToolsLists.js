@@ -76,6 +76,37 @@ const IconFileWord = () => (
   </svg>
 );
 
+const IconTrashFile = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+    <polyline points="14 2 14 8 20 8" />
+    <path d="M9 13h6" />
+    <path d="M10 17h4" />
+  </svg>
+);
+
+const IconImage = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="3" width="18" height="18" rx="2" />
+    <circle cx="8.5" cy="8.5" r="1.5" />
+    <path d="m21 15-5-5L5 21" />
+  </svg>
+);
+
+const IconCalendar = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <rect x="3" y="4" width="18" height="18" rx="2" />
+    <path d="M16 2v4M8 2v4M3 10h18" />
+  </svg>
+);
+
+const IconCrop = () => (
+  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M6.13 1 6 16a2 2 0 0 0 2 2h15" />
+    <path d="M1 6.13 16 6a2 2 0 0 1 2 2v15" />
+  </svg>
+);
+
 const IconArrowRight = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <line x1="5" y1="12" x2="19" y2="12" />
@@ -122,12 +153,22 @@ const TOOL_GROUPS = [
         live: true,
       },
       {
+        href: "/tools/split-pdf",
         icon: <IconScissors />,
         tagIcon: <IconFilePdfSmall />,
         title: "Split PDF",
         desc: "Extract pages or split a PDF into multiple files.",
         tag: "PDF only",
-        live: false,
+        live: true,
+      },
+      {
+        href: "/tools/pdf-remove",
+        icon: <IconTrashFile />,
+        tagIcon: <IconFilePdfSmall />,
+        title: "Remove PDF Pages",
+        desc: "Delete unwanted pages from a PDF and download a clean file.",
+        tag: "PDF only",
+        live: true,
       },
       {
         href: "/tools/pdf-compressor",
@@ -139,12 +180,47 @@ const TOOL_GROUPS = [
         live: true,
       },
       {
+        href: "/tools/docx-to-pdf",
         icon: <IconFileWord />,
         tagIcon: <IconFileText />,
         title: "DOCX to PDF",
         desc: "Convert Word documents to PDF without losing formatting.",
         tag: "DOCX",
-        live: false,
+        live: true,
+      },
+      {
+        href: "/tools/image-to-pdf",
+        icon: <IconImage />,
+        tagIcon: <IconFilePdfSmall />,
+        title: "Image to PDF",
+        desc: "Convert JPG and PNG images into one clean PDF.",
+        tag: "Images",
+        live: true,
+      },
+    ],
+  },
+  {
+    key: "utility",
+    icon: <IconTools />,
+    label: "Utility",
+    tools: [
+      {
+        href: "/tools/age-calculator",
+        icon: <IconCalendar />,
+        tagIcon: <IconFileText />,
+        title: "Age Calculator",
+        desc: "Calculate exact age in years, months, and days.",
+        tag: "Date",
+        live: true,
+      },
+      {
+        href: "/tools/signature-cropper",
+        icon: <IconCrop />,
+        tagIcon: <IconImage />,
+        title: "Signature Cropper",
+        desc: "Crop and resize signatures to exact form dimensions.",
+        tag: "Image",
+        live: true,
       },
     ],
   },
@@ -167,7 +243,15 @@ export default function ToolsLists() {
           <p className='className="fs-mob-16"'>Everything you need to optimize resumes, manage PDF documents, and streamline your job application workflow—all in one place.</p>
         </div>
         <div className='right-part d-none d-md-block'>
-          <img src={'/front-assets/images/tools-hero.webp'} className='img-fluid' width={500} />
+          <img
+            src="/front-assets/images/tools-hero.webp"
+            className='img-fluid'
+            width={500}
+            height={360}
+            alt="ResumeSathi free career and document tools"
+            loading="eager"
+            fetchPriority="high"
+          />
         </div>
       </section>
       <section className="tool-list py-custom pb-120">

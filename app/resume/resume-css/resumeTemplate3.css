@@ -342,3 +342,15 @@
     }
   }
 }
+/* Readability bump */
+.ResumeTemplate3 p,
+.ResumeTemplate3 li,
+.ResumeTemplate3 .rt3_entry_date,
+.ResumeTemplate3 .rt3_entry_desc {
+  font-size: 1.04em;
+}
+
+.ResumeTemplate3 .rt3_section_title,
+.ResumeTemplate3 .rt3_entry_title {
+  font-size: 1.06em;
+}

@@ -287,19 +287,19 @@ export default function ResumeTemplate5({
 
   /* ─── Realistic sample data for static preview (mirrors dynamic data shape) ─── */
   const staticPersonalInfomation = {
-    firstName: "Prasha",
-    lastName: "Anand",
+    firstName: "Aarav",
+    lastName: "Mehta",
     experience: "Data Analyst",
-    city: "Any City",
-    state: "Any State",
-    phone: "+1 234-567-7890",
-    email: "hello@reallygreatsite.com",
-    website: "www.reallygreatsite.com",
+    city: "Bengaluru",
+    state: "Karnataka",
+    phone: "+91 98765 43210",
+    email: "aarav.mehta@email.com",
+    website: "aaravmehta.dev",
     photo: "/front-assets/images/icons/user-icon.svg",
   };
   const staticSummary = {
     summary:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "Data Analyst with 4+ years of experience turning raw business data into dashboards, forecasts, and practical insights. Skilled in SQL, Python, Excel, Power BI, and stakeholder reporting for product, sales, and operations teams.",
   };
 
   return (
@@ -407,28 +407,28 @@ export default function ResumeTemplate5({
               <div className="rt5_row">
                 <div className="rt5_col_label">
                   <p className="rt5_entry_date">2023 - 2024</p>
-                  <p className="rt5_entry_org">Wardiere Company</p>
+                  <p className="rt5_entry_org">FinEdge Analytics</p>
                 </div>
                 <div className="rt5_col_content">
                   <p className="rt5_entry_title">Data Analyst</p>
                   <p className="rt5_entry_desc">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    Built automated revenue dashboards, reduced manual reporting
+                    time by 35%, and partnered with product teams to identify
+                    churn trends from customer usage data.
                   </p>
                 </div>
               </div>
               <div className="rt5_row">
                 <div className="rt5_col_label">
                   <p className="rt5_entry_date">2022 - 2023</p>
-                  <p className="rt5_entry_org">Borcelle Studio</p>
+                  <p className="rt5_entry_org">BrightCart Retail</p>
                 </div>
                 <div className="rt5_col_content">
                   <p className="rt5_entry_title">Data Analyst</p>
                   <p className="rt5_entry_desc">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                    do eiusmod tempor incididunt ut labore et dolore magna
-                    aliqua.
+                    Cleaned sales datasets, created weekly performance reports,
+                    and improved inventory forecasting accuracy using Excel,
+                    SQL, and Power BI.
                   </p>
                 </div>
               </div>
@@ -441,7 +441,7 @@ export default function ResumeTemplate5({
               <div className="rt5_row">
                 <div className="rt5_col_label">
                   <p className="rt5_entry_date">2021 - 2022</p>
-                  <p className="rt5_entry_org">Borcelle Studio</p>
+                  <p className="rt5_entry_org">InsightWorks Labs</p>
                 </div>
                 <div className="rt5_col_content">
                   <p className="rt5_entry_title">Data Analyst Intern</p>
@@ -457,22 +457,22 @@ export default function ResumeTemplate5({
               <div className="rt5_row">
                 <div className="rt5_col_label">
                   <p className="rt5_entry_date">2020 - 2023</p>
-                  <p className="rt5_entry_org">Borcelle University</p>
+                  <p className="rt5_entry_org">Christ University</p>
                 </div>
                 <div className="rt5_col_content">
                   <p className="rt5_entry_title">
-                    Master of Information Management
+                    Master of Business Analytics
                   </p>
                 </div>
               </div>
               <div className="rt5_row">
                 <div className="rt5_col_label">
                   <p className="rt5_entry_date">2016 - 2020</p>
-                  <p className="rt5_entry_org">Borcelle University</p>
+                  <p className="rt5_entry_org">Delhi University</p>
                 </div>
                 <div className="rt5_col_content">
                   <p className="rt5_entry_title">
-                    Bachelor of Information Management
+                    Bachelor of Commerce
                   </p>
                 </div>
               </div>

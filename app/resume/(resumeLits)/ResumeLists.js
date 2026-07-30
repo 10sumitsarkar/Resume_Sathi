@@ -19,6 +19,7 @@ import ResumeTemplate4 from '../templates/ResumeTemplate4';
 import ResumeTemplate5 from '../templates/ResumeTemplate5'; 
 import ResumeTemplate6 from '../templates/ResumeTemplate6'; 
 import ResumeTemplate7 from '../templates/ResumeTemplate7'; 
+import { getResumeCustomizationClasses } from '../utils/fontSize';
 
 import "./resume-list.css";
 
@@ -250,7 +251,7 @@ export default function ResumeLists() {
     printContainer.id = '__resume_list_print_root__';
     printContainer.style.cssText = 'display:none;position:fixed;inset:0;background:#fff;z-index:9999999;margin:0;padding:0;';
     const innerWrapper = document.createElement('div');
-    innerWrapper.className = `print-wrapper ${resume.configuration?.color_palette || ''} ${resume.configuration?.font_style || ''}`;
+    innerWrapper.className = `print-wrapper ${getResumeCustomizationClasses(resume.configuration)}`;
     innerWrapper.style.cssText = 'width:100%;margin:0;padding:0;';
     const clone = element.cloneNode(true);
     clone.style.cssText = 'width:100% !important;max-width:100% !important;transform:none !important;position:static !important;box-shadow:none !important;overflow:visible !important;margin:0 !important;padding:0 !important;';
@@ -355,7 +356,15 @@ export default function ResumeLists() {
           </Link>
         </div>
         <div className="right-part d-none d-md-block">
-          <img src="/front-assets/images/resume-hero.webp" className="img-fluid" width={500} alt="Resume hero" />
+          <img
+            src="/front-assets/images/resume-hero.webp"
+            className="img-fluid"
+            width={500}
+            height={360}
+            alt="ResumeSathi resume builder dashboard"
+            loading="eager"
+            fetchPriority="high"
+          />
         </div>
       </section>
 
@@ -558,13 +567,13 @@ export default function ResumeLists() {
       {renderResume && RenderTemplate && (
         <div
           id={`resume-list-render-${renderResume.id}`}
-          className={`print-wrapper review-resume-div ${renderResume.configuration?.color_palette || ''} ${renderResume.configuration?.font_style || ''}`}
+          className={`print-wrapper review-resume-div ${getResumeCustomizationClasses(renderResume.configuration)}`}
           style={{ position: 'fixed', left: '-9999px', top: 0, width: '800px', background: '#fff', pointerEvents: 'none', zIndex: -1, margin: 0, padding: 0 }}
         >
           <RenderTemplate
             resumeId={renderResume.id}
             isForDownload={true}
-            additionalClass={`${renderResume.configuration?.color_palette || ''} ${renderResume.configuration?.font_style || ''}`}
+            additionalClass={getResumeCustomizationClasses(renderResume.configuration)}
           />
         </div>
       )}

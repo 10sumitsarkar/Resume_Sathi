@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import dynamic from "next/dynamic";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { getApiBase } from "../../../../lib/apiConfig";
 import "../../../tools-css/pdf-compressor.css";
 
 const PdfPreviewClient = dynamic(
@@ -178,13 +179,10 @@ export default function PdfCompressor() {
       formData.append("pdf", file);
       formData.append("quality", quality);
 
-      const response = await fetch(
-        "https://api.resumesathi.com/api/pdf/compress",
-        {
-          method: "POST",
-          body: formData,
-        },
-      );
+      const response = await fetch(`${getApiBase()}/pdf/compress`, {
+        method: "POST",
+        body: formData,
+      });
 
       const data = await response.json();
 
@@ -211,7 +209,7 @@ export default function PdfCompressor() {
   const savedPct = result ? parsePercentage(result.saved_percentage) : 0;
 
   return (
-    <div className="tools-right-div custom-container py-custom pb-120">
+    <div className="tools-right-div custom-container py-custom pb-120 mb-3">
       <section
         className={`pdf-compress-tool${pageDragOver ? " page-drag-over" : ""}`}
         onDragOver={file ? handlePageDragOver : undefined}

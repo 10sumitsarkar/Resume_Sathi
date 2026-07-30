@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import {
   Document,
   Page,
@@ -22,7 +22,7 @@ import {
   getSocialIcon,
 } from "./PdfCommon";
 /**
- * ResumeTemplate1Pdf — "Sidebar Timeline"
+ * ResumeTemplate1Pdf - "Sidebar Timeline"
  * Two-column layout: a full-height colored sidebar (photo/initials,
  * name, contact icon-badges, skills, social links) on the left, and a
  * white content column on the right where each entry (education,
@@ -91,14 +91,14 @@ const styles = StyleSheet.create({
     marginTop: 6,
   },
   sidebarName: {
-    fontSize: 15,
+    fontSize: 14.5,
     fontWeight: "800",
     color: "#ffffff",
     letterSpacing: 0.4,
     marginBottom: 3,
   },
   sidebarTag: {
-    fontSize: 10,
+    fontSize: 10.5,
     color: "#ffffff",
     marginBottom: 18,
   },
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   contactText: {
-    fontSize: 9,
+    fontSize: 10,
     color: "#ffffff",
     fontWeight: "500",
     flex: 1,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     marginBottom: 18,
   },
   sidebarSectionTitle: {
-    fontSize: 12,
+    fontSize: 11.2,
     fontWeight: "800",
     color: "#ffffff",
     textTransform: "uppercase",
@@ -137,13 +137,13 @@ const styles = StyleSheet.create({
     marginBottom: 14,
   },
   skillItem: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#ffffff",
     marginBottom: 8,
     lineHeight: 1.4,
   },
   socialItem: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#ffffff",
     marginBottom: 11,
   },
@@ -165,14 +165,14 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   contentSectionTitle: {
-    fontSize: 13,
+    fontSize: 11.5,
     fontWeight: "800",
     textTransform: "uppercase",
     letterSpacing: 0.6,
     marginBottom: 10,
   },
   bodyText: {
-    fontSize: 10,
+    fontSize: 11,
     lineHeight: 1.6,
     color: "#374151",
     textAlign: "justify",
@@ -204,31 +204,31 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
   },
   entryTitle: {
-    fontSize: 11,
+    fontSize: 10.5,
     fontWeight: "700",
     color: "#111827",
     marginTop: 5,
   },
   entrySubLine: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     fontStyle: "italic",
     color: "#6b7280",
     marginTop: 5,
   },
   entryDate: {
-    fontSize: 9.5,
+    fontSize: 9.2,
     color: "#374151",
     marginTop: 5,
   },
   entryDescription: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     lineHeight: 1.55,
     color: "#374151",
     marginTop: 10,
   },
 
   languageItem: {
-    fontSize: 10,
+    fontSize: 11,
     color: "#374151",
     marginBottom: 10,
   },
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
 });
 
 const formatToDateLine = (a, b, c, d) =>
-  formatDateRange(a, b, c, d).replace(/\s*—\s*/g, " to ");
+  formatDateRange(a, b, c, d).replace(/\s*-\s*/g, " to ");
 
 const ResumeTemplate1Pdf = ({
   resume,
@@ -431,7 +431,7 @@ const ResumeTemplate1Pdf = ({
                     formatToDateLine(edu.date, edu.year, "", ""),
                   ]
                     .filter(Boolean)
-                    .join(" — ")}
+                    .join(" - ")}
                 />
               ))}
             </View>
@@ -567,3 +567,12 @@ const ResumeTemplate1Pdf = ({
 };
 
 export default ResumeTemplate1Pdf;
+
+
+
+
+
+
+
+
+

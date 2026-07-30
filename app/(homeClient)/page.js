@@ -1,40 +1,25 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import ResumeListClient from "./homeClient";
 
-// 👇 Ab network fetch nahi — jobs/blogs preview sections ke liye
+// ðŸ‘‡ Ab network fetch nahi â€” jobs/blogs preview sections ke liye
 // build-time cached data use karte hain (jobs/[slug] aur blog/[slug] ke
 // liye already ban chuki data/jobs-cache.json aur data/articles-cache.json).
 function readCache(filename) {
-  const candidates = [path.join(process.cwd(), 'data', filename)];
+  const filePath = path.join(process.cwd(), 'data', filename);
   try {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    // app/page.js -> ../data (1 level up to project root)
-    candidates.push(path.join(__dirname, '..', 'data', filename));
-  } catch (e) {
-    // import.meta.url unavailable — skip
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const data = JSON.parse(raw);
+    if (Array.isArray(data)) return data;
+  } catch (err) {
+    console.error(`FATAL: could not read data/${filename} for homepage preview sections.`);
   }
-
-  for (const filePath of candidates) {
-    try {
-      const raw = fs.readFileSync(filePath, 'utf-8');
-      const data = JSON.parse(raw);
-      if (Array.isArray(data)) return data;
-    } catch (err) {
-      // try next candidate
-    }
-  }
-
-  console.error(`FATAL: could not read data/${filename} for homepage preview sections.`);
   return [];
 }
-
 export const metadata = {
   title: "100% Free Resume Builder | Create a Resume Online, No Signup",
   description:
-    "Build a professional, ATS-friendly resume for free — no signup, no login, no payment. Anyone can create a job-ready resume online in minutes, 100% free forever.",
+    "Build a professional, ATS-friendly resume for free â€” no signup, no login, no payment. Anyone can create a job-ready resume online in minutes, 100% free forever.",
   keywords: [
     "resume builder",
     "free resume builder",
@@ -52,7 +37,7 @@ export const metadata = {
   openGraph: {
     title: "100% Free Resume Builder | Create a Resume Online, No Signup",
     description:
-      "Anyone can create a professional, ATS-friendly resume for free — no signup, no login, no hidden cost. 100% free, always.",
+      "Anyone can create a professional, ATS-friendly resume for free â€” no signup, no login, no hidden cost. 100% free, always.",
     url: "/",
     type: "website",
     siteName: "ResumeSathi",
@@ -62,7 +47,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "100% Free Resume Builder | Create a Resume Online, No Signup",
     description:
-      "Anyone can create a professional, ATS-friendly resume for free — no signup, no login, no hidden cost. 100% free, always.",
+      "Anyone can create a professional, ATS-friendly resume for free â€” no signup, no login, no hidden cost. 100% free, always.",
     images: ["/front-assets/images/og/home-og.png"],
   },
 };
@@ -77,7 +62,7 @@ const jsonLd = [
     url: SITE_URL,
     logo: `${SITE_URL}/front-assets/images/logo/logo.svg`,
     description:
-      "ResumeSathi is a 100% free, ATS-friendly resume builder. All data stays in your browser — nothing is ever uploaded to a server.",
+      "ResumeSathi is a 100% free, ATS-friendly resume builder. All data stays in your browser â€” nothing is ever uploaded to a server.",
   },
   {
     "@context": "https://schema.org",
@@ -103,7 +88,7 @@ const jsonLd = [
       priceCurrency: "INR",
     },
     description:
-      "Build ATS-friendly resumes and cover letters for free. No signup required — all data is stored locally in your browser.",
+      "Build ATS-friendly resumes and cover letters for free. No signup required â€” all data is stored locally in your browser.",
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
@@ -143,7 +128,7 @@ const jsonLd = [
         name: "How do I download my resume as a PDF?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Once you complete your resume, click the 'Download PDF' button. The browser print dialog opens — select 'Save as PDF' to save it to your device. No extra software needed.",
+          text: "Once you complete your resume, click the 'Download PDF' button. The browser print dialog opens â€” select 'Save as PDF' to save it to your device. No extra software needed.",
         },
       },
       {

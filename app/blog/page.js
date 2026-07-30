@@ -1,37 +1,23 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 import BlogPageClient from './BlogPageClient';
 
 function readCache(filename) {
-  const candidates = [path.join(process.cwd(), 'data', filename)];
+  const filePath = path.join(process.cwd(), 'data', filename);
   try {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    // app/blog/page.js -> ../../data (2 levels up to project root)
-    candidates.push(path.join(__dirname, '..', '..', 'data', filename));
-  } catch (e) {
-    // import.meta.url unavailable — skip
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const data = JSON.parse(raw);
+    if (Array.isArray(data)) return data;
+  } catch (err) {
+    console.error(`FATAL: could not read data/${filename}. Did scripts/fetch-articles.js run before build?`);
   }
-
-  for (const filePath of candidates) {
-    try {
-      const raw = fs.readFileSync(filePath, 'utf-8');
-      const data = JSON.parse(raw);
-      if (Array.isArray(data)) return data;
-    } catch (err) {
-      // try next candidate
-    }
-  }
-
-  console.error(`FATAL: could not read data/${filename}. Did scripts/fetch-articles.js run before build?`);
   return [];
 }
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
 
 export const metadata = {
-  title: 'Career Blog with Resume and Interview Tips - ResumeSathi | ResumeSathi',
+  title: 'Career Blog with Resume and Interview Tips',
   description: 'Explore expert blog articles on resumes, interviews, career growth, and job search strategies.',
   keywords: 'resume tips, career advice, interview tips, job search, professional growth',
   alternates: { canonical: `${SITE_URL}/blog` },
@@ -42,7 +28,7 @@ export const metadata = {
     type: 'website',
     url: `${SITE_URL}/blog`,
     siteName: 'ResumeSathi',
-    images: [{ url: `${SITE_URL}/front-assets/images/og/blog-og.png`, alt: 'ResumeSathi Blog' }],
+    images: [{ url: `${SITE_URL}/front-assets/images/og/blog-og.png`, width: 1200, height: 630, alt: 'ResumeSathi Blog' }],
   },
   twitter: {
     card: 'summary_large_image',

@@ -387,13 +387,13 @@ export default function ResumeTemplate3({
         {showStaticData ? (
           <div className={`resume ResumeTemplate3 ${additionalClass}`}>
             <Header
-              name="Your Name"
-              jobTitle="Job Title"
-              city="City"
-              state="State"
-              phone="+91-1234567890"
-              email="resume@example.com"
-              website="www.example.com"
+              name="Ishita Rao"
+              jobTitle="UI/UX Designer"
+              city="Pune"
+              state="Maharashtra"
+              phone="+91 98765 12043"
+              email="ishita.rao@email.com"
+              website="ishitarao.design"
               isStatic
             />
 
@@ -429,10 +429,10 @@ export default function ResumeTemplate3({
                   <h3 className="rt3_block_title">Social</h3>
                   <ul className="rt3_social_list">
                     {[
-                      ["Twitter", "twitter.com"],
-                      ["LinkedIn", "linkedin.com"],
-                      ["Instagram", "instagram.com"],
-                      ["Behance", "behance.net"],
+                      ["Twitter", "twitter.com/ishitarao"],
+                      ["LinkedIn", "linkedin.com/in/ishitarao"],
+                      ["Instagram", "instagram.com/ishitadesigns"],
+                      ["Behance", "behance.net/ishitarao"],
                     ].map(([name, url]) => (
                       <li key={name}>
                         <span className="rt3_social_icon">

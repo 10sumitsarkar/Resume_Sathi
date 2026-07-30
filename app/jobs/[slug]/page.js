@@ -1,11 +1,14 @@
-import React from "react";
+﻿import React from "react";
+import fs from "fs";
+import path from "path";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
+import { DEFAULT_BACKEND_BASE } from "../../lib/apiConfig";
 export const dynamicParams = false;
 
 // Kuch fields (jaise og_image) DB me already percent-encoded save hote hain,
 // aur kuch (jaise hero_image) raw filename ke saath (spaces/commas ke saath).
 // decodeURI + encodeURI karke dono cases ko ek consistent, valid URL me
-// normalize kar dete hain — bina double-encode kiye.
+// normalize kar dete hain â€” bina double-encode kiye.
 function safeEncodeUrl(url) {
   try {
     return encodeURI(decodeURI(url));
@@ -16,9 +19,7 @@ function safeEncodeUrl(url) {
 }
 
 function resolveImageUrl(url) {
-  const backendBase = (
-    process.env.NEXT_PUBLIC_BACKEND_BASE || "https://api.resumesathi.com"
-  ).replace(/\/+$/, "");
+  const backendBase = DEFAULT_BACKEND_BASE.replace(/\/+$/, "");
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
     process.env.NEXT_PUBLIC_FRONTEND_URL ||
@@ -34,50 +35,17 @@ function resolveImageUrl(url) {
   return safeEncodeUrl(`${backendBase}/${normalized}`);
 }
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
 function getJobsCache() {
-  const candidates = [];
-
-  // Attempt 1: process.cwd() based (project root jahan se `npm run build` chalaya)
-  candidates.push(path.join(process.cwd(), "data", "jobs-cache.json"));
-
-  // Attempt 2: __dirname based (is file ki actual location se relative — cwd se independent)
+  const filePath = path.join(process.cwd(), "data", "jobs-cache.json");
   try {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    candidates.push(
-      path.join(__dirname, "..", "..", "..", "data", "jobs-cache.json"),
-    );
-  } catch (e) {
-    // import.meta.url unavailable in this runtime — skip
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const data = JSON.parse(raw);
+    if (Array.isArray(data) && data.length > 0) return data;
+  } catch (err) {
+    console.error("FATAL: could not read data/jobs-cache.json", err);
   }
-
-  for (const filePath of candidates) {
-    try {
-      // turbopackIgnore: ye path.join(process.cwd(), "data", ...) se hi ban raha
-      // hai (statically bounded to data/ subfolder), Turbopack ko bas static
-      // analysis ke liye guarantee de rahe hain ki ye safe hai.
-      const raw = fs.readFileSync(/* turbopackIgnore: true */ filePath, "utf-8");
-      const data = JSON.parse(raw);
-      if (Array.isArray(data) && data.length > 0) {
-        return data;
-      }
-    } catch (err) {
-      // try next candidate
-    }
-  }
-
-  console.error(
-    "FATAL: could not read data/jobs-cache.json from any candidate path:",
-    candidates,
-  );
-  console.error("cwd was:", process.cwd());
   return [];
 }
-
 async function getAllJobs() {
   return getJobsCache();
 }
@@ -92,7 +60,7 @@ async function getArticleData(slug) {
   );
 }
 
-// 👇 NAYA FUNCTION — static export ke liye zaroori
+// ðŸ‘‡ NAYA FUNCTION â€” static export ke liye zaroori
 export async function generateStaticParams() {
   const items = await getAllJobs();
   return items
@@ -157,9 +125,7 @@ export async function generateMetadata({ params }) {
 
 // ---------- JobPosting JSON-LD helpers ----------
 
-const BACKEND_BASE = (
-  process.env.NEXT_PUBLIC_BACKEND_BASE || "https://api.resumesathi.com"
-).replace(/\/+$/, "");
+const BACKEND_BASE = DEFAULT_BACKEND_BASE.replace(/\/+$/, "");
 
 function getTitle(item) {
   if (!item) return "";
@@ -275,7 +241,7 @@ function normalizeHtmlUrls(html) {
 }
 
 function getDescriptionHtml(item) {
-  // Google recommends description match jo actually page par visible hai —
+  // Google recommends description match jo actually page par visible hai â€”
   // isliye poora article content (jo user ko page par dikhta hai) primary hai.
   if (item?.contents?.length) {
     const combined = item.contents
@@ -394,3 +360,5 @@ export default async function JobDetailPage({ params }) {
     </>
   );
 }
+
+

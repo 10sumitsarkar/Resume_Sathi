@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import { getApiBase, getBackendBase, resolveApiMediaUrl } from '../../lib/apiConfig';
 import '../jobs.css';
 
-const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
-const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_IMAGE = '/front-assets/images/og/job-og.png';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
 
@@ -30,17 +29,13 @@ function getArticleSeo(article, slug) {
 }
 
 function resolveMediaUrl(url) {
-  if (!url) return DEFAULT_IMAGE;
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) {
-    return url;
-  }
-  return `${BACKEND_BASE}/${url.replace(/^\/+/, '')}`;
+  return resolveApiMediaUrl(url, DEFAULT_IMAGE);
 }
 
 function normalizeHtmlContent(html) {
   if (!html) return '';
 
-  const base = BACKEND_BASE.replace(/\/+$/, '');
+  const base = getBackendBase();
 
   return html
     .replace(/(src|href)=("|')\/(?!\/)/g, `$1=$2${base}/`)
@@ -238,8 +233,12 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
 
 export default function ArticleDetailPageClient({ article: initialArticle, slug: initialSlug }) {
   const params = useParams();
+  const pathname = usePathname();
   const router = useRouter();
-  const slug = params?.slug || initialSlug;
+  const pathSlug = pathname?.startsWith('/jobs/')
+    ? pathname.replace(/^\/jobs\/+/, '').split('/').filter(Boolean)[0]
+    : '';
+  const slug = params?.slug || initialSlug || pathSlug;
   const [article, setArticle] = useState(initialArticle || null);
   const [latest, setLatest] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -261,7 +260,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     if (!slug) return;
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/courses`);
+      const response = await fetch(`${getApiBase()}/courses`, { cache: 'no-store' });
       const data = await response.json();
       const jobs = Array.isArray(data) ? data : (data.items || data.results || []);
       const matchedJob = jobs.find((item) => {
@@ -279,7 +278,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchLatest = async () => {
     try {
-      const response = await fetch(`${API_BASE}/courses`);
+      const response = await fetch(`${getApiBase()}/courses`, { cache: 'no-store' });
       const data = await response.json();
       const jobs = Array.isArray(data) ? data : (data.items || data.results || []);
       setLatest(jobs.slice(0, 5));
@@ -291,7 +290,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${API_BASE}/course-categories`);
+      const response = await fetch(`${getApiBase()}/course-categories`, { cache: 'no-store' });
       const data = await response.json();
       setCategories(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -301,14 +300,9 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
   };
 
   useEffect(() => {
-    const isSameArticle = initialArticle && [initialArticle.url_name, initialArticle.slug, initialArticle.canonical_tag].includes(slug);
     if (!slug) return;
-    if (isSameArticle) {
-      setArticle(initialArticle);
-      setLoading(false);
-    } else {
-      fetchArticle();
-    }
+    if (initialArticle) setArticle(initialArticle);
+    fetchArticle();
   }, [slug, initialArticle]);
 
   useEffect(() => {
@@ -343,7 +337,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const response = await fetch(`${API_BASE}/courses`);
+        const response = await fetch(`${getApiBase()}/courses`, { cache: 'no-store' });
         const data = await response.json();
         const jobs = Array.isArray(data) ? data : (data.items || data.results || []);
         const filteredSuggestions = jobs.filter((item) => {

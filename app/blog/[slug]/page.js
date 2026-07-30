@@ -1,15 +1,13 @@
-import fs from "fs";
+﻿import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import React from "react";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
+import { DEFAULT_BACKEND_BASE } from "../../lib/apiConfig";
 
 export const dynamicParams = false;
 
 function resolveImageUrl(url) {
-  const backendBase = (
-    process.env.NEXT_PUBLIC_BACKEND_BASE || "https://api.resumesathi.com"
-  ).replace(/\/+$/, "");
+  const backendBase = DEFAULT_BACKEND_BASE.replace(/\/+$/, "");
   const siteUrl =
     process.env.NEXT_PUBLIC_SITE_URL ||
     process.env.NEXT_PUBLIC_FRONTEND_URL ||
@@ -24,48 +22,22 @@ function resolveImageUrl(url) {
   return `${backendBase}/${normalized}`;
 }
 
-// 👇 Ab network fetch nahi — scripts/fetch-articles.js build se pehle ek hi
+// ðŸ‘‡ Ab network fetch nahi â€” scripts/fetch-articles.js build se pehle ek hi
 // baar /api/articles fetch karke data/articles-cache.json mein save karta hai.
-// generateStaticParams, generateMetadata, aur page component — teeno isi
+// generateStaticParams, generateMetadata, aur page component â€” teeno isi
 // SAME cached data ko use karte hain, isliye kisi bhi article ka data
 // alag-alag build calls ki wajah se mismatch/missing nahi hoga.
 function getArticlesCache() {
-  const candidates = [];
-
-  // Attempt 1: process.cwd() based (project root jahan se `npm run build` chalaya)
-  candidates.push(path.join(process.cwd(), "data", "articles-cache.json"));
-
-  // Attempt 2: __dirname based (is file ki actual location se relative — cwd se independent)
+  const filePath = path.join(process.cwd(), "data", "articles-cache.json");
   try {
-    const __filename = fileURLToPath(import.meta.url);
-    const __dirname = path.dirname(__filename);
-    candidates.push(
-      path.join(__dirname, "..", "..", "..", "data", "articles-cache.json"),
-    );
-  } catch (e) {
-    // import.meta.url unavailable in this runtime — skip
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const data = JSON.parse(raw);
+    if (Array.isArray(data) && data.length > 0) return data;
+  } catch (err) {
+    console.error("FATAL: could not read data/articles-cache.json", err);
   }
-
-  for (const filePath of candidates) {
-    try {
-      const raw = fs.readFileSync(filePath, "utf-8");
-      const data = JSON.parse(raw);
-      if (Array.isArray(data) && data.length > 0) {
-        return data;
-      }
-    } catch (err) {
-      // try next candidate
-    }
-  }
-
-  console.error(
-    "FATAL: could not read data/articles-cache.json from any candidate path:",
-    candidates,
-  );
-  console.error("cwd was:", process.cwd());
   return [];
 }
-
 async function getAllArticles() {
   return getArticlesCache();
 }
@@ -187,3 +159,5 @@ export default async function ArticleDetailPage({ params }) {
 
   return <ArticleDetailPageClient article={article} slug={slug} />;
 }
+
+

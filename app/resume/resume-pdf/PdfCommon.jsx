@@ -1,4 +1,4 @@
-import React from 'react';
+﻿import React from 'react';
 import { View, Text, Image, StyleSheet, Svg, Path, Polygon, Circle, Line, Rect } from '@react-pdf/renderer';
 import { resolveProfileImage } from './pdfHelpers';
 
@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   sectionTitleText: {
-    fontSize: 12,
+    fontSize: 11.5,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 1,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   contactItem: {
-    fontSize: 9,
+    fontSize: 10,
     lineHeight: 1.4,
     color: '#ffffff',
   },
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     paddingTop: 0,
   },
   sidebarSectionTitle: {
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '700',
     textTransform: 'uppercase',
     letterSpacing: 0.8,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   sidebarText: {
-    fontSize: 9,
+    fontSize: 10,
     lineHeight: 1.4,
     color: '#ffffff',
     marginBottom: 6,
@@ -86,25 +86,25 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   timelineTitle: {
-    fontSize: 10,
+    fontSize: 11,
     fontWeight: '700',
     marginBottom: 2,
   },
   timelineMeta: {
-    fontSize: 9,
+    fontSize: 10,
     color: '#4b5563',
     marginBottom: 4,
     lineHeight: 1.4,
   },
   timelineLocation: {
-    fontSize: 9,
+    fontSize: 10,
     color: '#6b7280',
     fontStyle: 'italic',
     marginBottom: 4,
     lineHeight: 1.4,
   },
   timelineDescription: {
-    fontSize: 9,
+    fontSize: 10,
     lineHeight: 1.4,
     color: '#111827',
   },
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
   },
   profileFallbackText: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: '700',
     color: '#111827',
   },
@@ -251,3 +251,8 @@ export const PdfProfileImage = ({ src, initials, shape = 'circle', size = 100 })
     </View>
   );
 };
+
+
+
+
+

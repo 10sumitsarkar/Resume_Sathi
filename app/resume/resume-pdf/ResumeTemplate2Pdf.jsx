@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import {
   Document,
   Page,
@@ -28,7 +28,7 @@ import {
 } from "./PdfCommon";
 
 /**
- * ResumeTemplate2Pdf — "Serene Centered" (Premium)
+ * ResumeTemplate2Pdf - "Serene Centered" (Premium)
  * Single-column, fully centered layout on a soft tinted background.
  * Circular photo/initials badge with an accent ring, name + contact
  * row centered up top, then full-width sections each introduced by a
@@ -93,12 +93,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   profileInitials: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: "700",
     color: "#ffffff",
   },
   name: {
-    fontSize: 28,
+    fontSize: 22,
     fontWeight: "700",
     textAlign: "center",
     marginBottom: 6,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   jobTitle: {
-    fontSize: 12,
+    fontSize: 10.8,
     textAlign: "center",
     color: "#6b7280",
     marginBottom: 12,
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 7,
   },
   contactItem: {
-    fontSize: 10,
+    fontSize: 11,
     color: "#374151",
   },
 
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     height: 0.75,
   },
   sectionTitle: {
-    fontSize: 14,
+    fontSize: 11.5,
     fontWeight: "700",
     textTransform: "uppercase",
     letterSpacing: 2.6,
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   },
 
   socialItem: {
-    fontSize: 10,
+    fontSize: 11,
     color: "#374151",
   },
   socialLabel: {
@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
 
   // ---------- Summary ----------
   bodyText: {
-    fontSize: 11,
+    fontSize: 12,
     lineHeight: 1.65,
     color: "#3f4653",
     textAlign: "justify",
@@ -214,14 +214,14 @@ const styles = StyleSheet.create({
   skillName: {
     flex: 1,
     minWidth: 0,
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#1f2937",
     fontWeight: "400",
     marginRight: 8,
   },
   pill: {
     flexShrink: 0,
-    fontSize: 8,
+    fontSize: 9,
     fontWeight: "500",
     borderRadius: 9,
     paddingTop: 3.5,
@@ -243,12 +243,12 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   entryTitle: {
-    fontSize: 12,
+    fontSize: 10.8,
     fontWeight: "600",
     color: "#111827",
   },
   entryDate: {
-    fontSize: 10,
+    fontSize: 9.2,
     fontWeight: "600",
     textTransform: "uppercase",
     letterSpacing: 0.6,
@@ -260,13 +260,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   entryLocation: {
-    fontSize: 10,
+    fontSize: 11,
     fontStyle: "italic",
     fontWeight: "500",
     color: "#000000",
   },
   entrySub: {
-    fontSize: 9,
+    fontSize: 10,
     lineHeight: 1.55,
     color: "#4b5563",
     marginTop: 4,
@@ -277,12 +277,12 @@ const styles = StyleSheet.create({
     paddingRight: 6,
   },
   bulletMark: {
-    fontSize: 10,
+    fontSize: 11,
     marginRight: 6,
     color: "#374151",
   },
   bulletText: {
-    fontSize: 10,
+    fontSize: 11,
     lineHeight: 1.55,
     color: "#3f4653",
     flex: 1,
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   languageItem: {
-    fontSize: 10,
+    fontSize: 11,
     color: "#1f2937",
   },
   languageLabel: {
@@ -316,6 +316,8 @@ const styles = StyleSheet.create({
     marginBottom: 9,
   },
 });
+
+const BULLET = String.fromCharCode(8226);
 
 const ResumeTemplate2Pdf = ({
   resume,
@@ -524,9 +526,9 @@ const ResumeTemplate2Pdf = ({
                     .filter((line) => line.trim().length > 0)
                     .map((line, lIdx) => (
                       <View key={lIdx} style={styles.bulletRow}>
-                        <Text style={styles.bulletMark}>•</Text>
+                        <Text style={styles.bulletMark}>{BULLET}</Text>
                         <Text style={styles.bulletText}>
-                          {line.replace(/^[-•]\s*/, "")}
+                          {line.replace(/^-+\s*/, "")}
                         </Text>
                       </View>
                     ))}
@@ -612,7 +614,7 @@ const ResumeTemplate2Pdf = ({
                   </Text>
                   <Text
                     style={{
-                      fontSize: 10,
+                      fontSize: 11,
                       color: accentColor,
                       fontWeight: "700",
                     }}
@@ -622,7 +624,7 @@ const ResumeTemplate2Pdf = ({
                       formatSingleDate(cert.issue_date),
                     ]
                       .filter(Boolean)
-                      .join("  ·  ")}
+                      .join("  /  ")}
                   </Text>
                 </View>
                 {cert.description && (
@@ -706,3 +708,12 @@ const ResumeTemplate2Pdf = ({
 };
 
 export default ResumeTemplate2Pdf;
+
+
+
+
+
+
+
+
+

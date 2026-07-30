@@ -18,6 +18,21 @@
     "status": 1,
     "updated_at": "2026-07-24T10:31:03.000000Z",
     "deleted_at": null,
+    "user": {
+      "id": 1,
+      "first_name": "Hariom",
+      "last_name": "Prajapati",
+      "email": "hariomprajapati9029@gmail.com",
+      "mobile": "8840860841",
+      "birth_date": "08/01/1999",
+      "age": "23",
+      "gender": "male",
+      "profile_image": "Hariom.jpg",
+      "background_image": null,
+      "is_active": 1,
+      "created_at": "2021-09-12T13:19:51.000000Z",
+      "updated_at": "2026-07-12T10:04:13.000000Z"
+    },
     "category": {
       "id": 1,
       "article_name": "Career Advice",
@@ -26,7 +41,6 @@
       "created_at": "2021-09-12T17:33:33.000000Z",
       "updated_at": "2026-07-16T15:18:01.000000Z"
     },
-    "attachments": [],
     "contents": [
       {
         "id": 25,

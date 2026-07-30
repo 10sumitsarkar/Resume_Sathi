@@ -1,0 +1,13 @@
+Options -MultiViews
+RewriteEngine On
+
+# Static shared hosting fallback for live blog/job detail pages.
+# Existing exported files/directories keep working; unknown slugs render the
+# client-side live page, which fetches fresh content from the API.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^jobs/(.+)/?$ /jobs/live/ [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^blog/(.+)/?$ /blog/live/ [L]

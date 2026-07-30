@@ -43,14 +43,6 @@ const id = searchParams.get('id');
   });
 
   useEffect(() => {
-    if (educationFormData?.date === '' && educationFormData?.year === '') {
-      setStillEnrolled(true);
-    } else {
-      setStillEnrolled(false);
-    }
-  }, [educationFormData]);
-
-  useEffect(() => {
     if (educations.length < 1) {
       setFormOpened(true);
     } else {
@@ -80,6 +72,7 @@ const id = searchParams.get('id');
       date: '',
       year: '',
     });
+    setStillEnrolled(false);
     setFormOpened(true);
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -116,6 +109,7 @@ const id = searchParams.get('id');
       document.getElementById('saveDetails').innerText = 'Update';
       setFormOpened(true);
       setEducationFormData(educationToEdit);
+      setStillEnrolled(!educationToEdit.date && !educationToEdit.year);
       reset(educationToEdit);
       setTimeout(() => {
         formRef.current?.scrollIntoView({ behavior: 'smooth' });

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
 import {
   PALETTE_COLORS,
@@ -15,14 +15,14 @@ import {
 } from "./PdfCommon";
 
 /**
- * ResumeTemplate6Pdf — "Minimal Ledger" (v2)
+ * ResumeTemplate6Pdf - "Minimal Ledger" (v2)
  * Full-width black-on-white header (two-line big name + role tag),
  * a full-width "About Me" block (no rule beneath it), then a
  * two-column body:
- *   LEFT  — Contact Info, Skills (flat list, no sub-headings),
+ *   LEFT  - Contact Info, Skills (flat list, no sub-headings),
  *           Languages (name + proficiency text + level bar),
  *           Social Media (colored brand icons), Hobbies
- *   RIGHT — Education, Certifications, Work Experience, Internships
+ *   RIGHT - Education, Certifications, Work Experience, Internships
  * Every contact/social icon renders in the resume's accent color.
  * Thin horizontal rules sit under every section heading except
  * "About Me", matching the reference's ruled-paper look.
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 
   // ---------- Header ----------
   nameText: {
-    fontSize: 30,
+    fontSize: 23,
     fontWeight: "800",
     textTransform: "uppercase",
     lineHeight: 1.08,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   roleText: {
-    fontSize: 12,
+    fontSize: 10.8,
     letterSpacing: 3,
     textTransform: "uppercase",
     color: "#3a3a3a",
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
 
   // ---------- Section heading ----------
   sectionHeading: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: "800",
     textTransform: "uppercase",
     letterSpacing: 0.6,
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 22,
   },
   aboutText: {
-    fontSize: 11.5,
+    fontSize: 12.5,
     lineHeight: 1.6,
     color: "#333333",
   },
@@ -128,24 +128,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   contactText: {
-    fontSize: 11,
+    fontSize: 12,
     color: "#333333",
     flex: 1,
     lineHeight: 1.35,
   },
 
-  // Skills (flat list — no sub-headings)
+  // Skills (flat list - no sub-headings)
   bulletLine: {
     flexDirection: "row",
     marginBottom: 6,
   },
   bulletMark: {
-    fontSize: 11,
+    fontSize: 12,
     marginRight: 5,
     color: "#1a1a1a",
   },
   bulletText: {
-    fontSize: 11,
+    fontSize: 12,
     lineHeight: 1.4,
     color: "#333333",
     flex: 1,
@@ -161,12 +161,12 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   languageName: {
-    fontSize: 11.5,
+    fontSize: 12.5,
     color: "#1a1a1a",
     fontWeight: "600",
   },
   languageLevel: {
-    fontSize: 9.5,
+    fontSize: 10.5,
     color: "#6b6b6b",
   },
   languageBarTrack: {
@@ -193,14 +193,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   socialText: {
-    fontSize: 11,
+    fontSize: 12,
     color: "#333333",
     flex: 1,
   },
 
   // Hobbies
   hobbiesText: {
-    fontSize: 11,
+    fontSize: 12,
     lineHeight: 1.5,
     color: "#333333",
   },
@@ -210,22 +210,24 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   entryMeta: {
-    fontSize: 10.5,
+    fontSize: 11.5,
     color: "#8a8a8a",
     marginBottom: 3,
   },
   entryTitle: {
-    fontSize: 12,
+    fontSize: 10.8,
     fontWeight: "700",
     color: "#1a1a1a",
     marginBottom: 4,
   },
   entryDescription: {
-    fontSize: 11,
+    fontSize: 12,
     lineHeight: 1.55,
     color: "#333333",
   },
 });
+
+const BULLET = String.fromCharCode(8226);
 
 const ResumeTemplate6Pdf = ({
   resume,
@@ -330,7 +332,7 @@ const ResumeTemplate6Pdf = ({
                 {skills.map((skill, idx) => (
                   <View key={idx} style={styles.bulletLine}>
                     <Text style={{ ...styles.bulletMark, color: accentColor }}>
-                      •
+                      {BULLET}
                     </Text>
                     <Text style={styles.bulletText}>
                       {safeText(skill.skill_name)}
@@ -500,3 +502,12 @@ const ResumeTemplate6Pdf = ({
 };
 
 export default ResumeTemplate6Pdf;
+
+
+
+
+
+
+
+
+

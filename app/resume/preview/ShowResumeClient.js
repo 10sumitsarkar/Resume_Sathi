@@ -17,6 +17,7 @@ import ReviewResume from '../components/ReviewResume'
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
 import { createResumePdf } from '../resume-pdf/createResumePdf';
+import { getResumeCustomizationClasses } from '../utils/fontSize';
 
 const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate1', component: ResumeTemplate1 },
@@ -61,6 +62,7 @@ export default function ShowResume() {
         ...configuration,
         layout_style: 'all'
     });
+    const customizationClasses = getResumeCustomizationClasses(customizeData);
     const [isEditable, setIsEditable] = useState(false);
     const [zoomValue, setZoomValue] = useState(100);
 
@@ -471,7 +473,7 @@ export default function ShowResume() {
         `;
 
         const innerWrapper = document.createElement('div');
-        innerWrapper.className = `print-wrapper ${customizeData?.color_palette || ''} ${customizeData?.font_style || ''}`;
+        innerWrapper.className = `print-wrapper ${customizationClasses}`;
         innerWrapper.style.cssText = `
             width: 100%;
             margin: 0;
@@ -676,7 +678,7 @@ export default function ShowResume() {
                                                 <input type="radio" name="selectResume" checked={customizeData?.selected_theme === template.id}
                                                     onChange={() => handleCustomizationChange('selected_theme', template.id)} hidden />
                                                 <img src="/front-assets/images/icons/resume-selected.svg" className='img-fluid resume-selected-icon' alt="Checked" />
-                                                <TemplateComponent isStatic={true} additionalClass={`${customizeData.color_palette} ${customizeData.font_style}`} />
+                                                <TemplateComponent isStatic={true} additionalClass={customizationClasses} />
                                             </label>
                                         </div>
                                     );
@@ -821,7 +823,7 @@ export default function ShowResume() {
                         </div>
                     </div>
                     <div className='review-resume-area main-review-resume-div' style={{ width: zoomValue + '%' }}>
-                        <div ref={componentRef} className={`print-wrapper review-resume-div ${customizeData?.color_palette || ''} ${customizeData?.font_style || ''}`}>
+                        <div ref={componentRef} className={`print-wrapper review-resume-div ${customizationClasses}`}>
                             <ReviewResume isMainPreview={true} />
                         </div>
                     </div>
@@ -842,7 +844,7 @@ export default function ShowResume() {
                         TXT
                     </button>
                     <p className='download-heading'>Printing</p>
-                    <button className='each-btn' onClick={downloadPDF}>
+                    <button className='each-btn' onClick={handlePrint}>
                         <img src="/front-assets/images/icons/print.svg" alt="Print" />
                         Print
                     </button>
@@ -905,7 +907,7 @@ export default function ShowResume() {
                                             <input type="radio" name="selectResumeMob" checked={customizeData?.selected_theme === template.id}
                                                 onChange={() => handleCustomizationChange('selected_theme', template.id)} hidden />
                                             <img src="/front-assets/images/icons/resume-selected.svg" className='img-fluid resume-selected-icon' alt="Checked" />
-                                            <TemplateComponent isStatic={true} additionalClass={`${customizeData.color_palette} ${customizeData.font_style}`} />
+                                            <TemplateComponent isStatic={true} additionalClass={customizationClasses} />
                                         </label>
                                     </div>
                                 );

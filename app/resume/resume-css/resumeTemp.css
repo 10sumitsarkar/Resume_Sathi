@@ -595,3 +595,24 @@
     }
   }
 }
+/* Slightly larger readable text across HTML resume templates */
+.resume .bold,
+.resume .resume-name {
+  font-size: 1.08em;
+}
+
+.resume .title .bold,
+.resume .resume_item .title p {
+  font-size: 1.06em;
+}
+
+.resume p,
+.resume li,
+.resume .data,
+.resume .regular,
+.resume .semi-bold,
+.resume .para-desc,
+.resume .location {
+  font-size: 1.04em;
+  line-height: 1.45;
+}

@@ -1,0 +1,21 @@
+.split-pdf-tool {
+  position: relative;
+}
+
+.split-page-grid {
+  grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+}
+
+.split-pdf-tool .pdf-card {
+  cursor: default;
+}
+
+.split-pdf-tool .pdf-remove {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .split-page-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

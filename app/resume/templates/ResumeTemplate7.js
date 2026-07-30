@@ -177,14 +177,14 @@ export default function ResumeTemplate7({ additionalClass, isStatic = false, res
           <div className={`resume ResumeTemplate7 ${additionalClass}`}>
             {/* HEADER */}
             <div className="rt7_header">
-              <h1 className="rt7_name resume-name">Diya Agarwal</h1>
+              <h1 className="rt7_name resume-name">Neha Sharma</h1>
               <div className="rt7_name_rule" />
               <p className="rt7_role resume-job-title">Retail Sales Associate</p>
               <div className="rt7_role_rule" />
               <ContactRow
-                email="d.agarwal@sample.in"
-                phone="+91 11 5555 3345"
-                address="New Delhi, India 110034"
+                email="neha.sharma@email.com"
+                phone="+91 98765 33445"
+                address="New Delhi, India"
               />
             </div>
 
@@ -193,10 +193,10 @@ export default function ResumeTemplate7({ additionalClass, isStatic = false, res
               <h3 className="rt7_section_title">Summary</h3>
               <div className="rt7_profile">
                 <p className="rt7_text rt7_text_italic resume-about-me">
-                  Customer-focused Retail Sales professional with solid understanding of retail
-                  dynamics, marketing and customer service. Offering 5 years of experience
-                  providing quality product recommendations and solutions to meet customer needs
-                  and exceed expectations.
+                  Customer-focused retail professional with 5+ years of experience in premium
+                  fashion stores, POS operations, merchandising, and client relationship
+                  management. Known for improving store conversion and delivering polished
+                  customer experiences.
                 </p>
               </div>
             </div>

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import FooterNav from "../components/FooterNav";
+import { getApiBase, resolveApiMediaUrl } from "../lib/apiConfig";
 import "../../public/front-assets/css/home.css";
 
 // ── SVG Icon Library ──────────────────────────────────────────────────────
@@ -400,16 +401,11 @@ const Icon = {
   ),
 };
 
-const BACKEND_BASE =
-  process.env.NEXT_PUBLIC_BACKEND_BASE || "https://api.resumesathi.com";
-const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_JOB_IMAGE = "/front-assets/images/job-hero.webp";
 const DEFAULT_BLOG_IMAGE = "/front-assets/images/blog-hero.webp";
 
 function resolveMediaUrl(url, fallback = "") {
-  if (!url) return fallback;
-  if (/^https?:\/\//i.test(url) || url.startsWith("//")) return url;
-  return `${BACKEND_BASE}/${String(url).replace(/^\/+/, "")}`;
+  return resolveApiMediaUrl(url, fallback);
 }
 
 function getSlug(item) {
@@ -982,12 +978,48 @@ const tools = [
     href: "/tools/merge-pdf",
   },
   {
+    icon: <Icon.Files />,
+    name: "Split PDF",
+    desc: "Split PDF pages into separate files and download them in a ZIP.",
+    href: "/tools/split-pdf",
+  },
+  {
+    icon: <Icon.Files />,
+    name: "Remove PDF Pages",
+    desc: "Delete unwanted PDF pages and reorder the pages you keep.",
+    href: "/tools/pdf-remove",
+  },
+  {
     href: "/tools/pdf-compressor",
     icon: <Icon.IconFileZip />,
     name: "Compress PDF",
     desc: "Reduce file size for easy sharing on job portals.",
     tag: "PDF only",
   },
+  {
+    icon: <Icon.FileText />,
+    name: "DOCX to PDF",
+    desc: "Convert Word documents into simple PDF files in your browser.",
+    href: "/tools/docx-to-pdf",
+  },
+  {
+    icon: <Icon.Files />,
+    name: "Image to PDF",
+    desc: "Convert JPG and PNG images into one clean PDF.",
+    href: "/tools/image-to-pdf",
+  },
+  {
+    icon: <Icon.FileText />,
+    name: "Signature Cropper",
+    desc: "Crop and resize signatures for government forms.",
+    href: "/tools/signature-cropper",
+  },
+  {
+    icon: <Icon.Calendar />,
+    name: "Age Calculator",
+    desc: "Calculate exact age in years, months, days, and total days.",
+    href: "/tools/age-calculator",
+  }
 ];
 
 // ── Why Free Comparison ────────────────────────────────────────────────
@@ -1435,8 +1467,8 @@ export default function ResumeListClient({
     const fetchData = async () => {
       try {
         const [jobsResponse, articlesResponse] = await Promise.all([
-          fetch(`${API_BASE}/courses?limit=8`),
-          fetch(`${API_BASE}/articles?limit=6`),
+          fetch(`${getApiBase()}/courses?limit=8`, { cache: 'no-store' }),
+          fetch(`${getApiBase()}/articles?limit=6`, { cache: 'no-store' }),
         ]);
 
         const jobsData = jobsResponse.ok ? await jobsResponse.json() : [];

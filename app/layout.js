@@ -50,6 +50,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="stylesheet" href="/front-assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/front-assets/css/style.css" />
         <link rel="stylesheet" href="/front-assets/css/responsive.css" />
@@ -87,7 +90,8 @@ export default function RootLayout({ children }) {
 
         {children}
         <FloatingTypingLink />
-        <Script src="/front-assets/js/bootstrap.bundle.min.js" defer />
+        <Script src="/api-config.js" strategy="beforeInteractive" />
+        <Script src="/front-assets/js/bootstrap.bundle.min.js" strategy="afterInteractive" />
       </body>
     </html>
   );

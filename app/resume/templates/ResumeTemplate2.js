@@ -377,11 +377,11 @@ export default function ResumeTemplate2({
           <div className={`resume ResumeTemplate2 ${additionalClass}`}>
             {/* HEADER */}
             <div className="rt2_header">
-              <h1 className="rt2_name resume-name">Diya Agarwal</h1>
+              <h1 className="rt2_name resume-name">Neha Sharma</h1>
               <ContactRow
-                email="d.agarwal@sample.in"
-                phone="+91 11 5555 3345"
-                address="New Delhi, India 110034"
+                email="neha.sharma@email.com"
+                phone="+91 98765 33445"
+                address="New Delhi, India"
               />
             </div>
 
@@ -389,11 +389,11 @@ export default function ResumeTemplate2({
             <div className="rt2_section">
               <h3 className="rt2_section_title">Summary</h3>
               <p className="rt2_text resume-about-me">
-                Customer-focused Retail Sales professional with solid
-                understanding of retail dynamics, marketing and customer
-                service. Offering 5 years of experience providing quality
-                product recommendations and solutions to meet customer needs and
-                exceed expectations.
+                Customer-focused retail professional with 5+ years of
+                experience in premium fashion stores, POS operations,
+                merchandising, and client relationship management. Known for
+                improving store conversion and delivering polished customer
+                experiences.
               </p>
             </div>
 

@@ -41,16 +41,6 @@ const id = searchParams.get('id');
     defaultValues: anyInternshipFormData
   });
 
-
-  useEffect(() => {
-    if (!anyInternshipFormData.end_month && !anyInternshipFormData.end_year) {
-      setStillEnrolled(true);
-    } else {
-      setStillEnrolled(false);
-    }
-  }, [anyInternshipFormData.end_month, anyInternshipFormData.end_year]);
-
-
   useEffect(() => {
     if (any_internships.length < 1) {
       setFormOpened(true);
@@ -83,6 +73,7 @@ const id = searchParams.get('id');
       date: '',
       year: '',
     });
+    setStillEnrolled(false);
     setFormOpened(true);
     setTimeout(() => {
       formRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -119,6 +110,7 @@ const id = searchParams.get('id');
       document.getElementById('saveDetails').innerText = 'Update';
       setFormOpened(true);
       setAnyInternshipFormData(anyInternshipToEdit);
+      setStillEnrolled(!anyInternshipToEdit.end_month && !anyInternshipToEdit.end_year);
       reset(anyInternshipToEdit);
       setTimeout(() => {
         formRef.current?.scrollIntoView({ behavior: 'smooth' });

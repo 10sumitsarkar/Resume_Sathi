@@ -1,11 +1,10 @@
 "use client";
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
+import { getApiBase, getBackendBase, resolveApiMediaUrl } from '../../lib/apiConfig';
 import '../blog.css';
 
-const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || 'https://api.resumesathi.com';
-const API_BASE = `${BACKEND_BASE}/api`;
 const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.png';
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
 
@@ -30,17 +29,13 @@ function getArticleSeo(article, slug) {
 }
 
 function resolveMediaUrl(url) {
-  if (!url) return DEFAULT_IMAGE;
-  if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('//')) {
-    return url;
-  }
-  return `${BACKEND_BASE}/${url.replace(/^\/+/, '')}`;
+  return resolveApiMediaUrl(url, DEFAULT_IMAGE);
 }
 
 function normalizeHtmlContent(html) {
   if (!html) return '';
 
-  const base = BACKEND_BASE.replace(/\/+$/, '');
+  const base = getBackendBase();
 
   return html
     .replace(/(src|href)=("|')\/(?!\/)/g, `$1=$2${base}/`)
@@ -210,8 +205,12 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
 
 export default function ArticleDetailPageClient({ article: initialArticle, slug: initialSlug }) {
   const params = useParams();
+  const pathname = usePathname();
   const router = useRouter();
-  const slug = params?.slug || initialSlug;
+  const pathSlug = pathname?.startsWith('/blog/')
+    ? pathname.replace(/^\/blog\/+/, '').split('/').filter(Boolean)[0]
+    : '';
+  const slug = params?.slug || initialSlug || pathSlug;
   const [article, setArticle] = useState(initialArticle || null);
   const [latest, setLatest] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -238,7 +237,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     if (!slug) return;
     setLoading(true);
     try {
-      const response = await fetch(`${API_BASE}/articles/slug/${encodeURIComponent(slug)}`);
+      const response = await fetch(`${getApiBase()}/articles/slug/${encodeURIComponent(slug)}`, { cache: 'no-store' });
       const data = await response.json();
       setArticle(data);
     } catch (err) {
@@ -251,7 +250,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchLatest = async () => {
     try {
-      const response = await fetch(`${API_BASE}/articles/latest?limit=5`);
+      const response = await fetch(`${getApiBase()}/articles/latest?limit=5`, { cache: 'no-store' });
       const data = await response.json();
       setLatest(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -262,7 +261,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${API_BASE}/article-categories`);
+      const response = await fetch(`${getApiBase()}/article-categories`, { cache: 'no-store' });
       const data = await response.json();
       setCategories(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -274,7 +273,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
   const fetchComments = async (id) => {
     if (!id) return;
     try {
-      const response = await fetch(`${API_BASE}/article-comments?article_id=${id}`);
+      const response = await fetch(`${getApiBase()}/article-comments?article_id=${id}`, { cache: 'no-store' });
       const data = await response.json();
       setComments(Array.isArray(data.comments) ? data.comments : []);
     } catch (err) {
@@ -284,14 +283,9 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
   };
 
   useEffect(() => {
-    const isSameArticle = initialArticle && getSlug(initialArticle) === slug;
     if (!slug) return;
-    if (isSameArticle) {
-      setArticle(initialArticle);
-      setLoading(false);
-    } else {
-      fetchArticle();
-    }
+    if (initialArticle) setArticle(initialArticle);
+    fetchArticle();
   }, [slug, initialArticle]);
 
   useEffect(() => {
@@ -315,7 +309,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     setSuccess('');
 
     try {
-      const response = await fetch(`${API_BASE}/article-comments`, {
+      const response = await fetch(`${getApiBase()}/article-comments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -367,7 +361,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const response = await fetch(`${API_BASE}/articles`);
+        const response = await fetch(`${getApiBase()}/articles`, { cache: 'no-store' });
         const data = await response.json();
         const articles = Array.isArray(data) ? data : (data.items || data.results || []);
         const filteredSuggestions = articles.filter((item) => {

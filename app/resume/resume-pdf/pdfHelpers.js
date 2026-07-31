@@ -1,4 +1,5 @@
 import { Font } from '@react-pdf/renderer';
+import { getSiteBase } from "../../lib/apiConfig";
 
 export const PALETTE_COLORS = {
   'color-1': '#9f036d',
@@ -227,7 +228,7 @@ export const imageToBase64 = async (imageUrl) => {
     // Ensure we have an absolute URL
     let url = imageUrl;
     if (imageUrl.startsWith('/')) {
-      url = `${typeof window !== 'undefined' ? window.location.origin : 'https://www.resumesathi.com'}${imageUrl}`;
+      url = `${typeof window !== 'undefined' ? window.location.origin : getSiteBase()}${imageUrl}`;
     }
     
     const response = await fetch(url, { 

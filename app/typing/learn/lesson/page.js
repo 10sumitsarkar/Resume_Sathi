@@ -5,8 +5,9 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { LESSONS, getLesson } from '../../_lib/lessons';
 import LessonRunner from '../../_components/LessonRunner';
+import { getSiteBase } from '../../../lib/apiConfig';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.resumesathi.com';
+const SITE_URL = getSiteBase();
 
 function LessonContent() {
 	const searchParams = useSearchParams();

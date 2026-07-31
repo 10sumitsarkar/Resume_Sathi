@@ -4,7 +4,7 @@ const https = require('https');
 const path = require('path');
 const apiConfig = require('../config/api-config.json');
 
-const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || apiConfig.backendBase || 'https://api.resumesathi.com';
+const BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || apiConfig.backendBase;
 const outDir = path.join(process.cwd(), 'data');
 const jobsCachePath = path.join(outDir, 'jobs-cache.json');
 const categoriesCachePath = path.join(outDir, 'categories-cache.json');

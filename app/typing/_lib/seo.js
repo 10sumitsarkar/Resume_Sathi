@@ -1,3 +1,5 @@
+import { DEFAULT_SITE_BASE } from "../../lib/apiConfig";
+
 const OG_IMAGE = "/front-assets/images/og/home-og.png";
 
 export function typingMetadata({ title, description, path, keywords = [] }) {
@@ -13,7 +15,7 @@ export function typingMetadata({ title, description, path, keywords = [] }) {
 }
 
 export function TypingJsonLd({ name, description, path }) {
-  const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || "https://www.resumesathi.com").replace(/\/$/, "");
+  const siteUrl = DEFAULT_SITE_BASE.replace(/\/$/, "");
   const data = { "@context": "https://schema.org", "@type": "WebApplication", name, description, url: `${siteUrl}${path}`, applicationCategory: "EducationalApplication", operatingSystem: "Web", offers: { "@type": "Offer", price: "0", priceCurrency: "INR" }, image: `${siteUrl}${OG_IMAGE}`, publisher: { "@type": "Organization", name: "ResumeSathi", url: siteUrl } };
   return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
 }

@@ -2,9 +2,12 @@ import Script from "next/script";
 import Link from "next/link";
 import JsonLd from "./components/JsonLd";
 import FloatingTypingLink from "./components/FloatingTypingLink";
+import { DEFAULT_SITE_BASE } from "./lib/apiConfig";
+
+const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
 export const metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com'),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'Free Resume Builder, ATS Resume Templates & Career Tools | ResumeSathi',
     template: '%s | ResumeSathi',
@@ -63,8 +66,8 @@ export default function RootLayout({ children }) {
             "@context": "https://schema.org",
             "@type": "Organization",
             name: "ResumeSathi",
-            url: "https://www.resumesathi.com",
-            logo: "https://www.resumesathi.com/front-assets/images/logo/logo.svg",
+            url: SITE_URL,
+            logo: `${SITE_URL}/front-assets/images/logo/logo.svg`,
             sameAs: [
               "https://www.facebook.com",
               "https://www.linkedin.com",

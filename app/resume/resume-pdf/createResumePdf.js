@@ -7,6 +7,7 @@ import ResumeTemplate4Pdf from './ResumeTemplate4Pdf';
 import ResumeTemplate5Pdf from './ResumeTemplate5Pdf';
 import ResumeTemplate6Pdf from './ResumeTemplate6Pdf';
 import ResumeTemplate7Pdf from './ResumeTemplate7Pdf';
+import { getSiteBase } from "../../lib/apiConfig";
 import { registerAvailableFonts, resolveProfileImage } from './pdfHelpers';
 
 const PDF_TEMPLATE_MAP = {
@@ -38,7 +39,7 @@ const imageToBase64 = async (imageUrl) => {
   try {
     let url = imageUrl;
     if (imageUrl.startsWith('/')) {
-      url = `${typeof window !== 'undefined' ? window.location.origin : 'https://www.resumesathi.com'}${imageUrl}`;
+      url = `${typeof window !== 'undefined' ? window.location.origin : getSiteBase()}${imageUrl}`;
     }
     
     const response = await fetch(url, { 

@@ -2,11 +2,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { getApiBase, getBackendBase, getContentCacheUrl, resolveApiMediaUrl } from '../../lib/apiConfig';
+import { getApiBase, getBackendBase, getContentCacheUrl, getSiteBase, resolveApiMediaUrl } from '../../lib/apiConfig';
 import '../jobs.css';
 
 const DEFAULT_IMAGE = '/front-assets/images/og/job-og.png';
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
+const SITE_URL = getSiteBase();
 
 function getArticleSeo(article, slug) {
   const title = article?.meta_title || article?.og_title || getTitle(article) || 'Job Opening';

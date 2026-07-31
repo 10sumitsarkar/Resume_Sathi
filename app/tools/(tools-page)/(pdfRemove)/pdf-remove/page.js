@@ -1,6 +1,7 @@
 import PdfRemove from "./PdfRemoveClient";
+import { DEFAULT_SITE_BASE } from "../../../../lib/apiConfig";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.resumesathi.com";
+const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
 export const metadata = {
   title: "Remove PDF Pages",

@@ -2,7 +2,7 @@
 import fs from "fs";
 import path from "path";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
-import { DEFAULT_BACKEND_BASE } from "../../lib/apiConfig";
+import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE } from "../../lib/apiConfig";
 export const dynamicParams = false;
 
 // Kuch fields (jaise og_image) DB me already percent-encoded save hote hain,
@@ -20,10 +20,7 @@ function safeEncodeUrl(url) {
 
 function resolveImageUrl(url) {
   const backendBase = DEFAULT_BACKEND_BASE.replace(/\/+$/, "");
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.NEXT_PUBLIC_FRONTEND_URL ||
-    "https://www.resumesathi.com";
+  const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
   const fallbackImage = `${siteUrl}/front-assets/images/og/job-og.png`;
 
   if (!url) return fallbackImage;
@@ -72,10 +69,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }) {
   const slug = (await params)?.slug;
   const article = slug ? await getArticleData(slug) : null;
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.NEXT_PUBLIC_FRONTEND_URL ||
-    "https://www.resumesathi.com";
+  const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
   const rawTitle =
     article?.meta_title ||
     article?.og_title ||
@@ -287,9 +281,7 @@ function buildJobPostingJsonLd(article, slug) {
 
   const jobsUrl = `${
     (
-      process.env.NEXT_PUBLIC_SITE_URL ||
-      process.env.NEXT_PUBLIC_FRONTEND_URL ||
-      "https://www.resumesathi.com"
+      DEFAULT_SITE_BASE
     ).replace(/\/+$/, "")
   }/jobs/`;
 

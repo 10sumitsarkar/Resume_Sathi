@@ -2,16 +2,13 @@
 import path from "path";
 import React from "react";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
-import { DEFAULT_BACKEND_BASE } from "../../lib/apiConfig";
+import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE } from "../../lib/apiConfig";
 
 export const dynamicParams = false;
 
 function resolveImageUrl(url) {
   const backendBase = DEFAULT_BACKEND_BASE.replace(/\/+$/, "");
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.NEXT_PUBLIC_FRONTEND_URL ||
-    "https://www.resumesathi.com";
+  const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
   const fallbackImage = `${siteUrl}/front-assets/images/og/blog-og.png`;
 
@@ -84,10 +81,7 @@ export async function generateMetadata({ params }) {
 
   const article = await getArticleData(slug);
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ||
-    process.env.NEXT_PUBLIC_FRONTEND_URL ||
-    "https://www.resumesathi.com";
+  const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
   const rawTitle =
     article?.meta_title ||

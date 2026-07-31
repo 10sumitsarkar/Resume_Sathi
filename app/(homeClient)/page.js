@@ -1,6 +1,7 @@
 ﻿import fs from 'fs';
 import path from 'path';
 import ResumeListClient from "./homeClient";
+import { DEFAULT_SITE_BASE } from "../lib/apiConfig";
 
 // ðŸ‘‡ Ab network fetch nahi â€” jobs/blogs preview sections ke liye
 // build-time cached data use karte hain (jobs/[slug] aur blog/[slug] ke
@@ -52,7 +53,7 @@ export const metadata = {
   },
 };
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.resumesathi.com";
+const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
 const jsonLd = [
   {

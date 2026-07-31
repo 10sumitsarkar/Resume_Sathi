@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
+import { DEFAULT_SITE_BASE } from './lib/apiConfig';
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
+const siteUrl = DEFAULT_SITE_BASE;
 
 function getSlug(item) {
   return item?.slug || item?.url_name || item?.canonical_tag || item?.id?.toString() || '';

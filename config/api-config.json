@@ -1,3 +1,4 @@
 {
+  "frontendBase": "https://www.resumesathi.com",
   "backendBase": "https://api.resumesathi.com"
 }

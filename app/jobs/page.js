@@ -1,6 +1,7 @@
 ﻿import fs from 'fs';
 import path from 'path';
 import JobsPageClient from './JobsPageClient';
+import { DEFAULT_SITE_BASE } from '../lib/apiConfig';
 
 function readCache(filename) {
   const filePath = path.join(process.cwd(), 'data', filename);
@@ -14,7 +15,7 @@ function readCache(filename) {
   return [];
 }
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || 'https://www.resumesathi.com';
+const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, '');
 
 export const metadata = {
   title: 'Find Latest Jobs & Vacancies | ResumeSathi',

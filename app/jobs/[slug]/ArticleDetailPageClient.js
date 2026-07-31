@@ -301,7 +301,11 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   useEffect(() => {
     if (!slug) return;
-    if (initialArticle) setArticle(initialArticle);
+    if (initialArticle) {
+      setArticle(initialArticle);
+      setLoading(false);
+      return;
+    }
     fetchArticle();
   }, [slug, initialArticle]);
 

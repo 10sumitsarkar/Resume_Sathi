@@ -172,7 +172,7 @@ export default function SignatureCropper() {
 
   return (
     <div className="tools-right-div custom-container py-custom pb-120 mb-3">
-      <section className="merge-pdf-tool extra-tool">
+      <section className="merge-pdf-tool mb-3 mb-md-5 extra-tool">
         <div className="tool-header">
           <h1>
             Signature <span>Cropper</span>
@@ -184,7 +184,7 @@ export default function SignatureCropper() {
         </div>
         {!image ? (
           <div
-            className={`drop-zone${dropZoneDragOver ? " drag-over" : ""}`}
+            className={`drop-zone${dropZoneDragOver ? " drag-over" : ""} mb-3 mb-md-5`}
             onDragOver={(e) => {
               e.preventDefault();
               setDropZoneDragOver(true);
@@ -283,6 +283,182 @@ export default function SignatureCropper() {
           </button>
         </div>
       )}
+
+    <section className="signature-cropper-info">
+        <div className="info-block">
+          <h2>Crop A Signature Photo To The Exact Size A Form Needs</h2>
+          <p>
+            Almost every sarkari form comes with a very specific signature
+            size mentioned in the instructions, something like 140 by 60
+            pixels, and if what you upload doesn't match that exactly, the
+            portal either stretches it into something odd looking or just
+            refuses the file outright. Most people only have a signature
+            photographed on plain paper with a phone, tilted a little, with
+            extra white space around it. This tool takes that raw photo and
+            turns it into a properly sized, properly cropped signature image
+            ready for whichever form is asking for it.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Where People Actually Use This</h3>
+          <p>
+            Government recruitment forms are the main reason this gets used,
+            SSC, railway, banking exams, and various state and central
+            portals all mention an exact pixel size for the signature upload,
+            and getting it wrong is one of the more common reasons an
+            application gets stuck at the last step. Bank account opening
+            forms have their own separate size requirement too, usually
+            different from exam portals. And sometimes it's simpler than
+            that, someone signed on a piece of paper, took a photo at an
+            angle, and now needs it straightened and trimmed down to just the
+            signature itself before uploading anywhere.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Setting The Width And Height</h3>
+          <p>
+            Once your image is uploaded, there are two fields for width and
+            height, type in whatever size the form you're applying to asks
+            for. Most sarkari recruitment notifications mention this exact
+            number somewhere in the instructions section, so it's worth
+            checking there first. The frame on the preview updates to match
+            those numbers right away, so you're always cropping to that exact
+            box rather than guessing. Whatever shows inside that
+            black-bordered frame at the end is exactly what comes out in your
+            downloaded file, pixel for pixel.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Zoom, Rotate, And Getting The Position Right</h3>
+          <p>
+            Signatures photographed by hand are rarely straight, so there's a
+            rotate angle slider to fix small tilts, and a full 90 degree
+            rotate button if the photo came in sideways entirely. The zoom
+            slider lets you move in closer or pull back so the signature
+            fills the frame properly instead of floating in a sea of white
+            space. You can also drag the image itself inside the frame to
+            center the signature exactly where you want it before locking in
+            the crop.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>What You Actually Get In The Download</h3>
+          <p>
+            The preview on screen looks larger than the real output, that's
+            just for your convenience while adjusting things. What actually
+            downloads is a PNG at the precise width and height you typed in,
+            nothing more and nothing less. So if a notification asks for 140
+            by 60, that's the exact file size you get, ready to upload on the
+            application portal without any resizing surprises later.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Notes</h3>
+          <p>
+            Before uploading a sarkari form, always confirm the exact
+            signature size mentioned in the official notification, portals
+            can differ from each other even for similar exams. Try to
+            photograph your signature on a plain, well-lit background too, it
+            makes cropping and positioning much easier. Everything runs in
+            your browser itself, your signature photo is never sent to a
+            server, and once you close the tab nothing from that session
+            sticks around anywhere.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Questions</h3>
+          <div className="faq-list">
+            <details className="faq-item">
+              <summary>Is this free to use?</summary>
+              <p>
+                Yes, completely free, no account needed, use it as many times
+                as you want.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>How do I know what size to enter for a government form?</summary>
+              <p>
+                Check the official recruitment notification or the upload
+                instructions on the portal, most sarkari forms mention the
+                exact width and height expected for a signature.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>What if my signature photo is sideways?</summary>
+              <p>
+                Use the Rotate 90 button to fix a fully sideways image, and
+                the rotate angle slider for smaller tilts.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I move the image around inside the frame?</summary>
+              <p>
+                Yes, drag it directly to position your signature exactly
+                where you want within the crop area.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Is the downloaded file actually the size I entered?</summary>
+              <p>
+                Yes, the preview appears larger on screen for easier editing,
+                but the final PNG matches your entered width and height
+                exactly.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Does my photo get uploaded to a server?</summary>
+              <p>
+                No, the entire cropping process happens in your browser, your
+                image never leaves your device.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>What image formats can I upload?</summary>
+              <p>
+                PNG and JPG both work fine, along with a regular scanned or
+                photographed signature.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I change the image after uploading?</summary>
+              <p>
+                Yes, use the Change Image option to swap it out and start
+                over with a different photo.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Different exams ask for different signature sizes, does this handle that?</summary>
+              <p>
+                Yes, just enter whatever width and height the particular
+                exam or form is asking for, the crop adjusts to match every
+                time.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Do I need any software installed for this?</summary>
+              <p>
+                No, it works directly in your browser on both mobile and
+                desktop, nothing to download separately.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

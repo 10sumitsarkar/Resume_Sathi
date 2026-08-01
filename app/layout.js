@@ -55,10 +55,25 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preload" href="/front-assets/css/bootstrap.min.css" as="style" />
+        <link rel="preload" href="/front-assets/css/style.css" as="style" />
+        <link rel="preload" href="/front-assets/css/responsive.css" as="style" />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="/front-assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/front-assets/css/style.css" />
         <link rel="stylesheet" href="/front-assets/css/responsive.css" />
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="beforeInteractive"
+        />
+        <Script id="google-analytics" strategy="beforeInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}');
+          `}
+        </Script>
       </head>
       <body suppressHydrationWarning>
         <JsonLd
@@ -76,20 +91,6 @@ export default function RootLayout({ children }) {
             description: "ResumeSathi helps job seekers create ATS-friendly resumes, cover letters, and career documents for free."
           }}
         />
-
-        {/* Google Analytics (gtag.js) */}
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
 
         {children}
         <FloatingTypingLink />

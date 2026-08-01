@@ -352,7 +352,7 @@ export default function PdfMergePage() {
         {/* Drop zone — hidden once files added */}
         {files.length === 0 && (
           <div
-            className={`drop-zone${dropZoneDragOver ? " drag-over" : ""}`}
+            className={`drop-zone${dropZoneDragOver ? " drag-over" : ""} mb-3 mb-md-5`}
             onDragOver={handleDropZoneDragOver}
             onDragLeave={handleDropZoneDragLeave}
             onDrop={handleDropZoneDrop}

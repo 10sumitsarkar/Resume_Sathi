@@ -17,6 +17,9 @@ function readCache(filename) {
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, '');
 
+const articles = readCache('articles-cache.json');
+const categories = readCache('article-categories-cache.json');
+
 export const metadata = {
   title: 'Career Blog with Resume and Interview Tips',
   description: 'Explore expert blog articles on resumes, interviews, career growth, and job search strategies.',
@@ -40,8 +43,5 @@ export const metadata = {
 };
 
 export default function BlogPage() {
-  const articles = readCache('articles-cache.json');
-  const categories = readCache('article-categories-cache.json');
-
   return <BlogPageClient initialArticles={articles} initialCategories={categories} />;
 }

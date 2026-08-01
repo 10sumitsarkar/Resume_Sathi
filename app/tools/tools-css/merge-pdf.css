@@ -520,7 +520,6 @@
 }
 
 .pdf-merge-info {
-  margin: 80px auto 0;
   color: #1a1a1a;
 
   @media (max-width:767px) {
@@ -649,7 +648,7 @@
 
 @media (max-width: 767px) {
   .pdf-merge-info {
-    margin-top: 48px;
+    margin-top: 30px;
   }
 
   .pdf-merge-info h2 {

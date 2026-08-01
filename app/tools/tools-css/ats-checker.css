@@ -783,7 +783,6 @@
 }
 
 .ats-checker-info {
-    margin: 80px auto 0;
     color: #1a1a1a;
 }
 
@@ -896,7 +895,7 @@
 
 @media (max-width: 767px) {
     .ats-checker-info {
-        margin-top: 48px;
+        margin-top: 30px;
     }
 
     .ats-checker-info h2 {

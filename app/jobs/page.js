@@ -17,6 +17,9 @@ function readCache(filename) {
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, '');
 
+const jobs = readCache('jobs-cache.json');
+const categories = readCache('categories-cache.json');
+
 export const metadata = {
   title: 'Find Latest Jobs & Vacancies | ResumeSathi',
   description: 'Explore fresh job openings, company details, and career opportunities curated for job seekers.',
@@ -40,8 +43,5 @@ export const metadata = {
 };
 
 export default function JobsPage() {
-  const jobs = readCache('jobs-cache.json');
-  const categories = readCache('categories-cache.json');
-
   return <JobsPageClient initialArticles={jobs} initialCategories={categories} />;
 }

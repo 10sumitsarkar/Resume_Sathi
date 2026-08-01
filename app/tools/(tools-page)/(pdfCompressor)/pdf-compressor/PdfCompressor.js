@@ -213,7 +213,7 @@ export default function PdfCompressor() {
   return (
     <div className="tools-right-div custom-container py-custom pb-120 mb-3">
       <section
-        className={`pdf-compress-tool${pageDragOver ? " page-drag-over" : ""}`}
+        className={`pdf-compress-tool${pageDragOver ? " page-drag-over" : ""} mb-3 mb-md-5`}
         onDragOver={file ? handlePageDragOver : undefined}
         onDragLeave={file ? handlePageDragLeave : undefined}
         onDrop={file ? handlePageDrop : undefined}

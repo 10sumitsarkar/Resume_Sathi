@@ -182,7 +182,7 @@ export default function AgeCalculator() {
 
   return (
     <div className="tools-right-div custom-container py-custom pb-120 mb-3">
-      <section className="merge-pdf-tool extra-tool">
+      <section className="merge-pdf-tool extra-tool mb-3 mb-md-5">
         <div className="tool-header">
           <h1>Age <span>Calculator</span></h1>
           <p>Find exact age from date of birth. <br /><span>Years, months, days, and total days</span></p>
@@ -208,6 +208,179 @@ export default function AgeCalculator() {
           ) : dob ? (
             <div className="age-empty">Select a valid date of birth to calculate age.</div>
           ) : null}
+        </div>
+      </section>
+
+      <section className="age-calculator-info">
+        <div className="info-block">
+          <h2>Find Out Your Exact Age In Years, Months, And Days</h2>
+          <p>
+            Every sarkari form asks the same question in a slightly different
+            way, what's your age as of a certain cutoff date, not just today.
+            SSC, banking exams, railway recruitment, state PSC forms, all of
+            them mention an age limit calculated on a specific reference date
+            mentioned in the notification, not the day you happen to be
+            filling the form. Counting that out manually with a calendar is
+            where people mess up, off by a month here or a few days there.
+            This tool just does that calculation properly, down to the exact
+            day.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Where This Gets Used</h3>
+          <p>
+            Government job applications lean on this the most, since almost
+            every notification has a minimum and maximum age limit tied to a
+            particular date, and getting even a few days wrong can mean the
+            form rejects your application outright. Beyond that, schools and
+            colleges ask for exact age on the admission cutoff date for
+            things like class 1 admissions. And plenty of regular situations
+            come up too, figuring out someone's exact age for an insurance
+            form, a passport application, or honestly just settling an
+            argument about who's actually older between two people.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Setting Your Date Of Birth And The Reference Date</h3>
+          <p>
+            There are two separate sections here, your date of birth on the
+            left, and the date you want your age calculated against on the
+            right. For most day to day use, that second one would just be
+            today's date, but for sarkari forms, this is exactly where you'd
+            enter the cutoff date mentioned in the recruitment notification,
+            not today's date. Pick the day, month, and year in both sections
+            using the dropdowns, and the result updates right there.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Reading The Result</h3>
+          <p>
+            The answer comes in four parts, years, months, and days broken
+            out separately, plus a total day count. The years old is what
+            most people check first since that's usually the number a form
+            or eligibility criteria cares about, but the months and days
+            figures matter too, since some age limits are written down to
+            the exact month, not just a round year number. The total days
+            count is handy for anything that specifically asks for age in
+            number of days rather than years.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Why The Reference Date Field Matters So Much</h3>
+          <p>
+            This is the part people skip and shouldn't. Leaving the second
+            date set to today when a form actually wants your age as of some
+            other cutoff date gives you a wrong number, and for eligibility
+            purposes wrong is worse than not knowing at all. Always check the
+            official notification for the exact date they're calculating age
+            against, then set that here before trusting the result for
+            anything official.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Notes</h3>
+          <p>
+            Double check both dates before relying on this for a form
+            submission, a wrong year selected by accident throws the whole
+            result off. This runs entirely in your browser, nothing you
+            enter here gets sent anywhere or stored, close the tab and it's
+            gone.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Questions</h3>
+          <div className="faq-list">
+            <details className="faq-item">
+              <summary>Is this free to use?</summary>
+              <p>
+                Yes, completely free, no login needed, use it as many times
+                as you want.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I calculate age as of a specific date, not today?</summary>
+              <p>
+                Yes, that's exactly what the second date section is for, set
+                it to whatever cutoff date you need instead of today's date.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Is this accurate enough for government form eligibility?</summary>
+              <p>
+                It calculates the exact difference between the two dates you
+                enter, but always cross check the age limit rules mentioned
+                in the official notification since criteria can vary between
+                different recruitment boards.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>What does the total days number mean?</summary>
+              <p>
+                It's the full number of days between your date of birth and
+                the date you're calculating age on, useful for forms that
+                ask for age in days rather than years.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Does this store my date of birth anywhere?</summary>
+              <p>
+                No, everything is calculated right in your browser, nothing
+                you enter gets saved or sent to a server.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I use this for something other than sarkari forms?</summary>
+              <p>
+                Yes, it works for anything that needs an exact age
+                calculation, admission forms, insurance paperwork, or just
+                general curiosity.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>What if I select the wrong date by mistake?</summary>
+              <p>
+                Just change it in the dropdown, the result updates
+                immediately based on whatever dates are currently selected.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Why does my age in months look different from what I expected?</summary>
+              <p>
+                The months figure shows the leftover months after the full
+                years are counted, not total months lived, that's normal and
+                matches how most official age calculations work.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I calculate someone else's age using this?</summary>
+              <p>
+                Yes, just enter their date of birth, it works the same way
+                regardless of whose age you're checking.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Do I need to install anything to use this?</summary>
+              <p>
+                No, it works directly in the browser on mobile or desktop,
+                nothing to download.
+              </p>
+            </details>
+          </div>
         </div>
       </section>
     </div>

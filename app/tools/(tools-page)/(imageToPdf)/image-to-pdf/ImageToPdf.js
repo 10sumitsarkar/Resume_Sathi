@@ -140,7 +140,7 @@ export default function ImageToPdf() {
 
   return (
     <div className="tools-right-div custom-container py-custom pb-120 mb-3">
-      <section className="merge-pdf-tool extra-tool">
+      <section className="merge-pdf-tool extra-tool mb-3 mb-md-5">
         <div className="tool-header">
           <h1>
             Image to <span>PDF</span>
@@ -266,6 +266,168 @@ export default function ImageToPdf() {
           </button>
         </div>
       )}
+
+      <section className="image-to-pdf-info">
+        <div className="info-block">
+          <h2>Turn Your Photos And Screenshots Into A PDF</h2>
+          <p>
+            A lot of what people need to submit online isn't a document at
+            all, it's a photo. A picture of a marksheet taken on a phone, a
+            screenshot of a payment receipt, a scanned ID card saved as a
+            JPG. But most forms specifically ask for a PDF, not an image
+            file, and that's where this tool comes in. Drop in your JPGs or
+            PNGs and get back a proper PDF built from them, no extra app
+            needed on your phone or laptop.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Where This Comes Up Most</h3>
+          <p>
+            Job and government portals are a big one, they'll happily take a
+            resume as a PDF but flat out reject a photo of your certificate,
+            so converting it first is the only way around that. Sometimes
+            it's a single image, like a photo of a signed consent form, that
+            just needs to become a one-page PDF before it can be emailed
+            somewhere. And plenty of people scan documents by photographing
+            each page separately and need all those photos combined into one
+            PDF instead of sending five different image files.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Adding And Arranging Your Images</h3>
+          <p>
+            Drop your images in or pick them from your device, each one
+            turns into its own card with a small number showing where it'll
+            land in the final PDF. Got the order wrong, or realized the
+            marksheet photo should come before the ID card one? Just drag the
+            cards around until the numbers line up the way you want. There's
+            also an Add More button if you forgot a file, no need to start
+            the upload over from scratch.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>One Image Or A Whole Batch</h3>
+          <p>
+            This works whether you're converting a single photo or a dozen
+            of them at once. Each image you add becomes its own page in the
+            resulting PDF, in whatever order the cards are arranged in when
+            you hit Create PDF. So a bunch of individually scanned pages
+            turns into one properly ordered, multi-page document instead of
+            staying scattered as separate image files on your phone.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>What Happens To Image Quality</h3>
+          <p>
+            Your images get placed into the PDF as they are, nothing gets
+            aggressively compressed or stretched out of proportion in the
+            process. A clear photo goes in clear, a slightly blurry phone
+            scan comes out just as blurry as it went in, since the tool
+            isn't touching the actual image data, only wrapping it into a
+            PDF page.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Notes</h3>
+          <p>
+            Worth checking the card order once more right before hitting
+            Create PDF, since the page order in your final file depends
+            entirely on that. This whole process runs inside your browser,
+            no images are sent to any server, and closing the tab clears
+            everything from that session for good.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Questions</h3>
+          <div className="faq-list">
+            <details className="faq-item">
+              <summary>Is this free to use?</summary>
+              <p>
+                Yes, completely free, no signup required, use it whenever you
+                need to.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>What image types can I upload?</summary>
+              <p>
+                JPG and PNG both work fine here, that covers pretty much any
+                photo or screenshot you'd have on your phone.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I convert more than one image into a single PDF?</summary>
+              <p>
+                Yes, add as many as you need, each one becomes its own page
+                in the same PDF file.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I change the order of the images?</summary>
+              <p>
+                Yes, drag the cards left or right until they're in the order
+                you want before creating the PDF.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Are my images uploaded to a server anywhere?</summary>
+              <p>
+                No, everything happens right in your browser, your images
+                never leave your device.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Will converting reduce image quality?</summary>
+              <p>
+                No, your images are placed into the PDF as they are, nothing
+                is compressed or resized in the process.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I add more images after I've already uploaded some?</summary>
+              <p>
+                Yes, use the Add More option to bring in additional files
+                without losing what you've already added.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>What if I add the wrong image?</summary>
+              <p>
+                Just remove it using the small remove icon on that card
+                before creating the PDF, no need to restart everything.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Is there a limit on how many images I can add?</summary>
+              <p>
+                Not really, a couple of images or a large batch both work,
+                bigger batches just take slightly longer to process.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Do I need to install any app for this?</summary>
+              <p>
+                No, it works directly in your browser on mobile or desktop,
+                nothing to download beforehand.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

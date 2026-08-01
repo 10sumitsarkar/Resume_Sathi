@@ -55,6 +55,9 @@ export const metadata = {
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
+const initialJobs = readCache('jobs-cache.json').slice(0, 8);
+const initialBlogs = readCache('articles-cache.json').slice(0, 6);
+
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -145,9 +148,6 @@ const jsonLd = [
 ];
 
 export default function Page() {
-  const initialJobs = readCache('jobs-cache.json').slice(0, 8);
-  const initialBlogs = readCache('articles-cache.json').slice(0, 6);
-
   return (
     <>
       <script

@@ -79,7 +79,7 @@ export default function DocxToPdf() {
 
   return (
     <div className="tools-right-div custom-container py-custom pb-120 mb-3">
-      <section className="merge-pdf-tool extra-tool">
+      <section className="merge-pdf-tool extra-tool mb-3 mb-md-5">
         <div className="tool-header">
           <h1>DOCX to <span>PDF</span></h1>
           <p>Convert Word documents into simple PDF files. <br /><span>Best for text-based documents</span></p>
@@ -134,6 +134,170 @@ export default function DocxToPdf() {
           </button>
         </div>
       )}
+
+      <section className="docx-to-pdf-info">
+        <div className="info-block">
+          <h2>Convert A Word Document Into A PDF</h2>
+          <p>
+            Word files cause more trouble than they should when it's time to
+            actually submit something. Open the same .docx on a different
+            laptop and the formatting shifts, fonts change, spacing breaks,
+            sometimes a whole page just disappears. PDFs don't have that
+            problem, what you see is what everyone else sees too. This tool
+            takes your Word document, pulls the text out, and gives you back
+            a clean PDF version that stays consistent wherever it's opened.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Why This Gets Used So Often</h3>
+          <p>
+            Resumes are the obvious one, most job portals and email
+            attachments expect a PDF, not a .docx, and sending the wrong
+            format sometimes means your resume gets skipped without anyone
+            even opening it. Cover letters written in Word need the same
+            treatment before they go out. And for things like assignments or
+            reports, a PDF just feels more final and less likely to get
+            edited by mistake once it leaves your hands.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>What Happens After You Upload</h3>
+          <p>
+            Once your .docx file is in, the tool reads through it and pulls
+            out the actual text content into an editable box on screen.
+            Alongside that, you'll see basic details about the file itself,
+            its name and roughly how many words it contains, just so you can
+            confirm it picked up the right document. If something looks off
+            in the extracted text, you can fix it directly in that box before
+            moving ahead, there's no need to go back and edit the original
+            Word file.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Editing Before You Convert</h3>
+          <p>
+            This is the part people find useful, the text isn't locked once
+            it's extracted. Spot a typo, want to remove a line, need to
+            tweak a sentence, just click into the box and change it right
+            there. Whatever's in that box when you hit Download PDF is
+            exactly what ends up in your final file, so it's worth a quick
+            read through before converting, especially for something like a
+            resume where small mistakes matter.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>A Few Things Worth Knowing</h3>
+          <p>
+            This works best for documents that are mostly text, like resumes,
+            cover letters, or simple reports. Heavier formatting like complex
+            tables, unusual fonts, or specific page layouts might not carry
+            over exactly the same way, since the tool is focused on getting
+            the words right rather than replicating pixel-perfect Word
+            styling. For a plain text-based document though, it does the job
+            cleanly.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Notes</h3>
+          <p>
+            Give the extracted text a quick look before downloading, it's the
+            easiest place to catch anything that needs fixing. Your file
+            stays local, nothing gets uploaded to a server, and once you
+            close the tab there's nothing left saved from that session.
+          </p>
+        </div>
+
+        <div className="info-block">
+          <h3>Questions</h3>
+          <div className="faq-list">
+            <details className="faq-item">
+              <summary>Is this free to use?</summary>
+              <p>
+                Yes, no signup and no charge, use it as many times as you
+                need.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I edit the text after it's extracted?</summary>
+              <p>
+                Yes, the extracted text sits in an editable box, change
+                anything you want before downloading the PDF.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Does this keep the original Word formatting?</summary>
+              <p>
+                It's built for text-based documents, so simple formatting
+                carries over fine, but heavy layouts or complex tables might
+                not look identical to the original.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Is my document uploaded to a server?</summary>
+              <p>
+                No, the file is processed right in your browser, it doesn't
+                get sent anywhere.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>What does the word count next to my file mean?</summary>
+              <p>
+                It's just a rough count of the words found in your document,
+                a quick way to confirm the right file got picked up.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Can I change the file after uploading?</summary>
+              <p>
+                Yes, use the Change File option to swap in a different
+                document without starting the whole page over.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Will my original DOCX file be changed?</summary>
+              <p>
+                No, your original stays exactly as it was on your device,
+                only a new PDF gets created from the extracted text.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>What file types can I upload here?</summary>
+              <p>
+                Standard .docx Word files work with this tool.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Is this good for resumes specifically?</summary>
+              <p>
+                Yes, it's actually one of the more common uses, converting a
+                Word resume into a PDF before sending it out or uploading it
+                to a job portal.
+              </p>
+            </details>
+
+            <details className="faq-item">
+              <summary>Do I need to install anything to use this?</summary>
+              <p>
+                No, it works directly in your browser on both desktop and
+                mobile, nothing extra to download.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

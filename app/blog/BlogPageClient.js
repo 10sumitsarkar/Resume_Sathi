@@ -188,8 +188,13 @@ function BlogCard({ article }) {
             <Link prefetch={false} href={`/blog/${articleSlug}`}>{getTitle(article)}</Link>
           </h3>
           <p>{article.description || article.meta_description || ''}</p>
-          <Link prefetch={false} href={`/blog/${articleSlug}`} className="rk-blog-readmore">
-            Read More
+          <Link
+            prefetch={false}
+            href={`/blog/${articleSlug}`}
+            className="rk-blog-readmore"
+            aria-label={`Read more about ${getTitle(article)}`}
+          >
+            Read full article
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M14 18L20 12L14 6M20 12H9.5M4 12H6.5" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
@@ -531,7 +536,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
           </div>
           <p className='fs-mob-16'>Browse the latest articles, learn new tips, and explore career insights curated for job seekers like you.</p>
         </div>
-        <div className='right-part d-none d-md-block'>
+        <div className='right-part'>
           <img
             src="/front-assets/images/blog-hero.webp"
             className='img-fluid'

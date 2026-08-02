@@ -544,14 +544,29 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
   // Accessibility fix for dynamically added buttons (e.g., Owl Carousel dots)
   useEffect(() => {
+    const applyDotLabels = () => {
+      const dotButtons = document.querySelectorAll('.owl-dot');
+      dotButtons.forEach((button, index) => {
+        const label = `Go to slide ${index + 1}`;
+        button.setAttribute('aria-label', label);
+        button.setAttribute('title', label);
+        button.setAttribute('type', 'button');
+
+        if (!button.querySelector('.rk-sr-only')) {
+          const srOnly = document.createElement('span');
+          srOnly.className = 'rk-sr-only';
+          srOnly.textContent = label;
+          button.appendChild(srOnly);
+        }
+      });
+    };
+
+    applyDotLabels();
+
     const observer = new MutationObserver((mutations) => {
-      // Check if new nodes were added that could be our carousel dots
-      const hasNewNodes = mutations.some(m => m.addedNodes.length > 0);
+      const hasNewNodes = mutations.some((m) => m.addedNodes.length > 0);
       if (hasNewNodes) {
-        const dotButtons = document.querySelectorAll('.owl-dot:not([aria-label])');
-        dotButtons.forEach((button, index) => {
-          button.setAttribute('aria-label', `Go to slide ${index + 1}`);
-        });
+        applyDotLabels();
       }
     });
 
@@ -670,7 +685,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
           </div>
           <p className='fs-mob-16'>Browse the latest job openings, explore company details, and discover roles that match your career goals.</p>
         </div>
-        <div className='right-part d-none d-md-block'>
+        <div className='right-part'>
           <img
             src="/front-assets/images/job-hero.webp"
             className='img-fluid'

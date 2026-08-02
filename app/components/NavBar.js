@@ -25,8 +25,8 @@ export default function NavBar({ className = "" }) {
             <nav className={`navbar ${className}`.trim()}>
                 <div className="container-fluid custom-container d-flex align-items-center justify-content-between">
 
-                    <Link prefetch={false} href="/" onClick={closeAll}>
-                        <img src="/front-assets/images/logo/logo.svg" className='img-fluid nav-logo' width={250} height={52} alt="ResumeSathi" />
+                    <Link prefetch={false} href="/" onClick={closeAll} style={{ display: 'inline-flex', alignItems: 'center', minWidth: 160, minHeight: 38 }}>
+                        <img src="/front-assets/images/logo/logo.svg" className='img-fluid nav-logo' width={250} height={52} alt="ResumeSathi" style={{ display: 'block' }} />
                     </Link>
 
                     <div className="d-flex align-items-center gap-2">
@@ -88,8 +88,8 @@ export default function NavBar({ className = "" }) {
             {/* Offcanvas Panel */}
             <div className={`offcanvas-panel ${offcanvasOpen ? 'open' : ''}`}>
                 <div className="offcanvas-header">
-                    <Link prefetch={false} href="/" onClick={closeAll}>
-                        <img src="/front-assets/images/logo/logo.svg" className='img-fluid' width={160} height={35} alt="ResumeSathi" />
+                    <Link prefetch={false} href="/" onClick={closeAll} style={{ display: 'inline-flex', alignItems: 'center', minWidth: 120, minHeight: 30 }}>
+                        <img src="/front-assets/images/logo/logo.svg" className='img-fluid' width={160} height={35} alt="ResumeSathi" style={{ display: 'block' }} />
                     </Link>
                     <button className="offcanvas-close" onClick={closeAll} aria-label="Close menu">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">

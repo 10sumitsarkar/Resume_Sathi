@@ -1,7 +1,7 @@
-import Script from "next/script";
 import Link from "next/link";
 import JsonLd from "./components/JsonLd";
 import FloatingTypingLink from "./components/FloatingTypingLink";
+import ClientScripts from "./components/ClientScripts";
 import { DEFAULT_SITE_BASE } from "./lib/apiConfig";
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
@@ -58,22 +58,19 @@ export default function RootLayout({ children }) {
         <link rel="preload" href="/front-assets/css/bootstrap.min.css" as="style" />
         <link rel="preload" href="/front-assets/css/style.css" as="style" />
         <link rel="preload" href="/front-assets/css/responsive.css" as="style" />
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
+        <link
+          rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          as="style"
+          crossOrigin="anonymous"
+        />
         <link rel="stylesheet" href="/front-assets/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/front-assets/css/style.css" />
         <link rel="stylesheet" href="/front-assets/css/responsive.css" />
-        <Script
-          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
-          strategy="beforeInteractive"
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         />
-        <Script id="google-analytics" strategy="beforeInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${GA_MEASUREMENT_ID}');
-          `}
-        </Script>
       </head>
       <body suppressHydrationWarning>
         <JsonLd
@@ -92,10 +89,11 @@ export default function RootLayout({ children }) {
           }}
         />
 
-        {children}
+        <main id="main-content">
+          {children}
+        </main>
         <FloatingTypingLink />
-        <Script src="/api-config.js" strategy="beforeInteractive" />
-        <Script src="/front-assets/js/bootstrap.bundle.min.js" strategy="afterInteractive" />
+        <ClientScripts />
       </body>
     </html>
   );

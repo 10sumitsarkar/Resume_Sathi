@@ -626,6 +626,18 @@ function useOwlCarousel(ref, sourceRef, options, deps = []) {
     let $el = null;
     let carousel = null;
 
+    const applyDotLabels = () => {
+      const dotButtons = Array.from(document.querySelectorAll('.owl-dot'));
+      dotButtons.forEach((button, index) => {
+        const label = `Go to slide ${index + 1}`;
+        button.setAttribute('aria-label', label);
+        button.setAttribute('title', label);
+        button.setAttribute('type', 'button');
+
+        button.querySelectorAll('.rk-sr-only').forEach((node) => node.remove());
+      });
+    };
+
     loadOwlAssets().then(() => {
       if (cancelled || !ref.current || !sourceRef.current || !window.jQuery)
         return;
@@ -644,10 +656,20 @@ function useOwlCarousel(ref, sourceRef, options, deps = []) {
         $el.removeClass("owl-loaded");
       }
       $el.owlCarousel(options);
+      requestAnimationFrame(applyDotLabels);
+      setTimeout(applyDotLabels, 100);
     });
+
+    const observer = new MutationObserver(() => {
+      applyDotLabels();
+    });
+    if (ref.current) {
+      observer.observe(ref.current, { childList: true, subtree: true });
+    }
 
     return () => {
       cancelled = true;
+      observer.disconnect();
       if ($el && $el.hasClass && $el.hasClass("owl-loaded")) {
         $el.trigger("destroy.owl.carousel");
       }
@@ -791,6 +813,7 @@ function ResumeCoverflow() {
                 alt={`${img.label} — free ATS-friendly resume template preview A4 size`}
                 className="rk-cf-img"
                 loading="lazy"
+                decoding="async"
               />
             </button>
           );
@@ -883,6 +906,8 @@ function HeroVideo() {
         muted
         loop
         playsInline
+        preload="metadata"
+        poster="/front-assets/images/hero-poster.svg"
         controlsList="nodownload noplaybackrate"
         onContextMenu={(e) => e.preventDefault()}
       >
@@ -1202,6 +1227,8 @@ function JobCard({ job, href }) {
           src={imageUrl}
           alt={getJobTitle(job)}
           className="rk-bc-img"
+          loading="lazy"
+          decoding="async"
           onError={(e) => {
             e.target.src = DEFAULT_JOB_IMAGE;
           }}
@@ -1269,6 +1296,8 @@ function BlogCard({ blog, href }) {
           src={imageUrl}
           alt={title}
           className="rk-bc-img"
+          loading="lazy"
+          decoding="async"
           onError={(e) => {
             e.target.src = DEFAULT_BLOG_IMAGE;
           }}
@@ -1284,8 +1313,13 @@ function BlogCard({ blog, href }) {
           <Icon.Calendar />{" "}
           {publishedDate ? formatDate(publishedDate) : "Updated recently"}
         </span>
-        <Link prefetch={false} href={href} className="rk-bc-read">
-          Read more <Icon.ArrowRight />
+        <Link
+          prefetch={false}
+          href={href}
+          className="rk-bc-read"
+          aria-label={`Read more about ${title}`}
+        >
+          Read full article <Icon.ArrowRight />
         </Link>
       </div>
     </article>
@@ -1692,6 +1726,8 @@ export default function ResumeListClient({
                 <img
                   src={c.logo}
                   alt={`${c.name} logo`}
+                  width={120}
+                  height={34}
                   className="rk-hired-logo-img img-fluid"
                   onError={(e) => {
                     e.target.style.display = "none";

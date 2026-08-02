@@ -226,6 +226,12 @@
   gap: 14px;
   margin-bottom: 26px;
   flex-wrap: wrap;
+  min-height: 56px;
+  align-items: center;
+}
+
+.rk-hero-actions .rk-btn {
+  min-width: 180px;
 }
 
 .rk-trust-row {
@@ -279,6 +285,7 @@
 .rk-stats-section {
   padding: 20px 0;
   background: var(--rk-brand);
+  min-height: 68px;
 }
 
 .rk-stats-flex {
@@ -312,6 +319,7 @@
   font-variant-numeric: tabular-nums;
   font-size: 1.35rem;
   transition: .3s;
+  min-width: 7ch;
 }
 
 .rk-live-highlight-label {
@@ -344,6 +352,7 @@
   align-items: center;
   gap: 9px;
   color: #fff;
+  min-height: 32px;
 }
 
 .rk-stat-simple-icon {
@@ -364,7 +373,8 @@
 
 .rk-stat-simple-label {
   font-size: .82rem;
-  opacity: .85;
+  color: rgba(255, 255, 255, .95);
+  font-weight: 600;
 }
 
 @keyframes rk-badge-glow {
@@ -1505,7 +1515,7 @@
   transform: translateY(-50%);
   font-size: 11rem;
   font-weight: 900;
-  color: rgba(255, 255, 255, .05);
+  color: rgba(255, 255, 255, .16);
   pointer-events: none;
 }
 
@@ -1536,9 +1546,10 @@
 }
 
 .rk-cta-sub {
-  opacity: .88;
+  color: rgba(255, 255, 255, .96);
   margin-bottom: 30px;
   font-size: .98rem;
+  font-weight: 500;
 }
 
 .rk-cta-actions {
@@ -1577,7 +1588,8 @@
   justify-content: center;
   gap: 8px;
   font-size: .8rem;
-  opacity: .75;
+  color: rgba(255, 255, 255, .94);
+  font-weight: 600;
 }
 
 
@@ -1809,11 +1821,11 @@ justify-content: center;
 }
 
 .rk-compare-side--us .rk-compare-tag {
-  color: #16a34a;
+  color: #166534;
 }
 
 .rk-compare-side--them .rk-compare-tag {
-  color: var(--rk-muted);
+  color: #334155;
 }
 
 .rk-compare-value {

@@ -1,5 +1,5 @@
 * {
-  font-family: "Poppins", sans-serif;
+  font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 :root {
@@ -58,6 +58,9 @@ a {
 
   .nav-logo {
     max-width: 235px;
+    width: 250px;
+    aspect-ratio: 250 / 52;
+    height: auto;
   }
 
   .back-btn {

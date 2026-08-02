@@ -1,0 +1,154 @@
+﻿
+.next\dev\server\chunks\ssr\[root-of-the-server]__1pf0jag._.js:730:            
+    className: "rk-root",
+.next\server\chunks\ssr\[root-of-the-server]__1269bi9._.js:1:module.exports=[93
+695,(a,b,c)=>{b.exports=a.x("next/dist/shared/lib/no-fallback-error.external.js
+",()=>require("next/dist/shared/lib/no-fallback-error.external.js"))},71306,(a,
+b,c)=>{b.exports=a.r(18622)},79847,a=>{a.n(a.i(3343))},9185,a=>{a.n(a.i(29432))
+},72842,a=>{a.n(a.i(75164))},54897,a=>{a.n(a.i(30106))},56157,a=>{a.n(a.i(18970
+))},94331,a=>{a.n(a.i(60644))},15988,a=>{a.n(a.i(56952))},25766,a=>{a.n(a.i(773
+41))},29725,a=>{a.n(a.i(94290))},90833,a=>{a.n(a.i(46994))},5785,a=>{a.n(a.i(90
+588))},74793,a=>{a.n(a.i(33169))},85826,a=>{a.n(a.i(37111))},21565,a=>{a.n(a.i(
+41763))},65911,a=>{a.n(a.i(8950))},25128,a=>{a.n(a.i(91562))},40781,a=>{a.n(a.i
+(49670))},69411,a=>{a.n(a.i(75700))},63081,a=>{a.n(a.i(276))},62837,a=>{a.n(a.i
+(40795))},34607,a=>{a.n(a.i(11614))},96338,a=>{a.n(a.i(21751))},50642,a=>{a.n(a
+.i(12213))},32242,a=>{a.n(a.i(22693))},88530,a=>{a.n(a.i(10531))},8583,a=>{a.n(
+a.i(1082))},38534,a=>{a.n(a.i(98175))},70408,a=>{a.n(a.i(9095))},22922,a=>{a.n(
+a.i(96772))},78294,a=>{a.n(a.i(71717))},16625,a=>{a.n(a.i(85034))},88648,a=>{a.
+n(a.i(68113))},51914,a=>{a.n(a.i(66482))},25466,a=>{a.n(a.i(91505))},22734,(a,b
+,c)=>{b.exports=a.x("fs",()=>require("fs"))},23400,a=>{"use 
+strict";a.s(["default",()=>b]);let 
+b=(0,a.i(11857).registerClientReference)(function(){throw Error("Attempted to 
+call the default export of [project]/app/(homeClient)/homeClient.js <module 
+evaluation> from the server, but it's on the client. It's not possible to 
+invoke a client function from the server, it can only be rendered as a 
+Component or passed to props of a Client 
+Component.")},"[project]/app/(homeClient)/homeClient.js <module 
+evaluation>","default")},51952,a=>{"use strict";a.s(["default",()=>b]);let 
+b=(0,a.i(11857).registerClientReference)(function(){throw Error("Attempted to 
+call the default export of [project]/app/(homeClient)/homeClient.js from the 
+server, but it's on the client. It's not possible to invoke a client function 
+from the server, it can only be rendered as a Component or passed to props of 
+a Client Component.")},"[project]/app/(homeClient)/homeClient.js","default")},1
+1412,a=>{"use strict";a.i(23400);var b=a.i(51952);a.n(b)},43909,a=>{"use 
+strict";var b=a.i(7997),c=a.i(22734),d=a.i(14747),e=a.i(95936);let 
+f=()=>(0,b.jsxs)("svg",{width:"15",height:"15",viewBox:"0 0 24 24",fill:"none",
+stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",strokeLinejoin:"rou
+nd",children:[(0,b.jsx)("rect",{x:"3",y:"11",width:"18",height:"11",rx:"2",ry:"
+2"}),(0,b.jsx)("path",{d:"M7 11V7a5 5 0 0 1 10 
+0v4"})]}),g=()=>(0,b.jsx)("svg",{width:"18",height:"18",viewBox:"0 0 24 24",fil
+l:"none",stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",strokeLine
+join:"round",children:(0,b.jsx)("path",{d:"M12 2l2.09 4.24L19 7.27l-3.5 
+3.42.83 4.84L12 13.8 7.67 15.5l.83-4.84L5 7.27l4.91-.99L12 
+2z"})}),h=()=>(0,b.jsx)("svg",{width:"18",height:"18",viewBox:"0 0 24 24",fill:
+"none",stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",strokeLinejo
+in:"round",children:(0,b.jsx)("path",{d:"M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 
+8 10z"})}),i=()=>(0,b.jsx)("svg",{width:"18",height:"18",viewBox:"0 0 24 24",fi
+ll:"none",stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",strokeLin
+ejoin:"round",children:(0,b.jsx)("polygon",{points:"13 2 3 14 12 14 11 22 21 
+10 12 10 13 2"})}),j=()=>(0,b.jsxs)("svg",{width:"18",height:"18",viewBox:"0 0 
+24 24",fill:"none",stroke:"currentColor",strokeWidth:"2",strokeLinecap:"round",
+strokeLinejoin:"round",children:[(0,b.jsx)("path",{d:"M21 15v4a2 2 0 0 1-2 
+2H5a2 2 0 0 1-2-2v-4"}),(0,b.jsx)("polyline",{points:"7 10 12 15 17 10"}),(0,b.
+jsx)("line",{x1:"12",y1:"15",x2:"12",y2:"3"})]}),k=()=>(0,b.jsxs)("svg",{width:
+"15",height:"15",viewBox:"0 0 24 24",fill:"none",stroke:"currentColor",strokeWi
+dth:"2",strokeLinecap:"round",strokeLinejoin:"round",children:[(0,b.jsx)("line"
+,{x1:"5",y1:"12",x2:"19",y2:"12"}),(0,b.jsx)("polyline",{points:"12 5 19 12 12 
+19"})]});function l(){return(0,b.jsxs)("div",{className:"rk-hero-image-wrap",ch
+ildren:[(0,b.jsx)("video",{className:"rk-hero-video",autoPlay:!0,muted:!0,loop:
+!0,playsInline:!0,preload:"metadata",poster:"/front-assets/images/hero-poster.s
+vg",controlsList:"nodownload noplaybackrate",children:(0,b.jsx)("source",{src:"
+/front-assets/images/hero-video-2.webm",type:"video/webm"})}),(0,b.jsxs)("div",
+{className:"rk-float-badge rk-float-badge--tl",children:[(0,b.jsx)("div",{class
+Name:"rk-fb-icon",children:(0,b.jsx)(f,{})}),(0,b.jsxs)("div",{children:[(0,b.j
+sx)("div",{className:"rk-fb-title",children:"Data stays 
+local"}),(0,b.jsx)("div",{className:"rk-fb-sub",children:"No server. 
+Ever."})]})]}),(0,b.jsxs)("div",{className:"rk-float-badge 
+rk-float-badge--br",children:[(0,b.jsx)(g,{}),(0,b.jsx)("span",{children:"100% 
+Free forever"})]})]})}function m(){return(0,b.jsx)("section",{className:"rk-her
+o",children:(0,b.jsx)("div",{className:"container-fluid 
+custom-container",children:(0,b.jsxs)("div",{className:"row 
+g-4",children:[(0,b.jsxs)("div",{className:"col-lg-6 col-md-10 mx-auto hero-lef
+t-part",children:[(0,b.jsxs)("div",{className:"rk-hero-badge",children:[(0,b.js
+x)("span",{className:"rk-hero-badge-dot"}),"No signup · Always free · 100% 
+local"]}),(0,b.jsxs)("h1",{className:"rk-hero-title 
+fs-mob-32",children:["Build your 
+",(0,b.jsx)("span",{className:"rk-hero-hl",children:"ATS-friendly resume 
+"}),"in minutes"]}),(0,b.jsx)("p",{className:"rk-hero-sub 
+fs-mob-14",children:"Create professional resumes, cover letters, and job-ready 
+documents for free with simple tools and clean resume templates."}),(0,b.jsxs)(
+"div",{className:"rk-local-box",children:[(0,b.jsx)("div",{className:"rk-local-
+box-icon",children:(0,b.jsx)(f,{})}),(0,b.jsxs)("div",{children:[(0,b.jsx)("div
+",{className:"rk-local-box-title fs-mob-14",children:"Your data stays 
+private"}),(0,b.jsx)("div",{className:"rk-local-box-sub 
+fs-mob-12",children:"Everything is saved in your browser. No account, no 
+server, and no sharing needed."})]})]}),(0,b.jsxs)("div",{className:"rk-hero-ac
+tions",children:[(0,b.jsxs)(e.default,{prefetch:!1,href:"/resume/resume-type",c
+lassName:"rk-btn rk-btn--primary rk-btn--lg",children:["Choose a Template ",(0,
+b.jsx)(k,{})]}),(0,b.jsx)(e.default,{prefetch:!1,href:"/tools",className:"rk-bt
+n rk-btn--outline rk-btn--lg",children:"Explore Tools"})]}),(0,b.jsx)("div",{cl
+assName:"rk-trust-row",children:[{icon:(0,b.jsx)(h,{}),text:"100% 
+Private"},{icon:(0,b.jsx)(i,{}),text:"Ready in 5 
+min"},{icon:(0,b.jsx)(j,{}),text:"PDF Download"}].map(a=>(0,b.jsxs)("div",{clas
+sName:"rk-trust-chip",children:[a.icon,a.text]},a.text))})]}),(0,b.jsx)("div",{
+className:"col-lg-6 d-none d-lg-block",children:(0,b.jsx)(l,{})})]})})})}var 
+n=a.i(11412);function o(a){let 
+b=d.default.join(process.cwd(),"data",a);try{let 
+a=c.default.readFileSync(b,"utf-8"),d=JSON.parse(a);if(Array.isArray(d))return 
+d}catch(b){console.error(`FATAL: could not read data/${a} for homepage preview 
+sections.`)}return[]}let p=a.i(4981).DEFAULT_SITE_BASE.replace(/\/+$/,""),q=o("
+jobs-cache.json").slice(0,8),r=o("articles-cache.json").slice(0,6),s=new Date()
+.toISOString(),t=[{"@context":"https://schema.org","@type":"Organization",name:
+"ResumeSathi",url:p,logo:`${p}/front-assets/images/logo/logo.svg`,description:"
+ResumeSathi is a 100% free, ATS-friendly resume builder. All data stays in 
+your browser â€” nothing is ever uploaded to a server."},{"@context":"https://s
+chema.org","@type":"WebSite",name:"ResumeSathi",url:p,potentialAction:{"@type":
+"SearchAction",target:`${p}/blog?q={search_term_string}`,"query-input":"require
+d name=search_term_string"}},{"@context":"https://schema.org","@type":"Software
+Application",name:"ResumeSathi Resume Builder",applicationCategory:"BusinessApp
+lication",operatingSystem:"Web",url:p,offers:{"@type":"Offer",price:"0",priceCu
+rrency:"INR"},description:"Build ATS-friendly resumes and cover letters for 
+free. No signup required â€” all data is stored locally in your browser.",aggre
+gateRating:{"@type":"AggregateRating",ratingValue:"4.9",ratingCount:"1200"}},{"
+@context":"https://schema.org","@type":"FAQPage",mainEntity:[{"@type":"Question
+",name:"Is ResumeSathi completely 
+free?",acceptedAnswer:{"@type":"Answer",text:"Yes, ResumeSathi is 100% free 
+and always will be. No hidden charges, no premium plans. All templates and all 
+tools are completely free."}},{"@type":"Question",name:"Where is my data 
+saved?",acceptedAnswer:{"@type":"Answer",text:"Your data is saved only in your 
+browser's localStorage. No server, no database, no account required. Your data 
+stays on your device until you choose to clear 
+it."}},{"@type":"Question",name:"Do I need to create an account to build a 
+resume?",acceptedAnswer:{"@type":"Answer",text:"Absolutely not. No signup, no 
+login, no email verification. Simply choose a template, fill in your details, 
+and download."}},{"@type":"Question",name:"How do I download my resume as a 
+PDF?",acceptedAnswer:{"@type":"Answer",text:"Once you complete your resume, 
+click the 'Download PDF' button. The browser print dialog opens â€” select 
+'Save as PDF' to save it to your device. No extra software 
+needed."}},{"@type":"Question",name:"Is ResumeSathi 
+ATS-friendly?",acceptedAnswer:{"@type":"Answer",text:"Yes. Every ResumeSathi 
+template is built to be parsed correctly by Applicant Tracking Systems, using 
+clean structure and standard fonts."}}]}];a.s(["default",0,function(){return(0,
+b.jsxs)(b.Fragment,{children:[(0,b.jsx)("script",{type:"application/ld+json",da
+ngerouslySetInnerHTML:{__html:JSON.stringify(t)}}),(0,b.jsxs)("div",{className:
+"rk-root",children:[(0,b.jsx)(m,{}),(0,b.jsx)(n.default,{initialJobs:q,initialB
+logs:r,initialNow:s})]})]})},"metadata",0,{title:"100% Free Resume Builder | 
+Create a Resume Online, No Signup",description:"Build a professional, 
+ATS-friendly resume for free â€” no signup, no login, no payment. Anyone can 
+create a job-ready resume online in minutes, 100% free 
+forever.",keywords:["resume builder","free resume builder","100% free resume 
+builder","resume maker online free","create resume online free","ats friendly 
+resume builder","resume builder no signup","free resume templates","cv maker 
+online free","cover letter builder free","resume builder for 
+freshers"],alternates:{canonical:"/"},openGraph:{title:"100% Free Resume 
+Builder | Create a Resume Online, No Signup",description:"Anyone can create a 
+professional, ATS-friendly resume for free â€” no signup, no login, no hidden 
+cost. 100% free, always.",url:"/",type:"website",siteName:"ResumeSathi",images:
+[{url:"/front-assets/images/og/home-og.png",width:1200,height:630,alt:"ResumeSa
+thi resume builder"}]},twitter:{card:"summary_large_image",title:"100% Free 
+Resume Builder | Create a Resume Online, No Signup",description:"Anyone can 
+create a professional, ATS-friendly resume for free â€” no signup, no login, 
+no hidden cost. 100% free, always.",images:["/front-assets/images/og/home-og.pn
+g"]}}],43909)},29712,a=>{a.n(a.i(43909))}];
+
+

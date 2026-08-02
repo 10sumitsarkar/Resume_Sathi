@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import NavBar from "../components/NavBar";
@@ -808,9 +809,11 @@ function ResumeCoverflow() {
               onClick={() => goTo(i)}
               aria-label={`Show ${img.label}`}
             >
-              <img
+              <Image
                 src={img.src}
                 alt={`${img.label} — free ATS-friendly resume template preview A4 size`}
+                width={640}
+                height={480}
                 className="rk-cf-img"
                 loading="lazy"
                 decoding="async"
@@ -906,7 +909,7 @@ function HeroVideo() {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="none"
         poster="/front-assets/images/hero-poster.svg"
         controlsList="nodownload noplaybackrate"
         onContextMenu={(e) => e.preventDefault()}
@@ -975,7 +978,16 @@ const templates = [
 ];
 
 function TemplateCard({ tpl, className = "" }) {
-  return <img src={tpl.image} alt={tpl.name} className="rk-template-img" />;
+  return (
+    <Image
+      src={tpl.image}
+      alt={tpl.name}
+      width={400}
+      height={260}
+      className="rk-template-img"
+      loading="lazy"
+    />
+  );
 }
 
 function TemplateCarousel() {
@@ -1223,14 +1235,16 @@ function JobCard({ job, href }) {
     <div className="rk-jc h-100">
       <div className="rk-jc-thumb">
         {companyName ? <span className="rk-jc-org">{companyName}</span> : null}
-        <img
+        <Image
           src={imageUrl}
           alt={getJobTitle(job)}
+          width={640}
+          height={380}
           className="rk-bc-img"
           loading="lazy"
           decoding="async"
           onError={(e) => {
-            e.target.src = DEFAULT_JOB_IMAGE;
+            e.currentTarget.src = DEFAULT_JOB_IMAGE;
           }}
         />
         <span className={`rk-jc-badge rk-jc-badge--${status.toLowerCase()}`}>
@@ -1292,14 +1306,16 @@ function BlogCard({ blog, href }) {
   return (
     <article className="rk-bc h-100">
       <div className="rk-bc-thumb">
-        <img
+        <Image
           src={imageUrl}
           alt={title}
+          width={640}
+          height={380}
           className="rk-bc-img"
           loading="lazy"
           decoding="async"
           onError={(e) => {
-            e.target.src = DEFAULT_BLOG_IMAGE;
+            e.currentTarget.src = DEFAULT_BLOG_IMAGE;
           }}
         />
         <span className="rk-bc-cat">{category}</span>
@@ -1723,16 +1739,16 @@ export default function ResumeListClient({
           <div className="rk-hired-logos">
             {companies.map((c) => (
               <div key={c.name} className="rk-hired-logo">
-                <img
+                <Image
                   src={c.logo}
                   alt={`${c.name} logo`}
                   width={120}
                   height={34}
                   className="rk-hired-logo-img img-fluid"
                   onError={(e) => {
-                    e.target.style.display = "none";
-                    if (e.target.nextSibling)
-                      e.target.nextSibling.style.display = "inline-block";
+                    e.currentTarget.style.display = "none";
+                    if (e.currentTarget.nextSibling)
+                      e.currentTarget.nextSibling.style.display = "inline-block";
                   }}
                 />
                 <span
@@ -1859,7 +1875,11 @@ export default function ResumeListClient({
 
       <section className="rk-cta" id="cta">
         <div className="rk-cta-bg-text" aria-hidden="true">
-          FREE
+          <svg viewBox="0 0 260 120" role="img" aria-label="FREE">
+            <text x="50%" y="50%" textAnchor="middle" dominantBaseline="middle" fill="currentColor">
+              FREE
+            </text>
+          </svg>
         </div>
 
         <div className="container-fluid custom-container rk-cta-inner">

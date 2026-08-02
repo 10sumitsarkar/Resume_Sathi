@@ -4,13 +4,14 @@ import { useEffect } from "react";
 
 const GA_MEASUREMENT_ID = "G-GMDRJBQDWL";
 
-function addScript(src, async = true) {
+function addScript(src, async = false) {
   if (typeof document === "undefined") return;
   const existing = document.querySelector(`script[src="${src}"]`);
   if (existing) return;
   const script = document.createElement("script");
   script.src = src;
   script.async = async;
+  script.defer = true;
   document.body.appendChild(script);
 }
 
@@ -26,6 +27,7 @@ function loadGoogleAnalytics() {
 
   const script = document.createElement("script");
   script.async = true;
+  script.defer = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
   script.onload = () => {
     window.gtag("js", new Date());

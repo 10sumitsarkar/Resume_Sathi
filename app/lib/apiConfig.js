@@ -4,24 +4,10 @@ export const DEFAULT_SITE_BASE = process.env.NEXT_PUBLIC_SITE_URL || process.env
 export const DEFAULT_BACKEND_BASE = process.env.NEXT_PUBLIC_BACKEND_BASE || apiConfig.backendBase;
 
 export function getSiteBase() {
-  if (typeof window !== 'undefined') {
-    const runtimeBase = window.RESUME_SATHI_CONFIG?.FRONTEND_BASE || window.RESUME_SATHI_CONFIG?.SITE_URL;
-    if (runtimeBase) {
-      return runtimeBase.replace(/\/+$/, '');
-    }
-  }
-
   return DEFAULT_SITE_BASE.replace(/\/+$/, '');
 }
 
 export function getBackendBase() {
-  if (typeof window !== 'undefined') {
-    const runtimeBase = window.RESUME_SATHI_CONFIG?.BACKEND_BASE;
-    if (runtimeBase) {
-      return runtimeBase.replace(/\/+$/, '');
-    }
-  }
-
   return DEFAULT_BACKEND_BASE.replace(/\/+$/, '');
 }
 

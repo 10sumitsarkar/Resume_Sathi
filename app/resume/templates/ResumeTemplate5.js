@@ -465,34 +465,6 @@ export default function ResumeTemplate5({
                   </p>
                 </div>
               </div>
-              <div className="rt5_row">
-                <div className="rt5_col_label">
-                  <p className="rt5_entry_date">2016 - 2020</p>
-                  <p className="rt5_entry_org">Delhi University</p>
-                </div>
-                <div className="rt5_col_content">
-                  <p className="rt5_entry_title">
-                    Bachelor of Commerce
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* CERTIFICATIONS */}
-            <div className="rt5_block">
-              <p className="rt5_section_title">Certifications</p>
-              <div className="rt5_divider" />
-              <div className="rt5_row">
-                <div className="rt5_col_label">
-                  <p className="rt5_entry_date">2022</p>
-                  <p className="rt5_entry_org">Google</p>
-                </div>
-                <div className="rt5_col_content">
-                  <p className="rt5_entry_title">
-                    Data Analytics Professional Certificate
-                  </p>
-                </div>
-              </div>
             </div>
 
             {/* SKILLS */}

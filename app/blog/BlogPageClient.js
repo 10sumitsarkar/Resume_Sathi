@@ -119,7 +119,7 @@ function SearchDropdown({
             suggestions.map((item) => (
               <li key={item.id}>
                 <Link prefetch={false} href={`/blog/${getSlug(item)}`} onClick={() => onSelect(item)}>
-                  <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} />
+                  <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} width={56} height={56} className="rk-blog-thumb" loading="eager" decoding="async" />
                   <div>
                     <span className="rk-search-dropdown-title">{getTitle(item)}</span>
                     <span className="rk-search-dropdown-cat">{getCategoryLabel(item)}</span>
@@ -167,7 +167,7 @@ function BlogCard({ article }) {
     <div className="col-sm-6 col-lg-4">
       <article className="rk-blog-card">
         <Link prefetch={false} href={`/blog/${articleSlug}`} className="rk-blog-card-img">
-          <img src={resolveMediaUrl(article.hero_image)} alt={getTitle(article)} />
+          <img src={resolveMediaUrl(article.hero_image)} alt={getTitle(article)} width={640} height={380} className="rk-blog-card-img" loading="eager" decoding="async" />
           <span className="rk-blog-cat">{getCategoryLabel(article)}</span>
         </Link>
         <div className="rk-blog-card-body">
@@ -238,7 +238,7 @@ function Sidebar({
           {latest.map((item) => (
             <li key={item.id}>
               <Link prefetch={false} href={`/blog/${getSlug(item)}`} className="rk-blog-card-img">
-                <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} />
+                <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} width={56} height={56} className="rk-blog-thumb" loading="eager" decoding="async" />
               </Link>
               <div>
                 <span>{formatDate(item.created_at)}</span>
@@ -647,7 +647,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
                     className="rk-latest-sub-item"
                     onClick={closeOffcanvas}
                   >
-                    <img src={resolveMediaUrl(item.hero_image)} width={40} height={40} alt={getTitle(item)} />
+                    <img src={resolveMediaUrl(item.hero_image)} width={40} height={40} alt={getTitle(item)} className="rk-blog-thumb" loading="eager" decoding="async" />
                     <div>
                       <span className="rk-latest-sub-title">{getTitle(item)}</span>
                       <span className="rk-latest-sub-date">{formatDate(item.created_at)}</span>

@@ -347,11 +347,6 @@ const id = searchParams.get('id');
                   <li>
                     <p className="semi-bold">
                       Frontend Developer - Digital Labs
-                    </p>
-                    <p>July 2020 - December 2022</p>
-                    <p>
-                      Developed responsive web applications using React,
-                      JavaScript, HTML, and CSS.
                       
                     </p>
                   </li>

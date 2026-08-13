@@ -216,7 +216,7 @@ const TOOL_GROUPS = [
       {
         href: "/tools/signature-cropper",
         icon: <IconCrop />,
-        tagIcon: <IconImage />,
+         tagIcon: <IconFilePdfSmall />,
         title: "Signature Cropper",
         desc: "Crop and resize signatures to exact form dimensions.",
         tag: "Image",

@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     width: "60%",
   },
   colSection: {
-    marginBottom: 20,
+    marginBottom: 2,
   },
 
   // Contact

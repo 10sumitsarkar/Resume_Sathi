@@ -62,7 +62,7 @@ function fetchJson(url) {
 async function main() {
   let articlesRaw;
   try {
-    articlesRaw = await fetchWithRetry(`${BACKEND_BASE}/api/articles`);
+    articlesRaw = await fetchWithRetry(`${BACKEND_BASE}/api/articles?limit=500&include_contents=1`);
   } catch (err) {
     if (hasUsableCache()) {
       console.warn(`[fetch-articles] API unavailable, using existing data/articles-cache.json. ${err.message}`);

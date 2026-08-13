@@ -1,11 +1,18 @@
 import fs from 'fs';
 import path from 'path';
-import { DEFAULT_SITE_BASE } from './lib/apiConfig';
+import { DEFAULT_SITE_BASE, getApiBase } from './lib/apiConfig';
 
 const siteUrl = DEFAULT_SITE_BASE;
 
 function getSlug(item) {
-  return item?.slug || item?.url_name || item?.canonical_tag || item?.id?.toString() || '';
+  const raw = item?.slug || item?.url_name || item?.canonical_tag || item?.id?.toString() || '';
+  const lastSegment = String(raw).split('/').filter(Boolean).pop() || raw;
+
+  return lastSegment
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
 }
 
 function normalizeItems(payload) {
@@ -20,6 +27,22 @@ function readCache(filename) {
     return normalizeItems(JSON.parse(raw));
   } catch (error) {
     return [];
+  }
+}
+
+async function fetchLiveItems(endpoint, fallbackFile) {
+  try {
+    const response = await fetch(`${getApiBase()}${endpoint}`, {
+      next: { revalidate: 60 },
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}`);
+    }
+
+    return normalizeItems(await response.json());
+  } catch (error) {
+    return readCache(fallbackFile);
   }
 }
 
@@ -52,9 +75,14 @@ export default async function sitemap() {
 { url: `${baseUrl}/typing/learn/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
 { url: `${baseUrl}/typing/learn/lesson/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
 { url: `${baseUrl}/typing/stats/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+{ url: `${baseUrl}/about/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
+{ url: `${baseUrl}/contact/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.65 },
+{ url: `${baseUrl}/privacy-policy/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
+{ url: `${baseUrl}/terms-and-conditions/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
+{ url: `${baseUrl}/disclaimer/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
 ];
 
-  const articles = readCache('articles-cache.json');
+  const articles = await fetchLiveItems('/articles?limit=500', 'articles-cache.json');
   const seenBlogUrls = new Set(routes.map((route) => route.url));
   articles.forEach((article) => {
     const slug = getSlug(article);
@@ -72,7 +100,7 @@ export default async function sitemap() {
     }
   });
 
-  const jobs = readCache('jobs-cache.json');
+  const jobs = await fetchLiveItems('/courses?limit=500', 'jobs-cache.json');
   const seenJobUrls = new Set(routes.map((route) => route.url));
   jobs.forEach((job) => {
     const slug = getSlug(job);

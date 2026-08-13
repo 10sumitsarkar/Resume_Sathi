@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { getApiBase, getBackendBase, getContentCacheUrl, getSiteBase, resolveApiMediaUrl } from '../../lib/apiConfig';
+import { getApiBase, getBackendBase, getSiteBase, resolveApiMediaUrl } from '../../lib/apiConfig';
 import '../jobs.css';
 
 const DEFAULT_IMAGE = '/front-assets/images/og/job-og.png';
@@ -56,7 +56,14 @@ function formatDate(dateString) {
 
 function getSlug(item) {
   if (!item) return '';
-  return item.slug || item.url_name || item.canonical_tag || '';
+  const raw = typeof item === 'string' ? item : item.slug || item.url_name || item.canonical_tag || '';
+  let value = String(raw).trim().split('/').filter(Boolean).pop() || '';
+  try {
+    value = decodeURIComponent(value);
+  } catch {
+    // Keep malformed URI values usable.
+  }
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
 function getTitle(item) {
@@ -260,13 +267,11 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     if (!slug) return;
     setLoading(true);
     try {
-      const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
-      const data = await response.json();
-      const jobs = Array.isArray(data) ? data : (data.items || data.results || []);
-      const matchedJob = jobs.find((item) => {
-        const slugValue = item.slug || item.url_name || item.canonical_tag || '';
-        return slugValue === slug || slugValue === decodeURIComponent(slug);
-      });
+      const response = await fetch(`${getApiBase()}/courses/slug/${encodeURIComponent(getSlug(slug))}?v=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Job request failed with status ${response.status}`);
+      }
+      const matchedJob = await response.json();
       setArticle(matchedJob || null);
     } catch (err) {
       console.error(err);
@@ -278,10 +283,13 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchLatest = async () => {
     try {
-      const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
+      const response = await fetch(`${getApiBase()}/courses/latest?limit=5&v=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Latest jobs request failed with status ${response.status}`);
+      }
       const data = await response.json();
       const jobs = Array.isArray(data) ? data : (data.items || data.results || []);
-      setLatest(jobs.slice(0, 5));
+      setLatest(jobs.filter((item) => getSlug(item) !== getSlug(slug)).slice(0, 5));
     } catch (err) {
       console.error(err);
       setLatest([]);
@@ -290,7 +298,10 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${getContentCacheUrl('job-categories.json')}?v=${Date.now()}`, { cache: 'no-store' });
+      const response = await fetch(`${getApiBase()}/course-categories?v=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Job categories request failed with status ${response.status}`);
+      }
       const data = await response.json();
       setCategories(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -341,14 +352,18 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
+        const params = new URLSearchParams({
+          search: term,
+          limit: '6',
+          v: String(Date.now()),
+        });
+        const response = await fetch(`${getApiBase()}/courses?${params.toString()}`, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`Job suggestions request failed with status ${response.status}`);
+        }
         const data = await response.json();
         const jobs = Array.isArray(data) ? data : (data.items || data.results || []);
-        const filteredSuggestions = jobs.filter((item) => {
-          const haystack = [getTitle(item), getDescription(item), getCategoryLabel(item), getCompanyName(item), getLocation(item)].join(' ').toLowerCase();
-          return haystack.includes(term.toLowerCase());
-        });
-        setSuggestions(filteredSuggestions.slice(0, 6));
+        setSuggestions(jobs.slice(0, 6));
         setShowSuggestions(true);
       } catch (error) {
         console.error(error);

@@ -5,6 +5,7 @@
   "scripts": {
     "predev": "node scripts/fetch-jobs.js && node scripts/fetch-articles.js",
     "dev": "next dev",
+    "regen": "node scripts/fetch-articles.js && npm run build",
     "prebuild": "node scripts/fetch-jobs.js && node scripts/fetch-articles.js",
     "build": "next build",
     "start": "next start",

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getContentCacheUrl, resolveApiMediaUrl } from '../lib/apiConfig';
+import { getApiBase, resolveApiMediaUrl } from '../lib/apiConfig';
 import './jobs.css';
 
 const IconBlog = () => (
@@ -33,7 +33,14 @@ function formatDate(dateString) {
 
 function getSlug(item) {
   if (!item) return '';
-  return item.slug || item.url_name || item.canonical_tag || '';
+  const raw = item.slug || item.url_name || item.canonical_tag || '';
+  let value = String(raw).trim().split('/').filter(Boolean).pop() || '';
+  try {
+    value = decodeURIComponent(value);
+  } catch {
+    // Keep malformed URI values usable.
+  }
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 
 function getTitle(item) {
@@ -79,6 +86,18 @@ function getApplicationDates(item) {
     begin: item.application_begin || item.applicationStart || item.start_date || '',
     lastDate: item.last_date_for_apply || item.lastDateForApply || item.apply_until || '',
   };
+}
+
+function normalizeItems(data) {
+  return Array.isArray(data) ? data : (data?.items || data?.results || []);
+}
+
+function getTotalCount(data, fallback = 0) {
+  return Number(data?.total || data?.count || fallback || 0);
+}
+
+function getJobCategoryId(item) {
+  return Number(item?.course_type || item?.category_id || item?.category?.id || item?.course_category?.id || 0);
 }
 
 // ðŸ‘‡ NAYA: expiry timestamp nikalne ke liye helper
@@ -386,9 +405,13 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
     const q = params.get('search') || params.get('q') || '';
+    const cid = params.get('category_id');
     if (q) {
       setSearch(q);
       setSearchInput(q);
+    }
+    if (cid) {
+      setCategoryId(Number(cid));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -419,32 +442,21 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const fetchArticles = async (targetPage = 1) => {
     setLoading(true);
     try {
-      const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
-      const data = await response.json();
-      const items = Array.isArray(data) ? data : (data.items || data.results || []);
-
-      const normalizedSearch = search.trim().toLowerCase();
-      const filteredItems = items.filter((item) => {
-        const haystack = [
-          getTitle(item),
-          getDescription(item),
-          getCategoryLabel(item),
-          getCompanyName(item),
-          getLocation(item),
-          getEmploymentType(item),
-        ].join(' ').toLowerCase();
-
-        const matchesSearch = !normalizedSearch || haystack.includes(normalizedSearch);
-        const selectedCategory = categoryId ? Number(categoryId) : null;
-        const matchesCategory = !selectedCategory || Number(item.course_type || item.category_id || item.category?.id || item.course_category?.id) === selectedCategory;
-
-        return matchesSearch && matchesCategory;
+      const params = new URLSearchParams({
+        page: String(targetPage),
+        limit: String(PAGE_SIZE),
+        v: String(Date.now()),
       });
 
-      const sortedItems = sortJobsByExpiry(filteredItems); // ðŸ‘ˆ NAYA: jaldi expire hone wali jobs pehle, expired last me
+      if (search.trim()) params.set('search', search.trim());
+      if (categoryId) params.set('category_id', String(categoryId));
 
-      const total = sortedItems.length;
-      const pagedItems = sortedItems.slice((targetPage - 1) * PAGE_SIZE, targetPage * PAGE_SIZE);
+      const response = await fetch(`${getApiBase()}/courses?${params.toString()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Jobs API returned ${response.status}`);
+
+      const data = await response.json();
+      const pagedItems = sortJobsByExpiry(normalizeItems(data));
+      const total = getTotalCount(data, pagedItems.length);
 
       setArticles(pagedItems);
       setPage(targetPage);
@@ -466,17 +478,15 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const fetchSidebar = async () => {
     try {
       const [jobsRes, categoriesRes] = await Promise.all([
-        fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' }),
-        fetch(`${getContentCacheUrl('job-categories.json')}?v=${Date.now()}`, { cache: 'no-store' }),
+        fetch(`${getApiBase()}/courses/latest?limit=5&v=${Date.now()}`, { cache: 'no-store' }),
+        fetch(`${getApiBase()}/course-categories?v=${Date.now()}`, { cache: 'no-store' }),
       ]);
+      if (!jobsRes.ok) throw new Error(`Latest jobs API returned ${jobsRes.status}`);
+      if (!categoriesRes.ok) throw new Error(`Job categories API returned ${categoriesRes.status}`);
+
       const jobsData = await jobsRes.json();
       const categoriesData = await categoriesRes.json();
-      const jobs = Array.isArray(jobsData) ? jobsData : (jobsData.items || jobsData.results || []);
-      const latestItems = jobs
-        .slice()
-        .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
-        .slice(0, 3);
-      setLatest(latestItems);
+      setLatest(normalizeItems(jobsData).slice(0, 5));
       setCategories(Array.isArray(categoriesData) ? categoriesData : []);
     } catch (error) {
       console.error(error);
@@ -610,14 +620,15 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const response = await fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' });
-        const data = await response.json();
-        const items = Array.isArray(data) ? data : (data.items || data.results || []);
-        const filteredSuggestions = items.filter((item) => {
-          const haystack = [getTitle(item), getDescription(item), getCategoryLabel(item), getCompanyName(item), getLocation(item)].join(' ').toLowerCase();
-          return haystack.includes(term.toLowerCase());
+        const params = new URLSearchParams({
+          search: term,
+          limit: String(SUGGESTION_LIMIT),
+          v: String(Date.now()),
         });
-        setSuggestions(filteredSuggestions.slice(0, SUGGESTION_LIMIT));
+        const response = await fetch(`${getApiBase()}/courses?${params.toString()}`, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`Job suggestions API returned ${response.status}`);
+        const data = await response.json();
+        setSuggestions(normalizeItems(data).slice(0, SUGGESTION_LIMIT));
         setShowSuggestions(true);
       } catch (error) {
         console.error(error);

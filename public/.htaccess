@@ -1,6 +1,10 @@
 Options -MultiViews
 RewriteEngine On
 
+# Keep sitemap dynamic on shared hosting. Next static export may generate a
+# sitemap.xml file, so route requests to the PHP proxy before file checks.
+RewriteRule ^sitemap\.xml$ /sitemap.php [L]
+
 # Static shared hosting fallback for live blog/job detail pages.
 # Existing exported files/directories keep working; unknown slugs render the
 # client-side live page, which fetches fresh content from the API.

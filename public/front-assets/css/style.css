@@ -1990,7 +1990,7 @@ a {
       }
 
       &:focus {
-            border: 1.5px solid #4400ff4a!important;
+        border: 1.5px solid #4400ff4a !important;
       }
 
       &.is-invalid {
@@ -3343,28 +3343,30 @@ body:has(.tools-sidebar.collapsed) .tooltip {
     }
   }
 }
-    .rl-create-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 20px;
-      padding: 11px 22px;
-      background: var(--rk-brand, #cc0000);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 600;
-      border-radius: 8px;
-      border: none;
-      text-decoration: none;
-      transition: background 0.18s, transform 0.15s;
-      width: fit-content;
 
-      .rl-create-btn:hover {
-        background: #a80000;
-        color: #fff;
-        transform: translateY(-1px);
-      }
-    }
+.rl-create-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 11px 22px;
+  background: var(--rk-brand, #cc0000);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  border: none;
+  text-decoration: none;
+  transition: background 0.18s, transform 0.15s;
+  width: fit-content;
+
+  .rl-create-btn:hover {
+    background: #a80000;
+    color: #fff;
+    transform: translateY(-1px);
+  }
+}
+
 /* Hero for inner landing pages end */
 
 /* Footer start */
@@ -3942,11 +3944,11 @@ body:has(.tools-sidebar.collapsed) .tooltip {
     z-index: 3;
 
     @media (min-width:991px) {
-            position: fixed;
-    padding-inline: 0;
-         left: var(--toolsSidebarWidth) + 20px;
-         width: calc(100% - (var(--toolsSidebarWidth) + 80px));
-      }
+      position: fixed;
+      padding-inline: 0;
+      left: var(--toolsSidebarWidth) + 20px;
+      width: calc(100% - (var(--toolsSidebarWidth) + 80px));
+    }
 
     .tool-outline-btn {
       position: relative;
@@ -3962,7 +3964,8 @@ body:has(.tools-sidebar.collapsed) .tooltip {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 5px;  
+      gap: 5px;
+
       @media (min-width:991px) {
         padding: 12px 20px;
       }
@@ -4006,6 +4009,7 @@ body:has(.tools-sidebar.collapsed) .tooltip {
       text-align: center;
       font-size: 14px;
       font-weight: 500;
+
       @media (min-width:991px) {
         padding: 12px 20px;
       }
@@ -4037,13 +4041,14 @@ body:has(.tools-sidebar.collapsed) .tooltip {
   }
 
 }
-.tools-sidebar.collapsed~.tools-right-div .tools-bottom-button-div{
+
+.tools-sidebar.collapsed~.tools-right-div .tools-bottom-button-div {
   @media (min-width:991px) {
-            position: fixed;
-            padding-inline: 0;
-         left: var(--collapsedToolsSidebarWidth) + 20px;
-         width: calc(100% - (var(--collapsedToolsSidebarWidth) + 80px));
-      }
+    position: fixed;
+    padding-inline: 0;
+    left: var(--collapsedToolsSidebarWidth) + 20px;
+    width: calc(100% - (var(--collapsedToolsSidebarWidth) + 80px));
+  }
 }
 
 
@@ -4438,10 +4443,12 @@ body:has(.tools-sidebar.collapsed) .tooltip {
   text-decoration: none;
   text-transform: uppercase;
   transition: transform .2s ease, background .2s ease;
-&:hover{
+  z-index: 999;
+
+  &:hover {
     background: #a70000;
 
-}
+  }
 }
 
 .rk-fixed-typing-link span {
@@ -4469,8 +4476,13 @@ body:has(.tools-sidebar.collapsed) .tooltip {
 }
 
 @keyframes cropFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .crop-modal-panel {
@@ -4485,8 +4497,15 @@ body:has(.tools-sidebar.collapsed) .tooltip {
 }
 
 @keyframes cropPopIn {
-  from { opacity: 0; transform: scale(0.92) translateY(10px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .crop-modal-header {
@@ -4707,4 +4726,5 @@ body:has(.tools-sidebar.collapsed) .tooltip {
     height: 220px;
   }
 }
+
 /* Photo Crop Modal end */

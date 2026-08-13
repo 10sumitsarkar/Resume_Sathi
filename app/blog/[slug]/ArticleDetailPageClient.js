@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { getApiBase, getBackendBase, getContentCacheUrl, getSiteBase, resolveApiMediaUrl } from '../../lib/apiConfig';
+import { getApiBase, getBackendBase, getSiteBase, resolveApiMediaUrl } from '../../lib/apiConfig';
 import '../blog.css';
 
 const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.png';
@@ -258,13 +258,11 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     if (!slug) return;
     setLoading(true);
     try {
-      const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
+      const response = await fetch(`${getApiBase()}/articles/slug/${encodeURIComponent(getSlug(slug))}?v=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) {
         throw new Error(`Article request failed with status ${response.status}`);
       }
-      const data = await response.json();
-      const articles = Array.isArray(data) ? data : (data.items || data.results || []);
-      const matchedArticle = articles.find((item) => getSlug(item) === getSlug(slug));
+      const matchedArticle = await response.json();
       setArticle(matchedArticle || null);
     } catch (err) {
       console.error(err);
@@ -276,10 +274,13 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchLatest = async () => {
     try {
-      const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
+      const response = await fetch(`${getApiBase()}/articles/latest?limit=5&v=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Latest articles request failed with status ${response.status}`);
+      }
       const data = await response.json();
       const articles = Array.isArray(data) ? data : (data.items || data.results || []);
-      setLatest(articles.slice(0, 5));
+      setLatest(articles.filter((item) => getSlug(item) !== getSlug(slug)).slice(0, 5));
     } catch (err) {
       console.error(err);
       setLatest([]);
@@ -288,7 +289,10 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const fetchCategories = async () => {
     try {
-      const response = await fetch(`${getContentCacheUrl('article-categories.json')}?v=${Date.now()}`, { cache: 'no-store' });
+      const response = await fetch(`${getApiBase()}/article-categories?v=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) {
+        throw new Error(`Categories request failed with status ${response.status}`);
+      }
       const data = await response.json();
       setCategories(Array.isArray(data) ? data : []);
     } catch (err) {
@@ -392,14 +396,18 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
+        const params = new URLSearchParams({
+          search: term,
+          limit: '6',
+          v: String(Date.now()),
+        });
+        const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
+        if (!response.ok) {
+          throw new Error(`Article suggestions request failed with status ${response.status}`);
+        }
         const data = await response.json();
         const articles = Array.isArray(data) ? data : (data.items || data.results || []);
-        const filteredSuggestions = articles.filter((item) => {
-          const haystack = [getTitle(item), item.description || '', item.category?.article_name || '', item.category?.name || '', item.category?.title || ''].join(' ').toLowerCase();
-          return haystack.includes(term.toLowerCase());
-        });
-        setSuggestions(filteredSuggestions.slice(0, 6));
+        setSuggestions(articles.slice(0, 6));
         setShowSuggestions(true);
       } catch (error) {
         console.error(error);

@@ -47,13 +47,29 @@ async function getAllJobs() {
   return getJobsCache();
 }
 
+function getJobSlug(jobOrSlug) {
+  const raw =
+    typeof jobOrSlug === "string"
+      ? jobOrSlug
+      : jobOrSlug?.slug || jobOrSlug?.url_name || jobOrSlug?.canonical_tag || "";
+
+  let value = String(raw).trim().split("/").filter(Boolean).pop() || "";
+  try {
+    value = decodeURIComponent(value);
+  } catch {
+    // Keep malformed URI values usable.
+  }
+
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 async function getArticleData(slug) {
   const items = await getAllJobs();
   return (
-    items.find((item) => {
-      const slugValue = item.slug || item.url_name || item.canonical_tag || "";
-      return slugValue === slug || slugValue === decodeURIComponent(slug);
-    }) || null
+    items.find((item) => getJobSlug(item) === getJobSlug(slug)) || null
   );
 }
 
@@ -61,7 +77,7 @@ async function getArticleData(slug) {
 export async function generateStaticParams() {
   const items = await getAllJobs();
   return items
-    .map((item) => item.slug || item.url_name || item.canonical_tag)
+    .map(getJobSlug)
     .filter(Boolean)
     .map((slug) => ({ slug }));
 }
@@ -91,7 +107,7 @@ export async function generateMetadata({ params }) {
     article?.meta_image ||
     article?.hero_image ||
     article?.image;
-  const canonical = `${siteUrl}/jobs/${slug || ""}`;
+  const canonical = `${siteUrl}/jobs/${getJobSlug(slug) || ""}`;
   const resolvedImage = resolveImageUrl(image);
 
   return {

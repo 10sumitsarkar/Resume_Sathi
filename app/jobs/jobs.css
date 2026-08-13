@@ -987,6 +987,7 @@
   font-weight: 700;
 }
 
+
 /* -------------------- Comments -------------------- */
 .rk-article-comments {
   margin-top: 48px;
@@ -1372,7 +1373,9 @@
   color: #2e7d32;
   font-weight: 700;
 }
-
+.tre-q-explain{
+  margin-top: 10px;
+}
 /* ---------------- MOBILE RESPONSIVE ---------------- */
 
 @media (max-width: 480px){

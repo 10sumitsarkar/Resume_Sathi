@@ -62,7 +62,7 @@ function fetchJson(url) {
 async function main() {
   let jobsRaw;
   try {
-    jobsRaw = await fetchWithRetry(`${BACKEND_BASE}/api/courses`);
+    jobsRaw = await fetchWithRetry(`${BACKEND_BASE}/api/courses?limit=500&include_contents=1`);
   } catch (err) {
     if (hasUsableCache()) {
       console.warn(`[fetch-jobs] API unavailable, using existing data/jobs-cache.json. ${err.message}`);

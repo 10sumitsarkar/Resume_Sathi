@@ -17,7 +17,16 @@ function readCache(filename) {
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, '');
 
-const articles = readCache('articles-cache.json');
+function latestFirst(items) {
+  return items.slice().sort((a, b) => {
+    const bTime = new Date(b.updated_at || b.created_at || 0).getTime();
+    const aTime = new Date(a.updated_at || a.created_at || 0).getTime();
+    return bTime - aTime;
+  });
+}
+
+const articles = latestFirst(readCache('articles-cache.json'));
+
 const categories = readCache('article-categories-cache.json');
 
 export const metadata = {

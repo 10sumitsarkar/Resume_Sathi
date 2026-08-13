@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getContentCacheUrl, resolveApiMediaUrl } from '../lib/apiConfig';
+import { getApiBase, resolveApiMediaUrl } from '../lib/apiConfig';
 import './blog.css';
 
 const IconBlog = () => (
@@ -58,6 +58,33 @@ function normalizeItems(data) {
   return Array.isArray(data) ? data : (data?.items || data?.results || []);
 }
 
+function getTotalCount(data, fallback = 0) {
+  return Number(data?.total || data?.count || fallback || 0);
+}
+
+function getCategoryId(item) {
+  return Number(item?.article_type || item?.category_id || item?.category?.id || 0);
+}
+
+function getItemKey(item) {
+  return item?.id || getSlug(item) || item?.url_name || '';
+}
+
+function mergeByKey(existing = [], incoming = []) {
+  const map = new Map();
+  existing.forEach((it) => map.set(getItemKey(it), it));
+  incoming.forEach((it) => map.set(getItemKey(it), it));
+  return latestFirst(Array.from(map.values()));
+}
+
+function latestFirst(items = []) {
+  return items.slice().sort((a, b) => {
+    const bTime = new Date(b.updated_at || b.created_at || 0).getTime();
+    const aTime = new Date(a.updated_at || a.created_at || 0).getTime();
+    return bTime - aTime;
+  });
+}
+
 function filterArticles(items, search, categoryId) {
   const normalizedSearch = search.trim().toLowerCase();
   const selectedCategory = categoryId ? Number(categoryId) : null;
@@ -72,7 +99,7 @@ function filterArticles(items, search, categoryId) {
     ].join(' ').toLowerCase();
 
     const matchesSearch = !normalizedSearch || haystack.includes(normalizedSearch);
-    const matchesCategory = !selectedCategory || Number(item.article_type || item.category_id || item.category?.id) === selectedCategory;
+    const matchesCategory = !selectedCategory || getCategoryId(item) === selectedCategory;
 
     return matchesSearch && matchesCategory;
   });
@@ -214,6 +241,23 @@ function Sidebar({
   onSearch,
   onSubmit,
 }) {
+  // We'll read some state from the outer component via window callbacks injected below.
+  const [lastUpdatedLocal, setLastUpdatedLocal] = useState(null);
+  const [fetchErrorLocal, setFetchErrorLocal] = useState('');
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    // These handlers are attached by the parent component when available.
+    setLastUpdatedLocal(window.__rk_lastUpdated || null);
+    setFetchErrorLocal(window.__rk_lastFetchError || '');
+
+    function onUpdate() {
+      setLastUpdatedLocal(window.__rk_lastUpdated || null);
+      setFetchErrorLocal(window.__rk_lastFetchError || '');
+    }
+    window.addEventListener('__rk_sidebar_update', onUpdate);
+    return () => window.removeEventListener('__rk_sidebar_update', onUpdate);
+  }, []);
   return (
     <aside className="rk-blog-sidebar">
       <div className="rk-widget rk-widget-search">
@@ -255,6 +299,15 @@ function Sidebar({
         <Link prefetch={false} href="/resume" className="rk-cta-btn">
           <i className="bi bi-plus-lg"></i> Create Resume
         </Link>
+      </div>
+      <div className="rk-widget rk-widget-meta">
+        <div style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
+          <button type="button" className="rk-refresh-btn" onClick={() => window.__rk_triggerRefresh && window.__rk_triggerRefresh()}>
+            Refresh
+          </button>
+          {lastUpdatedLocal && <small>Updated: {new Date(lastUpdatedLocal).toLocaleString()}</small>}
+        </div>
+        {fetchErrorLocal && <p className="rk-fetch-error">{fetchErrorLocal}</p>}
       </div>
     </aside>
   );
@@ -318,14 +371,14 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
 function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   // ðŸ‘‡ SSR se aaye hue initial data se state seed karo â€” pehla render
   // (jo Googlebot dekhta hai) already articles se bhara hoga.
-  const [articles, setArticles] = useState(() => initialArticles.slice(0, PAGE_SIZE));
+  const [articles, setArticles] = useState(() => latestFirst(initialArticles).slice(0, PAGE_SIZE));
   const [latest, setLatest] = useState(() =>
-    initialArticles
-      .slice()
-      .sort((a, b) => new Date(b.created_at || 0) - new Date(a.created_at || 0))
-      .slice(0, 3)
+    latestFirst(initialArticles).slice(0, 3)
   );
   const [categories, setCategories] = useState(initialCategories);
+  const [clientCategoriesReady, setClientCategoriesReady] = useState(true);
+  const [lastUpdated, setLastUpdated] = useState(null);
+  const [lastFetchError, setLastFetchError] = useState('');
   // ðŸ‘‡ NAYA: static export (no Node server) me useSearchParams() nahi use karte â€”
   // yeh Suspense boundary maangta hai aur build ke time uska fallback hi static
   // HTML me bake ho jaata hai. Iski jagah plain window.location.search read
@@ -337,9 +390,13 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
     const q = params.get('search') || params.get('q') || '';
+    const cid = params.get('category_id');
     if (q) {
       setSearch(q);
       setSearchInput(q);
+    }
+    if (cid) {
+      setCategoryId(Number(cid));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -368,15 +425,34 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const selectedCategory = categoryId;
 
   const fetchArticles = async (targetPage = 1) => {
-    setLoading(true);
+    setLoading((articles?.length || 0) === 0);
     try {
-      const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
-      const data = await response.json();
-      const filteredItems = filterArticles(normalizeItems(data), search, categoryId);
-      const pagedItems = filteredItems.slice((targetPage - 1) * PAGE_SIZE, targetPage * PAGE_SIZE);
-      const total = filteredItems.length;
+      const params = new URLSearchParams({
+        page: String(targetPage),
+        limit: String(PAGE_SIZE),
+        v: String(Date.now()),
+      });
 
-      setArticles(pagedItems);
+      if (search.trim()) params.set('search', search.trim());
+      if (categoryId) params.set('category_id', String(categoryId));
+
+      const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error(`Articles API returned ${response.status}`);
+
+      const data = await response.json();
+      const pagedItems = normalizeItems(data);
+      const total = getTotalCount(data, pagedItems.length);
+
+      // If we already have SSR-provided articles on page 1, merge instead of
+      // replacing so SSR content (and its SEO visibility) isn't briefly removed
+      // during a client fetch. This also allows new items to appear when
+      // navigating client-side without requiring a full refresh.
+      if (targetPage === 1 && !search.trim() && !categoryId && articles && articles.length > 0) {
+        const merged = mergeByKey(articles, pagedItems).slice(0, PAGE_SIZE);
+        setArticles(merged);
+      } else {
+        setArticles(latestFirst(pagedItems));
+      }
       setPage(targetPage);
       setHasMore(targetPage * PAGE_SIZE < total);
     } catch (error) {
@@ -394,21 +470,61 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   };
 
   const fetchSidebar = async () => {
+    setLastFetchError('');
     try {
-      const [latestRes, categoriesRes] = await Promise.all([
-        fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' }),
-        fetch(`${getContentCacheUrl('article-categories.json')}?v=${Date.now()}`, { cache: 'no-store' }),
+      const [latestResponse, categoriesResponse] = await Promise.all([
+        fetch(`${getApiBase()}/articles/latest?limit=5&v=${Date.now()}`, { cache: 'no-store' }),
+        fetch(`${getApiBase()}/article-categories?v=${Date.now()}`, { cache: 'no-store' }),
       ]);
-      const latestData = await latestRes.json();
-      const categoriesData = await categoriesRes.json();
-      setLatest(normalizeItems(latestData).slice(0, 3));
-      setCategories(Array.isArray(categoriesData) ? categoriesData : []);
+
+      if (!latestResponse.ok) throw new Error(`Latest articles API returned ${latestResponse.status}`);
+      if (!categoriesResponse.ok) throw new Error(`Categories API returned ${categoriesResponse.status}`);
+
+      const latestData = await latestResponse.json();
+      const categoriesData = await categoriesResponse.json();
+
+      const incomingLatest = latestFirst(normalizeItems(latestData)).slice(0, 5);
+      setLatest(incomingLatest);
+
+      const incomingCats = Array.isArray(categoriesData) ? categoriesData : [];
+      setCategories(incomingCats);
+
+      const ts = new Date().toISOString();
+      setLastUpdated(ts);
+      if (typeof window !== 'undefined') {
+        window.__rk_lastUpdated = ts;
+        window.__rk_lastFetchError = '';
+        window.dispatchEvent(new Event('__rk_sidebar_update'));
+      }
     } catch (error) {
-      console.error(error);
+      console.error('fetchSidebar error', error);
+      const msg = String(error?.message || error);
+      setLastFetchError(msg);
+      if (typeof window !== 'undefined') {
+        window.__rk_lastFetchError = msg;
+        window.dispatchEvent(new Event('__rk_sidebar_update'));
+      }
       if (initialArticles.length === 0) setLatest([]);
       if (initialCategories.length === 0) setCategories([]);
     }
   };
+
+  // Expose a manual trigger for the sidebar from the UI.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    window.__rk_triggerRefresh = async () => {
+      setClientCategoriesReady(false);
+      await fetchSidebar();
+      await fetchArticles(1);
+      setClientCategoriesReady(true);
+    };
+    return () => {
+      try {
+        delete window.__rk_triggerRefresh;
+      } catch {}
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (!skippedInitialSidebarFetch.current) {
@@ -420,6 +536,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   }, []);
 
   useEffect(() => {
+    // If we navigated away from /blog, clear transient UI state.
     if (previousPathname.current === '/blog' && pathname !== '/blog') {
       setSearch('');
       setSearchInput('');
@@ -427,13 +544,17 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
       setSuggestions([]);
       setShowSuggestions(false);
     }
+
     previousPathname.current = pathname;
   }, [pathname]);
 
   useEffect(() => {
     if (!skippedInitialArticlesFetch.current) {
       skippedInitialArticlesFetch.current = true;
-      // Initial JSON sirf first paint ke liye hai; live data API se refresh hota hai.
+      // Initial JSON sirf first paint ke liye hai; agar SSR ke paas already content hai
+      // aur koi search/category filter applied nahi hai, to hum firbhi
+      // client fetch chalayeinge lekin fetchArticles() ko merge karne ke liye
+      // banaya gaya hai taaki SSR content kabhi briefly remove na ho.
     }
     fetchArticles(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -464,10 +585,15 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
     suggestDebounce.current = setTimeout(async () => {
       try {
-        const response = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
+        const params = new URLSearchParams({
+          search: term,
+          limit: String(SUGGESTION_LIMIT),
+          v: String(Date.now()),
+        });
+        const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`Suggestions API returned ${response.status}`);
         const data = await response.json();
-        const items = filterArticles(normalizeItems(data), term, null);
-        setSuggestions(items.slice(0, SUGGESTION_LIMIT));
+        setSuggestions(normalizeItems(data).slice(0, SUGGESTION_LIMIT));
         setShowSuggestions(true);
       } catch (error) {
         console.error(error);
@@ -549,11 +675,22 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
         </div>
       </section>
 
-      <CategorySlider
-        categories={categories}
-        selectedCategory={selectedCategory}
-        onSelectCategory={handleCategoryClick}
-      />
+      {clientCategoriesReady ? (
+        <CategorySlider
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onSelectCategory={handleCategoryClick}
+        />
+      ) : (
+        <div className="rk-cat-slider rk-cat-slider-skeleton" aria-hidden="true">
+          <div className="rk-cat-slider-track">
+            <button className="rk-cat-chip placeholder">All</button>
+            <button className="rk-cat-chip placeholder">Loading</button>
+            <button className="rk-cat-chip placeholder">Loading</button>
+            <button className="rk-cat-chip placeholder">Loading</button>
+          </div>
+        </div>
+      )}
 
       <section className="rk-blog-page">
         <div className="container-fluid custom-container pb-120">
@@ -613,11 +750,21 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
           </div>
 
           {/* Category slider - pinned at the top, horizontally scrollable */}
-          <CategorySlider
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onSelectCategory={handleCategoryClick}
-          />
+          {clientCategoriesReady ? (
+            <CategorySlider
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onSelectCategory={handleCategoryClick}
+            />
+          ) : (
+            <div className="rk-cat-slider rk-cat-slider-skeleton" aria-hidden="true">
+              <div className="rk-cat-slider-track">
+                <button className="rk-cat-chip placeholder">All</button>
+                <button className="rk-cat-chip placeholder">Loading</button>
+                <button className="rk-cat-chip placeholder">Loading</button>
+              </div>
+            </div>
+          )}
 
           <div className="scroll-div pb-mob-100">
 

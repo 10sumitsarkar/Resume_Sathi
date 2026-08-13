@@ -14,13 +14,13 @@ export default function ResumeTypeClient() {
 
     const handleGetStarted = () => {
         if (pendingResume) {
-            router.push(`/resume/personal-info?id=${pendingResume.id}`);
+            router.push(`/resume/personal-info/?id=${pendingResume.id}`);
             return;
         }
 
         const id = `${Date.now()}`;
         dispatch(setId(id));
-        router.push(`/resume/select-theme?id=${id}`);
+        router.push(`/resume/select-theme/?id=${id}`);
     };
 
     return (

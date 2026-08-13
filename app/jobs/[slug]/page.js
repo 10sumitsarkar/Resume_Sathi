@@ -2,7 +2,7 @@
 import fs from "fs";
 import path from "path";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
-import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE } from "../../lib/apiConfig";
+import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
 export const dynamicParams = false;
 
 // Kuch fields (jaise og_image) DB me already percent-encoded save hote hain,
@@ -107,7 +107,7 @@ export async function generateMetadata({ params }) {
     article?.meta_image ||
     article?.hero_image ||
     article?.image;
-  const canonical = `${siteUrl}/jobs/${getJobSlug(slug) || ""}`;
+  const canonical = `${siteUrl}${withTrailingSlash(`/jobs/${getJobSlug(slug) || ""}`)}`;
   const resolvedImage = resolveImageUrl(image);
 
   return {

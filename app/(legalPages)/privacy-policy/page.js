@@ -11,7 +11,7 @@ export const metadata = {
     'ResumeSathi data security',
   ],
   alternates: {
-    canonical: '/privacy-policy',
+    canonical: '/privacy-policy/',
   },
   robots: {
     index: true,

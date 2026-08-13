@@ -19,6 +19,25 @@ export function getSiteUrl(path = '') {
   return `${getSiteBase()}${path ? `/${String(path).replace(/^\/+/, '')}` : ''}`;
 }
 
+export function withTrailingSlash(url = '/') {
+  const value = String(url || '/');
+  if (!value || value === '#') return value;
+  if (/^(mailto:|tel:|https?:\/\/|\/\/)/i.test(value)) return value;
+
+  const [pathWithHash, query = ''] = value.split('?');
+  const [path, hash = ''] = pathWithHash.split('#');
+
+  if (!path || path.endsWith('/') || /\.[a-z0-9]+$/i.test(path)) {
+    return value;
+  }
+
+  return `${path}/${query ? `?${query}` : ''}${hash ? `#${hash}` : ''}`;
+}
+
+export function getSiteCanonical(path = '/') {
+  return `${getSiteBase()}${withTrailingSlash(path)}`;
+}
+
 export function getContentCacheUrl(filename) {
   return `${getApiBase()}/public-cache/${String(filename).replace(/^\/+/, '')}`;
 }

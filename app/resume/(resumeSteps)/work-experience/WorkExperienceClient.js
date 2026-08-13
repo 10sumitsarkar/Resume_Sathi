@@ -190,7 +190,7 @@ const id = searchParams.get('id');
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/social-media?id=${id}`);
+      router.push(`/resume/social-media/?id=${id}`);
     }, 2500);
   };
   return (

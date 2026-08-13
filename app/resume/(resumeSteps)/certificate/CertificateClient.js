@@ -153,7 +153,7 @@ const {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/skill?id=${id}`);
+      router.push(`/resume/skill/?id=${id}`);
     }, 2500);
   };
 

@@ -2,7 +2,7 @@
 import path from "path";
 import React from "react";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
-import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE } from "../../lib/apiConfig";
+import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
 
 export const dynamicParams = false;
 
@@ -111,7 +111,7 @@ export async function generateMetadata({ params }) {
 
   const resolvedImage = resolveImageUrl(image);
 
-  const canonical = `${siteUrl}/blog/${slug}`;
+  const canonical = `${siteUrl}${withTrailingSlash(`/blog/${slug}`)}`;
 
   return {
     title,

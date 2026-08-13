@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import FooterNav from "../components/FooterNav";
-import { getContentCacheUrl, resolveApiMediaUrl } from "../lib/apiConfig";
+import { getContentCacheUrl, resolveApiMediaUrl, withTrailingSlash } from "../lib/apiConfig";
 import "../../public/front-assets/css/home.css";
 
 // ── SVG Icon Library ──────────────────────────────────────────────────────
@@ -1134,7 +1134,7 @@ function WhyFreeSection() {
         <div className="rk-resume-showcase-cta">
           <Link
             prefetch={false}
-            href="/resume/resume-type"
+            href="/resume/resume-type/"
             className="rk-btn rk-btn--primary rk-btn--lg"
           >
             Build My Resume <Icon.ArrowRight />
@@ -1584,14 +1584,14 @@ export default function ResumeListClient({
               <div className="rk-hero-actions">
                 <Link
                   prefetch={false}
-                  href="/resume/resume-type"
+                  href="/resume/resume-type/"
                   className="rk-btn rk-btn--primary rk-btn--lg"
                 >
                   Choose a Template <Icon.ArrowRight />
                 </Link>
                 <Link
                   prefetch={false}
-                  href="/tools"
+                  href="/tools/"
                   className="rk-btn rk-btn--outline rk-btn--lg"
                 >
                   Explore Tools
@@ -1669,7 +1669,7 @@ export default function ResumeListClient({
           <div className="rk-resume-showcase-cta">
             <Link
               prefetch={false}
-              href="/resume/resume-type"
+              href="/resume/resume-type/"
               className="rk-btn rk-btn--primary rk-btn--lg"
             >
               Get Started <Icon.ArrowRight />
@@ -1693,7 +1693,7 @@ export default function ResumeListClient({
             </div>
             <Link
               prefetch={false}
-              href="/tools"
+              href="/tools/"
               className="rk-btn rk-btn--outline rk-btn--sm"
             >
               All tools <Icon.ArrowRight />
@@ -1779,7 +1779,7 @@ export default function ResumeListClient({
             </div>
             <Link
               prefetch={false}
-              href="/jobs"
+              href="/jobs/"
               className="rk-btn rk-btn--outline rk-btn--sm"
             >
               All jobs <Icon.ArrowRight />
@@ -1789,7 +1789,7 @@ export default function ResumeListClient({
             <OwlSlider ariaLabel="Latest job openings">
               {jobs.slice(0, 6).map((j) => (
                 <div key={j.id || getSlug(j)} className="item">
-                  <JobCard job={j} href={`/jobs/${getSlug(j)}`} />
+                  <JobCard job={j} href={withTrailingSlash(`/jobs/${getSlug(j)}`)} />
                 </div>
               ))}
             </OwlSlider>
@@ -1826,7 +1826,7 @@ export default function ResumeListClient({
             </div>
             <Link
               prefetch={false}
-              href="/blog"
+              href="/blog/"
               className="rk-btn rk-btn--outline rk-btn--sm"
             >
               All articles <Icon.ArrowRight />
@@ -1836,7 +1836,7 @@ export default function ResumeListClient({
             <OwlSlider ariaLabel="Career blog articles">
               {blogs.map((b) => (
                 <div key={b.id || getSlug(b)} className="item">
-                  <BlogCard blog={b} href={`/blog/${getSlug(b)}`} />
+                  <BlogCard blog={b} href={withTrailingSlash(`/blog/${getSlug(b)}`)} />
                 </div>
               ))}
             </OwlSlider>
@@ -1860,7 +1860,7 @@ export default function ResumeListClient({
             </p>
             <Link
               prefetch={false}
-              href="/contact"
+              href="/contact/"
               className="rk-btn rk-btn--primary rk-btn--sm"
               style={{ marginTop: 24 }}
             >
@@ -1902,12 +1902,12 @@ export default function ResumeListClient({
             <div className="rk-cta-actions">
               <Link
                 prefetch={false}
-                href="/resume/resume-type"
+                href="/resume/resume-type/"
                 className="rk-cta-btn-primary"
               >
                 Choose a Template <Icon.ArrowRight />
               </Link>
-              <Link prefetch={false} href="/tools" className="rk-cta-btn-ghost">
+              <Link prefetch={false} href="/tools/" className="rk-cta-btn-ghost">
                 <Icon.Rocket /> Explore Free Tools
               </Link>
             </div>

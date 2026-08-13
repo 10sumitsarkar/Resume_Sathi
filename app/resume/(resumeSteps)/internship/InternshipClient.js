@@ -164,7 +164,7 @@ const id = searchParams.get('id');
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/language?id=${id}`);
+      router.push(`/resume/language/?id=${id}`);
     }, 2500);
   };
 

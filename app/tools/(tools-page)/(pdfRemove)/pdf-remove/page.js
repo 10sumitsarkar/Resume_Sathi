@@ -8,7 +8,7 @@ export const metadata = {
   description:
     "Remove unwanted pages from a PDF online for free with ResumeSathi's secure browser-based PDF page remover.",
   keywords: ["remove PDF pages", "delete PDF pages", "PDF page remover", "online PDF tool"],
-  alternates: { canonical: `${siteUrl}/tools/pdf-remove` },
+  alternates: { canonical: `${siteUrl}/tools/pdf-remove/` },
   openGraph: {
     title: "Remove PDF Pages",
     description: "Delete unwanted pages from a PDF and download a clean PDF file.",

@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { getApiBase, getBackendBase, getSiteBase, resolveApiMediaUrl } from '../../lib/apiConfig';
+import { getApiBase, getBackendBase, getSiteBase, resolveApiMediaUrl, withTrailingSlash } from '../../lib/apiConfig';
 import '../blog.css';
 
 const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.png';
@@ -17,7 +17,7 @@ function getArticleSeo(article, slug) {
     'career advice',
   ].join(', ');
   const image = resolveMediaUrl(article?.og_image || article?.meta_image || article?.hero_image || article?.image);
-  const canonical = `${SITE_URL}/blog/${slug || getSlug(article) || ''}`;
+  const canonical = `${SITE_URL}${withTrailingSlash(`/blog/${slug || getSlug(article) || ''}`)}`;
 
   return {
     title,
@@ -182,7 +182,7 @@ function SearchDropdown({
           ) : (
             suggestions.map((item) => (
               <li key={item.id}>
-                <Link prefetch={false} href={`/blog/${getSlug(item)}`} onClick={() => onSelect(item)}>
+                <Link prefetch={false} href={withTrailingSlash(`/blog/${getSlug(item)}`)} onClick={() => onSelect(item)}>
                   <img src={resolveMediaUrl(item.hero_image || item.image)} alt={getTitle(item)} width={56} height={56} className="rk-blog-thumb" loading="eager" decoding="async" />
                   <div>
                     <span className="rk-search-dropdown-title">{getTitle(item)}</span>
@@ -438,7 +438,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     const trimmed = offcanvasSearch.trim();
     const query = new URLSearchParams();
     if (trimmed) query.set('search', trimmed);
-    router.push(`/blog${query.toString() ? `?${query.toString()}` : ''}`);
+    router.push(withTrailingSlash(`/blog${query.toString() ? `?${query.toString()}` : ''}`));
     setShowSuggestions(false);
   };
 
@@ -446,14 +446,14 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     setOffcanvasSearch(getTitle(item));
     setShowSuggestions(false);
     closeOffcanvas();
-    router.push(`/blog/${getSlug(item)}`);
+    router.push(withTrailingSlash(`/blog/${getSlug(item)}`));
   };
 
   const handleCategoryClick = (categoryId) => {
     closeOffcanvas();
     const query = new URLSearchParams();
     if (categoryId) query.set('category_id', String(categoryId));
-    router.push(`/blog${query.toString() ? `?${query.toString()}` : ''}`);
+    router.push(withTrailingSlash(`/blog${query.toString() ? `?${query.toString()}` : ''}`));
   };
 
   const seo = getArticleSeo(article, slug);
@@ -608,12 +608,12 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
                   <ul>
                     {latest.map((item) => (
                       <li key={item.id}>
-                        <Link prefetch={false} href={`/blog/${getSlug(item)}`} className="rk-blog-card-img">
+                        <Link prefetch={false} href={withTrailingSlash(`/blog/${getSlug(item)}`)} className="rk-blog-card-img">
                           <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} width={56} height={56} className="rk-blog-thumb" loading="eager" decoding="async" />
                         </Link>
                         <div>
                           <span>{formatDate(item.created_at)}</span>
-                          <Link prefetch={false} href={`/blog/${getSlug(item)}`}>{getTitle(item)}</Link>
+                          <Link prefetch={false} href={withTrailingSlash(`/blog/${getSlug(item)}`)}>{getTitle(item)}</Link>
                         </div>
                       </li>
                     ))}
@@ -623,7 +623,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
                 <div className="rk-widget rk-widget-cta">
                   <h4>Build Your Resume</h4>
                   <p>Create an ATS-optimized resume in minutes, 100% free.</p>
-                  <Link prefetch={false} href="/resume" className="rk-cta-btn">
+                  <Link prefetch={false} href="/resume/" className="rk-cta-btn">
                     <i className="bi bi-plus-lg"></i> Create Resume
                   </Link>
                 </div>
@@ -673,7 +673,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
               <h4><i className="bi bi-clock-history"></i> Latest Articles</h4>
               <div className="rk-offcanvas-latest-list">
                 {latest.map((item) => (
-                  <Link prefetch={false} key={item.id} href={`/blog/${getSlug(item)}`} className="rk-latest-sub-item" onClick={closeOffcanvas}>
+                  <Link prefetch={false} key={item.id} href={withTrailingSlash(`/blog/${getSlug(item)}`)} className="rk-latest-sub-item" onClick={closeOffcanvas}>
                     <img src={resolveMediaUrl(item.hero_image)} width={40} height={40} alt={getTitle(item)} className="rk-blog-thumb" loading="eager" decoding="async" />
                     <div>
                       <span className="rk-latest-sub-title">{getTitle(item)}</span>
@@ -686,7 +686,7 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
           </div>
 
           <div className="rk-offcanvas-cta">
-            <Link prefetch={false} href="/resume" className="rk-cta-btn" onClick={closeOffcanvas}>
+            <Link prefetch={false} href="/resume/" className="rk-cta-btn" onClick={closeOffcanvas}>
               <i className="bi bi-plus-lg"></i> Build Your Resume
             </Link>
           </div>

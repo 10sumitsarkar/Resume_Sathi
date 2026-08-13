@@ -11,7 +11,7 @@ export const metadata = {
     'ResumeSathi feedback',
   ],
   alternates: {
-    canonical: '/contact',
+    canonical: '/contact/',
   },
   robots: {
     index: true,

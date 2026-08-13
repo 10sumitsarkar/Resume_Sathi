@@ -4,7 +4,7 @@ export const metadata = {
   title: 'Gradient Generator | ResumeSathi',
   description: 'Create stunning gradient backgrounds for resumes, portfolios, and web projects with ResumeSathi’s free gradient generator tool.',
   keywords: ['gradient generator', 'linear gradient tool', 'background gradient', 'CSS gradient generator'],
-  alternates: { canonical: '/tools/gradient-generator' },
+  alternates: { canonical: '/tools/gradient-generator/' },
   robots: {
     index: false,
     follow: false,

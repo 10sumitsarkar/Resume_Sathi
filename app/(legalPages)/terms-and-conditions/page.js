@@ -10,7 +10,7 @@ export const metadata = {
     'ResumeSathi user agreement',
   ],
   alternates: {
-    canonical: '/terms-and-conditions',
+    canonical: '/terms-and-conditions/',
   },
   robots: {
     index: true,

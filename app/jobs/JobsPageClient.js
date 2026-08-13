@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getApiBase, resolveApiMediaUrl } from '../lib/apiConfig';
+import { getApiBase, resolveApiMediaUrl, withTrailingSlash } from '../lib/apiConfig';
 import './jobs.css';
 
 const IconBlog = () => (
@@ -172,7 +172,7 @@ function SearchDropdown({
           ) : (
             suggestions.map((item) => (
               <li key={item.id}>
-                <Link prefetch={false} href={`/jobs/${getSlug(item)}`} onClick={() => onSelect(item)}>
+                <Link prefetch={false} href={withTrailingSlash(`/jobs/${getSlug(item)}`)} onClick={() => onSelect(item)}>
                   <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} width={56} height={56} className="rk-blog-thumb" loading="eager" decoding="async" />
                   <div>
                     <span className="rk-search-dropdown-title">{getTitle(item)}</span>
@@ -219,6 +219,7 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
 
 function BlogCard({ article }) {
   const articleSlug = getSlug(article);
+  const articleHref = withTrailingSlash(`/jobs/${articleSlug}`);
   const companyName = getCompanyName(article);
   const location = getLocation(article);
   const employmentType = getEmploymentType(article);
@@ -227,7 +228,7 @@ function BlogCard({ article }) {
   return (
     <div className="col-sm-6 col-lg-4">
       <article className="rk-blog-card">
-        <Link prefetch={false} href={`/jobs/${articleSlug}`} className="rk-blog-card-img">
+        <Link prefetch={false} href={articleHref} className="rk-blog-card-img">
           <img src={resolveMediaUrl(article.hero_image || article.image)} alt={getTitle(article)} width={640} height={380} className="rk-blog-card-img" loading="eager" decoding="async" />
           <span className="rk-blog-cat">{getCategoryLabel(article)}</span>
         </Link>
@@ -246,7 +247,7 @@ function BlogCard({ article }) {
             {formatDate(article.created_at)}
           </span>
           <h3>
-            <Link prefetch={false} href={`/jobs/${articleSlug}`}>{getTitle(article)}</Link>
+            <Link prefetch={false} href={articleHref}>{getTitle(article)}</Link>
           </h3>
           {companyName ? <p className="rk-job-company">{companyName}</p> : null}
           <p>{getDescription(article)}</p>
@@ -260,7 +261,7 @@ function BlogCard({ article }) {
               {lastDate ? <span className="rk-job-pill">Last Date: {formatApplicationDate(lastDate)}</span> : null}
             </div>
           ) : null}
-          <Link prefetch={false} href={`/jobs/${articleSlug}`} className="rk-blog-readmore">
+          <Link prefetch={false} href={articleHref} className="rk-blog-readmore">
             View Job
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M14 18L20 12L14 6M20 12H9.5M4 12H6.5" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -304,12 +305,12 @@ function Sidebar({
         <ul>
           {latest.map((item) => (
             <li key={item.id}>
-              <Link prefetch={false} href={`/jobs/${getSlug(item)}`} className="rk-blog-card-img">
+              <Link prefetch={false} href={withTrailingSlash(`/jobs/${getSlug(item)}`)} className="rk-blog-card-img">
                 <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} width={56} height={56} className="rk-blog-thumb" loading="eager" decoding="async" />
               </Link>
               <div>
                 <span>{formatDate(item.created_at)}</span>
-                <Link prefetch={false} href={`/jobs/${getSlug(item)}`}>{getTitle(item)}</Link>
+                <Link prefetch={false} href={withTrailingSlash(`/jobs/${getSlug(item)}`)}>{getTitle(item)}</Link>
               </div>
             </li>
           ))}
@@ -319,7 +320,7 @@ function Sidebar({
       <div className="rk-widget rk-widget-cta">
         <h4>Build Your Resume</h4>
         <p>Create an ATS-optimized resume in minutes, 100% free.</p>
-        <Link prefetch={false} href="/resume" className="rk-cta-btn">
+        <Link prefetch={false} href="/resume/" className="rk-cta-btn">
           <i className="bi bi-plus-lg"></i> Create Resume
         </Link>
       </div>
@@ -803,7 +804,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
                 {latest.map((item) => (
                   <Link prefetch={false}
                     key={item.id}
-                    href={`/jobs/${getSlug(item)}`}
+                    href={withTrailingSlash(`/jobs/${getSlug(item)}`)}
                     className="rk-latest-sub-item"
                     onClick={closeOffcanvas}
                   >
@@ -821,7 +822,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
           {/* Build Your Resume */}
           <div className="rk-offcanvas-cta">
-            <Link prefetch={false} href="/resume" className="rk-cta-btn" onClick={closeOffcanvas}>
+            <Link prefetch={false} href="/resume/" className="rk-cta-btn" onClick={closeOffcanvas}>
               <i className="bi bi-plus-lg"></i> Build Your Resume
             </Link>
           </div>

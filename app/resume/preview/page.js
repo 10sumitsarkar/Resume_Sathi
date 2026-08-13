@@ -5,7 +5,7 @@ export const metadata = {
   title: 'Resume Preview | ResumeSathi',
   description: 'Preview your resume before download and fine-tune the layout, formatting, and content with ResumeSathi’s resume preview tool.',
   keywords: ['resume preview', 'resume template preview', 'download resume preview'],
-  alternates: { canonical: '/resume/preview' },
+  alternates: { canonical: '/resume/preview/' },
   openGraph: {
     title: 'Resume Preview | ResumeSathi',
     description: 'Preview your resume before download and fine-tune the layout, formatting, and content with ResumeSathi’s resume preview tool.',

@@ -7,7 +7,7 @@ export const metadata = {
   title: "Image to PDF",
   description: "Convert JPG and PNG images to PDF online for free in your browser.",
   keywords: ["image to PDF", "JPG to PDF", "PNG to PDF", "online PDF tool"],
-  alternates: { canonical: `${siteUrl}/tools/image-to-pdf` },
+  alternates: { canonical: `${siteUrl}/tools/image-to-pdf/` },
   openGraph: {
     title: "Image to PDF",
     description: "Convert JPG and PNG images to PDF online for free.",

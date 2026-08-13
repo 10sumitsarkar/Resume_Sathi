@@ -284,7 +284,7 @@ export default function UploadResume() {
       const id = `${Date.now()}`;
       const importedResume = buildImportedResume(id, text);
       dispatch(setResumes([...resumes, importedResume]));
-      router.push(`/resume/personal-info?id=${id}`);
+      router.push(`/resume/personal-info/?id=${id}`);
     } catch (error) {
       alert('Could not extract this resume. Please try a DOCX or text-based PDF.');
     } finally {
@@ -355,7 +355,7 @@ export default function UploadResume() {
           </div>
           <div className='dont-have-resume'>
             <p>Don&apos;t have a resume?</p>
-            <Link prefetch={false} href='/resume/resume-type'> Create one from scratch
+            <Link prefetch={false} href='/resume/resume-type/'> Create one from scratch
               <img src="/front-assets/images/icons/create-arrow.svg" width={16} height={18} alt="Arrow" />
             </Link>
           </div>
@@ -366,7 +366,7 @@ export default function UploadResume() {
           </button>
           <div className='mob-dont-have-resume'>
             <p>Don&apos;t have a resume?</p>
-            <Link prefetch={false} href='/resume/resume-type'> Create one from scratch
+            <Link prefetch={false} href='/resume/resume-type/'> Create one from scratch
               <img src="/front-assets/images/icons/create-arrow.svg" width={12} height={14} alt="Arrow" />
             </Link>
           </div>

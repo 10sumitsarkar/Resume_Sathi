@@ -5,7 +5,7 @@ export const metadata = {
   description:
     "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",
   keywords: ["free online tools", "merge PDF", "gradient generator", "CSS animation generator"],
-  alternates: { canonical: "/tools" },
+  alternates: { canonical: "/tools/" },
   openGraph: {
     title: "Free Online Tools",
     description: "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",

@@ -14,7 +14,7 @@ export const metadata = {
     'ResumeSathi story',
   ],
   alternates: {
-    canonical: `${siteUrl}/about`,
+    canonical: `${siteUrl}/about/`,
   },
   robots: {
     index: true,

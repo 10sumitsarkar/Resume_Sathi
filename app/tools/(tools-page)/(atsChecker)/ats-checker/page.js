@@ -5,7 +5,7 @@ export const metadata = {
   title: "ATS Resume Checker", 
   description: "Analyze your resume ATS score, keyword match, and formatting quality with ResumeSathi’s free ATS checker tool.",
   keywords: ["ATS resume checker", "resume ATS score", "keyword matching", "resume optimization"],
-  alternates: { canonical: "/tools/ats-checker" },
+  alternates: { canonical: "/tools/ats-checker/" },
   openGraph: {
     title: "ATS Resume Checker",
     description: "Analyze your resume ATS score, keyword match, and formatting quality with ResumeSathi’s free ATS checker tool.",

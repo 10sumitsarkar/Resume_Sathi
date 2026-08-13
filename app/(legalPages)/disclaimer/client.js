@@ -197,7 +197,7 @@ export default function DisclaimerClient() {
                 <h2><span className="lp-num">11</span>Contact Us</h2>
                 <p>
                   If you have any questions about this Disclaimer, please visit our{' '}
-                  <a href="/contact">Contact page</a>{' '}
+                  <a href="/contact/">Contact page</a>{' '}
                   to get in touch with our team.
                 </p>
               </div>

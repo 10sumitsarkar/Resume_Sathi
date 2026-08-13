@@ -165,7 +165,7 @@ const id = searchParams.get('id');
      setLoading(true);
      setTimeout(() => {
        setLoading(false);
-       router.push(`/resume/work-experience?id=${id}`);
+       router.push(`/resume/work-experience/?id=${id}`);
      }, 2500);
    };
 

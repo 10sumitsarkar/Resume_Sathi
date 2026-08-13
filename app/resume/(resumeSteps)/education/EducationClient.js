@@ -161,7 +161,7 @@ const id = searchParams.get('id');
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        router.push(`/resume/certificate?id=${id}`);
+        router.push(`/resume/certificate/?id=${id}`);
       }, 2500);
     } else {
       toast.error('At least one education required.', {

@@ -11,7 +11,7 @@ export const metadata = {
     'ResumeSathi terms',
   ],
   alternates: {
-    canonical: '/disclaimer',
+    canonical: '/disclaimer/',
   },
   robots: {
     index: true,

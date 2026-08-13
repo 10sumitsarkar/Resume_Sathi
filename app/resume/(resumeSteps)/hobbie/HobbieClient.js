@@ -182,7 +182,7 @@ const id = searchParams.get('id');
     }
 
     dispatch(markResumeSubmitted(id));
-    router.push(`/resume/preview?id=${id}`);
+    router.push(`/resume/preview/?id=${id}`);
   };
 
   return (

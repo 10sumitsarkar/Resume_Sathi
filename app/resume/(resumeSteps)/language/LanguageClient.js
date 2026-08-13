@@ -149,7 +149,7 @@ const id = searchParams.get('id');
       setLoading(true);
       setTimeout(() => {
         setLoading(false);
-        router.push(`/resume/hobbie?id=${id}`);
+        router.push(`/resume/hobbie/?id=${id}`);
       }, 2500);
     } else {
       toast.error('Please add at least one language.', {

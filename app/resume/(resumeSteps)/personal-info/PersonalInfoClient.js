@@ -191,7 +191,7 @@ export default function PersonalInfo() {
     dispatch(setResumePersonalInfomation({ id: id, data: completedPersonalInfo }));
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/summary?id=${id}`);
+      router.push(`/resume/summary/?id=${id}`);
     }, 1000);
   };
 

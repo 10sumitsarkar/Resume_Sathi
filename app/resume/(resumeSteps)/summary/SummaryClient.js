@@ -54,7 +54,7 @@ const id = searchParams.get('id');
     dispatch(setResumeSummary({ id: id, data: completedSummary }));
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/education?id=${id}`);
+      router.push(`/resume/education/?id=${id}`);
     }, 2500);
   };
 

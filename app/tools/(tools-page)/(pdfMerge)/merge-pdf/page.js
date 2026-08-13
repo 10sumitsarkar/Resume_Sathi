@@ -7,7 +7,7 @@ export const metadata = {
   title: "Merge PDF",
   description: "Merge multiple PDF files online for free with ResumeSathi’s secure and simple PDF merge tool.",
   keywords: ["merge PDF", "combine PDF files", "PDF merger", "online PDF tool"],
-  alternates: { canonical: `${siteUrl}/tools/merge-pdf` },
+  alternates: { canonical: `${siteUrl}/tools/merge-pdf/` },
   openGraph: {
     title: "Merge PDF",
     description: "Merge multiple PDF files online for free with ResumeSathi’s secure and simple PDF merge tool.",

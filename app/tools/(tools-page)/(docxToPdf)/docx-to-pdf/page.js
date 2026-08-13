@@ -7,7 +7,7 @@ export const metadata = {
   title: "DOCX to PDF",
   description: "Convert Word DOCX documents to PDF online for free.",
   keywords: ["DOCX to PDF", "Word to PDF", "online PDF converter"],
-  alternates: { canonical: `${siteUrl}/tools/docx-to-pdf` },
+  alternates: { canonical: `${siteUrl}/tools/docx-to-pdf/` },
 };
 
 export default function Page() {

@@ -7,7 +7,7 @@ export const metadata = {
   title: "Split PDF",
   description: "Split PDF files online for free. Extract selected pages from a PDF securely in your browser.",
   keywords: ["split PDF", "extract PDF pages", "PDF splitter", "online PDF tool"],
-  alternates: { canonical: `${siteUrl}/tools/split-pdf` },
+  alternates: { canonical: `${siteUrl}/tools/split-pdf/` },
   openGraph: {
     title: "Split PDF",
     description: "Split PDF files online for free with ResumeSathi's PDF splitter.",

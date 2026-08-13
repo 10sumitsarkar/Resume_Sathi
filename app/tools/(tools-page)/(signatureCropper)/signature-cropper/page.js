@@ -7,7 +7,7 @@ export const metadata = {
   title: "Signature Cropper",
   description: "Crop signature images to a custom width and height online.",
   keywords: ["signature cropper", "crop signature", "resize signature"],
-  alternates: { canonical: `${siteUrl}/tools/signature-cropper` },
+  alternates: { canonical: `${siteUrl}/tools/signature-cropper/` },
 };
 
 export default function Page() {

@@ -221,7 +221,7 @@ export default function PrivacyPolicyClient() {
                 <p>
                   If you have any questions about this Privacy Policy or how your data is
                   handled, please visit our{' '}
-                  <a href="/contact">Contact page</a>{' '}
+                  <a href="/contact/">Contact page</a>{' '}
                   to get in touch with our team.
                 </p>
               </div>

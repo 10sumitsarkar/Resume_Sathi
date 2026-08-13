@@ -7,7 +7,7 @@ export const metadata = {
   title: 'Upload Resume | ResumeSathi',
   description: 'Upload an existing resume and extract details into ResumeSathi’s online resume builder for quick editing and updating.',
   keywords: ['upload resume', 'resume parser', 'import resume', 'resume builder'],
-  alternates: { canonical: `${siteUrl}/resume/upload-resume` },
+  alternates: { canonical: `${siteUrl}/resume/upload-resume/` },
   openGraph: {
     title: 'Upload Resume | ResumeSathi',
     description: 'Upload an existing resume and extract details into ResumeSathi’s online resume builder for quick editing and updating.',

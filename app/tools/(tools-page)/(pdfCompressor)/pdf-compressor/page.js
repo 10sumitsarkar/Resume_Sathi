@@ -7,7 +7,7 @@ export const metadata = {
   title: "Compress PDF",
   description: "Compress PDF files online for free with ResumeSathi's secure and simple PDF compression tool.",
   keywords: ["compress PDF", "reduce PDF size", "PDF compressor", "online PDF tool"],
-  alternates: { canonical: `${siteUrl}/tools/pdf-compressor` },
+  alternates: { canonical: `${siteUrl}/tools/pdf-compressor/` },
   openGraph: {
     title: "Compress PDF",
     description: "Compress PDF files online for free with ResumeSathi's secure and simple PDF compression tool.",

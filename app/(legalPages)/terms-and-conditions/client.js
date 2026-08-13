@@ -220,7 +220,7 @@ export default function TermsClient() {
                 <h2><span className="lp-num">15</span>Contact Us</h2>
                 <p>
                   If you have any questions about these Terms & Conditions, please visit our{' '}
-                  <a href="/contact">Contact page</a>{' '}
+                  <a href="/contact/">Contact page</a>{' '}
                   to reach our team.
                 </p>
               </div>

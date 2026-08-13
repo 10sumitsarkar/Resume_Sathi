@@ -4,7 +4,7 @@ export const metadata = {
   title: 'CSS Animation Generator | ResumeSathi',
   description: 'Create beautiful CSS animations for your website, landing page, or resume project with ResumeSathi’s free animation tool.',
   keywords: ['CSS animation generator', 'animation css', 'web animation tool', 'CSS effects'],
-  alternates: { canonical: '/tools/css-animations' },
+  alternates: { canonical: '/tools/css-animations/' },
   robots: {
     index: false,
     follow: false,

@@ -26,25 +26,25 @@ export default function Footer() {
           <div className="rk-footer-col">
             <div className="rk-footer-col-title">Product</div>
 
-            <Link prefetch={false} href="/tools">Tools</Link>
-            <Link prefetch={false} href="/typing">Typing Practice</Link>
+            <Link prefetch={false} href="/tools/">Tools</Link>
+            <Link prefetch={false} href="/typing/">Typing Practice</Link>
           </div>
 
           <div className="rk-footer-col">
             <div className="rk-footer-col-title">Jobs</div>
 
-            <Link prefetch={false} href="/jobs">Jobs</Link>
-            <Link prefetch={false} href="/blog">Career Tips</Link>
+            <Link prefetch={false} href="/jobs/">Jobs</Link>
+            <Link prefetch={false} href="/blog/">Career Tips</Link>
           </div>
 
           <div className="rk-footer-col">
             <div className="rk-footer-col-title">Company</div>
 
-            <Link prefetch={false} href="/about">About</Link>
-            <Link prefetch={false} href="/terms-and-conditions">Terms & Conditions</Link>
-            <Link prefetch={false} href="/privacy-policy">Privacy Policy</Link>
-            <Link prefetch={false} href="/disclaimer">Disclaimer</Link>
-            <Link prefetch={false} href="/contact">Contact</Link>
+            <Link prefetch={false} href="/about/">About</Link>
+            <Link prefetch={false} href="/terms-and-conditions/">Terms & Conditions</Link>
+            <Link prefetch={false} href="/privacy-policy/">Privacy Policy</Link>
+            <Link prefetch={false} href="/disclaimer/">Disclaimer</Link>
+            <Link prefetch={false} href="/contact/">Contact</Link>
           </div>
         </div>
       </div>

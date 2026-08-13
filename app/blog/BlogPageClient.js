@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getApiBase, resolveApiMediaUrl } from '../lib/apiConfig';
+import { getApiBase, resolveApiMediaUrl, withTrailingSlash } from '../lib/apiConfig';
 import './blog.css';
 
 const IconBlog = () => (
@@ -145,7 +145,7 @@ function SearchDropdown({
           ) : (
             suggestions.map((item) => (
               <li key={item.id}>
-                <Link prefetch={false} href={`/blog/${getSlug(item)}`} onClick={() => onSelect(item)}>
+                <Link prefetch={false} href={withTrailingSlash(`/blog/${getSlug(item)}`)} onClick={() => onSelect(item)}>
                   <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} width={56} height={56} className="rk-blog-thumb" loading="eager" decoding="async" />
                   <div>
                     <span className="rk-search-dropdown-title">{getTitle(item)}</span>
@@ -190,10 +190,11 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
 
 function BlogCard({ article }) {
   const articleSlug = getSlug(article);
+  const articleHref = withTrailingSlash(`/blog/${articleSlug}`);
   return (
     <div className="col-sm-6 col-lg-4">
       <article className="rk-blog-card">
-        <Link prefetch={false} href={`/blog/${articleSlug}`} className="rk-blog-card-img">
+        <Link prefetch={false} href={articleHref} className="rk-blog-card-img">
           <img src={resolveMediaUrl(article.hero_image)} alt={getTitle(article)} width={640} height={380} className="rk-blog-card-img" loading="eager" decoding="async" />
           <span className="rk-blog-cat">{getCategoryLabel(article)}</span>
         </Link>
@@ -212,12 +213,12 @@ function BlogCard({ article }) {
             {formatDate(article.created_at)}
           </span>
           <h3>
-            <Link prefetch={false} href={`/blog/${articleSlug}`}>{getTitle(article)}</Link>
+            <Link prefetch={false} href={articleHref}>{getTitle(article)}</Link>
           </h3>
           <p>{article.description || article.meta_description || ''}</p>
           <Link
             prefetch={false}
-            href={`/blog/${articleSlug}`}
+            href={articleHref}
             className="rk-blog-readmore"
             aria-label={`Read more about ${getTitle(article)}`}
           >
@@ -281,12 +282,12 @@ function Sidebar({
         <ul>
           {latest.map((item) => (
             <li key={item.id}>
-              <Link prefetch={false} href={`/blog/${getSlug(item)}`} className="rk-blog-card-img">
+              <Link prefetch={false} href={withTrailingSlash(`/blog/${getSlug(item)}`)} className="rk-blog-card-img">
                 <img src={resolveMediaUrl(item.hero_image)} alt={getTitle(item)} width={56} height={56} className="rk-blog-thumb" loading="eager" decoding="async" />
               </Link>
               <div>
                 <span>{formatDate(item.created_at)}</span>
-                <Link prefetch={false} href={`/blog/${getSlug(item)}`}>{getTitle(item)}</Link>
+                <Link prefetch={false} href={withTrailingSlash(`/blog/${getSlug(item)}`)}>{getTitle(item)}</Link>
               </div>
             </li>
           ))}
@@ -296,7 +297,7 @@ function Sidebar({
       <div className="rk-widget rk-widget-cta">
         <h4>Build Your Resume</h4>
         <p>Create an ATS-optimized resume in minutes, 100% free.</p>
-        <Link prefetch={false} href="/resume" className="rk-cta-btn">
+        <Link prefetch={false} href="/resume/" className="rk-cta-btn">
           <i className="bi bi-plus-lg"></i> Create Resume
         </Link>
       </div>
@@ -790,7 +791,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
                 {latest.map((item) => (
                   <Link prefetch={false}
                     key={item.id}
-                    href={`/blog/${getSlug(item)}`}
+                    href={withTrailingSlash(`/blog/${getSlug(item)}`)}
                     className="rk-latest-sub-item"
                     onClick={closeOffcanvas}
                   >
@@ -808,7 +809,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
           {/* Build Your Resume */}
           <div className="rk-offcanvas-cta">
-            <Link prefetch={false} href="/resume" className="rk-cta-btn" onClick={closeOffcanvas}>
+            <Link prefetch={false} href="/resume/" className="rk-cta-btn" onClick={closeOffcanvas}>
               <i className="bi bi-plus-lg"></i> Build Your Resume
             </Link>
           </div>

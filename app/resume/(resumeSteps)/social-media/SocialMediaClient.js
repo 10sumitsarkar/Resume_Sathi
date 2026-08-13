@@ -151,7 +151,7 @@ const id = searchParams.get('id');
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-      router.push(`/resume/internship?id=${id}`);
+      router.push(`/resume/internship/?id=${id}`);
     }, 2500);
   };
 

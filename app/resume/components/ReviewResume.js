@@ -8,6 +8,10 @@ import ResumeTemplate4 from "../templates/ResumeTemplate4";
 import ResumeTemplate5 from "../templates/ResumeTemplate5";
 import ResumeTemplate6 from "../templates/ResumeTemplate6";
 import ResumeTemplate7 from "../templates/ResumeTemplate7";
+import ResumeTemplate8 from "../templates/ResumeTemplate8";
+import ResumeTemplate9 from "../templates/ResumeTemplate9";
+
+
 
 import "../resume-css/resumeTemp.css";
 import { useSelector } from "react-redux";
@@ -30,6 +34,8 @@ const id = searchParams.get('id');
     ResumeTemplate5: ResumeTemplate5,   
     ResumeTemplate6: ResumeTemplate6,  
     ResumeTemplate7: ResumeTemplate7, 
+    ResumeTemplate8: ResumeTemplate8,
+    ResumeTemplate9: ResumeTemplate9,
     // add more as needed
   };
 

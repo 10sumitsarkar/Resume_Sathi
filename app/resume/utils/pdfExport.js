@@ -91,6 +91,12 @@ const getThemeConfig = (selectedTheme = 'ResumeTemplate1', palette = 'color-1') 
    if (themeKey === 'ResumeTemplate7') {
     return { layout: 'template7', accent, accentHex: accentColor, titleSize: 22, sectionTitleSize: 11, bodySize: 10 };
   }
+  if (themeKey === 'ResumeTemplate8') {
+    return { layout: 'template8', accent, accentHex: accentColor, titleSize: 22, sectionTitleSize: 11, bodySize: 10 };
+  }
+  if (themeKey === 'ResumeTemplate9') {
+    return { layout: 'template9', accent, accentHex: accentColor, titleSize: 22, sectionTitleSize: 11, bodySize: 10 };
+  }
   return { layout: 'template1', accent, accentHex: accentColor, titleSize: 24, sectionTitleSize: 11, bodySize: 10 };
 };
 

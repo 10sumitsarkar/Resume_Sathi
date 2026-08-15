@@ -76,7 +76,7 @@ export default function PracticePage() {
           <div className="tf-result-card"><span className="tf-result-icon speed">↗</span><div><div className="tf-result-number">{lastResult.wpm}</div><div className="tf-result-label">Words Per Minute</div></div></div>
           <div className="tf-result-card"><span className="tf-result-icon accuracy">◎</span><div><div className="tf-result-number">{lastResult.accuracy}%</div><div className="tf-result-label">Accuracy</div></div></div>
           <div className="tf-result-card"><span className="tf-result-icon duration">◷</span><div><div className="tf-result-number">{lastResult.durationSec}s</div><div className="tf-result-label">Time Taken</div></div></div>
-        </div><div className="tf-result-actions"><button onClick={resetSession} className="tf-btn-brand btn">Try again</button></div></section>}
+        </div><div className="tf-result-actions"><button onClick={resetSession} className="tf-btn-brand px-4 py-2">Try again</button></div></section>}
       </div>
     </main>
   );

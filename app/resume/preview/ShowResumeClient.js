@@ -8,6 +8,8 @@ import ResumeTemplate4 from '../templates/ResumeTemplate4'
 import ResumeTemplate5 from '../templates/ResumeTemplate5'
 import ResumeTemplate6 from '../templates/ResumeTemplate6'
 import ResumeTemplate7 from '../templates/ResumeTemplate7'
+import ResumeTemplate8 from '../templates/ResumeTemplate8'
+import ResumeTemplate9 from '../templates/ResumeTemplate9'
 
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -27,6 +29,8 @@ const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate5', component: ResumeTemplate5 },
     { id: 'ResumeTemplate6', component: ResumeTemplate6 },
     { id: 'ResumeTemplate7', component: ResumeTemplate7 },
+    { id: 'ResumeTemplate8', component: ResumeTemplate8 },
+    { id: 'ResumeTemplate9', component: ResumeTemplate9 },
 ];
 
 // PDF page margin in mm (top and bottom of each page)

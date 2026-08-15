@@ -3342,6 +3342,11 @@ body:has(.tools-sidebar.collapsed) .tooltip {
       }
     }
   }
+  .right-part{
+    @media (max-width: 767px) {
+     display: none;
+    }
+  }
 }
 
 .rl-create-btn {
@@ -4443,7 +4448,7 @@ body:has(.tools-sidebar.collapsed) .tooltip {
   text-decoration: none;
   text-transform: uppercase;
   transition: transform .2s ease, background .2s ease;
-  z-index: 999;
+  z-index: 9999;
 
   &:hover {
     background: #a70000;

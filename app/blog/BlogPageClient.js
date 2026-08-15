@@ -301,7 +301,7 @@ function Sidebar({
           <i className="bi bi-plus-lg"></i> Create Resume
         </Link>
       </div>
-      <div className="rk-widget rk-widget-meta">
+      <div className="rk-widget rk-widget-meta d-none">
         <div style={{display: 'flex', gap: '8px', alignItems: 'center'}}>
           <button type="button" className="rk-refresh-btn" onClick={() => window.__rk_triggerRefresh && window.__rk_triggerRefresh()}>
             Refresh

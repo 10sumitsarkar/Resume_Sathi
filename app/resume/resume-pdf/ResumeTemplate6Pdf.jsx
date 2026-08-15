@@ -110,8 +110,11 @@ const styles = StyleSheet.create({
   rightCol: {
     width: "60%",
   },
+  colSectionRight: {
+    marginBottom: 20,
+  },
   colSection: {
-    marginBottom: 2,
+    marginBottom: 10,
   },
 
   // Contact
@@ -502,12 +505,3 @@ const ResumeTemplate6Pdf = ({
 };
 
 export default ResumeTemplate6Pdf;
-
-
-
-
-
-
-
-
-

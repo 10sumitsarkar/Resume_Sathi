@@ -495,26 +495,11 @@ const ResumeTemplate3Pdf = ({
       <Page size="A4" style={pageStyle}>
         {/* ---------- HEADER ---------- */}
         <View style={{ ...styles.header, backgroundColor: theme.headerBg }}>
-          <View style={styles.headerPhotoWrap}>
-            {profileSrc ? (
+          {profileSrc && (
+            <View style={styles.headerPhotoWrap}>
               <Image style={styles.headerPhotoImage} src={profileSrc} />
-            ) : (
-              <>
-                <View
-                  style={{
-                    ...styles.avatarHead,
-                    backgroundColor: "rgba(255,255,255,0.28)",
-                  }}
-                />
-                <View
-                  style={{
-                    ...styles.avatarBody,
-                    backgroundColor: "rgba(255,255,255,0.28)",
-                  }}
-                />
-              </>
-            )}
-          </View>
+            </View>
+          )}
           <View style={styles.headerInfo}>
             <Text style={styles.headerName}>{fullName}</Text>
             {jobLevel && (

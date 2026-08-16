@@ -145,11 +145,13 @@ export default function ResumeTemplate3({ additionalClass, isStatic = false, res
     /* ─── Shared sub-components ─── */
     const Header = ({ name, jobTitle, address, city, state, phone, email, website, photo, isStatic: s }) => (
         <div className="rt3_header">
-            <div className="rt3_header_photo">
-                <img loading="lazy" className="resume-photo"
-                     src={s ? '/front-assets/images/icons/user-icon.svg' : (photo || '/front-assets/images/icons/user-icon.svg')}
-                     alt="profile" />
-            </div>
+            {photo && (
+                <div className="rt3_header_photo">
+                    <img loading="lazy" className="resume-photo"
+                         src={photo}
+                         alt="profile" />
+                </div>
+            )}
             <div className="rt3_header_info">
                 <p className="rt3_name resume-name">{name}</p>
                 {jobTitle && <p className="rt3_jobtitle resume-job-title">{jobTitle}</p>}

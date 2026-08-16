@@ -316,15 +316,11 @@ const ResumeTemplate5Pdf = ({
 
         {/* ---------- HEADER ---------- */}
         <View style={styles.headerRow}>
-          <View style={{ ...styles.photoBox, borderColor: accentColor }}>
-            {profileSrc ? (
+          {profileSrc && (
+            <View style={{ ...styles.photoBox, borderColor: accentColor }}>
               <Image style={styles.profileImage} src={profileSrc} />
-            ) : (
-              <Text style={{ ...styles.photoFallbackText, color: accentColor }}>
-                {initials || "NA"}
-              </Text>
-            )}
-          </View>
+            </View>
+          )}
           <View style={styles.headerTextWrap}>
             <Text style={{ ...styles.nameText, color: accentColor }}>
               {fullName.toUpperCase()}

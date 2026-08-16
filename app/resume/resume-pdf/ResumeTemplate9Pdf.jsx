@@ -313,6 +313,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
     marginBottom: 6,
     wordBreak: "break-all",
+    color: "#666666",
   },
   bulletRow: {
     flexDirection: "row",
@@ -450,7 +451,7 @@ const ResumeTemplate9Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
         <Text style={styles.entryTitle}>{title}</Text>
         {dateLabel ? <Text style={{ ...styles.entryDateText, color: accentColor }}>{dateLabel}</Text> : null}
       </View>
-      {subLine ? <Text style={{ ...styles.entrySubLine, color: accentColor }}>{subLine}</Text> : null}
+      {subLine ? <Text style={styles.entrySubLine}>{subLine}</Text> : null}\n
       {(description || (bullets && bullets.length > 0)) ? (
         <View style={{ ...styles.quoteBlock, borderLeftColor: accentColor }}>
           <View style={styles.quoteIconWrap}>

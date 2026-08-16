@@ -503,16 +503,15 @@ export default function ResumeTemplate5({
           <div className={`resume ResumeTemplate5 ${additionalClass}`}>
             {/* HEADER */}
             <div className="rt5_header">
-              <div className="rt5_photo">
-                <img
-                  loading="lazy"
-                  src={
-                    personalInfomation.photo ||
-                    "/front-assets/images/icons/user-icon.svg"
-                  }
-                  alt={`${personalInfomation.firstName || "User"}'s Profile`}
-                />
-              </div>
+              {personalInfomation.photo && (
+                <div className="rt5_photo">
+                  <img
+                    loading="lazy"
+                    src={personalInfomation.photo}
+                    alt={`${personalInfomation.firstName || "User"}'s Profile`}
+                  />
+                </div>
+              )}
               <div className="rt5_heading">
                 <p className="rt5_name">
                   {personalInfomation.firstName} {personalInfomation.lastName}

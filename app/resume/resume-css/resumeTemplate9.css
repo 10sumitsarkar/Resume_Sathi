@@ -285,7 +285,7 @@
   .rt9_entry_sub {
     font-size: 12.5px;
     font-style: italic;
-    color: var(--templateColor, #1e4080);
+    color: #666666;
     margin-top: 3px;
     margin-bottom: 8px;
   }

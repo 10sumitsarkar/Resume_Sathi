@@ -362,17 +362,16 @@ const id = searchParams.get('id');
           <div className={`resume ResumeTemplate1 ${additionalClass}`}>
             {/* LEFT SIDE */}
             <div className="resume_left">
-              <div className="resume_profile">
-                <img
-                  loading="lazy"
-                  className="resume-photo"
-                  src={
-                    personalInfomation.photo ||
-                    "/front-assets/images/icons/user-icon.svg"
-                  }
-                  alt={`${personalInfomation.firstName || "User"}'s Profile`}
-                />
-              </div>
+              {personalInfomation.photo && (
+                <div className="resume_profile">
+                  <img
+                    loading="lazy"
+                    className="resume-photo"
+                    src={personalInfomation.photo}
+                    alt={`${personalInfomation.firstName || "User"}'s Profile`}
+                  />
+                </div>
+              )}
 
               <div className="resume_content">
                 {/* Personal Info */}

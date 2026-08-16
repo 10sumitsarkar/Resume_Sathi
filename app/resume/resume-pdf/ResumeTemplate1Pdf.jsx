@@ -312,33 +312,18 @@ const ResumeTemplate1Pdf = ({
       <Page size="A4" style={pageStyle}>
         {/* ---------- SIDEBAR ---------- */}
         <View style={{ ...styles.sidebar, backgroundColor: accentColor }}>
-          <View style={styles.photoWrap}>
-            <View
-              style={{
-                ...styles.photoCircle,
-                backgroundColor: hexToRgba(accentColor, 1),
-              }}
-            >
-              {profileSrc ? (
+          {profileSrc && (
+            <View style={styles.photoWrap}>
+              <View
+                style={{
+                  ...styles.photoCircle,
+                  backgroundColor: hexToRgba(accentColor, 1),
+                }}
+              >
                 <Image style={styles.profileImage} src={profileSrc} />
-              ) : (
-                <>
-                  <View
-                    style={{
-                      ...styles.avatarHead,
-                      backgroundColor: shapeColor,
-                    }}
-                  />
-                  <View
-                    style={{
-                      ...styles.avatarBody,
-                      backgroundColor: shapeColor,
-                    }}
-                  />
-                </>
-              )}
+              </View>
             </View>
-          </View>
+          )}
 
           <Text style={styles.sidebarName}>{fullName}</Text>
           {jobLevel && <Text style={styles.sidebarTag}>({jobLevel})</Text>}

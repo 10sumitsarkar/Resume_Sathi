@@ -848,7 +848,7 @@ export default function ShowResume() {
                         TXT
                     </button>
                     <p className='download-heading'>Printing</p>
-                    <button className='each-btn' onClick={handlePrint}>
+                    <button className='each-btn' onClick={downloadPDF}>
                         <img src="/front-assets/images/icons/print.svg" alt="Print" />
                         Print
                     </button>

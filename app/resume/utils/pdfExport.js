@@ -31,7 +31,7 @@ const buildSections = (resume) => {
   const fullName = [personal.firstName, personal.lastName].filter(Boolean).join(' ') || resume?.resume_name || 'Resume';
   const contactLines = [
     [personal.email, personal.phone].filter(Boolean).join(' • '),
-    [personal.city, personal.state, personal.country].filter(Boolean).join(', '),
+    [personal.address, personal.city, personal.state, personal.country].filter(Boolean).join(', '),
     personal.website,
   ].filter(Boolean);
 

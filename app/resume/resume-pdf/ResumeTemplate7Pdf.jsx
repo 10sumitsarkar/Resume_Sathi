@@ -3,6 +3,7 @@ import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
 import {
   PALETTE_COLORS,
   safeText,
+  safeTextInline,
   formatDateRange,
   formatEducationDateRange,
   formatSingleDate,
@@ -309,10 +310,10 @@ const ResumeTemplate7Pdf = ({
   const contactItems = [
     personal.email ? { type: "email", label: safeText(personal.email) } : null,
     personal.phone ? { type: "phone", label: safeText(personal.phone) } : null,
-    [personal.city, personal.state, personal.country].filter(Boolean).length > 0
+    [personal.address, personal.city, personal.state, personal.country].filter(Boolean).length > 0
       ? {
           type: "location",
-          label: [personal.city, personal.state, personal.country].filter(Boolean).join(", "),
+          label: [personal.address, personal.city, personal.state, personal.country].filter(Boolean).join(", "),
         }
       : null,
     personal.website ? { type: "globe", label: safeText(personal.website) } : null,
@@ -407,7 +408,7 @@ const ResumeTemplate7Pdf = ({
             <Text style={{ ...styles.sectionTitle, color: accentColor }}>Summary</Text>
             <View style={styles.profileWrap}>
               <View style={{ ...styles.profileBar, backgroundColor: accentColor }} />
-              <Text style={styles.bodyText}>{safeText(resume.summary.summary)}</Text>
+              <Text style={styles.bodyText}>{safeTextInline(resume.summary.summary)}</Text>
             </View>
           </View>
         )}

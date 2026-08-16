@@ -116,7 +116,13 @@ export default function ResumeTemplate8({ additionalClass, isStatic = false, res
     };
   }, [String(additionalClass), Number(previewResumeSize)]);
 
-  const addressParts = [personalInfomation.city, personalInfomation.state, personalInfomation.country].filter(Boolean);
+  const addressParts = [
+    personalInfomation.address,
+    personalInfomation.city,
+    personalInfomation.state,
+    personalInfomation.country,
+    personalInfomation.zipCode,
+  ].filter(Boolean);
 
   const workDateLabel = (work) =>
     `${`${work.start_month || ""} ${work.start_year || ""}`.trim()} - ${

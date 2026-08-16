@@ -271,6 +271,12 @@ export default function PersonalInfo() {
               </div>
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
+                  <label htmlFor="address">Address</label>
+                  <input type="text" {...register('address')} className="form-control" id="address" placeholder="Address" value={personalFormData.address || ''} />
+                </div>
+              </div>
+              <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
+                <div className='each-input-div'>
                   <label htmlFor="city">City<span className='text-danger'>*</span></label>
                   <input type="text" {...register('city', { required: "City is required" })} className={` ${errors.city ? 'is-invalid' : ''}`} id="city" placeholder="City" value={personalFormData.city || ''} />
                 </div>

@@ -3,6 +3,14 @@
     font-family: inherit;
 }
 
+.rk-input-root input,
+.rk-input-root textarea,
+.rk-select-search .search-inp,
+.rk-date-panel input,
+.rk-date-panel select {
+    cursor: text;
+}
+
 .rk-select,
 .rk-date {
     position: relative;

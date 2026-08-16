@@ -388,7 +388,8 @@ const id = searchParams.get('id');
                     </p>
                   </div>
                   <ul>
-                    {personalInfomation.city && (
+                    {[personalInfomation.address, personalInfomation.city, personalInfomation.state, personalInfomation.country]
+                      .filter(Boolean).join(", ") && (
                       <li>
                         <div className="icon">
                           <img
@@ -400,7 +401,9 @@ const id = searchParams.get('id');
                           />
                         </div>
                         <div className="data resume-address">
-                          {personalInfomation.city}, {personalInfomation.state}
+                          {[personalInfomation.address, personalInfomation.city, personalInfomation.state, personalInfomation.country]
+                            .filter(Boolean)
+                            .join(", ")}
                         </div>
                       </li>
                     )}

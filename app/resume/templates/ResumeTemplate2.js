@@ -291,6 +291,7 @@ export default function ResumeTemplate2({
   const showStaticData = isStatic || currentLoc === "select-theme";
 
   const addressParts = [
+    personalInfomation.address,
     personalInfomation.city,
     personalInfomation.state,
     personalInfomation.country,

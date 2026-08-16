@@ -301,7 +301,7 @@ export default function ResumeTemplate9({ additionalClass, isStatic = false, res
               )}
               <div className="rt9_name_underline" />
 
-              {(personalInfomation?.email || personalInfomation?.phone || personalInfomation?.city || personalInfomation?.website) && (
+              {(personalInfomation?.email || personalInfomation?.phone || personalInfomation?.address || personalInfomation?.city || personalInfomation?.website) && (
                 <div className="rt9_sidebar_block">
                   {personalInfomation?.email && (
                     <div className="rt9_contact_row resume-email"><span className="rt9_contact_badge"><IconEmail /></span><span>{personalInfomation.email}</span></div>
@@ -309,8 +309,10 @@ export default function ResumeTemplate9({ additionalClass, isStatic = false, res
                   {personalInfomation?.phone && (
                     <div className="rt9_contact_row resume-phone"><span className="rt9_contact_badge"><IconPhone /></span><span>{personalInfomation.phone}</span></div>
                   )}
-                  {personalInfomation?.city && (
-                    <div className="rt9_contact_row resume-address"><span className="rt9_contact_badge"><IconLocation /></span><span>{[personalInfomation.city, personalInfomation.state].filter(Boolean).join(", ")}</span></div>
+                  {[personalInfomation?.address, personalInfomation?.city, personalInfomation?.state, personalInfomation?.country]
+                    .filter(Boolean)
+                    .join(", ") && (
+                    <div className="rt9_contact_row resume-address"><span className="rt9_contact_badge"><IconLocation /></span><span>{[personalInfomation?.address, personalInfomation?.city, personalInfomation?.state, personalInfomation?.country].filter(Boolean).join(", ")}</span></div>
                   )}
                   {personalInfomation?.website && (
                     <div className="rt9_contact_row resume-website"><span className="rt9_contact_badge"><IconGlobe /></span><span>{personalInfomation.website}</span></div>

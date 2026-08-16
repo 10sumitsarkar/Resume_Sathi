@@ -10,6 +10,7 @@ import {
 import {
   PALETTE_COLORS,
   safeText,
+  safeTextInline,
   resolveProfileImage,
   formatDateRange,
   formatEducationDateRange,
@@ -29,12 +30,20 @@ import {
  * Below it, a light sidebar (skills with level bars, languages, social,
  * hobbies) and a white content column (profile + work / intern /
  * education / certification entries, each marked by a ring icon with
- * title left / date right on the same row).
+ * title left / date right).
  *
- * Headings, underlines, ring-icons, bullet marks and skill-bar fills are
- * derived from the single `accentColor` (driven by the `palette` prop).
- * Body text, descriptions, sub-lines and header-icons use fixed neutral
- * colors so the page doesn't turn entirely red/accent-tinted.
+ * Every entry keeps the title and date from ever colliding: the title
+ * sits in a flex-growing column that wraps onto a second line for long
+ * text, while the date renders as a fixed-width, non-shrinking pill on
+ * the right — so long job titles, degree names, or certificate names
+ * never run into the date. Company/institute/issuer names live on
+ * their own italic sub-line instead of being appended to the title,
+ * which is what was causing the long merged/overflowing strings.
+ *
+ * Headings, underlines, ring-icons, bullet marks, skill-bar fills and
+ * date pills are derived from the single `accentColor` (driven by the
+ * `palette` prop). Body text, descriptions, sub-lines and header icons
+ * use fixed neutral colors so the page doesn't turn entirely accent-tinted.
  */
 
 // ---------- Color engine: derive tints/shades from one hex color ----------
@@ -86,68 +95,72 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: "row",
     alignItems: "center",
-    paddingVertical: 24,
-    paddingHorizontal: 30,
+    paddingVertical: 28,
+    paddingHorizontal: 32,
   },
   headerPhotoWrap: {
-    width: 80,
-    height: 80,
-    borderRadius: 50,
+    width: 78,
+    height: 78,
+    borderRadius: 39,
     borderStyle: "solid",
-    borderWidth: 3,
-    borderColor: "#ffffff",
+    borderWidth: 2.5,
+    borderColor: "rgba(255,255,255,0.85)",
     overflow: "hidden",
     alignItems: "center",
     justifyContent: "center",
-    marginRight: 20,
+    marginRight: 22,
+    flexShrink: 0,
   },
   headerPhotoImage: {
-    width: 80,
-    height: 80,
+    width: 78,
+    height: 78,
     objectFit: "cover",
   },
   avatarHead: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    marginTop: 12,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    marginTop: 13,
   },
   avatarBody: {
-    width: 54,
-    height: 32,
-    borderRadius: 27,
+    width: 50,
+    height: 30,
+    borderRadius: 25,
     marginTop: 5,
   },
   headerInfo: {
     flexDirection: "column",
     flex: 1,
+    minWidth: 0,
   },
   headerName: {
-    fontSize: 19,
+    fontSize: 21,
     fontWeight: "700",
     color: "#ffffff",
-    marginBottom: 8,
+    marginBottom: 6,
+    letterSpacing: 0.2,
   },
   headerTag: {
-    fontSize: 10.5,
+    fontSize: 10,
     textTransform: "uppercase",
-    letterSpacing: 1.6,
-    marginBottom: 10,
+    letterSpacing: 2.4,
+    marginBottom: 12,
+    fontWeight: "600",
   },
   headerContactRow: {
     flexDirection: "row",
     flexWrap: "wrap",
     alignItems: "center",
+    rowGap: 6,
   },
   headerContactItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginRight: 18,
-    marginBottom: 3,
+    marginRight: 20,
   },
   headerContactText: {
-    fontSize: 10,
-    marginLeft: 5,
+    fontSize: 9.5,
+    marginLeft: 6,
   },
 
   // ---------- Body row ----------
@@ -158,30 +171,32 @@ const styles = StyleSheet.create({
 
   // ---------- Sidebar ----------
   sidebar: {
-    width: 224,
-    paddingTop: 26,
+    width: 220,
+    paddingTop: 30,
     paddingHorizontal: 22,
-    paddingBottom: 26,
+    paddingBottom: 30,
   },
   sidebarSection: {
-    marginBottom: 20,
+    marginBottom: 22,
   },
   sidebarHeading: {
-    fontSize: 12,
+    fontSize: 11.5,
     fontWeight: "700",
     textTransform: "uppercase",
-    letterSpacing: 0.8,
-    marginBottom: 6,
+    letterSpacing: 1.2,
+    marginBottom: 7,
   },
   sidebarUnderline: {
-    height: 1,
-    marginBottom: 14,
+    height: 2,
+    width: 26,
+    borderRadius: 1,
+    marginBottom: 15,
   },
   skillBlock: {
-    marginBottom: 12,
+    marginBottom: 13,
   },
   skillName: {
-    fontSize: 10.5,
+    fontSize: 10,
     fontWeight: "600",
     marginBottom: 5,
   },
@@ -195,15 +210,16 @@ const styles = StyleSheet.create({
   },
   bulletLine: {
     flexDirection: "row",
-    marginBottom: 8,
+    marginBottom: 9,
   },
   bulletMark: {
-    fontSize: 10,
-    marginRight: 5,
+    fontSize: 9,
+    marginRight: 6,
+    marginTop: 1,
   },
   bulletText: {
-    fontSize: 10.5,
-    lineHeight: 1.4,
+    fontSize: 10,
+    lineHeight: 1.45,
     flex: 1,
   },
   socialRow: {
@@ -212,42 +228,43 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   socialText: {
-    fontSize: 10.5,
+    fontSize: 10,
     marginLeft: 7,
+    flex: 1,
   },
 
   // ---------- Content ----------
   content: {
     flex: 1,
     backgroundColor: "#ffffff",
-    paddingTop: 26,
-    paddingHorizontal: 20,
-    paddingBottom: 26,
+    paddingTop: 30,
+    paddingHorizontal: 26,
+    paddingBottom: 30,
   },
   contentSection: {
-    marginBottom: 20,
+    marginBottom: 22,
   },
   contentHeading: {
-    fontSize: 11.5,
+    fontSize: 12.5,
     fontWeight: "700",
     textTransform: "uppercase",
-    letterSpacing: 0.8,
-    marginBottom: 6,
+    letterSpacing: 1,
+    marginBottom: 7,
   },
   contentUnderline: {
-    height: 2,
-    width: 30,
+    height: 2.5,
+    width: 32,
     borderRadius: 50,
-    marginBottom: 12,
+    marginBottom: 14,
   },
   bodyText: {
-    fontSize: 11,
-    lineHeight: 1.6,
+    fontSize: 10.5,
+    lineHeight: 1.65,
     textAlign: "justify",
   },
 
   entryBlock: {
-    marginBottom: 14,
+    marginBottom: 16,
   },
   entryRow: {
     flexDirection: "row",
@@ -255,6 +272,7 @@ const styles = StyleSheet.create({
   entryRail: {
     width: 21,
     alignItems: "center",
+    flexShrink: 0,
   },
   ringIconOuter: {
     width: 13,
@@ -277,28 +295,43 @@ const styles = StyleSheet.create({
   },
   entryContent: {
     flex: 1,
+    minWidth: 0,
   },
+  // Title/date row: title lives in a flex-growing, min-width:0 column so
+  // long text wraps instead of pushing into the date; the date is a
+  // fixed, non-shrinking pill so it never gets crushed or overlapped.
   entryTitleRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "flex-start",
-    gap: 8,
+  },
+  entryTitleCol: {
+    flex: 1,
+    minWidth: 0,
+    paddingRight: 10,
   },
   entryTitle: {
-    fontSize: 10.8,
+    fontSize: 11,
     fontWeight: "700",
+    lineHeight: 1.3,
   },
-  entryDate: {
-    fontSize: 9.2,
+  entryDatePill: {
+    fontSize: 8.5,
+    fontWeight: "600",
+    flexShrink: 0,
+    borderRadius: 3,
+    paddingVertical: 3,
+    paddingHorizontal: 8,
+    marginTop: 1,
   },
   entrySubLine: {
-    fontSize: 10.5,
+    fontSize: 10,
     fontStyle: "italic",
-    marginTop: 5,
+    marginTop: 4,
   },
   entryDescription: {
-    fontSize: 10.5,
-    lineHeight: 1.55,
+    fontSize: 10,
+    lineHeight: 1.6,
     marginTop: 8,
     marginBottom: 0,
   },
@@ -315,9 +348,9 @@ const ResumeTemplate3Pdf = ({
   const accentColor = PALETTE_COLORS[palette] || PALETTE_COLORS["color-1"];
 
   // ---------- Theme ----------
-  // Accent-derived: headings, underlines, ring-icons, bullet marks, skill-bar fill.
-  // Neutral (fixed): body text, descriptions, sub-lines, header icons/text -
-  // so the page doesn't end up entirely red/accent-tinted.
+  // Accent-derived: headings, underlines, ring-icons, bullet marks, skill-bar
+  // fill, date pills. Neutral (fixed): body text, descriptions, sub-lines,
+  // header icons/text - so the page doesn't end up entirely accent-tinted.
   const theme = {
     headerBg: darken(accentColor, 0.8),
     headerTagText: lighten(accentColor, 0.72),
@@ -336,8 +369,9 @@ const ResumeTemplate3Pdf = ({
 
     bodyText: "#3a3a3a",
     entryTitle: "#1a1a1a",
-    entryDate: "#6b6b6b",
-    entrySubLine: "#555555",
+    entryDatePillBg: lighten(accentColor, 0.88),
+    entryDatePillText: darken(accentColor, 0.25),
+    entrySubLine: "#5a5a5a",
     entryDescription: "#3a3a3a",
   };
 
@@ -355,10 +389,10 @@ const ResumeTemplate3Pdf = ({
   };
 
   const contactItems = [
-    [personal.city, personal.state].filter(Boolean).length > 0
+    [personal.address, personal.city, personal.state].filter(Boolean).length > 0
       ? {
           type: "location",
-          label: [personal.city, personal.state].filter(Boolean).join(", "),
+          label: [personal.address, personal.city, personal.state].filter(Boolean).join(", "),
         }
       : null,
     personal.phone ? { type: "phone", label: safeText(personal.phone) } : null,
@@ -398,7 +432,11 @@ const ResumeTemplate3Pdf = ({
     </>
   );
 
-  const Entry = ({ title, dateLine, subLine, description }) => (
+  // title = the single bold headline (job title / degree / certificate name
+  // ONLY — never concatenated with the company/institute/issuer, which is
+  // what caused the overflow). subLine = company/institute/issuer + extra
+  // context, rendered italic on its own line underneath.
+  const Entry = ({ title, dateLine, subLine, description, isLast }) => (
     <View style={styles.entryBlock}>
       <View style={styles.entryRow}>
         <View style={styles.entryRail}>
@@ -407,17 +445,27 @@ const ResumeTemplate3Pdf = ({
               style={{ ...styles.ringIconInner, backgroundColor: accentColor }}
             />
           </View>
-          <View
-            style={{ ...styles.entryRailLine, backgroundColor: accentColor }}
-          />
+          {!isLast && (
+            <View
+              style={{ ...styles.entryRailLine, backgroundColor: accentColor, opacity: 0.35 }}
+            />
+          )}
         </View>
         <View style={styles.entryContent}>
           <View style={styles.entryTitleRow}>
-            <Text style={{ ...styles.entryTitle, color: theme.entryTitle }}>
-              {title}
-            </Text>
+            <View style={styles.entryTitleCol}>
+              <Text style={{ ...styles.entryTitle, color: theme.entryTitle }}>
+                {title}
+              </Text>
+            </View>
             {dateLine ? (
-              <Text style={{ ...styles.entryDate, color: theme.entryDate }}>
+              <Text
+                style={{
+                  ...styles.entryDatePill,
+                  backgroundColor: theme.entryDatePillBg,
+                  color: theme.entryDatePillText,
+                }}
+              >
                 {dateLine}
               </Text>
             ) : null}
@@ -455,13 +503,13 @@ const ResumeTemplate3Pdf = ({
                 <View
                   style={{
                     ...styles.avatarHead,
-                    backgroundColor: "rgba(255,255,255,0.25)",
+                    backgroundColor: "rgba(255,255,255,0.28)",
                   }}
                 />
                 <View
                   style={{
                     ...styles.avatarBody,
-                    backgroundColor: "rgba(255,255,255,0.25)",
+                    backgroundColor: "rgba(255,255,255,0.28)",
                   }}
                 />
               </>
@@ -571,6 +619,7 @@ const ResumeTemplate3Pdf = ({
                         alignItems: "center",
                         justifyContent: "center",
                         marginTop: 1,
+                        flexShrink: 0,
                       }}
                     >
                       {getSocialIcon(item.social_name, theme.socialIcon)}
@@ -612,7 +661,7 @@ const ResumeTemplate3Pdf = ({
               <View style={styles.contentSection}>
                 <ContentHeading>Profile</ContentHeading>
                 <Text style={{ ...styles.bodyText, color: theme.bodyText }}>
-                  {safeText(resume.summary.summary)}
+                  {safeTextInline(resume.summary.summary)}
                 </Text>
               </View>
             )}
@@ -623,14 +672,7 @@ const ResumeTemplate3Pdf = ({
                 {resume.work_experiences.map((work, idx) => (
                   <Entry
                     key={idx}
-                    title={[
-                      safeText(work.job_title),
-                      work.company_name
-                        ? `- ${safeText(work.company_name)}`
-                        : "",
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
+                    title={safeText(work.job_title)}
                     dateLine={formatDateRange(
                       work.start_month,
                       work.start_year,
@@ -638,16 +680,16 @@ const ResumeTemplate3Pdf = ({
                       work.end_year,
                     )}
                     subLine={[
+                      safeText(work.company_name),
                       safeText(work.location),
-                      work.employment_type
-                        ? safeText(work.employment_type)
-                        : "",
+                      work.employment_type ? safeText(work.employment_type) : "",
                     ]
                       .filter(Boolean)
-                      .join(" - ")}
+                      .join(" — ")}
                     description={
                       work.description ? safeText(work.description) : ""
                     }
+                    isLast={idx === resume.work_experiences.length - 1}
                   />
                 ))}
               </View>
@@ -659,14 +701,7 @@ const ResumeTemplate3Pdf = ({
                 {resume.any_internships.map((intern, idx) => (
                   <Entry
                     key={idx}
-                    title={[
-                      safeText(intern.job_title),
-                      intern.company_name
-                        ? `- ${safeText(intern.company_name)}`
-                        : "",
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
+                    title={safeText(intern.job_title)}
                     dateLine={formatDateRange(
                       intern.start_month,
                       intern.start_year,
@@ -674,13 +709,13 @@ const ResumeTemplate3Pdf = ({
                       intern.end_year,
                     )}
                     subLine={[
+                      safeText(intern.company_name),
                       safeText(intern.location),
-                      intern.employment_type
-                        ? safeText(intern.employment_type)
-                        : "",
+                      intern.employment_type ? safeText(intern.employment_type) : "",
                     ]
                       .filter(Boolean)
-                      .join(" - ")}
+                      .join(" — ")}
+                    isLast={idx === resume.any_internships.length - 1}
                   />
                 ))}
               </View>
@@ -700,6 +735,7 @@ const ResumeTemplate3Pdf = ({
                     ]
                       .filter(Boolean)
                       .join(", ")}
+                    isLast={idx === resume.educations.length - 1}
                   />
                 ))}
               </View>
@@ -711,18 +747,13 @@ const ResumeTemplate3Pdf = ({
                 {resume.certificates.map((cert, idx) => (
                   <Entry
                     key={idx}
-                    title={[
-                      safeText(cert.certificate_name),
-                      cert.issuing_organization
-                        ? `- ${safeText(cert.issuing_organization)}`
-                        : "",
-                    ]
-                      .filter(Boolean)
-                      .join(" ")}
+                    title={safeText(cert.certificate_name)}
                     dateLine={formatSingleDate(cert.issue_date)}
+                    subLine={safeText(cert.issuing_organization)}
                     description={
                       cert.description ? safeText(cert.description) : ""
                     }
+                    isLast={idx === resume.certificates.length - 1}
                   />
                 ))}
               </View>
@@ -735,12 +766,3 @@ const ResumeTemplate3Pdf = ({
 };
 
 export default ResumeTemplate3Pdf;
-
-
-
-
-
-
-
-
-

@@ -14,6 +14,7 @@ import {
 import {
   PALETTE_COLORS,
   safeText,
+  safeTextInline,
   resolveProfileImage,
   formatDateRange,
   formatEducationDateRange,
@@ -350,10 +351,10 @@ const ResumeTemplate2Pdf = ({
   const contactItems = [
     personal.email ? { type: "email", label: safeText(personal.email) } : null,
     personal.phone ? { type: "phone", label: safeText(personal.phone) } : null,
-    [personal.city, personal.state, personal.country].filter(Boolean).length > 0
+    [personal.address, personal.city, personal.state, personal.country].filter(Boolean).length > 0
       ? {
           type: "location",
-          label: [personal.city, personal.state, personal.country]
+          label: [personal.address, personal.city, personal.state, personal.country]
             .filter(Boolean)
             .join(", "),
         }
@@ -469,7 +470,7 @@ const ResumeTemplate2Pdf = ({
           <View style={styles.section}>
             <SectionTitle>Summary</SectionTitle>
             <Text style={styles.bodyText}>
-              {safeText(resume.summary.summary)}
+              {safeTextInline(resume.summary.summary)}
             </Text>
           </View>
         )}

@@ -3,6 +3,7 @@ import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
 import {
   PALETTE_COLORS,
   safeText,
+  safeTextInline,
   formatDateRange,
   formatEducationDateRange,
   formatSingleDate,
@@ -256,10 +257,10 @@ const ResumeTemplate6Pdf = ({
   const contactItems = [
     personal.phone ? { type: "phone", label: safeText(personal.phone) } : null,
     personal.email ? { type: "email", label: safeText(personal.email) } : null,
-    [personal.city, personal.state, personal.country].filter(Boolean).length > 0
+    [personal.address, personal.city, personal.state, personal.country].filter(Boolean).length > 0
       ? {
           type: "location",
-          label: [personal.city, personal.state, personal.country]
+          label: [personal.address, personal.city, personal.state, personal.country]
             .filter(Boolean)
             .join(", "),
         }
@@ -299,7 +300,7 @@ const ResumeTemplate6Pdf = ({
           <View style={styles.aboutSection}>
             <SectionHeading noRule>About Me</SectionHeading>
             <Text style={styles.aboutText}>
-              {safeText(resume.summary.summary)}
+              {safeTextInline(resume.summary.summary)}
             </Text>
           </View>
         )}
@@ -413,7 +414,7 @@ const ResumeTemplate6Pdf = ({
                       {safeText(edu.institute_name)}
                       {edu.institute_name ? " | " : ""}
                       {!edu.date || !edu.year
-                        ? "Ongoing"
+                        ? "Still Studying"
                         : formatEducationDateRange(edu.date, edu.year)}
                     </Text>
                     <Text style={styles.entryTitle}>

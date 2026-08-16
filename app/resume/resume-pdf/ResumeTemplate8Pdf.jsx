@@ -1,6 +1,6 @@
 import React from "react";
 import { Document, Page, View, Text, StyleSheet } from "@react-pdf/renderer";
-import { PALETTE_COLORS, safeText, formatDateRange, formatEducationDateRange, formatSingleDate } from "./pdfHelpers";
+import { PALETTE_COLORS, safeText, safeTextInline, formatDateRange, formatEducationDateRange, formatSingleDate } from "./pdfHelpers";
 import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from "./PdfCommon";
 
 /**
@@ -264,8 +264,8 @@ const ResumeTemplate8Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
   const contactItems = [
     personal.email ? { type: "email", label: safeText(personal.email) } : null,
     personal.phone ? { type: "phone", label: safeText(personal.phone) } : null,
-    [personal.city, personal.state, personal.country].filter(Boolean).length > 0
-      ? { type: "location", label: [personal.city, personal.state, personal.country].filter(Boolean).join(", ") }
+    [personal.address, personal.city, personal.state, personal.country].filter(Boolean).length > 0
+      ? { type: "location", label: [personal.address, personal.city, personal.state, personal.country].filter(Boolean).join(", ") }
       : null,
     personal.website ? { type: "globe", label: safeText(personal.website) } : null,
   ].filter(Boolean);
@@ -360,7 +360,7 @@ const ResumeTemplate8Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
           {resume.summary && resume.summary.summary && (
             <View style={styles.section}>
               <SectionTab>Summary</SectionTab>
-              <Text style={styles.bodyText}>{safeText(resume.summary.summary)}</Text>
+              <Text style={styles.bodyText}>{safeTextInline(resume.summary.summary)}</Text>
             </View>
           )}
 
@@ -397,7 +397,7 @@ const ResumeTemplate8Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
             renderTimelineSection("Education", educations, (edu) => ({
               title: `${safeText(edu.degree)}${edu.field_study ? ` in ${safeText(edu.field_study)}` : ""}`,
               subLine: [safeText(edu.institute_name), safeText(edu.location)].filter(Boolean).join(" — "),
-              dateLabel: !edu.date || !edu.year ? "Ongoing" : formatEducationDateRange(edu.date, edu.year),
+              dateLabel: !edu.date || !edu.year ? "Still Studying" : formatEducationDateRange(edu.date, edu.year),
             }))}
 
           {/* CERTIFICATIONS */}

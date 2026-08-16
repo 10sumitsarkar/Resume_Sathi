@@ -187,10 +187,42 @@ const fetchGoogleFontsForFamily = async (family) => {
   }
 };
 
+const decodeHtmlEntities = (value) => {
+  if (value === null || value === undefined) return '';
+  return String(value)
+    .replace(/&nbsp;/gi, ' ')
+    .replace(/&amp;/gi, '&')
+    .replace(/&lt;/gi, '<')
+    .replace(/&gt;/gi, '>')
+    .replace(/&quot;/gi, '"')
+    .replace(/&#39;/gi, "'")
+    .replace(/&apos;/gi, "'")
+    .replace(/&ndash;/gi, '–')
+    .replace(/&mdash;/gi, '—');
+};
+
 export const safeText = (value) => {
   if (value === null || value === undefined) return '';
-  if (typeof value === 'string') return value.trim();
-  return String(value).trim();
+
+  const normalized = decodeHtmlEntities(value)
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<\/?(p|div|li|ul|ol|h[1-6]|span|strong|b|em|i|u|s|strike|a|blockquote)[^>]*>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\r\n/g, '\n')
+    .replace(/\s*\n\s*/g, '\n')
+    .replace(/[\t ]+/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
+  return normalized;
+};
+
+export const safeTextInline = (value) => {
+  if (value === null || value === undefined) return '';
+  return safeText(value)
+    .replace(/\s*\n\s*/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
 };
 
 export const getFullName = (personal = {}, resumeName = '') => {
@@ -260,7 +292,7 @@ export const formatDateRange = (startMonth, startYear, endMonth, endYear) => {
 
 export const formatEducationDateRange = (startMonth, startYear) => {
   const start = [safeText(startMonth), safeText(startYear)].filter(Boolean).join(' ');
-  return start;
+  return start || 'Still Studying';
 };
 
 export const formatSingleDate = (dateStr) => {

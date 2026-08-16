@@ -1,356 +1,390 @@
-@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+/* =========================================================
+   ResumeTemplate3 — "Executive Panel"
+   Full-width dark header band (photo, name, tag, contact row) on top.
+   Below it: a light sidebar (skills with level bars, languages,
+   social, hobbies) and a white content column (profile + work /
+   intern / education / certification entries, each marked by a ring
+   icon with title left / date right).
+   Every entry keeps the title and date from ever colliding: the
+   title lives in a min-width:0 flex column so long text wraps onto a
+   second line, while the date renders as a fixed, non-shrinking pill
+   on the right. Company/institute/issuer render on their own italic
+   sub-line instead of being appended to the title.
+   Uses --templateColor (set via .color-1..color-6 on the parent
+   .resume element) for the header band, sidebar heading/underline,
+   ring icons, bullet marks, skill-bar fill and date pills.
+   ========================================================= */
 
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap");
+
+.resume {
+  &.color-1 { --templateColor: #de21a2; }
+  &.color-2 { --templateColor: #5a21de; }
+  &.color-3 { --templateColor: #01cf27; }
+  &.color-4 { --templateColor: #de7921; }
+  &.color-5 { --templateColor: #de2124; }
+  &.color-6 { --templateColor: #585858; }
+}
 
 .resume.ResumeTemplate3 {
-  --templateColor: #2f6fed;
-  --rt3-primary:   #1f3c56;
-  --rt3-text:      #2d3436;
-  --rt3-muted:     #6b7280;
-  --rt3-border:    #e3e6ea;
-  --rt3-sidebar-bg:#f0f4f9;
-  --rt3-bar-bg:    #d8e2f0;
+  --templateColor: #6366f1;
 
   width: 800px;
   min-height: 1131px;
   margin: 0 auto;
   background: #ffffff;
-  color: var(--rt3-text);
-  font-family: 'Poppins', 'Helvetica Neue', Arial, sans-serif;
+  color: #2d2d2d;
+  font-family: "Poppins", "Helvetica Neue", Arial, sans-serif;
   font-size: 13px;
   line-height: 1.6;
   box-sizing: border-box;
   overflow: hidden;
 
   * { box-sizing: border-box; }
-  p, ul, li, h1, h2, h3, h4 { margin: 0; padding: 0; }
+  p, ul, li, h1, h2, h3 { margin: 0; padding: 0; }
   ul { list-style: none; }
 
-  /* ── Color variants ───────────────────── */
-  &.color-1 { --templateColor: #9f036d; --rt3-primary: #8a0f63; }
-  &.color-2 { --templateColor: #3e1d53; --rt3-primary: #2e0e8a; }
-  &.color-3 { --templateColor: #084c41; --rt3-primary: #017a17; }
-  &.color-4 { --templateColor: #87300d; --rt3-primary: #8a4510; }
-  &.color-5 { --templateColor: #de2124; --rt3-primary: #8a0f11; }
-  &.color-6 { --templateColor: #585858; --rt3-primary: #2e2e2e; }
-  &.montserrat * { font-family: "Montserrat", sans-serif; }
-  &.open_san *   { font-family: "Open Sans", sans-serif; }
-  &.poppins *    { font-family: "Poppins", sans-serif; }
-  &.roboto *     { font-family: "Roboto", sans-serif; }
-
-  /* ── HEADER ───────────────────────────── */
+  /* ---------- Header ---------- */
   .rt3_header {
     display: flex;
     align-items: center;
-    gap: 20px;
-    background: var(--rt3-primary);
-    padding: 28px 36px;
-    color: #fff;
+    background: #4a4dc4;
+    background: color-mix(in srgb, var(--templateColor, #6366f1) 20%, #000000);
+    padding: 30px 34px;
+    gap: 22px;
+  }
 
-    .rt3_header_photo {
-      flex: 0 0 auto;
+  .rt3_header_photo {
+    width: 78px;
+    height: 78px;
+    flex: none;
+    border-radius: 50%;
+    border: 2.5px solid rgba(255, 255, 255, 0.85);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.15);
 
-      .resume-photo {
-        width: 92px;
-        height: 92px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid rgba(255,255,255,0.3);
-        background: #fff;
-        display: block;
-      }
-    }
-
-    .rt3_header_info {
-      flex: 1;
-
-      .rt3_name {
-        font-size: 24px;
-        font-weight: 700;
-        color: #fff;
-        letter-spacing: 0.4px;
-      }
-
-      .rt3_jobtitle {
-        margin-top: 3px;
-        font-size: 13px;
-        font-weight: 400;
-        color: var(--templateColor);
-        text-transform: uppercase;
-        letter-spacing: 1.2px;
-        filter: brightness(1.6);
-      }
-
-      .rt3_contact_list {
-        margin-top: 12px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px 20px;
-
-        li {
-          display: flex;
-          align-items: center;
-          gap: 7px;
-          font-size: 12px;
-          color: rgba(255,255,255,0.88);
-        }
-
-        .rt3_icon {
-          display: flex;
-          align-items: center;
-          color: var(--templateColor);
-          filter: brightness(1.7);
-          flex-shrink: 0;
-
-          svg { display: block; }
-        }
-      }
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
-  /* ── BODY ─────────────────────────────── */
+  .rt3_header_info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .rt3_name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.2px;
+    margin-bottom: 6px;
+  }
+
+  .rt3_jobtitle {
+    font-size: 10.5px;
+    color: rgba(255, 255, 255, 0.85);
+    text-transform: uppercase;
+    letter-spacing: 2.4px;
+    font-weight: 600;
+    margin-bottom: 13px;
+  }
+
+  .rt3_contact_list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    row-gap: 6px;
+    column-gap: 20px;
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10.5px;
+      color: #f2f2f2;
+    }
+  }
+
+  .rt3_icon {
+    display: inline-flex;
+    align-items: center;
+    color: #ffffff;
+
+    svg { display: block; }
+  }
+
+  /* ---------- Body layout ---------- */
   .rt3_body {
     display: flex;
     align-items: stretch;
-    min-height: calc(1131px - 148px);
   }
 
-  /* ── SIDEBAR ──────────────────────────── */
+  /* ---------- Sidebar ---------- */
   .rt3_sidebar {
-    flex: 0 0 240px;
-    background: var(--rt3-sidebar-bg);
-    border-right: 1px solid var(--rt3-border);
-    padding: 26px 22px;
+    width: 244px;
+    flex: none;
+    background: #f7f7fb;
+    background: color-mix(in srgb, var(--templateColor, #6366f1) 6%, #ffffff);
+    padding: 32px 24px;
+  }
 
-    .rt3_block {
-      margin-bottom: 24px;
+  .rt3_block {
+    margin-bottom: 24px;
 
-      &:last-child { margin-bottom: 0; }
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .rt3_block_title {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    color: var(--templateColor, #6366f1);
+    margin-bottom: 8px;
+  }
+
+  .rt3_sidebar .rt3_block_title:after {
+    content: "";
+    display: block;
+    width: 26px;
+    height: 2px;
+    border-radius: 1px;
+    margin-top: 9px;
+    background: #c7c8f0;
+    background: color-mix(in srgb, var(--templateColor, #6366f1) 50%, #ffffff);
+  }
+
+  /* ---------- Skills ---------- */
+  .rt3_skill_list li {
+    margin-bottom: 14px;
+
+    &:last-child {
+      margin-bottom: 0;
     }
 
-    .rt3_block_title {
-      font-size: 11.5px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--rt3-primary);
-      margin-bottom: 12px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid var(--templateColor);
+    p {
+      font-size: 11px;
+      font-weight: 600;
+      color: #2b2b2b;
+      margin-bottom: 6px;
+    }
+
+    .skill-proficiency {
+      font-weight: 400;
+      color: #8a8a8a;
+      font-size: 10px;
+    }
+  }
+
+  .rt3_bar {
+    height: 4px;
+    border-radius: 2px;
+    background: #e6e6fb;
+    background: color-mix(in srgb, var(--templateColor, #6366f1) 25%, #ffffff);
+
+    span {
       display: block;
+      height: 100%;
+      border-radius: 2px;
+      background: var(--templateColor, #6366f1);
+    }
+  }
+
+  /* ---------- Plain lists (Languages / Hobbies) ---------- */
+  .rt3_plain_list li {
+    position: relative;
+    padding-left: 14px;
+    font-size: 11px;
+    color: #3a3a3a;
+    margin-bottom: 9px;
+    line-height: 1.5;
+
+    &:last-child {
+      margin-bottom: 0;
     }
 
-    /* Skills with progress bars */
-    .rt3_skill_list {
-      li {
-        margin-bottom: 10px;
+    &:before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: var(--templateColor, #6366f1);
+      font-weight: 700;
+    }
+  }
 
-        &:last-child { margin-bottom: 0; }
+  /* ---------- Social ---------- */
+  .rt3_social_list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 11px;
+    font-size: 11px;
 
-        p {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          gap: 6px;
-          font-size: 12px;
-          font-weight: 500;
-          margin-bottom: 4px;
-          color: var(--rt3-text);
-
-          .skill-proficiency{
-            flex-shrink: 0;
-            font-size: 10px;
-            font-weight: 400;
-            color: var(--rt3-muted);
-            font-style: italic;
-            margin-left: 0;
-          }
-        }
-      }
+    &:last-child {
+      margin-bottom: 0;
     }
 
-    .rt3_bar {
-      width: 100%;
-      height: 5px;
-      border-radius: 3px;
-      background: var(--rt3-bar-bg);
-      overflow: hidden;
+    a {
+      color: #3a3a3a;
+      text-decoration: none;
+      word-break: break-word;
 
-      span {
-        display: block;
-        height: 100%;
-        background: var(--templateColor);
-        border-radius: 3px;
-        transition: width 0.3s ease;
-      }
-    }
-
-    /* Plain bullet list */
-    .rt3_plain_list {
-      li {
-        font-size: 12px;
-        color: var(--rt3-text);
-        margin-bottom: 7px;
-        padding-left: 13px;
-        position: relative;
-
-        &::before {
-          content: '';
-          position: absolute;
-          left: 0;
-          top: 6px;
-          width: 5px;
-          height: 5px;
-          border-radius: 50%;
-          background: var(--templateColor);
-        }
-
-        &:last-child { margin-bottom: 0; }
-      }
-    }
-
-    /* Social links */
-    .rt3_social_list {
-      li {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        margin-bottom: 9px;
-        font-size: 12px;
-
-        &:last-child { margin-bottom: 0; }
-
-        .rt3_social_icon {
-          display: flex;
-          align-items: center;
-          color: var(--templateColor);
-          flex-shrink: 0;
-
-          svg { display: block; }
-        }
-
-        a, span {
-          color: var(--rt3-text);
-          text-decoration: none;
-          word-break: break-all;
-
-          &:hover { color: var(--templateColor); }
-        }
+      &:hover {
+        color: var(--templateColor, #6366f1);
+        text-decoration: underline;
       }
     }
   }
 
-  /* ── MAIN CONTENT ─────────────────────── */
+  .rt3_social_icon {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 1px;
+    color: var(--templateColor, #6366f1);
+    flex: none;
+
+    svg { display: block; }
+  }
+
+  /* ---------- Content ---------- */
   .rt3_main {
     flex: 1;
-    padding: 26px 32px;
+    min-width: 0;
+    background: #ffffff;
+    padding: 32px 30px;
+  }
 
-    .rt3_block {
-      margin-bottom: 22px;
+  .rt3_main .rt3_block_title {
+    font-size: 13.5px;
+    letter-spacing: 1.1px;
+    margin-bottom: 9px;
+  }
 
-      &:last-child { margin-bottom: 0; }
-    }
+  .rt3_main .rt3_block_title:after {
+    content: "";
+    display: block;
+    width: 32px;
+    height: 2.5px;
+    border-radius: 50px;
+    margin-top: 10px;
+    background: var(--templateColor, #6366f1);
+  }
 
-    .rt3_block_title {
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: var(--rt3-primary);
-      margin-bottom: 12px;
-      padding-bottom: 7px;
-      position: relative;
-      display: block;
+  .rt3_body_text {
+    font-size: 12px;
+    line-height: 1.75;
+    color: #3a3a3a;
+    text-align: justify;
+  }
 
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        width: 32px;
-        height: 3px;
-        background: var(--templateColor);
-        border-radius: 2px;
-      }
-    }
+  /* ---------- Timeline entries ---------- */
+  .rt3_entry {
+    display: flex;
+    margin-bottom: 18px;
 
-    .rt3_body_text {
-      font-size: 12.5px;
-      color: var(--rt3-text);
-      line-height: 1.75;
-    }
-
-    /* Timeline entries */
-    .rt3_entry {
-      margin-bottom: 14px;
-      padding-left: 15px;
-      border-left: 2px solid var(--rt3-border);
-      position: relative;
-
-      &::before {
-        content: '';
-        position: absolute;
-        left: -5px;
-        top: 5px;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: var(--templateColor);
-        border: 2px solid #fff;
-        box-shadow: 0 0 0 1px var(--templateColor);
-      }
-
-      &:last-child { margin-bottom: 0; }
-
-      .rt3_entry_head {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        flex-wrap: wrap;
-        gap: 4px;
-      }
-
-      .rt3_entry_title {
-        font-size: 12.5px;
-        font-weight: 600;
-        color: var(--rt3-text);
-        flex: 1;
-      }
-
-      .rt3_entry_date {
-        font-size: 11px;
-        font-weight: 500;
-        color: var(--templateColor);
-        white-space: nowrap;
-      }
-
-      .rt3_entry_sub {
-        font-size: 11.5px;
-        color: var(--rt3-muted);
-        font-style: italic;
-        margin-top: 2px;
-      }
-
-      .rt3_entry_desc {
-        font-size: 12px;
-        color: var(--rt3-text);
-        margin-top: 5px;
-        line-height: 1.65;
-      }
+    &:last-child {
+      margin-bottom: 0;
     }
   }
-}
-/* Readability bump */
-.ResumeTemplate3 p,
-.ResumeTemplate3 li,
-.ResumeTemplate3 .rt3_entry_date,
-.ResumeTemplate3 .rt3_entry_desc {
-  font-size: 1.04em;
-}
 
-.ResumeTemplate3 .rt3_section_title,
-.ResumeTemplate3 .rt3_entry_title {
-  font-size: 1.06em;
+  .rt3_entry_rail {
+    width: 20px;
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .rt3_entry_dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1.6px solid var(--templateColor, #6366f1);
+    background: #ffffff;
+    flex: none;
+    margin-top: 2px;
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--templateColor, #6366f1);
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  .rt3_entry_line {
+    width: 1.4px;
+    flex: 1;
+    background: var(--templateColor, #6366f1);
+    opacity: 0.3;
+    margin-top: 4px;
+  }
+
+  .rt3_entry_content {
+    flex: 1;
+    min-width: 0;
+    padding-left: 8px;
+  }
+
+  /* Title/date row: the title sits in a min-width:0 flex column so long
+     text (job titles, degree names, certificate names) wraps onto a
+     second line instead of colliding with the date; the date is a
+     fixed, non-shrinking pill that never gets crushed or overlapped. */
+  .rt3_entry_head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .rt3_entry_title_col {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .rt3_entry_title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.35;
+  }
+
+  .rt3_entry_date {
+    flex: none;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #3d3fa0;
+    color: color-mix(in srgb, var(--templateColor, #6366f1) 75%, #000000);
+    background: #eeeefc;
+    background: color-mix(in srgb, var(--templateColor, #6366f1) 12%, #ffffff);
+    border-radius: 4px;
+    padding: 3px 9px;
+    margin-top: 1px;
+  }
+
+  .rt3_entry_sub {
+    font-size: 11px;
+    font-style: italic;
+    color: #5a5a5a;
+    margin-top: 4px;
+  }
+
+  .rt3_entry_desc {
+    font-size: 11px;
+    line-height: 1.65;
+    color: #3a3a3a;
+    margin-top: 8px;
+  }
 }

@@ -538,6 +538,7 @@ export default function ResumeTemplate6({
               <div className="rt6_left">
                 {(personalInfomation?.phone ||
                   personalInfomation?.email ||
+                  personalInfomation?.address ||
                   personalInfomation?.city ||
                   personalInfomation?.website) && (
                   <div className="rt6_block">
@@ -564,13 +565,15 @@ export default function ResumeTemplate6({
                           </span>
                         </li>
                       )}
-                      {personalInfomation.city && (
+                      {[personalInfomation.address, personalInfomation.city, personalInfomation.state, personalInfomation.country]
+                        .filter(Boolean)
+                        .join(", ") && (
                         <li>
                           <span className="rt6_icon">
                             <IconLocation />
                           </span>
                           <span className="resume-address">
-                            {[personalInfomation.city, personalInfomation.state]
+                            {[personalInfomation.address, personalInfomation.city, personalInfomation.state, personalInfomation.country]
                               .filter(Boolean)
                               .join(", ")}
                           </span>

@@ -290,8 +290,10 @@ export default function ResumeTemplate5({
     firstName: "Aarav",
     lastName: "Mehta",
     experience: "Data Analyst",
+    address: "24 MG Road",
     city: "Bengaluru",
     state: "Karnataka",
+    country: "India",
     phone: "+91 98765 43210",
     email: "aarav.mehta@email.com",
     website: "aaravmehta.dev",
@@ -348,16 +350,22 @@ export default function ResumeTemplate5({
               <div className="rt5_col_label">
                 <p className="rt5_section_title">Contact</p>
                 <ul className="rt5_contact_list">
-                  {(staticPersonalInfomation.city ||
-                    staticPersonalInfomation.state) && (
+                  {[
+                    staticPersonalInfomation.address,
+                    staticPersonalInfomation.city,
+                    staticPersonalInfomation.state,
+                    staticPersonalInfomation.country,
+                  ].filter(Boolean).join(", ") && (
                     <li>
                       <span className="rt5_icon">
                         <IconLocation />
                       </span>
                       <span>
                         {[
+                          staticPersonalInfomation.address,
                           staticPersonalInfomation.city,
                           staticPersonalInfomation.state,
+                          staticPersonalInfomation.country,
                         ]
                           .filter(Boolean)
                           .join(", ")}
@@ -520,13 +528,15 @@ export default function ResumeTemplate5({
               <div className="rt5_col_label">
                 <p className="rt5_section_title">Contact</p>
                 <ul className="rt5_contact_list">
-                  {(personalInfomation.city || personalInfomation.state) && (
+                  {[personalInfomation.address, personalInfomation.city, personalInfomation.state, personalInfomation.country]
+                    .filter(Boolean)
+                    .join(", ") && (
                     <li>
                       <span className="rt5_icon">
                         <IconLocation />
                       </span>
                       <span>
-                        {[personalInfomation.city, personalInfomation.state]
+                        {[personalInfomation.address, personalInfomation.city, personalInfomation.state, personalInfomation.country]
                           .filter(Boolean)
                           .join(", ")}
                       </span>

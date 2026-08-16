@@ -165,7 +165,7 @@ export default function ResumeTemplate3({ additionalClass, isStatic = false, res
                     {phone && (
                         <li>
                             <span className="rt3_icon"><IconPhone /></span>
-                            <span className="resume-phone">{phone}</span>
+                            <span className="resume-phone">{[(phone?.startsWith('+') ? '' : (phone && countryCode ? countryCode : '')), phone].filter(Boolean).join(' ')}</span>
                         </li>
                     )}
                     {email && (
@@ -324,7 +324,7 @@ export default function ResumeTemplate3({ additionalClass, isStatic = false, res
                             address={personalInfomation?.address}
                             city={personalInfomation?.city}
                             state={personalInfomation?.state}
-                            phone={personalInfomation?.phone}
+                            phone={[(personalInfomation?.country_code || ''), personalInfomation?.phone].filter(Boolean).join(' ')}
                             email={personalInfomation?.email}
                             website={personalInfomation?.website}
                             photo={personalInfomation?.photo}

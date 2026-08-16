@@ -307,7 +307,7 @@ export default function ResumeTemplate9({ additionalClass, isStatic = false, res
                     <div className="rt9_contact_row resume-email"><span className="rt9_contact_badge"><IconEmail /></span><span>{personalInfomation.email}</span></div>
                   )}
                   {personalInfomation?.phone && (
-                    <div className="rt9_contact_row resume-phone"><span className="rt9_contact_badge"><IconPhone /></span><span>{personalInfomation.phone}</span></div>
+                    <div className="rt9_contact_row resume-phone"><span className="rt9_contact_badge"><IconPhone /></span><span>{[personalInfomation.country_code, personalInfomation.phone].filter(Boolean).join(' ')}</span></div>
                   )}
                   {[personalInfomation?.address, personalInfomation?.city, personalInfomation?.state, personalInfomation?.country]
                     .filter(Boolean)

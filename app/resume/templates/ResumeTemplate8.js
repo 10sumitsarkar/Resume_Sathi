@@ -256,7 +256,7 @@ export default function ResumeTemplate8({ additionalClass, isStatic = false, res
                   <span className="rt8_contact_item resume-email"><span className="rt8_icon"><IconEmail /></span>{personalInfomation.email}</span>
                 )}
                 {personalInfomation?.phone && (
-                  <span className="rt8_contact_item resume-phone"><span className="rt8_icon"><IconPhone /></span>{personalInfomation.phone}</span>
+                  <span className="rt8_contact_item resume-phone"><span className="rt8_icon"><IconPhone /></span>{[personalInfomation.country_code, personalInfomation.phone].filter(Boolean).join(' ')}</span>
                 )}
                 {addressParts.length > 0 && (
                   <span className="rt8_contact_item resume-address"><span className="rt8_icon"><IconLocation /></span>{addressParts.join(", ")}</span>

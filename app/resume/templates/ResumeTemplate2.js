@@ -512,7 +512,7 @@ export default function ResumeTemplate2({
               </h1>
               <ContactRow
                 email={personalInfomation?.email}
-                phone={personalInfomation?.phone}
+                phone={[(personalInfomation?.country_code || ''), personalInfomation?.phone].filter(Boolean).join(' ')}
                 address={
                   addressParts.length > 0 ? addressParts.join(", ") : null
                 }

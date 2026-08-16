@@ -7,6 +7,7 @@ import {
   formatDateRange,
   formatEducationDateRange,
   formatSingleDate,
+  formatPhoneDisplay,
 } from "./pdfHelpers";
 import { IconTick, getSocialIcon } from "./PdfCommon";
 
@@ -196,7 +197,7 @@ const ResumeTemplate4Pdf = ({
 
   const contactParts = [
     [personal.address, personal.city, personal.state].filter(Boolean).join(", "),
-    personal.phone,
+    personal.phone ? formatPhoneDisplay(personal.phone, personal.country_code) : null,
     personal.email,
     personal.website,
   ]

@@ -377,7 +377,7 @@ export default function ResumeTemplate5({
                       <span className="rt5_icon">
                         <IconPhone />
                       </span>
-                      <span>{staticPersonalInfomation.phone}</span>
+                      <span>{[staticPersonalInfomation.country_code, staticPersonalInfomation.phone].filter(Boolean).join(' ')}</span>
                     </li>
                   )}
                   {staticPersonalInfomation.email && (
@@ -546,7 +546,7 @@ export default function ResumeTemplate5({
                       <span className="rt5_icon">
                         <IconPhone />
                       </span>
-                      <span>{personalInfomation.phone}</span>
+                      <span>{[personalInfomation.country_code, personalInfomation.phone].filter(Boolean).join(' ')}</span>
                     </li>
                   )}
                   {personalInfomation.email && (

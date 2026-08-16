@@ -7,6 +7,7 @@ import {
   formatDateRange,
   formatEducationDateRange,
   formatSingleDate,
+  formatPhoneDisplay,
 } from "./pdfHelpers";
 import {
   IconEmail,
@@ -309,7 +310,7 @@ const ResumeTemplate7Pdf = ({
 
   const contactItems = [
     personal.email ? { type: "email", label: safeText(personal.email) } : null,
-    personal.phone ? { type: "phone", label: safeText(personal.phone) } : null,
+    personal.phone ? { type: "phone", label: formatPhoneDisplay(personal.phone, personal.country_code) } : null,
     [personal.address, personal.city, personal.state, personal.country].filter(Boolean).length > 0
       ? {
           type: "location",

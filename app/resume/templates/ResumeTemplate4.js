@@ -73,7 +73,10 @@ export default function ResumeTemplate4({
 
   const contactItems = [];
   if (addressParts.length > 0) contactItems.push(addressParts.join(", "));
-  if (personalInfomation.phone) contactItems.push(personalInfomation.phone);
+  if (personalInfomation.phone) {
+    const phoneDisplay = [personalInfomation.country_code, personalInfomation.phone].filter(Boolean).join(" ");
+    contactItems.push(phoneDisplay);
+  }
   if (personalInfomation.email) contactItems.push(personalInfomation.email);
   if (personalInfomation.website) contactItems.push(personalInfomation.website);
 

@@ -295,6 +295,26 @@ export const formatEducationDateRange = (startMonth, startYear) => {
   return start || 'Still Studying';
 };
 
+export const formatPhoneDisplay = (phone, countryCode = '') => {
+  const cleanPhone = safeText(phone);
+  const cleanCode = safeText(countryCode);
+
+  if (!cleanPhone && !cleanCode) return '';
+  if (!cleanPhone) return cleanCode;
+  if (!cleanCode) return cleanPhone;
+
+  const normalizedPhone = cleanPhone.replace(/^\+/, '').trim();
+  const normalizedCode = cleanCode.replace(/^\+/, '').trim();
+  const phoneNoSpace = normalizedPhone.replace(/\s+/g, '');
+  const codeNoSpace = normalizedCode.replace(/\s+/g, '');
+
+  if (phoneNoSpace.startsWith(codeNoSpace) || cleanPhone.startsWith(cleanCode)) {
+    return cleanPhone;
+  }
+
+  return `${cleanCode} ${normalizedPhone}`;
+};
+
 export const formatSingleDate = (dateStr) => {
   if (!dateStr) return '';
   const d = new Date(dateStr);

@@ -241,7 +241,7 @@ export default function CustomInput({
                 {filtered.map((opt, idx) => (
                   <li
                     role="option"
-                    key={opt.value ?? idx}
+                    key={`${opt.value ?? 'option'}-${idx}`}
                     className="rk-select-item"
                     onClick={() => handleSelect(opt)}
                   >

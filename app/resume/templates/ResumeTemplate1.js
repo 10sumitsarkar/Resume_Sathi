@@ -418,7 +418,7 @@ const id = searchParams.get('id');
                           />
                         </div>
                         <div className="data resume-phone">
-                          {personalInfomation.phone}
+                          {[personalInfomation.country_code, personalInfomation.phone].filter(Boolean).join(' ')}
                         </div>
                       </li>
                     )}

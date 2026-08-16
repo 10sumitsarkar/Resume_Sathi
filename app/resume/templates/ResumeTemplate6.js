@@ -551,7 +551,7 @@ export default function ResumeTemplate6({
                             <IconPhone />
                           </span>
                           <span className="resume-phone">
-                            {personalInfomation.phone}
+                            {[personalInfomation.country_code, personalInfomation.phone].filter(Boolean).join(' ')}
                           </span>
                         </li>
                       )}

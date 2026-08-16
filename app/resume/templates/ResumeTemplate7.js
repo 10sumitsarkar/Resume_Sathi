@@ -305,7 +305,7 @@ export default function ResumeTemplate7({ additionalClass, isStatic = false, res
               <div className="rt7_role_rule" />
               <ContactRow
                 email={personalInfomation?.email}
-                phone={personalInfomation?.phone}
+                phone={[(personalInfomation?.country_code || ''), personalInfomation?.phone].filter(Boolean).join(' ')}
                 address={addressParts.length > 0 ? addressParts.join(", ") : null}
                 website={personalInfomation?.website}
               />

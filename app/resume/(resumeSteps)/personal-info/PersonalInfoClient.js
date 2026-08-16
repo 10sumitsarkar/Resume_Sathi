@@ -6,6 +6,28 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumePersonalInfomation } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import CustomInput from '../../../components/CustomInput/CustomInput';
+
+const COUNTRY_CODES = [
+  { value: '+91', label: '+91' },
+  { value: '+1', label: '+1' },
+  { value: '+44', label: '+44' },
+  { value: '+61', label: '+61' },
+  { value: '+971', label: '+971' },
+  { value: '+966', label: '+966' },
+  { value: '+92', label: '+92' },
+  { value: '+880', label: '+880' },
+  { value: '+65', label: '+65' },
+  { value: '+81', label: '+81' },
+  { value: '+82', label: '+82' },
+  { value: '+49', label: '+49' },
+  { value: '+33', label: '+33' },
+  { value: '+55', label: '+55' },
+  { value: '+27', label: '+27' },
+  { value: '+234', label: '+234' },
+  { value: '+52', label: '+52' },
+  { value: '+7', label: '+7' },
+];
 
 const readFileAsDataUrl = (file) => new Promise((resolve, reject) => {
   const reader = new FileReader();
@@ -59,7 +81,10 @@ export default function PersonalInfo() {
     formState: { errors },
   } = useForm({
     mode: 'onChange',
-    defaultValues: personalInfomation,
+    defaultValues: {
+      ...personalInfomation,
+      country_code: personalInfomation.country_code || '+91',
+    },
   });
 
   // ---- Open crop modal when a file is picked ----
@@ -265,7 +290,25 @@ export default function PersonalInfo() {
               <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
                 <div className='each-input-div'>
                   <label htmlFor="phone">Phone<span className='text-danger'>*</span></label>
-                  <input type="tel" {...register('phone', { required: "Phone is required", pattern: { value: /^\d{10}$/, message: "Phone must be 10 digits", }, })} className={` ${errors.phone ? 'is-invalid' : ''}`} id="phone" placeholder="Phone" value={personalFormData.phone || ''} maxLength={10} />
+                  <div style={{ display: 'flex', gap: '8px', alignItems: 'flex-end' }}>
+                    <div style={{ width: 92, flexShrink: 0 }}>
+                      <CustomInput
+                        type="select"
+                        options={COUNTRY_CODES}
+                        search={true}
+                        placeholder="Code"
+                        value={personalFormData.country_code || '+91'}
+                        onChange={(value) => {
+                          const nextValue = value || '+91';
+                          setPersonalFormData((prev) => ({ ...prev, country_code: nextValue }));
+                          setValue('country_code', nextValue, { shouldValidate: true, shouldDirty: true });
+                        }}
+                      />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <input type="tel" {...register('phone', { required: "Phone is required", pattern: { value: /^\d{10}$/, message: "Phone must be 10 digits", }, })} className={` ${errors.phone ? 'is-invalid' : ''}`} id="phone" placeholder="Phone" value={personalFormData.phone || ''} maxLength={10} onChange={(e) => setPersonalFormData(prev => ({ ...prev, phone: e.target.value }))} />
+                    </div>
+                  </div>
                 </div>
                 {errors.phone && <p className="input-error">{errors.phone.message}</p>}
               </div>

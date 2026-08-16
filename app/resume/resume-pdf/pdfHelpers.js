@@ -258,6 +258,11 @@ export const formatDateRange = (startMonth, startYear, endMonth, endYear) => {
   return '';
 };
 
+export const formatEducationDateRange = (startMonth, startYear) => {
+  const start = [safeText(startMonth), safeText(startYear)].filter(Boolean).join(' ');
+  return start;
+};
+
 export const formatSingleDate = (dateStr) => {
   if (!dateStr) return '';
   const d = new Date(dateStr);

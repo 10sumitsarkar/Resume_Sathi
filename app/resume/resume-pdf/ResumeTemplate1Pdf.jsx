@@ -12,6 +12,7 @@ import {
   safeText,
   resolveProfileImage,
   formatDateRange,
+  formatEducationDateRange,
   formatSingleDate,
 } from "./pdfHelpers";
 import {
@@ -241,6 +242,8 @@ const styles = StyleSheet.create({
 const formatToDateLine = (a, b, c, d) =>
   formatDateRange(a, b, c, d).replace(/\s*-\s*/g, " to ");
 
+const formatEducationDateLine = (a, b) => formatEducationDateRange(a, b);
+
 const ResumeTemplate1Pdf = ({
   resume,
   palette = "color-1",
@@ -428,7 +431,7 @@ const ResumeTemplate1Pdf = ({
                   title={`${safeText(edu.degree)}${edu.field_study ? ` in ${safeText(edu.field_study)}` : ""}${edu.institute_name ? ` (${safeText(edu.institute_name)})` : ""}`}
                   subLine={[
                     safeText(edu.location),
-                    formatToDateLine(edu.date, edu.year, "", ""),
+                    formatEducationDateLine(edu.date, edu.year),
                   ]
                     .filter(Boolean)
                     .join(" - ")}

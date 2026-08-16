@@ -1,6 +1,6 @@
 import React from "react";
 import { Document, Page, View, Text, StyleSheet, Svg, Path, Circle } from "@react-pdf/renderer";
-import { PALETTE_COLORS, safeText, formatDateRange, formatSingleDate } from "./pdfHelpers";
+import { PALETTE_COLORS, safeText, formatDateRange, formatEducationDateRange, formatSingleDate } from "./pdfHelpers";
 import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from "./PdfCommon";
 
 /**
@@ -574,7 +574,7 @@ const ResumeTemplate9Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
                   key={idx}
                   title={`${safeText(edu.degree)}${edu.field_study ? ` in ${safeText(edu.field_study)}` : ""}`}
                   subLine={[safeText(edu.institute_name), safeText(edu.location)].filter(Boolean).join(" — ")}
-                  dateLabel={!edu.date || !edu.year ? "Ongoing" : formatDateRange(edu.date, edu.year, "", "")}
+                  dateLabel={!edu.date || !edu.year ? "Ongoing" : formatEducationDateRange(edu.date, edu.year)}
                 />
               ))}
             </View>

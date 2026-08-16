@@ -18,6 +18,7 @@ import {
   safeText,
   resolveProfileImage,
   formatDateRange,
+  formatEducationDateRange,
   formatSingleDate,
 } from "./pdfHelpers";
 import {
@@ -460,7 +461,7 @@ const ResumeTemplate5Pdf = ({
                   <Text style={{ ...styles.entryDate, color: accentColor }}>
                     {!edu.date || !edu.year
                       ? "Still Studying"
-                      : `${safeText(edu.date)} ${safeText(edu.year)}`}
+                      : formatEducationDateRange(edu.date, edu.year)}
                   </Text>
                   <Text style={styles.entryOrg}>
                     {safeText(edu.institute_name)}

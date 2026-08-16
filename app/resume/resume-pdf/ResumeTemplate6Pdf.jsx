@@ -4,6 +4,7 @@ import {
   PALETTE_COLORS,
   safeText,
   formatDateRange,
+  formatEducationDateRange,
   formatSingleDate,
 } from "./pdfHelpers";
 import {
@@ -413,7 +414,7 @@ const ResumeTemplate6Pdf = ({
                       {edu.institute_name ? " | " : ""}
                       {!edu.date || !edu.year
                         ? "Ongoing"
-                        : `${safeText(edu.date)}-${safeText(edu.year)}`}
+                        : formatEducationDateRange(edu.date, edu.year)}
                     </Text>
                     <Text style={styles.entryTitle}>
                       {safeText(edu.degree)}

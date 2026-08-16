@@ -12,6 +12,7 @@ import {
   safeText,
   resolveProfileImage,
   formatDateRange,
+  formatEducationDateRange,
   formatSingleDate,
 } from "./pdfHelpers";
 import {
@@ -692,7 +693,7 @@ const ResumeTemplate3Pdf = ({
                   <Entry
                     key={idx}
                     title={`${safeText(edu.degree)}${edu.field_study ? ` in ${safeText(edu.field_study)}` : ""}`}
-                    dateLine={formatDateRange(edu.date, edu.year, "", "")}
+                    dateLine={formatEducationDateRange(edu.date, edu.year)}
                     subLine={[
                       safeText(edu.institute_name),
                       safeText(edu.location),

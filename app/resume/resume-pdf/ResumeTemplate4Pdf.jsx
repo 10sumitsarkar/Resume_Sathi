@@ -4,6 +4,7 @@ import {
   PALETTE_COLORS,
   safeText,
   formatDateRange,
+  formatEducationDateRange,
   formatSingleDate,
 } from "./pdfHelpers";
 import { IconTick, getSocialIcon } from "./PdfCommon";
@@ -341,7 +342,7 @@ const ResumeTemplate4Pdf = ({
                     {edu.field_study ? ` in ${safeText(edu.field_study)}` : ""}
                   </Text>
                   <Text style={styles.entryDate}>
-                    {formatDateRange(edu.date, edu.year, "", "")}
+                    {formatEducationDateRange(edu.date, edu.year)}
                   </Text>
                 </View>
                 {(edu.institute_name || edu.location) && (

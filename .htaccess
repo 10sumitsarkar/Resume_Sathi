@@ -1,5 +1,19 @@
 ErrorDocument 404 /404/
 
+RewriteEngine On
+
+# Use one canonical host so Google does not see www and non-www as duplicates.
+RewriteCond %{HTTP_HOST} ^resumesathi\.com$ [NC]
+RewriteRule ^ https://www.resumesathi.com%{REQUEST_URI} [R=301,L]
+
+# Replace query-string typing lesson URLs with clean canonical lesson URLs.
+RewriteCond %{QUERY_STRING} ^id=(home-row|top-row|bottom-row|numbers|punctuation|capitals|common-words|combined)$ [NC]
+RewriteRule ^typing/learn/lesson/?$ /typing/learn/lesson/%1/? [R=301,L]
+
+# SearchAction placeholder URLs are templates, not real searchable pages.
+RewriteCond %{QUERY_STRING} (^|&)(q|search)=(%7B|\{)?search_term_string(%7D|\})?(&|$) [NC]
+RewriteRule ^blog/?$ /blog/? [R=301,L]
+
 <IfModule mod_expires.c>
   ExpiresActive On
   ExpiresDefault "access plus 30 days"

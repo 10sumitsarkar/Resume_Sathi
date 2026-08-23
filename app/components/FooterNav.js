@@ -38,7 +38,7 @@ export default function FooterNav() {
                 {visibleCreateBtn && (
                     <Link
                         prefetch={false}
-                        href="/resume/resume-type"
+                        href="/resume/resume-type/"
                         className="footer-lists-btn"
                         aria-label="Create resume"
                         title="Create resume"
@@ -62,7 +62,7 @@ export default function FooterNav() {
                 <div className="footer-main-div">
 
                     <div className="footer-all-tab">
-                        <Link prefetch={false} href="/resume">
+                        <Link prefetch={false} href="/resume/">
                             <div className={getNavClassName(isResumeActive)}>
                                 <div>
 
@@ -79,7 +79,7 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link prefetch={false} href="/tools">
+                        <Link prefetch={false} href="/tools/">
                             <div className={getNavClassName(isToolsActive)}>
                                 <div>
                                     <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,7 +92,7 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link prefetch={false} href="/jobs">
+                        <Link prefetch={false} href="/jobs/">
                              <div className={getNavClassName(isjobsActive)}>
                                 <div>
 
@@ -107,7 +107,7 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link prefetch={false} href="/blog">
+                        <Link prefetch={false} href="/blog/">
                             <div className={getNavClassName(isblogActive)}>
                                 <div>
 

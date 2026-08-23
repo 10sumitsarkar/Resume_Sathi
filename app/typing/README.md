@@ -17,11 +17,11 @@ project's existing Bootstrap 5 + one scoped custom CSS file.
    Bootstrap again, so there's no duplicate stylesheet and no npm install
    needed.
 
-Routes you get: `/typing`, `/typing/learn`, `/typing/learn/lesson?id=...`,
+Routes you get: `/typing`, `/typing/learn`, `/typing/learn/lesson/[id]`,
 `/typing/practice`, `/typing/stats` — all static paths, no dynamic
 `[param]` route segments, so this works on plain shared hosting.
 Lesson selection is done with a normal query string
-(`/typing/learn/lesson?id=home-row`) instead of `/typing/learn/[lessonId]`,
+(`/typing/learn/lesson/home-row/`) instead of query-string lesson URLs,
 since dynamic segments need server-side rewrite rules most shared
 hosts don't give you.
 

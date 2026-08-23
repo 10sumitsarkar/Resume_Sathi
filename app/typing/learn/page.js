@@ -34,7 +34,7 @@ export default function LearnPage() {
             return (
               <div key={lesson.id} className="col-12 col-sm-6">
                 <Link
-                  href={`/typing/learn/lesson?id=${lesson.id}`}
+                  href={`/typing/learn/lesson/${lesson.id}/`}
                   prefetch={false}
                   className="tf-card tf-hover-border-brand tf-lift-hover d-flex align-items-start gap-3 p-4 h-100"
                 >

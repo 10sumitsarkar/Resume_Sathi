@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { DEFAULT_SITE_BASE, getApiBase } from './lib/apiConfig';
+import { LESSONS } from './typing/_lib/lessons';
 
 const siteUrl = DEFAULT_SITE_BASE;
 
@@ -68,12 +69,16 @@ export default async function sitemap() {
   { url: `${baseUrl}/tools/image-to-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.78 },
   { url: `${baseUrl}/tools/signature-cropper/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.76 },
   { url: `${baseUrl}/tools/age-calculator/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.76 },
-  { url: `${baseUrl}/tools/gradient-generator/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-  { url: `${baseUrl}/tools/css-animations/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
   { url: `${baseUrl}/typing/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
 { url: `${baseUrl}/typing/practice/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
 { url: `${baseUrl}/typing/learn/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
 { url: `${baseUrl}/typing/learn/lesson/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
+...LESSONS.map((lesson) => ({
+  url: `${baseUrl}/typing/learn/lesson/${encodeURIComponent(lesson.id)}/`,
+  lastModified: new Date(),
+  changeFrequency: 'monthly',
+  priority: 0.72,
+})),
 { url: `${baseUrl}/typing/stats/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
 { url: `${baseUrl}/about/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
 { url: `${baseUrl}/contact/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.65 },

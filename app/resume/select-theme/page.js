@@ -5,6 +5,14 @@ import SelectThemeClient from "./SelectThemeClient";
 export const metadata = {
   title: 'Choose Your Resume Theme',
   description: 'Pick from professional templates to create your resume.',
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
 };
 
 export default function SelectThemePage() {

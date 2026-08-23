@@ -1,5 +1,57 @@
 [
   {
+    "id": 31,
+    "article_type": 1,
+    "article_title": "Skills vs Degree: What Matters More for Getting a Job?",
+    "url_name": "skills-vs-degree-what-matters-more",
+    "meta_title": "Skills vs Degree: What Matters More for Getting a Job?",
+    "meta_description": "Skills or a degree — which one actually gets you hired? A practical, field-by-field breakdown to help you figure out where to invest your time.",
+    "meta_keyword": "skills vs degree, does degree matter for jobs, skills based hiring, is a degree necessary, career without degree, skill based jobs india, degree vs experience, hiring trends 2026, self taught vs degree holder, job market skills",
+    "canonical_tag": "articles/web-articles/skills-vs-degree-what-matters-more",
+    "language_id": null,
+    "hero_image": "articles_image/file_1787125099.png",
+    "pageview": 0,
+    "created_by": 1,
+    "created_at": "2026-08-19T07:18:18.000000Z",
+    "is_draft": 0,
+    "is_active": 1,
+    "status": 1,
+    "updated_at": "2026-08-19T07:38:19.000000Z",
+    "deleted_at": null,
+    "user": {
+      "id": 1,
+      "first_name": "Hariom",
+      "last_name": "Prajapati",
+      "email": "hariomprajapati9029@gmail.com",
+      "mobile": "8840860841",
+      "birth_date": "08/01/1999",
+      "age": "23",
+      "gender": "male",
+      "profile_image": "Hariom.jpg",
+      "background_image": null,
+      "is_active": 1,
+      "created_at": "2021-09-12T13:19:51.000000Z",
+      "updated_at": "2026-07-12T10:04:13.000000Z"
+    },
+    "category": {
+      "id": 1,
+      "article_name": "Career Advice",
+      "url_name": "web-articles",
+      "article_description": "Expert tips for career growth, job search, and professional success.",
+      "created_at": "2021-09-12T17:33:33.000000Z",
+      "updated_at": "2026-07-16T15:18:01.000000Z"
+    },
+    "contents": [
+      {
+        "id": 31,
+        "article_id": 31,
+        "content": "<article>\r\n<p>Somebody asked me this the other day, half joking &mdash; \"should I just drop out and learn to code instead?\" I didn't have a one-line answer for them, and honestly, nobody really does. The truth sits somewhere in between, and it depends a lot more on the industry, the role, and the actual person than most advice online admits.</p>\r\n<p>Still, it's worth pulling apart properly, because this question isn't going away. If anything, it's coming up more often now that self-taught developers, bootcamp grads, and certificate-holders are landing roles that used to require a specific degree on paper.</p>\r\n<h2>Why This Debate Even Exists</h2>\r\n<p>A degree used to be the default filter. No degree, no interview &mdash; that was pretty much it for a long time. But a few things have shifted that:</p>\r\n<ul>\r\n<li>Tech and creative fields grew fast enough that formal education couldn't keep up with what the job actually required</li>\r\n<li>Free and low-cost learning resources made it possible to build real skills outside a classroom</li>\r\n<li>Portfolios, GitHub profiles, and project work started speaking louder than a transcript in a lot of hiring conversations</li>\r\n<li>Some companies quietly removed degree requirements from job postings, especially for technical roles</li>\r\n</ul>\r\n<p>That said, this shift hasn't touched every industry equally, which is really the whole point of this post.</p>\r\n<h2>Where Skills Tend to Win</h2>\r\n<p>In some fields, what you can actually do outweighs what your certificate says, and it's not close.</p>\r\n<div class=\"table-responsive\">\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Field</th>\r\n<th>Why Skills Matter More Here</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Software Development</td>\r\n<td>Employers usually just want to see working code, a portfolio, or GitHub activity</td>\r\n</tr>\r\n<tr>\r\n<td>Digital Marketing</td>\r\n<td>Results from past campaigns say more than a marketing degree ever could</td>\r\n</tr>\r\n<tr>\r\n<td>Graphic / UI Design</td>\r\n<td>A strong portfolio does the talking, formal design education is a bonus at best</td>\r\n</tr>\r\n<tr>\r\n<td>Freelancing / Content Creation</td>\r\n<td>Clients care about output and reliability, not where you studied</td>\r\n</tr>\r\n<tr>\r\n<td>Sales</td>\r\n<td>Track record and communication ability matter far more than qualifications on paper</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</div>\r\n<h2>Where a Degree Still Carries Real Weight</h2>\r\n<p>On the flip side, there are fields where skipping a degree basically closes the door before you even apply.</p>\r\n<div class=\"table-responsive\">\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Field</th>\r\n<th>Why the Degree Still Matters</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Medicine</td>\r\n<td>Legally required, no shortcut exists here regardless of skill level</td>\r\n</tr>\r\n<tr>\r\n<td>Law</td>\r\n<td>Licensing and bar exams are tied directly to formal education</td>\r\n</tr>\r\n<tr>\r\n<td>Government Jobs</td>\r\n<td>Eligibility criteria are usually degree-based by default</td>\r\n</tr>\r\n<tr>\r\n<td>Core Engineering (Civil, Mechanical)</td>\r\n<td>Safety-critical work often requires certified, degree-backed knowledge</td>\r\n</tr>\r\n<tr>\r\n<td>Academic / Research Roles</td>\r\n<td>Degrees are essentially the entry ticket, sometimes multiple of them</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</div>\r\n<h2>What Recruiters Are Actually Looking At</h2>\r\n<p>I've heard enough hiring managers talk about this to notice a pattern &mdash; most of them aren't choosing one over the other, they're weighing both against the role in front of them.</p>\r\n<div class=\"table-responsive\">\r\n<table>\r\n<thead>\r\n<tr>\r\n<th>Hiring Factor</th>\r\n<th>What It Signals</th>\r\n</tr>\r\n</thead>\r\n<tbody>\r\n<tr>\r\n<td>Relevant Skills</td>\r\n<td>Can this person do the job on day one, or close to it</td>\r\n</tr>\r\n<tr>\r\n<td>Degree</td>\r\n<td>Baseline discipline, foundational knowledge, sometimes just a filtering tool for large applicant pools</td>\r\n</tr>\r\n<tr>\r\n<td>Portfolio / Past Work</td>\r\n<td>Proof over promises, this often overrides both of the above</td>\r\n</tr>\r\n<tr>\r\n<td>Certifications</td>\r\n<td>A middle ground &mdash; shows initiative without needing four years</td>\r\n</tr>\r\n<tr>\r\n<td>Interview Performance</td>\r\n<td>Can override a weak resume on either side entirely</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</div>\r\n<h2>So What Should You Actually Do?</h2>\r\n<p>This isn't really a \"pick one\" situation, no matter how the question gets framed online. A few honest points worth considering:</p>\r\n<ul>\r\n<li>If you're aiming for a licensed profession, there's no getting around the degree, plan around that reality</li>\r\n<li>If you're going into a skill-driven field, put your energy into building something you can actually show, not just certificates you can list</li>\r\n<li>A degree plus strong skills will almost always beat either one alone, this isn't an either-or as often as people think</li>\r\n<li>If you already have a degree in an unrelated field, don't assume it's wasted, transferable skills count more than people give them credit for</li>\r\n<li>Whatever path you're on, keep building a portfolio, work samples convince people faster than any qualification does</li>\r\n</ul>\r\n<h2>Where I'd Land On This</h2>\r\n<p>Neither skills nor a degree wins this argument outright, and honestly, anyone who tells you it's a clean answer is probably trying to sell you something. What actually gets you hired is being useful for the specific role you're applying for. Sometimes that means a degree. Sometimes it means a portfolio and a willingness to prove yourself in the interview. Most of the time, it's a mix of both, plus a bit of timing and effort that no chart can really capture.</p>\r\n<footer>\r\n<p>Trying to figure out how to present your skills and education the right way on a resume? Check out the other career and resume posts on the channel.</p>\r\n</footer></article>",
+        "created_at": "2026-08-19T07:18:18.000000Z",
+        "updated_at": "2026-08-19T07:38:19.000000Z"
+      }
+    ]
+  },
+  {
     "id": 29,
     "article_type": 1,
     "article_title": "Resume vs LinkedIn Profile: What Recruiters Really Check First",

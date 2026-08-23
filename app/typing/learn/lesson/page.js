@@ -2,29 +2,21 @@
 
 import { Suspense, useEffect } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { LESSONS, getLesson } from '../../_lib/lessons';
 import LessonRunner from '../../_components/LessonRunner';
-import { getSiteBase } from '../../../lib/apiConfig';
-
-const SITE_URL = getSiteBase();
 
 function LessonContent() {
 	const searchParams = useSearchParams();
+	const router = useRouter();
 	const lessonId = searchParams.get('id');
 	const lesson = getLesson(lessonId);
 
 	useEffect(() => {
-		const canonicalLink = document.querySelector('link[rel="canonical"]');
-		if (canonicalLink) {
-			const newHref = lessonId
-				? `${SITE_URL}/typing/learn/lesson?id=${lessonId}`
-				: `${SITE_URL}/typing/learn/lesson`;
-			if (canonicalLink.href !== newHref) {
-				canonicalLink.href = newHref;
-			}
+		if (lesson) {
+			router.replace(`/typing/learn/lesson/${lesson.id}/`);
 		}
-	}, [lessonId]);
+	}, [lesson, router]);
 
 	if (!lesson) {
 		return (

@@ -73,11 +73,6 @@ const jsonLd = [
     "@type": "WebSite",
     name: "ResumeSathi",
     url: SITE_URL,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${SITE_URL}/blog?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
   },
   {
     "@context": "https://schema.org",

@@ -17,7 +17,7 @@ export default function FloatingTypingLink() {
   return (
     <Link
       prefetch={false}
-      href="/typing"
+      href="/typing/"
       className="rk-fixed-typing-link"
       aria-label="Start typing practice"
     >

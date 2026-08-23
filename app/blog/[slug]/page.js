@@ -1,6 +1,7 @@
 ﻿import fs from "fs";
 import path from "path";
 import React from "react";
+import { notFound } from "next/navigation";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
 import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
 
@@ -81,6 +82,16 @@ export async function generateMetadata({ params }) {
 
   const article = await getArticleData(slug);
 
+  if (!article) {
+    return {
+      title: "Blog Article Not Found | ResumeSathi",
+      robots: {
+        index: false,
+        follow: true,
+      },
+    };
+  }
+
   const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
   const rawTitle =
@@ -151,7 +162,14 @@ export default async function ArticleDetailPage({ params }) {
 
   const article = await getArticleData(slug);
 
+  if (!article) {
+    notFound();
+  }
+
   return <ArticleDetailPageClient article={article} slug={slug} />;
 }
+
+
+
 
 

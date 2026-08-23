@@ -1,7 +1,13 @@
 const fs = require('fs');
 const path = require('path');
+const apiConfig = require('../config/api-config.json');
 
 const outDir = path.join(process.cwd(), 'out');
+const canonicalBase = (process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBLIC_FRONTEND_URL || apiConfig.frontendBase).replace(/\/+$/, '');
+const canonicalHost = new URL(canonicalBase).host.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const nonCanonicalHost = canonicalHost.startsWith('www\\.')
+  ? canonicalHost.replace(/^www\\\./, '')
+  : `www\\.${canonicalHost}`;
 const seoPrefixes = [
   'blog',
   'jobs',
@@ -46,7 +52,7 @@ for (const file of walk(outDir)) {
     'Non-final canonical URL',
     file,
     content,
-    new RegExp(`rel="canonical" href="https://www\\.resumesathi\\.com/(${prefixPattern})("|\\?|#)`, 'i')
+    new RegExp(`rel="canonical" href="https://${nonCanonicalHost}/(${prefixPattern})("|\\?|#)`, 'i')
   );
 
   assertNoMatch(
@@ -62,7 +68,7 @@ for (const file of walk(outDir)) {
     'Non-final sitemap URL',
     file,
     content,
-    new RegExp(`<loc>https://www\\.resumesathi\\.com/(${prefixPattern})(</loc>|\\?|#)`, 'i')
+    new RegExp(`<loc>https://${nonCanonicalHost}/(${prefixPattern})(</loc>|\\?|#)`, 'i')
   );
 
   assertNoMatch(
@@ -71,6 +77,22 @@ for (const file of walk(outDir)) {
     file,
     content,
     /(<loc>|rel="canonical" href=")https:\/\/api\.resumesathi\.com/i
+  );
+
+  assertNoMatch(
+    issues,
+    'SearchAction placeholder leaked into public output',
+    file,
+    content,
+    /search_term_string|\/blog\?(q|search)=/i
+  );
+
+  assertNoMatch(
+    issues,
+    'Unknown blog slug fallback leaked into hosting rules',
+    file,
+    content,
+    /RewriteRule\s+\^blog\/\(\.\+\).*\/blog\/live\//i
   );
 }
 

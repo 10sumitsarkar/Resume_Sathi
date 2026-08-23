@@ -27,7 +27,7 @@ export default function LessonRunner({ lesson, nextLesson }) {
       <div className="container-fluid custom-container">
         <div className="mb-4 tf-lesson-header">
           <Link
-            href="/typing/learn"
+            href="/typing/learn/"
             prefetch={false}
             className="tf-lesson-back btn"
           >
@@ -122,7 +122,7 @@ export default function LessonRunner({ lesson, nextLesson }) {
               </button>
               {nextLesson ? (
                 <Link
-                  href={`/typing/learn/lesson?id=${nextLesson.id}`}
+                  href={`/typing/learn/lesson/${nextLesson.id}/`}
                   prefetch={false}
                   className="tf-btn-brand tf-brand-glow btn tf-fs-sm fw-medium px-4 py-2"
                 >
@@ -130,7 +130,7 @@ export default function LessonRunner({ lesson, nextLesson }) {
                 </Link>
               ) : (
                 <Link
-                  href="/typing/practice"
+                  href="/typing/practice/"
                   prefetch={false}
                   className="tf-btn-brand tf-brand-glow btn tf-fs-sm fw-medium px-4 py-2"
                 >

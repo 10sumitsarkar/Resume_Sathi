@@ -6311,4 +6311,3 @@
   return index_umd;
 
 }));
-//# sourceMappingURL=bootstrap.bundle.min.js.map

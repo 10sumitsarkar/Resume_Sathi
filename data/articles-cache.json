@@ -1,5 +1,109 @@
 [
   {
+    "id": 33,
+    "article_type": 1,
+    "article_title": "Career Lessons Nobody Tells You Until You Learn Them Yourself",
+    "url_name": "career-lessons-nobody-tells-you",
+    "meta_title": "Career Lessons Nobody Tells You Until You Learn Them Yourself",
+    "meta_description": "Real career advice beyond the usual tips — job titles, feedback, burnout, networking, and why staying too long can hurt your growth as much as leaving too soon.",
+    "meta_keyword": "career advice, career lessons, first job advice, career growth tips, how to handle feedback at work, burnout at work, career networking tips, job hopping vs staying, early career mistakes, professional growth advice, workplace advice for freshers, career development tips, work life lessons, career advice 2026",
+    "canonical_tag": "articles/web-articles/career-lessons-nobody-tells-you",
+    "language_id": null,
+    "hero_image": "articles_image/file_1787749625.webp",
+    "pageview": 0,
+    "created_by": 1,
+    "created_at": "2026-08-26T12:56:45.000000Z",
+    "is_draft": 0,
+    "is_active": 1,
+    "status": 1,
+    "updated_at": "2026-08-26T17:14:38.000000Z",
+    "deleted_at": null,
+    "user": {
+      "id": 1,
+      "first_name": "Hariom",
+      "last_name": "Prajapati",
+      "email": "hariomprajapati9029@gmail.com",
+      "mobile": "8840860841",
+      "birth_date": "08/01/1999",
+      "age": "23",
+      "gender": "male",
+      "profile_image": "Hariom.jpg",
+      "background_image": null,
+      "is_active": 1,
+      "created_at": "2021-09-12T13:19:51.000000Z",
+      "updated_at": "2026-07-12T10:04:13.000000Z"
+    },
+    "category": {
+      "id": 1,
+      "article_name": "Career Advice",
+      "url_name": "web-articles",
+      "article_description": "Expert tips for career growth, job search, and professional success.",
+      "created_at": "2021-09-12T17:33:33.000000Z",
+      "updated_at": "2026-07-16T15:18:01.000000Z"
+    },
+    "contents": [
+      {
+        "id": 33,
+        "article_id": 33,
+        "content": "<p>There's a strange gap between what career advice sounds like on paper and what actually happens once you're sitting at a desk on your first day, nodding along to instructions you don't fully understand. Most advice you get before starting a job is either too generic &mdash; \"work hard, be punctual, network well\" &mdash; or too specific to someone else's industry to be of much use to you. The lessons that actually matter tend to show up later, usually after you've already messed something up or sat through an awkward meeting wondering why nobody warned you about this earlier.</p>\r\n<p>So instead of another list of obvious tips, here's a rundown of the things that tend to surprise people once they're actually in the middle of building a career, not just reading about one.</p>\r\n<h2>Your First Job Title Matters Less Than You Think</h2>\r\n<p>A lot of people stress over whether their first role has an impressive enough title. The truth is, five years down the line, almost nobody cares what your first designation was. What they care about is what you were actually responsible for, what you learned, and whether you can talk about it with some confidence. A slightly underwhelming title with real hands-on work will usually take you further than an inflated title where you spent most of your time waiting for someone to hand you a task.</p>\r\n<p>If you're choosing between two offers and one has a fancier title but less actual responsibility, it's worth thinking twice before picking the title over the experience.</p>\r\n<h2>Nobody Is Going to Hand You a Roadmap</h2>\r\n<p>This one catches almost everyone off guard. In school and college, there's always a syllabus, a deadline, someone telling you what's expected next. Work doesn't really function that way, especially once you're past the very first few months. Managers are busy, priorities shift, and a lot of the time you're expected to figure out what needs doing before someone explicitly tells you.</p>\r\n<p>This isn't a flaw in the system &mdash; it's just how most workplaces run. The people who tend to grow faster aren't necessarily the smartest ones in the room; they're often the ones who got comfortable asking questions early, tracking their own progress, and not waiting around for permission to take initiative on small things.</p>\r\n<h2>Feedback Feels Worse Than It Is</h2>\r\n<p>Getting told that something you did wasn't quite right stings, especially early on when you're still trying to prove yourself. It's easy to read criticism as a judgment on your ability rather than what it usually is &mdash; a comment on one specific piece of work. Most managers giving feedback aren't trying to make a point about your worth as an employee; they're just trying to get the actual output closer to what's needed.</p>\r\n<p>It helps to separate the emotional reaction from the actual content of what's being said. Write the feedback down if you have to, sit with it for a bit, and come back to it once the initial sting has faded. Nine times out of ten, it reads a lot more reasonable an hour later than it did the moment you heard it.</p>\r\n<h2>Staying Too Long Can Be as Risky as Leaving Too Soon</h2>\r\n<p>There's a lot of advice out there warning people against job-hopping, and there's some truth to that &mdash; constantly switching jobs every few months can raise questions. But the opposite mistake happens just as often and gets talked about far less: staying in a role for years past the point where you're actually learning anything new.</p>\r\n<p>If a role has flattened out &mdash; no new skills, no new responsibility, no real growth in pay or scope &mdash; comfort alone isn't a strong enough reason to stay. It's worth periodically asking yourself whether you're still growing where you are, or just familiar with where you are. Those are two very different things. Here's a rough way to check where you actually stand:</p>\r\n<div class=\"table-responsive\">\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Signal</th>\r\n<th>Time to Stay</th>\r\n<th>Time to Start Looking</th>\r\n</tr>\r\n<tr>\r\n<td>Learning</td>\r\n<td>You're still picking up new skills every few months</td>\r\n<td>Your day-to-day hasn't changed in over a year</td>\r\n</tr>\r\n<tr>\r\n<td>Responsibility</td>\r\n<td>Your scope of work keeps expanding</td>\r\n<td>You're doing the exact same tasks as when you joined</td>\r\n</tr>\r\n<tr>\r\n<td>Pay &amp; Growth</td>\r\n<td>Appraisals reflect your actual contribution</td>\r\n<td>Raises feel more like inflation adjustments than growth</td>\r\n</tr>\r\n<tr>\r\n<td>Motivation</td>\r\n<td>You still feel some pull toward the work</td>\r\n<td>You're mentally checked out most days</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</div>\r\n<p>None of these signs alone means it's time to quit tomorrow. But if most of them start pointing the same direction for a few months in a row, that's usually not a phase &mdash; that's a pattern worth paying attention to.</p>\r\n<h2>Networking Doesn't Have to Feel Fake</h2>\r\n<p>A lot of people avoid networking because it feels transactional, like you're only talking to someone because you want something from them. But most of the useful professional relationships people build happen almost by accident &mdash; a colleague from an old job, someone you met at a training session, a senior who mentored you briefly and stayed in touch. Keeping those connections alive doesn't require constant effort; an occasional message asking how someone's doing, or congratulating them on a new role, keeps the door open without it feeling forced.</p>\r\n<p>The people who end up with a strong professional network usually didn't set out to \"build\" one in a calculated way &mdash; they just didn't let old connections go cold.</p>\r\n<h2>Burnout Doesn't Always Look Like Exhaustion</h2>\r\n<p>Most people imagine burnout as being visibly tired all the time, but it often shows up more quietly &mdash; a growing sense of indifference toward work you used to care about, irritability over small things, or just going through the motions without really being present. It's easy to miss because it doesn't always come with an obvious low-energy day; sometimes it just comes with a slow loss of interest.</p>\r\n<p>Catching it early matters more than people realize. Waiting until it turns into complete exhaustion before making changes &mdash; whether that's setting better boundaries, taking actual time off, or reconsidering the role itself &mdash; usually means a much longer recovery than if it had been addressed a few months earlier.</p>\r\n<p>A few early signs worth watching for, before it snowballs into something bigger:</p>\r\n<ul>\r\n<li>Dreading Monday starts well before Monday actually arrives, even on an otherwise normal weekend</li>\r\n<li>Finding yourself annoyed by things that never used to bother you at work</li>\r\n<li>Doing tasks just to get them off your plate, without much thought about doing them well</li>\r\n<li>Feeling tired in a way that a good night's sleep doesn't really fix</li>\r\n<li>Losing interest in conversations about work you'd usually have had opinions on</li>\r\n</ul>\r\n<h2>The Long Game Usually Beats the Quick Win</h2>\r\n<p>Early in a career, it's tempting to chase whatever looks impressive right now &mdash; the highest starting salary, the flashiest company name, the fastest promotion. Those things aren't unimportant, but they aren't everything either. A slightly lower-paying job that teaches you skills you'll use for the next decade is often worth more in the long run than a higher-paying one that leaves you exactly where you started, skill-wise, two years later.</p>\r\n<p>None of this means ignoring practical concerns like salary or stability &mdash; those matter too, especially depending on where someone is in life. It just means it's worth asking not only \"what does this job pay me right now\" but also \"what does this job teach me that I get to keep, no matter where I go next.\"</p>",
+        "created_at": "2026-08-26T12:56:45.000000Z",
+        "updated_at": "2026-08-26T17:14:38.000000Z"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "article_type": 2,
+    "article_title": "Simple Resume Layout: Best Resume Types & When to Use Them",
+    "url_name": "simple-resume-layout-types-guide",
+    "meta_title": "Simple Resume Layout: Best Resume Types & When to Use Them",
+    "meta_description": "Confused about which resume format to use? Learn the 4 main resume types and why a simple, clean chronological layout works best for retail, sales, and entry-level jobs.",
+    "meta_keyword": "resume types, chronological resume, functional resume, combination resume, creative resume, simple resume layout, resume format for freshers, retail resume template, sales resume format, ATS friendly resume, ATS resume format, resume for customer service, entry level resume, resume design tips, single column resume, best resume format 2026, resume layout guide, professional resume structure",
+    "canonical_tag": "articles/resume-tips/simple-resume-layout-types-guide",
+    "language_id": null,
+    "hero_image": "articles_image/file_1787679207.png",
+    "pageview": 0,
+    "created_by": 1,
+    "created_at": "2026-08-25T17:25:19.000000Z",
+    "is_draft": 0,
+    "is_active": 1,
+    "status": 1,
+    "updated_at": "2026-08-25T17:33:48.000000Z",
+    "deleted_at": null,
+    "user": {
+      "id": 1,
+      "first_name": "Hariom",
+      "last_name": "Prajapati",
+      "email": "hariomprajapati9029@gmail.com",
+      "mobile": "8840860841",
+      "birth_date": "08/01/1999",
+      "age": "23",
+      "gender": "male",
+      "profile_image": "Hariom.jpg",
+      "background_image": null,
+      "is_active": 1,
+      "created_at": "2021-09-12T13:19:51.000000Z",
+      "updated_at": "2026-07-12T10:04:13.000000Z"
+    },
+    "category": {
+      "id": 2,
+      "article_name": "Resume Tips",
+      "url_name": "resume-tips",
+      "article_description": "Expert tips and useful guidance to help you create a professional, ATS-friendly resume and improve your chances of getting hired.",
+      "created_at": "2026-08-13T03:37:18.000000Z",
+      "updated_at": "2026-08-13T03:37:18.000000Z"
+    },
+    "contents": [
+      {
+        "id": 32,
+        "article_id": 32,
+        "content": "<p>So you're staring at a blank resume template again, and somehow it still feels confusing. I get it. There are literally hundreds of resume designs floating around online right now, and half of them look like they were made for a graphic designer's portfolio, not for someone applying to an actual job. Some have sidebars, some have circular skill meters, some have photos and colored headers that take up a third of the page. And then there's the plain kind &mdash; just black text, a name at the top, a few clean sections, nothing flashy. People often assume the fancier one wins. In real hiring situations, that's usually not true.</p>\r\n<p>Before picking a template, it actually helps to step back and understand that resumes aren't just \"designs.\" They fall into a few real categories, and each one is built around a different hiring situation. Once you know which bucket you're in, choosing a layout becomes a lot less stressful.</p>\r\n<h2>The Four Resume Types Nobody Really Explains Properly</h2>\r\n<p>Most career sites throw templates at you without explaining why they exist. Here's the short version, without the jargon.</p>\r\n<ul>\r\n<li><strong>Chronological Resume</strong> &mdash; This is the old faithful. Work history listed newest to oldest. Recruiters are trained to scan this format fast because it's what they've seen a thousand times. If your career has been fairly linear, this is almost always the safest bet.</li>\r\n<li><strong>Functional Resume</strong> &mdash; Built around skills instead of a strict timeline. Good if you've had gaps, took a break, or you're switching into a completely different field and don't want your past job titles to be the first thing someone judges you on.</li>\r\n<li><strong>Combination Resume</strong> &mdash; A blend of both. You get a skills section up top and then a chronological work history below it. This tends to suit people with a handful of years of experience who want to highlight both.</li>\r\n<li><strong>Creative or Visual Resume</strong> &mdash; Heavy on design, color, icons, sometimes even illustrations. Common in design, advertising, or media roles where the resume itself is expected to show off some visual sense.</li>\r\n</ul>\r\n<p>None of these is \"the best\" one objectively. It really depends on what job you're applying for and who's going to be reading it &mdash; a human, a hiring software, or both.</p>\r\n<h2>Where a Plain, No-Nonsense Layout Actually Fits</h2>\r\n<p>Now, the layout style we're talking about here &mdash; bold name up top, one horizontal line for email, phone, city, and website, then clean sections for Summary, Skills, Experience, and Education stacked one after another &mdash; this is basically a stripped-down chronological resume. No sidebars. No color blocks fighting for attention. No decorative graphics pretending to be relevant. Just information, laid out in the order someone would naturally want to read it.</p>\r\n<p>There's a reason this style keeps showing up again and again, even though it looks \"boring\" compared to some templates. A huge number of companies now run resumes through Applicant Tracking Systems before a human even glances at them. These systems are notoriously bad at reading resumes with tables, multiple columns, or graphics &mdash; sometimes they scramble the text order completely or skip sections entirely. A single-column, text-first resume almost never has that problem. It just gets read the way it's meant to be read.</p>\r\n<p>So while a creative resume might turn heads visually, a simple layout like this one is often the one that actually survives the first digital filter and lands in front of an actual person, which honestly matters a lot more than how it looks on a screen.</p>\r\n<h2>Who This Layout Actually Makes Sense For</h2>\r\n<p>This kind of clean, no-frills format tends to work particularly well for:</p>\r\n<ul>\r\n<li>Retail, sales, and customer-facing roles, where clarity and quick scanning matter more than visual impression</li>\r\n<li>Cashier, POS operator, and front-desk type positions</li>\r\n<li>Fresh graduates or first-time job seekers who don't have a long history to fill up space with anyway</li>\r\n<li>Operational roles &mdash; warehouse, inventory, logistics assistant positions</li>\r\n<li>Any application submitted online through a company portal, since most of those run ATS scanning</li>\r\n<li>People switching careers who still want something that reads clean and doesn't distract from the actual content</li>\r\n</ul>\r\n<p>On the flip side, if you're applying somewhere design-heavy &mdash; say, a branding studio, a UI/UX role, or something in the creative arts &mdash; a plain layout might actually undersell you a little. In those fields, a bit of visual flair is almost part of the job requirement, since the resume is a small sample of your design sense. But for retail, sales, admin, operations, and most entry-level corporate jobs, keeping it simple usually works in your favor rather than against it.</p>\r\n<h2>Small Details That Make This Kind of Layout Work</h2>\r\n<p>What's interesting is that even a \"simple\" resume has small design decisions baked into it that make it easier to read. A few worth noticing:</p>\r\n<ul>\r\n<li>The name is large and bold, so it's the very first thing anyone's eyes land on &mdash; which is exactly how it should be.</li>\r\n<li>Contact details are squeezed into one single line instead of stacking on separate lines, which saves vertical space that can be used elsewhere.</li>\r\n<li>Section headers are separated with a thin horizontal rule rather than a colored background, which keeps things visually calm without wasting ink or looking cluttered.</li>\r\n<li>Skill levels are shown with small tags like Intermediate, Advanced, or Master instead of long-winded explanations, so a recruiter gets the picture in half a second.</li>\r\n<li>Each section has a clear beginning and end, so someone skimming for ten seconds &mdash; which is genuinely how long most resumes get looked at &mdash; can still find what they need without hunting for it.</li>\r\n</ul>\r\n<p>None of these choices are accidental, even though the layout looks effortless. Good simple design usually takes more thought than a busy one &mdash; it's the difference between removing everything unnecessary and never thinking about what was necessary in the first place.</p>\r\n<h2>Why People Still Underestimate Simple Resumes</h2>\r\n<p>There's a weird bias people carry when they're job hunting &mdash; they think a resume needs to \"look impressive\" the way a poster or an invitation card does. But a resume isn't marketing material in that sense. It's closer to a form that needs to be filled out clearly so a stranger, who has thirty other resumes to get through that same hour, can quickly figure out whether you're worth calling. Every unnecessary design element is basically friction. It slows the reader down, even by a second or two, and in a stack of applications, seconds matter more than people realize.</p>\r\n<p>This doesn't mean every resume should look identical or lifeless. A little personality in the wording, a well-chosen accent color, a clean font &mdash; all of that is fine and can still make a resume feel put-together. The line is between \"designed with intent\" and \"designed to look busy.\" The layout we've been talking about sits comfortably on the right side of that line.</p>\r\n<h2>A Small Reality Check</h2>\r\n<p>Here's the thing nobody likes to hear: the layout is just the container. It genuinely does not matter how clean, minimal, or well-organized a resume looks if the content inside it is vague, exaggerated, or copied word-for-word from a template example. Recruiters read hundreds of resumes and they can tell within seconds when something feels generic. Numbers should be real. Skills should reflect what you can actually do. Job descriptions should sound like they came from your own experience, not from a list of buzzwords someone else wrote.</p>\r\n<p>A well-structured layout can absolutely help someone get noticed faster and get past automated filters. But at the end of the day, it's the honesty and specificity of what's written inside that gets someone an interview call. The format just makes sure that message actually reaches someone in the first place, instead of getting lost or misread before it ever gets a fair chance.</p>",
+        "created_at": "2026-08-25T17:25:20.000000Z",
+        "updated_at": "2026-08-25T17:33:48.000000Z"
+      }
+    ]
+  },
+  {
     "id": 31,
     "article_type": 1,
     "article_title": "Skills vs Degree: What Matters More for Getting a Job?",

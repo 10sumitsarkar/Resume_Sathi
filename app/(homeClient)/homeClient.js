@@ -1592,7 +1592,7 @@ export default function ResumeListClient({
                 <Link
                   prefetch={false}
                   href="/tools/"
-                  className="rk-btn rk-btn--outline rk-btn--lg"
+                  className="rk-btn rk-btn--outline rk-btn--lg" style={{minWidth:0}}
                 >
                   Explore Tools
                 </Link>
@@ -1739,12 +1739,14 @@ export default function ResumeListClient({
           <div className="rk-hired-logos">
             {companies.map((c) => (
               <div key={c.name} className="rk-hired-logo">
-                <Image
+                <img
                   src={c.logo}
                   alt={`${c.name} logo`}
                   width={120}
                   height={34}
-                  className="rk-hired-logo-img img-fluid"
+                  className="rk-hired-logo-img img-fluid w-auto h-auto"
+                  loading="lazy"
+                  decoding="async"
                   onError={(e) => {
                     e.currentTarget.style.display = "none";
                     if (e.currentTarget.nextSibling)

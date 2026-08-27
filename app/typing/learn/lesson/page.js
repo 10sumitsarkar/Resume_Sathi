@@ -26,7 +26,7 @@ function LessonContent() {
 						<p className="tf-text-muted mb-4">
 							This lesson couldn't be found. The link may be incorrect.
 						</p>
-						<Link href="/typing/learn" prefetch={false} className="tf-btn-brand tf-brand-glow btn fw-medium px-4 py-2">
+						<Link href="/typing/learn/" prefetch={false} className="tf-btn-brand tf-brand-glow btn fw-medium px-4 py-2">
 							View all lessons
 						</Link>
 					</div>

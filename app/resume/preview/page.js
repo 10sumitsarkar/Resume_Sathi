@@ -17,7 +17,7 @@ export const metadata = {
   openGraph: {
     title: 'Resume Preview | ResumeSathi',
     description: 'Preview your resume before download and fine-tune the layout, formatting, and content with ResumeSathi’s resume preview tool.',
-    url: '/resume/preview',
+    url: '/resume/preview/',
     type: 'website',
     siteName: 'ResumeSathi',
     images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'Resume preview before download' }],

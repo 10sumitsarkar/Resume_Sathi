@@ -316,7 +316,7 @@
                     outline: none;
                     border: none;
                     background: none;
-                    background-image: url("/public/front-assets/images/icons/select-box-arrow.svg");
+                    background-image: url("/front-assets/images/icons/select-box-arrow.svg");
                     background-position: right 15px center;
                     background-repeat: no-repeat;
                     -webkit-appearance: none;

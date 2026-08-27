@@ -40,7 +40,7 @@ export default function ResumeTypeClient() {
                             Get Started
                         </button>
                         {SHOW_IMPORT_BIO_DATA && (
-                            <a href="/bio-data/upload-resume" className="import-button">
+                            <a href="/bio-data/upload-resume/" className="import-button">
                                 <span className="bg"><span>Import Bio-Data</span></span>
                             </a>
                         )}
@@ -52,7 +52,7 @@ export default function ResumeTypeClient() {
                                 Get Started
                             </button>
                             {SHOW_IMPORT_BIO_DATA && (
-                                <a href="/bio-data/upload-resume" className="import-button">
+                                <a href="/bio-data/upload-resume/" className="import-button">
                                     <span className="bg"><span>Import Bio-Data</span></span>
                                 </a>
                             )}

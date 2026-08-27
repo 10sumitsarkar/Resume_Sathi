@@ -9,7 +9,7 @@ export const metadata = {
   openGraph: {
     title: "ATS Resume Checker",
     description: "Analyze your resume ATS score, keyword match, and formatting quality with ResumeSathi’s free ATS checker tool.",
-    url: "/tools/ats-checker",
+    url: "/tools/ats-checker/",
     type: "website",
     siteName: "ResumeSathi",
     images: [{ url: "/front-assets/images/og/tools-og.png", width: 1200, height: 630, alt: "ATS resume checker tool" }],

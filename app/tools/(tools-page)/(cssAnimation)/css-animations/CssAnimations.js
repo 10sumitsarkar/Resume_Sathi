@@ -170,8 +170,8 @@ export default function AnimationPreview() {
             © {new Date().getFullYear()} toolsAdda. All rights reserved.
           </div>
           <div>
-            <Link prefetch={false} href="/terms" className="text-decoration-none text-muted">Terms & Conditions</Link> |
-            <Link prefetch={false} href="/privacy" className="text-decoration-none text-muted"> Privacy Policy</Link>
+            <Link prefetch={false} href="/terms-and-conditions/" className="text-decoration-none text-muted">Terms & Conditions</Link> |
+            <Link prefetch={false} href="/privacy-policy/" className="text-decoration-none text-muted"> Privacy Policy</Link>
           </div>
         </footer>
       </div>

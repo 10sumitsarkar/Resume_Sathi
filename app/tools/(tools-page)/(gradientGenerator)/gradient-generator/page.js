@@ -18,7 +18,7 @@ export const metadata = {
   openGraph: {
     title: 'Gradient Generator | ResumeSathi',
     description: 'Create stunning gradient backgrounds for resumes, portfolios, and web projects with ResumeSathi’s free gradient generator tool.',
-    url: '/tools/gradient-generator',
+    url: '/tools/gradient-generator/',
     type: 'website',
     siteName: 'ResumeSathi',
     images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'Gradient generator tool' }],

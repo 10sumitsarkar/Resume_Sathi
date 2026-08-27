@@ -128,7 +128,7 @@ const TOOL_GROUPS = [
     label: "Resume",
     tools: [
       {
-        href: "/tools/ats-checker",
+        href: "/tools/ats-checker/",
         icon: <IconClipboardCheck />,
         tagIcon: <IconFileText />,
         title: "ATS Checker",
@@ -144,7 +144,7 @@ const TOOL_GROUPS = [
     label: "PDF",
     tools: [
       {
-        href: "/tools/merge-pdf",
+        href: "/tools/merge-pdf/",
         icon: <IconFiles />,
         tagIcon: <IconFilePdfSmall />,
         title: "Merge PDF",
@@ -153,7 +153,7 @@ const TOOL_GROUPS = [
         live: true,
       },
       {
-        href: "/tools/split-pdf",
+        href: "/tools/split-pdf/",
         icon: <IconScissors />,
         tagIcon: <IconFilePdfSmall />,
         title: "Split PDF",
@@ -162,7 +162,7 @@ const TOOL_GROUPS = [
         live: true,
       },
       {
-        href: "/tools/pdf-remove",
+        href: "/tools/pdf-remove/",
         icon: <IconTrashFile />,
         tagIcon: <IconFilePdfSmall />,
         title: "Remove PDF Pages",
@@ -171,7 +171,7 @@ const TOOL_GROUPS = [
         live: true,
       },
       {
-        href: "/tools/pdf-compressor",
+        href: "/tools/pdf-compressor/",
         icon: <IconFileZip />,
         tagIcon: <IconFilePdfSmall />,
         title: "Compress PDF",
@@ -180,7 +180,7 @@ const TOOL_GROUPS = [
         live: true,
       },
       {
-        href: "/tools/docx-to-pdf",
+        href: "/tools/docx-to-pdf/",
         icon: <IconFileWord />,
         tagIcon: <IconFileText />,
         title: "DOCX to PDF",
@@ -189,7 +189,7 @@ const TOOL_GROUPS = [
         live: true,
       },
       {
-        href: "/tools/image-to-pdf",
+        href: "/tools/image-to-pdf/",
         icon: <IconImage />,
         tagIcon: <IconFilePdfSmall />,
         title: "Image to PDF",
@@ -205,7 +205,7 @@ const TOOL_GROUPS = [
     label: "Utility",
     tools: [
       {
-        href: "/tools/age-calculator",
+        href: "/tools/age-calculator/",
         icon: <IconCalendar />,
         tagIcon: <IconFileText />,
         title: "Age Calculator",
@@ -214,7 +214,7 @@ const TOOL_GROUPS = [
         live: true,
       },
       {
-        href: "/tools/signature-cropper",
+        href: "/tools/signature-cropper/",
         icon: <IconCrop />,
          tagIcon: <IconFilePdfSmall />,
         title: "Signature Cropper",

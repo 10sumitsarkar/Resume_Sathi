@@ -20,7 +20,7 @@ export const metadata = {
     title: 'Terms & Conditions',
     description:
       'Understand the terms of use governing your access to ResumeSathi.',
-    url: '/terms-and-conditions',
+    url: '/terms-and-conditions/',
     siteName: 'ResumeSathi', 
     type: 'website',
         images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],

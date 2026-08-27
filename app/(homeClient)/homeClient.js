@@ -1006,28 +1006,28 @@ const tools = [
     icon: <Icon.ClipboardCheck />,
     name: "ATS Checker",
     desc: "Analyze your resume for ATS compatibility and keyword alignment.",
-    href: "/tools/ats-checker",
+    href: "/tools/ats-checker/",
   },
   {
     icon: <Icon.Files />,
     name: "Merge PDF",
     desc: "Combine multiple PDFs into one. Drag to reorder before merging.",
-    href: "/tools/merge-pdf",
+    href: "/tools/merge-pdf/",
   },
   {
     icon: <Icon.Files />,
     name: "Split PDF",
     desc: "Split PDF pages into separate files and download them in a ZIP.",
-    href: "/tools/split-pdf",
+    href: "/tools/split-pdf/",
   },
   {
     icon: <Icon.Files />,
     name: "Remove PDF Pages",
     desc: "Delete unwanted PDF pages and reorder the pages you keep.",
-    href: "/tools/pdf-remove",
+    href: "/tools/pdf-remove/",
   },
   {
-    href: "/tools/pdf-compressor",
+    href: "/tools/pdf-compressor/",
     icon: <Icon.IconFileZip />,
     name: "Compress PDF",
     desc: "Reduce file size for easy sharing on job portals.",
@@ -1037,25 +1037,25 @@ const tools = [
     icon: <Icon.FileText />,
     name: "DOCX to PDF",
     desc: "Convert Word documents into simple PDF files in your browser.",
-    href: "/tools/docx-to-pdf",
+    href: "/tools/docx-to-pdf/",
   },
   {
     icon: <Icon.Files />,
     name: "Image to PDF",
     desc: "Convert JPG and PNG images into one clean PDF.",
-    href: "/tools/image-to-pdf",
+    href: "/tools/image-to-pdf/",
   },
   {
     icon: <Icon.FileText />,
     name: "Signature Cropper",
     desc: "Crop and resize signatures for government forms.",
-    href: "/tools/signature-cropper",
+    href: "/tools/signature-cropper/",
   },
   {
     icon: <Icon.Calendar />,
     name: "Age Calculator",
     desc: "Calculate exact age in years, months, days, and total days.",
-    href: "/tools/age-calculator",
+    href: "/tools/age-calculator/",
   }
 ];
 
@@ -1235,7 +1235,7 @@ function TypingPromo() {
             </div>
             <Link
               prefetch={false}
-              href="/typing"
+              href="/typing/"
               className="rk-btn rk-typing-button"
             >
               Start typing practice <Icon.ArrowRight />

@@ -37,7 +37,7 @@ export default function ResumeTypeClient() {
                         <button className="started-button" onClick={handleGetStarted}>
                             Get Started
                         </button>
-                        <a href="/resume/upload-resume" className="import-button">
+                        <a href="/resume/upload-resume/" className="import-button">
                             <span className="bg"><span>Import your Resume</span></span>
                         </a>
                     </div>
@@ -47,7 +47,7 @@ export default function ResumeTypeClient() {
                             <button className="started-button" onClick={handleGetStarted}>
                                 Get Started
                             </button>
-                            <a href="/resume/upload-resume" className="import-button">
+                            <a href="/resume/upload-resume/" className="import-button">
                                 <span className="bg"><span>Import Resume</span></span>
                             </a>
                         </div>

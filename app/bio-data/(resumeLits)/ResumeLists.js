@@ -386,7 +386,7 @@ export default function ResumeLists() {
             <h1 className="fs-mob-22">Manage Your Bio-Data</h1>
           </div>
           <p className="fs-mob-16">Keep all your bio-data documents organized, update them anytime, and export them in PDF, Word, or text format.</p>
-          <Link prefetch={false} className="rl-create-btn" href="/bio-data/resume-type">
+          <Link prefetch={false} className="rl-create-btn" href="/bio-data/resume-type/">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14M5 12h14" />
             </svg>
@@ -507,7 +507,7 @@ export default function ResumeLists() {
 
                       {/* Action buttons */}
                       <div className="rl-card__actions">
-                        <Link prefetch={false} href={`/bio-data/preview?id=${resume.id}`} className="rl-card__action-btn rl-card__action-btn--view">
+                        <Link prefetch={false} href={`/bio-data/preview/?id=${resume.id}`} className="rl-card__action-btn rl-card__action-btn--view">
                           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" /></svg>
                           Preview
                         </Link>
@@ -586,7 +586,7 @@ export default function ResumeLists() {
                   </div>
                   <h2 className="rl-empty__title">No Bio-Data Yet</h2>
                   <p className="rl-empty__sub">You haven't created any bio-data yet. Start building a clean printable bio-data in minutes.</p>
-                  <Link prefetch={false} href="/bio-data/resume-type" className="rl-create-btn">
+                  <Link prefetch={false} href="/bio-data/resume-type/" className="rl-create-btn">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M12 5v14M5 12h14" />
                     </svg>

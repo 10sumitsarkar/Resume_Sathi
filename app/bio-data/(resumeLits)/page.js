@@ -8,7 +8,7 @@ export const metadata = {
   openGraph: {
     title: 'Free Bio-Data Maker | ResumeSathi',
     description: 'Create a clean printable bio-data with personal details, education, extra qualification, and work details.',
-    url: '/bio-data',
+    url: '/bio-data/',
     type: 'website',
     siteName: 'ResumeSathi',
     images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'ResumeSathi bio-data maker' }],

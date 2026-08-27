@@ -17,7 +17,7 @@ export default function FooterNav() {
                 <div className="footer-main-div">
 
                     <div className="footer-all-tab">
-                        <Link prefetch={false} href="/all-resume">
+                        <Link prefetch={false} href="/resume/">
                             <div className="footer-each-tab active">
                                 <div>
 

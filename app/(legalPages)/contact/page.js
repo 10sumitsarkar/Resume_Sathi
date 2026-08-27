@@ -21,7 +21,7 @@ export const metadata = {
     title: 'Contact Us',
     description:
       'Have a question or feedback? Reach out to the ResumeSathi team.',
-    url: '/contact',
+    url: '/contact/',
     siteName: 'ResumeSathi',
     type: 'website',
     images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],

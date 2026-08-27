@@ -15,7 +15,7 @@ export default function TypingError({ error, reset }) {
           <p className="tf-text-muted mb-3">The typing page could not finish loading.</p>
           <div className="d-flex flex-wrap justify-content-center gap-2">
             <button type="button" onClick={reset} className="tf-btn-brand btn px-4">Try again</button>
-            <Link href="/typing" prefetch={false} className="tf-keycap btn px-4">Typing home</Link>
+            <Link href="/typing/" prefetch={false} className="tf-keycap btn px-4">Typing home</Link>
           </div>
         </section>
       </div>

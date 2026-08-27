@@ -5,7 +5,7 @@ import { typingMetadata } from "./_lib/seo";
 export const metadata = typingMetadata({
   title: "Free Typing Practice: Improve Speed & Accuracy",
   description: "Practice typing for free with guided touch-typing lessons, timed speed tests, code typing, quotes, and private WPM tracking.",
-  path: "/typing",
+  path: "/typing/",
   keywords: ["online typing practice", "typing speed practice", "WPM test"],
 });
 
@@ -14,21 +14,21 @@ const FEATURES = [
     tag: "Guided",
     title: "8 progressive lessons",
     body: "Start at the home row and build up to full sentences — every lesson comes with a finger guide.",
-    href: "/typing/learn",
+    href: "/typing/learn/",
     cta: "View lessons",
   },
   {
     tag: "Practice",
     title: "4 practice modes",
     body: "Time attack, word rush, quote typing, and real code snippets — pick whatever mood you're in.",
-    href: "/typing/practice",
+    href: "/typing/practice/",
     cta: "Start practicing",
   },
   {
     tag: "Insight",
     title: "Deep stats dashboard",
     body: "WPM trend, accuracy, streaks, and your weakest keys — all saved locally.",
-    href: "/typing/stats",
+    href: "/typing/stats/",
     cta: "View stats",
   },
 ];
@@ -53,14 +53,14 @@ export default function TypingHome() {
               </p>
               <div className="tf-home-actions buttons-row-mobile-full">
                 <Link
-                  href="/typing/learn"
+                  href="/typing/learn/"
                   prefetch={false}
                   className="tf-home-btn-primary"
                 >
                   Start learning
                 </Link>
                 <Link
-                  href="/typing/practice"
+                  href="/typing/practice/"
                   prefetch={false}
                   className="tf-home-btn-outline"
                 >

@@ -21,7 +21,7 @@ export const metadata = {
     title: 'Disclaimer',
     description:
       'Understand the limitations of ResumeSathi\'s tools, content, and third-party advertising.',
-    url: '/disclaimer',
+    url: '/disclaimer/',
     siteName: 'ResumeSathi',
     type: 'website',
         images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],

@@ -18,7 +18,7 @@ export const metadata = {
   openGraph: {
     title: 'CSS Animation Generator | ResumeSathi',
     description: 'Create beautiful CSS animations for your website, landing page, or resume project with ResumeSathi’s free animation tool.',
-    url: '/tools/css-animations',
+    url: '/tools/css-animations/',
     type: 'website',
     siteName: 'ResumeSathi',
     images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'CSS animation generator' }],

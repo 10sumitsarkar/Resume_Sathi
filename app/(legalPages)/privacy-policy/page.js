@@ -23,7 +23,7 @@ export const metadata = {
     title: 'Privacy Policy | ResumeSathi Resume & Bio-Data Maker',
     description:
       'Learn how ResumeSathi handles resume and bio-data information, local storage, contact data, and privacy choices.',
-    url: '/privacy-policy',
+    url: '/privacy-policy/',
     siteName: 'ResumeSathi',
     type: 'website',
         images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],

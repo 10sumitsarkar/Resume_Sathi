@@ -16,7 +16,7 @@ export const metadata = {
   openGraph: {
     title: 'Build Bio-Data Instantly | ResumeSathi',
     description: 'Create a printable bio-data in minutes with ResumeSathi’s free bio-data maker using ATS-friendly templates and smart editing tools.',
-    url: '/bio-data/resume-type',
+    url: '/bio-data/resume-type/',
     type: 'website',
     siteName: 'ResumeSathi',
     images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'Build Bio-Data Instantly' }],

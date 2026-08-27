@@ -9,7 +9,7 @@ export const metadata = {
   openGraph: {
     title: "Free Online Tools",
     description: "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",
-    url: "/tools",
+    url: "/tools/",
     type: "website", 
     siteName: "ResumeSathi",
     images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi tools" }],

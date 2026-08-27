@@ -8,7 +8,7 @@ import '../legal-pages.css';
 const SECTIONS = [
   { id: 'information-we-collect', title: '1. Information We Collect' },
   { id: 'how-we-use-information', title: '2. How We Use Your Information' },
-  { id: 'local-storage', title: '3. Resume Data & Local Storage' },
+  { id: 'local-storage', title: '3. Resume & Bio-Data Local Storage' },
   { id: 'blog-jobs-data', title: '4. Blog & Job Listings Data' },
   { id: 'cookies', title: '5. Cookies & Tracking' },
   { id: 'third-party-services', title: '6. Third-Party Services' },
@@ -39,7 +39,7 @@ export default function PrivacyPolicyClient() {
           <h1>Privacy Policy</h1>
           <p>
             This policy explains what information ResumeSathi collects, how it is used,
-            and the choices you have when you use our free resume builder and related tools.
+            and the choices you have when you use our free resume builder, bio-data maker, and related tools.
           </p>
           <span className="lp-updated">Last updated: {lastUpdated}</span>
         </div>
@@ -63,10 +63,10 @@ export default function PrivacyPolicyClient() {
               <div id="information-we-collect" className="lp-section">
                 <h2><span className="lp-num">1</span>Information We Collect</h2>
                 <p>
-                  We collect information that you voluntarily enter while creating a resume,
+                  We collect information that you voluntarily enter while creating a resume or bio-data,
                   such as your <strong>name, email address, phone number, work experience,
-                  education, skills, and profile photo</strong>. This information is entered
-                  directly into our resume builder forms.
+                  education, skills, profile photo, family details, address, and community details</strong>.
+                  This information is entered directly into our resume and bio-data builder forms.
                 </p>
                 <p>
                   If you use our <strong>Contact Us</strong> page, we collect your{' '}
@@ -83,7 +83,7 @@ export default function PrivacyPolicyClient() {
               <div id="how-we-use-information" className="lp-section">
                 <h2><span className="lp-num">2</span>How We Use Your Information</h2>
                 <ul>
-                  <li>To generate and render your resume in the templates you select.</li>
+                  <li>To generate and render your resume or bio-data in the templates you select.</li>
                   <li>To enable export features such as PDF, Word, and text downloads.</li>
                   <li>To calculate ATS compatibility scores and provide improvement suggestions.</li>
                   <li>To merge, rearrange, or process PDF files that you choose to work with using our tools.</li>
@@ -94,19 +94,19 @@ export default function PrivacyPolicyClient() {
               </div>
 
               <div id="local-storage" className="lp-section">
-                <h2><span className="lp-num">3</span>Resume Data & Local Storage</h2>
+                <h2><span className="lp-num">3</span>Resume & Bio-Data Local Storage</h2>
                 <p>
-                  The resume content you create&mdash;your name, contact details, work
-                  experience, education, skills, and photo&mdash;is stored{' '}
+                  The resume or bio-data content you create&mdash;your name, contact details, work
+                  experience, education, skills, family details, address, community details, and photo&mdash;is stored{' '}
                   <strong>only in your browser&rsquo;s local storage</strong>. We do not
-                  currently upload, transmit, or store this resume data on our servers, and we
+                  currently upload, transmit, or store this resume or bio-data data on our servers, and we
                   do not have access to it. Because it lives in your browser, this data stays
                   on your own device and is available to you the next time you visit using the
                   same browser, unless you clear your browser data.
                 </p>
                 <p>
-                  Our current tools&mdash;including the resume builder, ATS checker, and PDF
-                  merge tool&mdash;run entirely in your browser (client-side). No resume or
+                  Our current tools&mdash;including the resume builder, bio-data maker, ATS checker, and PDF
+                  merge tool&mdash;run entirely in your browser (client-side). No resume, bio-data, or
                   document content is sent to our servers to use these tools.
                 </p>
                 <p>
@@ -146,7 +146,7 @@ export default function PrivacyPolicyClient() {
                   analytics, hosting, and error monitoring. These providers only access the
                   minimum data required to perform their function (such as basic technical or
                   usage data) and are not permitted to use it for any other purpose. Since
-                  resume data is stored locally in your browser, it is not shared with these
+                  resume and bio-data data is stored locally in your browser, it is not shared with these
                   providers.
                 </p>
               </div>
@@ -165,7 +165,7 @@ export default function PrivacyPolicyClient() {
               <div id="data-retention" className="lp-section">
                 <h2><span className="lp-num">8</span>Data Retention & Deletion</h2>
                 <p>
-                  Since your resume data is stored only in your browser&rsquo;s local storage,
+                  Since your resume and bio-data data is stored only in your browser&rsquo;s local storage,
                   you are in full control of it&mdash;you can delete it at any time by clearing
                   your browser&rsquo;s local storage or site data. We do not retain a copy of
                   this data on our servers.
@@ -198,7 +198,7 @@ export default function PrivacyPolicyClient() {
               <div id="your-rights" className="lp-section">
                 <h2><span className="lp-num">10</span>Your Rights</h2>
                 <ul>
-                  <li>Delete your resume data at any time by clearing your browser&rsquo;s local storage.</li>
+                  <li>Delete your resume or bio-data data at any time by clearing your browser&rsquo;s local storage.</li>
                   <li>Request access to or correction of any information you have submitted through our Contact Us page.</li>
                   <li>Request deletion of any personal data you have shared with us via the Contact Us page.</li>
                   <li>Withdraw consent for optional data processing, where applicable.</li>

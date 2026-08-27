@@ -1,0 +1,285 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,500,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+.resume {
+  &.color-1 {
+    --templateColor: #9f036d;
+  }
+  &.color-2 {
+    --templateColor: #3e1d53;
+  }
+  &.color-3 {
+    --templateColor: #084c41;
+  }
+  &.color-4 {
+    --templateColor: #87300d;
+  }
+  &.color-5 {
+    --templateColor: #de2124;
+  }
+  &.color-6 {
+    --templateColor: #585858;
+  }
+
+  &.montserrat * {
+    font-family: "Montserrat", sans-serif;
+  }
+  &.open_san * {
+    font-family: "Open Sans", sans-serif;
+  }
+  &.poppins * {
+    font-family: "Poppins", sans-serif;
+  }
+  &.roboto * {
+    font-family: "Roboto", sans-serif;
+  }
+}
+
+.resume.ResumeTemplate4 {
+
+  width: 800px;
+  min-height: 1131px;
+  margin: 0 auto;
+  background: #ffffff;
+  color: #2d2d2d;
+  font-size: 13px;
+  line-height: 1.6;
+  box-sizing: border-box;
+  padding: 35px;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  p, ul, li, h1, h2, h3, h4 {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  /* ---------- COLOR VARIANTS ---------- */
+  &.color-1 {
+    --templateColor: #9f036d;
+  }
+  &.color-2 {
+    --templateColor: #3e1d53;
+  }
+  &.color-3 {
+    --templateColor: #084c41;
+  }
+  &.color-4 {
+    --templateColor: #87300d;
+  }
+  &.color-5 {
+    --templateColor: #de2124;
+  }
+  &.color-6 {
+    --templateColor: #585858;
+  }
+
+  /* ---------- HEADER ---------- */
+  .resume4_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+
+    .resume4_header_left {
+      flex: 1;
+
+      .resume4_name {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--templateColor);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .resume4_job {
+        margin-bottom: 4px;
+        font-size: 14px;
+        font-weight: 700;
+        color: #333333;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .resume4_contact {
+        margin-top: 8px;
+        font-size: 12px;
+        color: #555555;
+
+        span {
+          color: #555555;
+        }
+      }
+    }
+
+    .resume4_header_right {
+      flex: 0 0 auto;
+
+      .resume-photo {
+        width: 90px;
+        height: 90px;
+        border-radius: 6px;
+        object-fit: cover;
+        border: 1px solid #e0e0e0;
+      }
+    }
+  }
+
+  /* Divider line under the header */
+  .resume4_top_divider {
+    height: 2px;
+    background: transparent;
+    margin-top: 14px;
+    margin-bottom: 20px;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  .resume4_section {
+    margin-bottom: 18px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .resume4_section_title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--templateColor);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-block: 8px;
+    margin-bottom: 10px;
+    border-top: 1px solid var(--templateColor);
+        border-bottom: 1px solid var(--templateColor);
+  }
+
+  .resume-about-me {
+    font-size: 12.5px;
+    color: #3a3a3a;
+    line-height: 1.7;
+    text-align: justify;
+  }
+
+  /* ---------- ENTRIES (Experience / Education) ---------- */
+  .resume4_entry {
+    margin-bottom: 14px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .resume4_entry_head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      .resume4_entry_title {
+        font-size: 13px;
+        font-weight: 700;
+        color: #1e1e1e;
+      }
+
+      .resume4_entry_date {
+        font-size: 12px;
+        font-weight: 700;
+        color: #1e1e1e;
+        white-space: nowrap;
+      }
+    }
+
+    .resume4_entry_sub {
+      font-size: 12px;
+      font-style: italic;
+      color: #6b6b6b;
+      margin-top: 2px;
+    }
+
+    .resume4_bullets {
+      margin-top: 6px;
+      padding-left: 18px;
+      list-style-type: none;
+      padding: 0;
+
+
+      li {
+        font-size: 12.5px;
+        color: #3a3a3a;
+        margin-bottom: 3px;
+        line-height: 1.6;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+
+  /* ---------- TECHNICAL SKILLS GRID ---------- */
+  .resume4_skills_grid {
+display: flex;
+flex-wrap: wrap;
+gap: 15px;
+
+    p {
+      position: relative;
+      font-size: 12.5px;
+      color: #3a3a3a;
+      padding-left: 15px;
+      min-width: 0;
+      overflow-wrap: anywhere;
+      word-break: break-word;
+
+      &::before {
+        position: absolute;
+        left: 0;
+        top: -1px;
+        content: '\2713';
+        color: var(--templateColor);
+      font-weight: 600;
+      font-size: 14px;
+      }
+    }
+  }
+
+  /* ---------- ADDITIONAL INFORMATION ---------- */
+  .resume4_additional {
+    li {
+      font-size: 12.5px;
+      color: #3a3a3a;
+      margin-bottom: 6px;
+      line-height: 1.6;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      strong {
+        color: #1e1e1e;
+        font-weight: 700;
+      }
+    }
+  }
+}
+/* Readability bump */
+.ResumeTemplate4 p,
+.ResumeTemplate4 li,
+.ResumeTemplate4 .resume4_entry_date,
+.ResumeTemplate4 .resume4_entry_desc {
+  font-size: 1.04em;
+}
+
+.ResumeTemplate4 .resume4_section_title,
+.ResumeTemplate4 .resume4_entry_title {
+  font-size: 1.06em;
+}

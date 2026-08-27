@@ -26,6 +26,7 @@ export default function Footer() {
           <div className="rk-footer-col">
             <div className="rk-footer-col-title">Product</div>
 
+            <Link prefetch={false} href="/bio-data/">Bio Data</Link>
             <Link prefetch={false} href="/tools/">Tools</Link>
             <Link prefetch={false} href="/typing/">Typing Practice</Link>
           </div>

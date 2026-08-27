@@ -1145,6 +1145,66 @@ function WhyFreeSection() {
   );
 }
 
+function BioDataPromo() {
+  return (
+    <section className="rk-biodata-promo" id="bio-data-maker">
+      <div className="container-fluid custom-container">
+        <div className="rk-biodata-card">
+          <div className="rk-biodata-copy">
+            <div className="rk-typing-label">
+              <Icon.FileText /> Free Bio-Data Maker
+            </div>
+            <h2 className="fs-mob-24">Create a clean printable bio-data in minutes</h2>
+            <p className="fs-mob-14">
+              Build a premium bio-data with personal details, family details, education,
+              work information, hobbies, photo, and ready-to-print templates.
+            </p>
+            <div className="rk-biodata-points">
+              {[
+                "Premium A4 templates",
+                "Photo and family details",
+                "PDF, Word, and text export",
+                "Saved privately in your browser",
+              ].map((point) => (
+                <span key={point}><Icon.Check /> {point}</span>
+              ))}
+            </div>
+            <div className="rk-biodata-actions">
+              <Link prefetch={false} href="/bio-data/resume-type/" className="rk-btn rk-btn--primary rk-btn--lg">
+                Create Bio-Data <Icon.ArrowRight />
+              </Link>
+              <Link prefetch={false} href="/bio-data/" className="rk-btn rk-btn--outline rk-btn--lg">
+                View Bio-Data
+              </Link>
+            </div>
+          </div>
+          <div className="rk-biodata-preview" aria-hidden="true">
+            <div className="rk-biodata-sheet">
+              <div className="rk-biodata-sheet-title">BIO-DATA</div>
+              <div className="rk-biodata-photo" />
+              {["NAME", "FATHER'S NAME", "DATE OF BIRTH", "CASTE", "RELIGION", "ADDRESS"].map((label) => (
+                <div className="rk-biodata-line" key={label}>
+                  <span>{label}</span>
+                  <i />
+                </div>
+              ))}
+              <div className="rk-biodata-table">
+                <b />
+                <b />
+                <b />
+              </div>
+              <div className="rk-biodata-sign">
+                <span>Date :</span>
+                <span>Signature</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── Jobs ─────────────────────────────────────────────────────────────────
 function TypingPromo() {
   return (
@@ -1765,6 +1825,7 @@ export default function ResumeListClient({
         </div>
       </section>
       <WhyFreeSection />
+      <BioDataPromo />
       <TypingPromo />
       <section className="rk-section rk-section--white" id="jobs">
         <div className="container-fluid custom-container">

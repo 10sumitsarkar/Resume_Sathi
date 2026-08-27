@@ -129,6 +129,7 @@ const Icon = {
 const HIGHLIGHTS = [
   '100% Free',
   'ATS-Friendly Templates',
+  'Printable Bio-Data',
   'Instant ATS Score',
   'Latest Jobs',
   'Typing Practice',
@@ -142,6 +143,13 @@ const TOOLS = [
     href: '/resume/resume-type/',
     icon: <Icon.File />,
     bullets: ['ATS-friendly layouts', 'Step-by-step forms', 'PDF, Word, TXT export'],
+  },
+  {
+    title: 'Bio-Data Maker',
+    desc: 'Create a clean printable bio-data with personal, family, education, and work details.',
+    href: '/bio-data/resume-type/',
+    icon: <Icon.File />,
+    bullets: ['Premium bio-data templates', 'Photo and family details', 'PDF, Word, TXT export'],
   },
   {
     title: 'ATS Checker',
@@ -210,8 +218,8 @@ const TOOLS = [
 
 const STEPS = [
   {
-    title: 'Build Your Resume',
-    desc: 'Choose a template and fill your career details in a guided resume builder.',
+    title: 'Build Your Resume or Bio-Data',
+    desc: 'Choose a template and fill your career, personal, or family details in a guided builder.',
   },
   {
     title: 'Improve Your Documents',
@@ -346,8 +354,8 @@ export default function AboutClient({ initialJobs = [], initialBlogs = [], faqs 
           </span>
           <h1>Free ATS-Friendly Resume Builder</h1>
           <p>
-            Create a professional resume for free, with helpful tools, job updates, blogs,
-            and typing practice when you need them.
+            Create a professional resume or printable bio-data for free, with helpful tools,
+            job updates, blogs, and typing practice when you need them.
           </p>
         </div>
       </section>
@@ -368,13 +376,13 @@ export default function AboutClient({ initialJobs = [], initialBlogs = [], faqs 
               <p className="ab-kicker">Our Story</p>
               <h2>Why We Built ResumeSathi</h2>
               <p>
-                Job preparation often means switching between resume builders, PDF utilities, job portals,
+                Job preparation often means switching between resume builders, bio-data makers, PDF utilities, job portals,
                 typing practice websites, and career advice pages. ResumeSathi brings these essentials into
                 one free platform so candidates can move from preparation to application faster.
               </p>
               <p>
                 The goal is simple: help every fresher, experienced professional, student, and exam candidate
-                create better career documents, track opportunities, and build skills without confusing paid
+                create better resumes, bio-data documents, track opportunities, and build skills without confusing paid
                 barriers.
               </p>
             </div>
@@ -382,7 +390,7 @@ export default function AboutClient({ initialJobs = [], initialBlogs = [], faqs 
               <div className="ab-mv-card">
                 <span className="ab-mv-icon"><Icon.Spark /></span>
                 <h3>Our Mission</h3>
-                <p>Make resume creation, ATS checks, document tools, jobs, typing practice, and career learning accessible to everyone.</p>
+                <p>Make resume creation, bio-data creation, ATS checks, document tools, jobs, typing practice, and career learning accessible to everyone.</p>
               </div>
               <div className="ab-mv-card">
                 <span className="ab-mv-icon"><Icon.Search /></span>
@@ -391,6 +399,49 @@ export default function AboutClient({ initialJobs = [], initialBlogs = [], faqs 
               </div>
             </div>
           </div>
+
+          <section className="ab-typing-promo" id="bio-data-maker">
+            <div className="ab-typing-promo-card">
+              <div className="ab-typing-copy">
+                <div className="ab-typing-label">
+                  <Icon.File /> Free bio-data maker
+                </div>
+                <h2>Printable Bio-Data Templates for Personal and Job Use</h2>
+                <p>
+                  ResumeSathi also helps you create a clean bio-data with personal details,
+                  family details, address, caste, religion, education, work details, hobbies,
+                  and photo. The builder keeps your information in your browser and gives you
+                  premium printable templates for PDF, Word, and text export.
+                </p>
+                <div className="ab-mini-points">
+                  <span><CheckIcon /> Personal and family details</span>
+                  <span><CheckIcon /> Premium A4 layouts</span>
+                  <span><CheckIcon /> Photo-ready templates</span>
+                  <span><CheckIcon /> Local browser storage</span>
+                </div>
+                <Link prefetch={false} className="ab-typing-button" href="/bio-data/resume-type/">
+                  Create Bio-Data <ArrowIcon />
+                </Link>
+              </div>
+              <div className="ab-typing-visual ab-biodata-visual" aria-hidden="true">
+                <div className="ab-biodata-sheet">
+                  <div className="ab-biodata-title">BIO-DATA</div>
+                  <div className="ab-biodata-photo" />
+                  {['Name', "Father's Name", 'Date of Birth', 'Caste', 'Religion', 'Address'].map((item) => (
+                    <div className="ab-biodata-row" key={item}>
+                      <span>{item}</span>
+                      <i />
+                    </div>
+                  ))}
+                  <div className="ab-biodata-grid">
+                    <b />
+                    <b />
+                    <b />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
           <div className="ab-features">
             <SectionHeader
@@ -607,10 +658,13 @@ export default function AboutClient({ initialJobs = [], initialBlogs = [], faqs 
             <div className="ab-cta-content">
               <div className="ab-cta-badge"><Icon.Spark /> Free career toolkit</div>
               <h2>Build your resume, prepare your files, and apply smarter.</h2>
-              <p>Start with an ATS-friendly resume, then use ResumeSathi tools, typing practice, jobs, and blogs to keep your next application ready.</p>
+              <p>Start with an ATS-friendly resume or printable bio-data, then use ResumeSathi tools, typing practice, jobs, and blogs to keep your next application ready.</p>
               <div className="ab-cta-actions">
                 <Link prefetch={false} className="ab-cta-btn-primary" href="/resume/resume-type/">
                   Create Your Resume <ArrowIcon />
+                </Link>
+                <Link prefetch={false} className="ab-cta-btn-ghost" href="/bio-data/resume-type/">
+                  Create Bio-Data <ArrowIcon />
                 </Link>
                 <Link prefetch={false} className="ab-cta-btn-ghost" href="/tools/">
                   Explore Free Tools <ArrowIcon />

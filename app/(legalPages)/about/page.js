@@ -37,6 +37,10 @@ function toPreviewItems(items, type) {
 
 const aboutFaqs = [
   {
+    q: 'Can I create bio-data on ResumeSathi?',
+    a: 'Yes. ResumeSathi includes a free bio-data maker with printable templates, personal details, family details, education, work information, and PDF, Word, and text export.',
+  },
+  {
     q: 'What can I do on ResumeSathi besides building a resume?',
     a: 'You can check ATS compatibility, manage PDF files, convert DOCX or images to PDF, crop signatures, calculate age, practice typing, read career blogs, and browse latest job updates.',
   },
@@ -79,13 +83,16 @@ const aboutFaqs = [
 ];
 
 export const metadata = {
-  title: 'About ResumeSathi | Free Resume Builder, Career Tools, Jobs & Typing Practice',
+  title: 'About ResumeSathi | Free Resume & Bio-Data Maker, Career Tools, Jobs',
   description:
-    'Learn about ResumeSathi, a free career platform with ATS resume builder, resume tools, PDF tools, typing practice, latest job updates, and career blogs for job seekers.',
+    'Learn about ResumeSathi, a free career platform with ATS resume builder, printable bio-data maker, PDF tools, typing practice, latest job updates, and career blogs for job seekers.',
   keywords: [
     'about ResumeSathi',
     'ResumeSathi mission',
     'free resume builder online',
+    'free bio data maker',
+    'printable bio data maker',
+    'bio data format online',
     'ATS resume builder',
     'career tools for job seekers',
     'typing practice for jobs',
@@ -100,9 +107,9 @@ export const metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'About ResumeSathi | Free Resume Builder, Tools, Jobs & Career Guidance',
+    title: 'About ResumeSathi | Free Resume & Bio-Data Maker, Tools, Jobs',
     description:
-      'ResumeSathi helps job seekers build resumes, check ATS readiness, use free tools, practice typing, read career blogs, and find jobs.',
+      'ResumeSathi helps job seekers build resumes and bio-data, check ATS readiness, use free tools, practice typing, read career blogs, and find jobs.',
     url: `${siteUrl}/about/`,
     siteName: 'ResumeSathi',
     type: 'website',
@@ -110,9 +117,9 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'About ResumeSathi | Free Career Tools for Job Seekers',
+    title: 'About ResumeSathi | Free Resume & Bio-Data Maker',
     description:
-      'Build resumes, use free tools, practice typing, read career blogs, and find job updates on ResumeSathi.',
+      'Build resumes and bio-data, use free tools, practice typing, read career blogs, and find job updates on ResumeSathi.',
     images: ['/front-assets/images/og/home-og.png'],
   },
 };

@@ -78,18 +78,18 @@ export default function TermsClient() {
                 <p>
                   ResumeSathi is an education and career-focused platform, and its content is
                   general-audience in nature. There is no minimum age requirement to use our
-                  resume builder, ATS checker, PDF merge tool, blog, or job listings. If you
+                  resume builder, bio-data maker, ATS checker, PDF merge tool, blog, or job listings. If you
                   are under the age of 18, we recommend using the Service with the awareness
                   or involvement of a parent or guardian, particularly before sharing your
-                  resume with third parties.
+                  resume or bio-data with third parties.
                 </p>
               </div>
 
               <div id="service-description" className="lp-section">
                 <h2><span className="lp-num">3</span>Description of Service</h2>
                 <p>
-                  ResumeSathi is a free online resume-building platform that allows users to
-                  create, customize, preview, and export resumes in PDF, Word, and text
+                  ResumeSathi is a free online resume and bio-data building platform that allows users to
+                  create, customize, preview, and export resumes and bio-data documents in PDF, Word, and text
                   formats. We also offer supporting tools such as an ATS compatibility
                   checker and a PDF merge tool, along with a blog and job listings page whose
                   content is served dynamically from our database.
@@ -101,9 +101,9 @@ export default function TermsClient() {
                 <p>
                   ResumeSathi does not currently require you to create an account. The resume
                   information you enter (name, contact details, work experience, education,
-                  skills, photo, etc.) is stored locally in your own browser and is not saved
+                  skills, photo, family details, address, community details, etc.) is stored locally in your own browser and is not saved
                   on our servers. You are responsible for keeping your own backup of your
-                  resume data, since clearing your browser data will remove it.
+                  resume or bio-data data, since clearing your browser data will remove it.
                 </p>
                 <p>
                   Our ATS checker and PDF merge tool currently run entirely in your browser
@@ -117,9 +117,9 @@ export default function TermsClient() {
                 <h2><span className="lp-num">5</span>Your Content</h2>
                 <p>
                   You retain full ownership of the personal and professional information you
-                  enter into your resumes (&ldquo;User Content&rdquo;). You are solely
+                  enter into your resumes or bio-data documents (&ldquo;User Content&rdquo;). You are solely
                   responsible for ensuring the accuracy of the information you provide and
-                  for how you choose to share or distribute your finished resume.
+                  for how you choose to share or distribute your finished resume or bio-data.
                 </p>
               </div>
 
@@ -141,7 +141,7 @@ export default function TermsClient() {
                   All templates, designs, branding, source code, and other materials made
                   available through ResumeSathi are the property of ResumeSathi and its
                   licensors, and are protected by applicable intellectual property laws.
-                  You may use these materials only to create your own resume through the
+                  You may use these materials only to create your own resume or bio-data through the
                   Service.
                 </p>
               </div>
@@ -182,7 +182,7 @@ export default function TermsClient() {
                   To the fullest extent permitted by law, ResumeSathi shall not be liable
                   for any indirect, incidental, special, or consequential damages arising
                   out of or related to your use of, or inability to use, the Service,
-                  including any employment outcomes or loss of resume data stored in your
+                  including any employment outcomes or loss of resume or bio-data data stored in your
                   browser.
                 </p>
               </div>

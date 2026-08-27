@@ -39,7 +39,7 @@ export default function DisclaimerClient() {
           <h1>Disclaimer</h1>
           <p>
             This page explains the limitations of the information and tools provided on
-            ResumeSathi, and the terms under which you use our free resume builder and
+            ResumeSathi, and the terms under which you use our free resume builder, bio-data maker, and
             related services.
           </p>
           <span className="lp-updated">Last updated: {lastUpdated}</span>
@@ -80,7 +80,7 @@ export default function DisclaimerClient() {
                 <p>
                   ResumeSathi is not a career counseling, recruitment, legal, or professional
                   advisory service. The suggestions, templates, and tips provided through our
-                  resume builder and ATS checker are general in nature and should not be
+                  resume builder, bio-data maker, and ATS checker are general in nature and should not be
                   treated as personalized career, legal, or employment advice. For decisions
                   that significantly affect your career, we recommend consulting a qualified
                   career counselor or professional.
@@ -90,12 +90,12 @@ export default function DisclaimerClient() {
               <div id="accuracy-of-content" className="lp-section">
                 <h2><span className="lp-num">3</span>Accuracy of Content & Tools</h2>
                 <p>
-                  Our resume builder, PDF/Word export, PDF merge tool, and other utilities are
+                  Our resume builder, bio-data maker, PDF/Word export, PDF merge tool, and other utilities are
                   provided &ldquo;as is&rdquo; and &ldquo;as available.&rdquo; We do not
                   guarantee that these tools will be error-free, uninterrupted, secure, or
                   free of formatting issues across every device, browser, or application you
                   may use to open your documents. You are responsible for reviewing any
-                  document generated through our tools before using or submitting it.
+                  resume, bio-data, or document generated through our tools before using or submitting it.
                 </p>
               </div>
 

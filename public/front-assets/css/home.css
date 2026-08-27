@@ -1121,6 +1121,156 @@
   font-size: 1.1rem;
 }
 
+.rk-biodata-promo {
+  padding: 58px 0;
+  background: #fff;
+}
+
+.rk-biodata-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
+  gap: 34px;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+  background: #ffffff;
+  box-shadow: none;
+}
+
+.rk-biodata-copy h2 {
+  color: var(--rk-ink);
+  font-size: 34px;
+  line-height: 1.16;
+  font-weight: 900;
+  margin: 14px 0 12px;
+}
+
+.rk-biodata-copy p {
+  color: var(--rk-muted);
+  line-height: 1.75;
+  max-width: 680px;
+}
+
+.rk-biodata-points {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 22px 0 26px;
+}
+
+.rk-biodata-points span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--rk-ink);
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.rk-biodata-points svg {
+  color: var(--rk-brand);
+  flex-shrink: 0;
+}
+
+.rk-biodata-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rk-biodata-preview {
+  display: flex;
+  justify-content: center;
+}
+
+.rk-biodata-sheet {
+  position: relative;
+  width: min(100%, 330px);
+  aspect-ratio: 1 / 1.414;
+  padding: 22px;
+  background: #fffdf7;
+  border: 8px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 26px 65px -40px rgba(15, 23, 42, .4);
+}
+
+.rk-biodata-sheet::before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  z-index: -1;
+  background: linear-gradient(135deg, var(--rk-brand), var(--rk-primary));
+}
+
+.rk-biodata-sheet-title {
+  margin: 0 auto 22px;
+  width: 70%;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  font-weight: 900;
+  font-size: .9rem;
+  background: linear-gradient(90deg, var(--rk-brand), var(--rk-primary));
+}
+
+.rk-biodata-photo {
+  position: absolute;
+  top: 76px;
+  right: 22px;
+  width: 54px;
+  height: 64px;
+  background: #e2e8f0;
+  border: 3px solid #fff;
+  outline: 2px solid var(--rk-brand);
+}
+
+.rk-biodata-line {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.rk-biodata-line span {
+  font-size: .58rem;
+  font-weight: 900;
+  color: var(--rk-ink);
+}
+
+.rk-biodata-line i {
+  height: 8px;
+  border-radius: 999px;
+  background: #e2e8f0;
+}
+
+.rk-biodata-table {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  margin-top: 20px;
+}
+
+.rk-biodata-table b {
+  height: 42px;
+  border: 1px solid rgba(204, 0, 0, .2);
+  background: rgba(204, 0, 0, .06);
+}
+
+.rk-biodata-sign {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--rk-ink);
+  font-size: .64rem;
+  font-weight: 800;
+}
+
 .rk-jc {
   border: 1px solid rgba(148, 163, 184, .2);
   border-radius: 24px;
@@ -1664,6 +1814,19 @@
 
 @media (max-width: 991px) {
 
+  .rk-biodata-card {
+    grid-template-columns: 1fr;
+  }
+
+  .rk-biodata-copy {
+    text-align: center;
+  }
+
+  .rk-biodata-points,
+  .rk-biodata-actions {
+    justify-content: center;
+  }
+
   .rk-faq-wrap {
     grid-template-columns: 1fr;
   }
@@ -1719,6 +1882,33 @@ justify-content: center;
 @media (max-width: 600px) {
   .rk-hero-title {
     font-size: 2rem;
+  }
+
+  .rk-biodata-promo {
+    padding: 42px 0;
+  }
+
+  .rk-biodata-card {
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .rk-biodata-copy h2 {
+    font-size: 26px;
+  }
+
+  .rk-biodata-points {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .rk-biodata-actions .rk-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .rk-biodata-sheet {
+    width: min(100%, 290px);
   }
 
   .rk-owl .owl-nav .owl-prev,

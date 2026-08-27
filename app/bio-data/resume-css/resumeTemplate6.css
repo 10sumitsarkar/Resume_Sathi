@@ -1,0 +1,249 @@
+/* =========================================================
+   ResumeTemplate6 — "Minimal Ledger" (v2)
+   Full-bleed white page, big bold two-line name header with thin
+   ruled lines, full-width About Me (no rule beneath it), then a
+   two-column body:
+   left  = Contact Info / Skills (flat list) / Languages (with
+           proficiency text) / Social Media (colored icons) / Hobbies
+   right = Education / Certifications / Work Experience / Internships
+   Standalone stylesheet — imported only by ResumeTemplate6.jsx,
+   does not depend on resumeTemp.css.
+   Icons + progress bars + bullet marks use --templateColor (set via
+   .color-1..color-6 on the parent .resume element) so they follow
+   the resume's selected accent color for a premium, coordinated look.
+   ========================================================= */
+
+.ResumeTemplate6 {
+  display: block;
+  width: 800px;
+  min-height: 1130px;
+  padding: 35px;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #1a1a1a;
+  font-family: "Poppins", sans-serif;
+
+  ol,
+  ul {
+    padding-left: 0;
+    list-style-type: none;
+    margin: 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  /* ---------- Header ---------- */
+  .rt6_header {
+    margin-bottom: 4px;
+  }
+
+  .rt6_name {
+    font-size: 40px;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.1;
+    letter-spacing: 0.3px;
+  }
+
+  .rt6_rule {
+    height: 1px;
+    background: #d3d3d3;
+    margin: 12px 0;
+  }
+
+  .rt6_role {
+    font-size: 14px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #3a3a3a;
+    font-weight: 500;
+  }
+
+  /* ---------- Section heading ---------- */
+  .rt6_heading {
+    font-size: 17px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 8px;
+  }
+
+  .rt6_heading_rule {
+    height: 1px;
+    background: #d3d3d3;
+    margin-bottom: 16px;
+  }
+
+  .rt6_block {
+    margin-bottom: 28px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* About Me — heading only, no rule beneath it (heading or text) */
+  .rt6_about {
+    margin-bottom: 30px;
+  }
+
+  .rt6_body_text {
+    font-size: 15px;
+    line-height: 1.75;
+    color: #333333;
+  }
+
+  /* ---------- Body columns ---------- */
+  .rt6_body {
+    display: flex;
+  }
+
+  .rt6_left {
+    width: 40%;
+    padding-right: 26px;
+  }
+
+  .rt6_right {
+    width: 60%;
+  }
+
+  /* ---------- Contact ---------- */
+  .rt6_contact_list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 11px;
+    font-size: 15px;
+    color: #333333;
+    line-height: 1.4;
+    word-break: break-all;
+
+    .rt6_icon {
+      width: 19px;
+      color: var(--templateColor, #1a1a1a);
+      margin-right: 8px;
+      display: inline-flex;
+      align-items: center;
+      flex: none;
+    }
+  }
+
+  /* ---------- Skills (flat list, no sub-headings) ---------- */
+  .rt6_bullet_list li {
+    position: relative;
+    padding-left: 15px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #333333;
+    margin-bottom: 6px;
+
+    &:before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--templateColor, #1a1a1a);
+    }
+  }
+
+  /* ---------- Languages ---------- */
+  .rt6_lang_list li {
+    margin-bottom: 13px;
+  }
+
+  .rt6_lang_top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+
+    p {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    span {
+      font-size: 12px;
+      color: #6b6b6b;
+    }
+  }
+
+  .rt6_bar {
+    width: 100%;
+    height: 8px;
+    background: #e2e2e2;
+    border-radius: 2px;
+    overflow: hidden;
+
+    span {
+      display: block;
+      height: 100%;
+      background: var(--templateColor, #1a1a1a);
+      border-radius: 2px;
+    }
+  }
+
+  /* ---------- Social Media ---------- */
+  .rt6_social_list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 11px;
+    font-size: 15px;
+    color: #333333;
+    word-break: break-word;
+
+    .rt6_icon {
+      width: 19px;
+      color: var(--templateColor, #1a1a1a);
+      margin-right: 8px;
+      display: inline-flex;
+      align-items: center;
+      flex: none;
+    }
+  }
+
+  /* ---------- Right-column entries ---------- */
+  .rt6_entry {
+    margin-bottom: 20px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .rt6_entry_meta {
+    font-size: 13px;
+    color: #8a8a8a;
+    margin-bottom: 4px;
+  }
+
+  .rt6_entry_title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 6px;
+  }
+
+  .rt6_entry_desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #333333;
+  }
+}
+/* Readability bump */
+.ResumeTemplate6 p,
+.ResumeTemplate6 li,
+.ResumeTemplate6 .rt6_entry_date,
+.ResumeTemplate6 .rt6_entry_desc {
+  font-size: 1.04em;
+}
+
+.ResumeTemplate6 .rt6_section_title,
+.ResumeTemplate6 .rt6_entry_title {
+  font-size: 1.06em;
+}

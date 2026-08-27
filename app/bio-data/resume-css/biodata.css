@@ -1,0 +1,465 @@
+.bd_sheet {
+  font-synthesis: none;
+}
+
+@font-face {
+  font-family: "BioDataPoppins";
+  src: url("/front-assets/fonts/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BioDataPoppins";
+  src: url("/front-assets/fonts/Poppins-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BioDataPoppins";
+  src: url("/front-assets/fonts/Poppins-Bold.ttf") format("truetype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BioDataRoboto";
+  src: url("/front-assets/fonts/Roboto-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BioDataRoboto";
+  src: url("/front-assets/fonts/Roboto-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BioDataRoboto";
+  src: url("/front-assets/fonts/Roboto-Bold.ttf") format("truetype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BioDataMontserrat";
+  src: url("/front-assets/fonts/Montserrat-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BioDataMontserrat";
+  src: url("/front-assets/fonts/Montserrat-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "BioDataMontserrat";
+  src: url("/front-assets/fonts/Montserrat-Bold.ttf") format("truetype");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.bd-preview-shell {
+  overflow: visible;
+}
+
+.each-resume-label .bd-preview-shell {
+  display: block;
+}
+
+.bd_sheet {
+  --bd-accent: #334155;
+  --bd-accent-2: #64748b;
+  --bd-soft: #f8fafc;
+  --bd-line: rgba(51, 65, 85, .22);
+  position: relative;
+  width: 800px;
+  min-height: 1120px;
+  background: #fff;
+  color: #1f2933;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.42;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, .12);
+  overflow: hidden;
+}
+
+.bd_sheet.color-1 { --bd-accent: #9f036d; --bd-accent-2: #f472b6; --bd-soft: #fff1f8; }
+.bd_sheet.color-2 { --bd-accent: #3e1d53; --bd-accent-2: #8b5cf6; --bd-soft: #f6f0ff; }
+.bd_sheet.color-3 { --bd-accent: #084c41; --bd-accent-2: #14b8a6; --bd-soft: #ecfdf5; }
+.bd_sheet.color-4 { --bd-accent: #87300d; --bd-accent-2: #f59e0b; --bd-soft: #fff7ed; }
+.bd_sheet.color-5 { --bd-accent: #b91c1c; --bd-accent-2: #ef4444; --bd-soft: #fff1f2; }
+.bd_sheet.color-6 { --bd-accent: #374151; --bd-accent-2: #94a3b8; --bd-soft: #f8fafc; }
+
+.bd_sheet.poppins,
+.bd_sheet.poppins * { font-family: "BioDataPoppins", Poppins, Arial, sans-serif; }
+.bd_sheet.roboto,
+.bd_sheet.roboto * { font-family: "BioDataRoboto", Roboto, Arial, sans-serif; }
+.bd_sheet.arial,
+.bd_sheet.arial * { font-family: Arial, sans-serif; }
+.bd_sheet.montserrat,
+.bd_sheet.montserrat * { font-family: "BioDataMontserrat", Montserrat, Arial, sans-serif; }
+
+.bd_sheet h1 {
+  position: relative;
+  margin: 0 0 28px;
+  padding: 16px 18px;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0;
+  color: var(--bd-accent);
+  background: var(--bd-soft);
+  border: 1px solid var(--bd-line);
+  text-decoration: none;
+  z-index: 1;
+}
+
+.bd_photo {
+  position: absolute;
+  top: 114px;
+  right: 30px;
+  width: 116px;
+  height: 138px;
+  object-fit: cover;
+  border: 3px solid #fff;
+  outline: 2px solid var(--bd-accent);
+  background: #f8fafc;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, .18);
+  z-index: 2;
+}
+
+.bd_rows {
+  width: calc(100% - 150px);
+  position: relative;
+  z-index: 1;
+}
+
+.bd_row {
+  display: grid;
+  grid-template-columns: 220px 18px minmax(0, 1fr);
+  gap: 8px;
+  margin-bottom: 11px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(148, 163, 184, .28);
+}
+
+.bd_label {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.bd_colon {
+  text-align: center;
+  font-weight: 700;
+}
+
+.bd_value {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.bd_section {
+  position: relative;
+  z-index: 1;
+  margin-top: 18px;
+}
+
+.bd_section h2,
+.bd_declaration h2 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  color: var(--bd-accent);
+  border-left: 5px solid var(--bd-accent);
+  padding: 6px 0 6px 10px;
+  background: linear-gradient(90deg, var(--bd-soft), transparent);
+}
+
+.bd_table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: center;
+  background: rgba(255, 255, 255, .84);
+}
+
+.bd_table th,
+.bd_table td {
+  border: 1px solid var(--bd-line);
+  padding: 7px 8px;
+}
+
+.bd_table th {
+  font-weight: 800;
+  color: var(--bd-accent);
+  background: var(--bd-soft);
+}
+
+.bd_list {
+  margin: 6px 0 0 24px;
+  padding: 0;
+}
+
+.bd_list li {
+  margin-bottom: 8px;
+  padding-left: 8px;
+}
+
+.bd_declaration {
+  position: relative;
+  z-index: 1;
+  margin-top: 26px;
+  text-align: left;
+}
+
+.bd_declaration h2 {
+  text-align: left;
+  text-decoration: none;
+}
+
+.bd_declaration p {
+  margin: 12px 0 0;
+}
+
+.bd_sign_row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 58px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.bd_variant_2 {
+  border: 8px double var(--bd-accent);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.96), rgba(255,255,255,.9)),
+    var(--bd-soft);
+}
+
+.bd_variant_3 {
+  border-left: 18px solid var(--bd-accent);
+  background: linear-gradient(90deg, var(--bd-soft), #fff 22%);
+}
+
+.bd_variant_4 {
+  padding: 0;
+  min-height: 1132px;
+  border: 1px solid rgba(135, 48, 13, .22);
+  background:
+    linear-gradient(135deg, rgba(135, 48, 13, .12) 0 78px, transparent 78px),
+    linear-gradient(315deg, rgba(245, 158, 11, .16) 0 88px, transparent 88px),
+    linear-gradient(90deg, rgba(135, 48, 13, .08) 0 18px, transparent 18px),
+    #fffdf7;
+}
+
+.bd_variant_4::before,
+.bd_variant_4::after {
+  content: "";
+  position: absolute;
+  width: 128px;
+  height: 128px;
+  border-color: var(--bd-accent);
+  opacity: .34;
+  pointer-events: none;
+}
+
+.bd_variant_4::before {
+  top: 14px;
+  left: 14px;
+  border-top: 3px solid;
+  border-left: 3px solid;
+}
+
+.bd_variant_4::after {
+  right: 14px;
+  bottom: 14px;
+  border-right: 3px solid;
+  border-bottom: 3px solid;
+}
+
+.bd_variant_4 h1 {
+  width: 72%;
+  margin: 30px auto 28px;
+  color: #fff;
+  background: linear-gradient(90deg, var(--bd-accent), var(--bd-accent-2));
+  border: 0;
+  box-shadow: 0 12px 26px rgba(135, 48, 13, .18);
+}
+
+.bd_variant_4 .bd_rows,
+.bd_variant_4 .bd_section,
+.bd_variant_4 .bd_declaration,
+.bd_variant_4 .bd_sign_row {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.bd_variant_4 .bd_photo {
+  top: 114px;
+  right: 30px;
+}
+
+.bd_variant_4 .bd_section h2,
+.bd_variant_4 .bd_declaration h2 {
+  background: #fff3df;
+  border-left: 0;
+  border-bottom: 2px solid rgba(135, 48, 13, .2);
+  padding-left: 0;
+}
+
+.bd_variant_4 .bd_table th {
+  background: #fff3df;
+}
+
+.bd_variant_5 {
+  padding: 0;
+  background:
+    linear-gradient(180deg, var(--bd-soft) 0 148px, #fff 148px);
+}
+
+.bd_variant_5 h1 {
+  margin: 0 0 28px;
+  padding: 30px 48px 18px;
+  color: #fff;
+  background: linear-gradient(90deg, var(--bd-accent), var(--bd-accent-2));
+  border: 0;
+  box-shadow: 0 10px 22px rgba(185, 28, 28, .2);
+}
+
+.bd_variant_5 .bd_rows,
+.bd_variant_5 .bd_section,
+.bd_variant_5 .bd_declaration,
+.bd_variant_5 .bd_sign_row {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.bd_variant_5 .bd_photo {
+  top: 96px;
+  right: 30px;
+}
+
+.bd_variant_6 {
+  border: 2px solid var(--bd-accent);
+  background-image:
+    linear-gradient(var(--bd-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--bd-line) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-color: #fff;
+}
+
+.bd_variant_6 h1,
+.bd_variant_6 .bd_table th {
+  background: #fff;
+}
+
+.bd_variant_7 {
+  padding: 0;
+  background:
+    linear-gradient(180deg, var(--bd-accent) 0 96px, #fff 96px);
+}
+
+.bd_variant_7 h1 {
+  margin: 0 0 28px;
+  padding: 30px 48px 18px;
+  color: #fff;
+  background: transparent;
+  border-color: rgba(255,255,255,.28);
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+}
+
+.bd_variant_7 .bd_rows,
+.bd_variant_7 .bd_section,
+.bd_variant_7 .bd_declaration,
+.bd_variant_7 .bd_sign_row {
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.bd_variant_7 .bd_photo {
+  top: 96px;
+  right: 30px;
+}
+
+.bd_variant_7 .bd_table th {
+  background: #eef2ff;
+}
+
+.bd_variant_8 {
+  background: #fff;
+}
+
+.bd_variant_8 h1 {
+  width: calc(100% - 54px);
+  margin-left: 27px;
+  margin-right: 27px;
+  color: #fff;
+  background: var(--bd-accent);
+  border: 0;
+  text-decoration: none;
+}
+
+.bd_variant_8 h1::before,
+.bd_variant_8 h1::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+}
+
+.bd_variant_8 h1::before {
+  left: -27px;
+  border-width: 0 0 60px 27px;
+  border-color: transparent transparent var(--bd-accent) transparent;
+}
+
+.bd_variant_8 h1::after {
+  right: -27px;
+  border-width: 60px 27px 0 0;
+  border-color: var(--bd-accent) transparent transparent transparent;
+}
+
+.bd_variant_8 .bd_photo {
+  border: 2px solid var(--bd-accent);
+  outline: 0;
+}
+
+.bd_variant_9 {
+  border: 10px solid transparent;
+  background:
+    linear-gradient(#fff, #fff) padding-box,
+    linear-gradient(135deg, var(--bd-accent), var(--bd-accent-2)) border-box;
+}
+
+.bd_variant_9 h1 {
+  background: transparent;
+  border-top: 2px solid var(--bd-accent);
+  border-bottom: 2px solid var(--bd-accent);
+  border-left: 0;
+  border-right: 0;
+}

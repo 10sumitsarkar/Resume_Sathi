@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { getApiBase, getBackendBase, getSiteBase, resolveApiMediaUrl, withTrailingSlash } from '../../lib/apiConfig';
+import { getCategoryName, getCategorySlug } from '../jobCategoryUtils';
 import '../jobs.css';
 
 const DEFAULT_IMAGE = '/front-assets/images/og/job-og.png';
@@ -10,17 +11,20 @@ const SITE_URL = getSiteBase();
 
 function getArticleSeo(article, slug) {
   const title = article?.meta_title || article?.og_title || getTitle(article) || 'Job Opening';
-  const description = article?.meta_description || article?.og_description || article?.description || 'Explore this job opportunity and apply today.';
+  const description = article?.meta_description || article?.og_description || article?.description || `Check ${getTitle(article) || 'this job'} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`;
   const keywords = article?.meta_keywords || article?.keywords || [
     article?.category?.course_name || article?.course_category?.course_name || article?.category?.article_name || article?.category?.name || article?.category?.title || 'jobs',
     'career opportunities',
     'hiring',
+    'admit card',
+    'answer key',
+    'result',
   ].join(', ');
-  const image = resolveMediaUrl(article?.og_image || article?.meta_image || article?.hero_image || article?.image);
+  const image = `${SITE_URL.replace(/\/+$/, '')}/front-assets/images/og/job-og.png`;
   const canonical = `${SITE_URL}${withTrailingSlash(`/jobs/${slug || getSlug(article) || ''}`)}`;
 
   return {
-    title,
+    title: title.includes('ResumeSathi') ? title : `${title} | ResumeSathi`,
     description,
     keywords,
     image,
@@ -216,22 +220,24 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
   return (
     <div className="rk-cat-slider">
       <div className="rk-cat-slider-track">
-        <button
-          type="button"
+        <Link
+          prefetch={false}
+          href="/jobs/"
           className={`rk-cat-chip ${!selectedCategory ? 'active' : ''}`}
           onClick={() => onSelectCategory(null)}
         >
           All
-        </button>
+        </Link>
         {categories.map((cat) => (
-          <button
+          <Link
             key={cat.id}
-            type="button"
+            prefetch={false}
+            href={withTrailingSlash(`/jobs/${getCategorySlug(cat)}`)}
             className={`rk-cat-chip ${selectedCategory === cat.id ? 'active' : ''}`}
             onClick={() => onSelectCategory(cat.id)}
           >
-            {cat.course_name || cat.article_name || cat.name || cat.title}
-          </button>
+            {getCategoryName(cat)}
+          </Link>
         ))}
       </div>
     </div>
@@ -407,9 +413,8 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   const handleCategoryClick = (categoryId) => {
     closeOffcanvas();
-    const query = new URLSearchParams();
-    if (categoryId) query.set('category_id', String(categoryId));
-    router.push(withTrailingSlash(`/jobs${query.toString() ? `?${query.toString()}` : ''}`));
+    const category = categories.find((item) => Number(item.id) === Number(categoryId));
+    router.push(category ? withTrailingSlash(`/jobs/${getCategorySlug(category)}`) : '/jobs/');
   };
 
   const seo = getArticleSeo(article, slug);

@@ -1,4 +1,5 @@
 {
   "frontendBase": "https://www.resumesathi.com",
-  "backendBase": "https://api.resumesathi.com"
+  "backendBase": "http://127.0.0.1:8000"
 }
+ 

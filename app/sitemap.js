@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { DEFAULT_SITE_BASE, getApiBase } from './lib/apiConfig';
 import { LESSONS } from './typing/_lib/lessons';
+import { getCategorySlug } from './jobs/jobCategoryUtils';
 
 const siteUrl = DEFAULT_SITE_BASE;
 
@@ -108,7 +109,24 @@ export default async function sitemap() {
   });
 
   const jobs = await fetchLiveItems('/courses?limit=500', 'jobs-cache.json');
+  const jobCategories = await fetchLiveItems('/course-categories', 'categories-cache.json');
   const seenJobUrls = new Set(routes.map((route) => route.url));
+  jobCategories.forEach((category) => {
+    const slug = getCategorySlug(category);
+    if (slug) {
+      const url = `${baseUrl}/jobs/${encodeURIComponent(slug)}/`;
+      if (!seenJobUrls.has(url)) {
+        seenJobUrls.add(url);
+        routes.push({
+          url,
+          lastModified: new Date(category.updated_at || category.created_at || Date.now()),
+          changeFrequency: 'daily',
+          priority: 0.9,
+        });
+      }
+    }
+  });
+
   jobs.forEach((job) => {
     const slug = getSlug(job);
     if (slug) {

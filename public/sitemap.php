@@ -1,6 +1,6 @@
 <?php
 
-$backendBase = rtrim(getenv('RESUME_SATHI_BACKEND_BASE') ?: 'https://api.resumesathi.com', '/');
+$backendBase = rtrim(getenv('RESUME_SATHI_BACKEND_BASE') ?: 'http://127.0.0.1:8000', '/');
 $frontendBase = rtrim(getenv('RESUME_SATHI_FRONTEND_BASE') ?: 'https://www.resumesathi.com', '/');
 
 header('Content-Type: application/xml; charset=UTF-8');

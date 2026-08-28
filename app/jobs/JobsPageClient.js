@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getApiBase, resolveApiMediaUrl, withTrailingSlash } from '../lib/apiConfig';
+import { getCategoryName, getCategorySlug } from './jobCategoryUtils';
 import './jobs.css';
 
 const IconBlog = () => (
@@ -14,6 +15,11 @@ const IconBlog = () => (
 const DEFAULT_IMAGE = '/front-assets/images/og/job-og.png';
 const PAGE_SIZE = 12;
 const SUGGESTION_LIMIT = 6;
+const JOB_UPDATE_FILTERS = [
+  { value: 'admit-card', label: 'Admit Card', field: 'has_admit_card' },
+  { value: 'answer-key', label: 'Answer Key', field: 'has_answer_key' },
+  { value: 'result', label: 'Result', field: 'has_result' },
+];
 
 function resolveMediaUrl(url) {
   return resolveApiMediaUrl(url, DEFAULT_IMAGE);
@@ -193,26 +199,54 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
   return (
     <div className="rk-cat-slider">
       <div className="rk-cat-slider-track">
-        <button
-          type="button"
+        <Link
+          prefetch={false}
+          href="/jobs/"
           className={`rk-cat-chip ${!selectedCategory ? 'active' : ''}`}
           aria-label="All categories"
           onClick={() => onSelectCategory(null)}
         >
           All
-        </button>
+        </Link>
         {categories.map((cat) => (
-          <button
+          <Link
             key={cat.id}
-            type="button"
+            prefetch={false}
+            href={withTrailingSlash(`/jobs/${getCategorySlug(cat)}`)}
             className={`rk-cat-chip ${selectedCategory === cat.id ? 'active' : ''}`}
-            aria-label={`Filter by category: ${cat.course_name || cat.article_name || cat.name || cat.title}`}
+            aria-label={`Filter by category: ${getCategoryName(cat)}`}
             onClick={() => onSelectCategory(cat.id)}
           >
-            {cat.course_name || cat.article_name || cat.name || cat.title}
-          </button>
+            {getCategoryName(cat)}
+          </Link>
         ))}
       </div>
+    </div>
+  );
+}
+
+function JobUpdateFilters({ selectedType, onSelectType }) {
+  return (
+    <div className="rk-job-update-filters" role="radiogroup" aria-label="Filter job updates">
+      <button
+        type="button"
+        className={`rk-job-update-pill ${!selectedType ? 'active' : ''}`}
+        aria-pressed={!selectedType}
+        onClick={() => onSelectType('')}
+      >
+        All Jobs
+      </button>
+      {JOB_UPDATE_FILTERS.map((filter) => (
+        <button
+          type="button"
+          key={filter.value}
+          className={`rk-job-update-pill ${selectedType === filter.value ? 'active' : ''}`}
+          aria-pressed={selectedType === filter.value}
+          onClick={() => onSelectType(filter.value)}
+        >
+          {filter.label}
+        </button>
+      ))}
     </div>
   );
 }
@@ -386,7 +420,7 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
   );
 }
 
-function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
+function BlogPageContent({ initialArticles = [], initialCategories = [], initialCategoryId = null, pageTitle = 'Find your next opportunity', pageDescription = 'Browse the latest job openings, explore company details, and discover roles that match your career goals.' }) {
   // ðŸ‘‡ SSR se aaye hue initial data se state seed karo â€” is-tarah pehla
   // render (jo Googlebot dekhta hai) already jobs se bhara hoga, khaali nahi.
   const [articles, setArticles] = useState(initialArticles.slice(0, PAGE_SIZE));
@@ -416,7 +450,8 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [categoryId, setCategoryId] = useState(null);
+  const [categoryId, setCategoryId] = useState(initialCategoryId);
+  const [jobUpdateType, setJobUpdateType] = useState('');
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(initialArticles.length > PAGE_SIZE);
   const [loading, setLoading] = useState(initialArticles.length === 0);
@@ -451,6 +486,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
 
       if (search.trim()) params.set('search', search.trim());
       if (categoryId) params.set('category_id', String(categoryId));
+      if (jobUpdateType) params.set('type', jobUpdateType);
 
       const response = await fetch(`${getApiBase()}/courses?${params.toString()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error(`Jobs API returned ${response.status}`);
@@ -594,7 +630,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
     }
     fetchArticles(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search, categoryId]);
+  }, [search, categoryId, jobUpdateType]);
 
   useEffect(() => {
     if (searchDebounce.current) {
@@ -681,7 +717,13 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   // Selecting a category chip filters the list AND closes the offcanvas
   const handleCategoryClick = (id) => {
     setCategoryId(id);
+    setJobUpdateType('');
     closeOffcanvas();
+  };
+
+  const handleJobUpdateType = (type) => {
+    setJobUpdateType(type);
+    setPage(1);
   };
 
   return (
@@ -694,9 +736,13 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
             <label className="tl-eyebrow">
               <IconBlog />Jobs
             </label>
-            <h1 className="fs-mob-22">Find your next opportunity</h1>
+            <h1 className="fs-mob-22">{pageTitle}</h1>
           </div>
-          <p className='fs-mob-16'>Browse the latest job openings, explore company details, and discover roles that match your career goals.</p>
+          <p className='fs-mob-16'>{pageDescription}</p>
+          <JobUpdateFilters
+            selectedType={jobUpdateType}
+            onSelectType={handleJobUpdateType}
+          />
         </div>
         <div className='right-part'>
           <img
@@ -834,9 +880,9 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   );
 }
 
-export default function JobsPageClient({ initialArticles = [], initialCategories = [] }) {
+export default function JobsPageClient({ initialArticles = [], initialCategories = [], initialCategoryId = null, pageTitle, pageDescription }) {
   return (
-    <BlogPageContent initialArticles={initialArticles} initialCategories={initialCategories} />
+    <BlogPageContent initialArticles={initialArticles} initialCategories={initialCategories} initialCategoryId={initialCategoryId} pageTitle={pageTitle} pageDescription={pageDescription} />
   );
 }
 

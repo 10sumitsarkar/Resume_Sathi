@@ -2,7 +2,9 @@
 import fs from "fs";
 import path from "path";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
+import JobsPageClient from "../JobsPageClient";
 import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
+import { getCategoryName, getCategorySlug } from "../jobCategoryUtils";
 export const dynamicParams = false;
 
 // Kuch fields (jaise og_image) DB me already percent-encoded save hote hain,
@@ -43,8 +45,30 @@ function getJobsCache() {
   }
   return [];
 }
+
+function getDefaultJobOgImage() {
+  const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
+  return `${siteUrl}/front-assets/images/og/job-og.png`;
+}
+
+function getCategoriesCache() {
+  const filePath = path.join(process.cwd(), "data", "categories-cache.json");
+  try {
+    const raw = fs.readFileSync(filePath, "utf-8");
+    const data = JSON.parse(raw);
+    if (Array.isArray(data)) return data;
+  } catch (err) {
+    console.error("FATAL: could not read data/categories-cache.json", err);
+  }
+  return [];
+}
+
 async function getAllJobs() {
   return getJobsCache();
+}
+
+async function getAllCategories() {
+  return getCategoriesCache();
 }
 
 function getJobSlug(jobOrSlug) {
@@ -66,6 +90,11 @@ function getJobSlug(jobOrSlug) {
     .replace(/^-+|-+$/g, "");
 }
 
+async function getCategoryData(slug) {
+  const categories = await getAllCategories();
+  return categories.find((category) => getCategorySlug(category) === getCategorySlug(slug)) || null;
+}
+
 async function getArticleData(slug) {
   const items = await getAllJobs();
   return (
@@ -76,7 +105,13 @@ async function getArticleData(slug) {
 // ðŸ‘‡ NAYA FUNCTION â€” static export ke liye zaroori
 export async function generateStaticParams() {
   const items = await getAllJobs();
-  return items
+  const categories = await getAllCategories();
+  const slugs = [
+    ...items.map(getJobSlug),
+    ...categories.map(getCategorySlug),
+  ];
+
+  return [...new Set(slugs)]
     .map(getJobSlug)
     .filter(Boolean)
     .map((slug) => ({ slug }));
@@ -84,6 +119,37 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }) {
   const slug = (await params)?.slug;
+  const category = slug ? await getCategoryData(slug) : null;
+  if (category) {
+    const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
+    const categoryName = getCategoryName(category);
+    const canonical = `${siteUrl}${withTrailingSlash(`/jobs/${getCategorySlug(category)}`)}`;
+    const description = category.description || `Explore latest ${categoryName.toLowerCase()} openings, admit card updates, answer keys, results, eligibility, dates and application details on ResumeSathi.`;
+    const ogImage = getDefaultJobOgImage();
+
+    return {
+      title: `${categoryName} - Latest Openings, Admit Card, Answer Key & Result | ResumeSathi`,
+      description,
+      keywords: `${categoryName}, ${categoryName} latest jobs, ${categoryName} admit card, ${categoryName} answer key, ${categoryName} result, government jobs`,
+      alternates: { canonical },
+      robots: { index: true, follow: true },
+      openGraph: {
+        title: `${categoryName} - Latest Jobs | ResumeSathi`,
+        description,
+        type: "website",
+        url: canonical,
+        siteName: "ResumeSathi",
+        images: [{ url: ogImage, width: 1200, height: 630, alt: "ResumeSathi Jobs" }],
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${categoryName} - Latest Jobs | ResumeSathi`,
+        description,
+        images: [ogImage],
+      },
+    };
+  }
+
   const article = slug ? await getArticleData(slug) : null;
   const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
   const rawTitle =
@@ -102,32 +168,31 @@ export async function generateMetadata({ params }) {
     article?.meta_keywords ||
     article?.keywords ||
     "jobs, career opportunities, hiring, apply now, government jobs";
-  const image =
-    article?.og_image ||
-    article?.meta_image ||
-    article?.hero_image ||
-    article?.image;
   const canonical = `${siteUrl}${withTrailingSlash(`/jobs/${getJobSlug(slug) || ""}`)}`;
-  const resolvedImage = resolveImageUrl(image);
+  const resolvedImage = getDefaultJobOgImage();
+  const categoryLabel = getCategoryLabel(article);
+  const seoTitle = title.includes("ResumeSathi") ? title : `${title} | ResumeSathi`;
+  const seoDescription = description || `Check ${rawTitle} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`;
 
   return {
-    title,
-    description,
+    title: seoTitle,
+    description: seoDescription,
     keywords,
     alternates: { canonical },
     robots: { index: true, follow: true },
     openGraph: {
-      title: `${title} | ResumeSathi`,
-      description,
+      title: seoTitle,
+      description: seoDescription,
       type: "article",
       url: canonical,
       siteName: "ResumeSathi",
-      images: [{ url: resolvedImage, alt: rawTitle }],
+      section: categoryLabel || "Jobs",
+      images: [{ url: resolvedImage, width: 1200, height: 630, alt: "ResumeSathi Jobs" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | ResumeSathi`,
-      description,
+      title: seoTitle,
+      description: seoDescription,
       images: [resolvedImage],
     },
   };
@@ -344,6 +409,25 @@ function buildJobPostingJsonLd(article, slug) {
 
 export default async function JobDetailPage({ params }) {
   const slug = (await params)?.slug;
+  const category = slug ? await getCategoryData(slug) : null;
+  if (category) {
+    const jobs = await getAllJobs();
+    const categories = await getAllCategories();
+    const categoryId = Number(category.id);
+    const categoryJobs = jobs.filter((job) => Number(job.course_type || job.category_id || job.category?.id || job.course_category?.id || 0) === categoryId);
+    const categoryName = getCategoryName(category);
+
+    return (
+      <JobsPageClient
+        initialArticles={categoryJobs}
+        initialCategories={categories}
+        initialCategoryId={categoryId}
+        pageTitle={categoryName}
+        pageDescription={category.description || `Browse latest ${categoryName.toLowerCase()} openings, admit cards, answer keys and results.`}
+      />
+    );
+  }
+
   const article = slug ? await getArticleData(slug) : null;
   const jobPostingJsonLd = buildJobPostingJsonLd(article, slug);
 

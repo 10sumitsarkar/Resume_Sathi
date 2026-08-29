@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getApiBase, resolveApiMediaUrl, withTrailingSlash } from '../lib/apiConfig';
-import { getCategoryName, getCategorySlug } from './jobCategoryUtils';
+import { getCategoryName } from './jobCategoryUtils';
 import './jobs.css';
 
 const IconBlog = () => (
@@ -20,6 +20,11 @@ const JOB_UPDATE_FILTERS = [
   { value: 'answer-key', label: 'Answer Key', field: 'has_answer_key' },
   { value: 'result', label: 'Result', field: 'has_result' },
 ];
+
+function getValidJobUpdateType(value) {
+  const normalized = String(value || '').trim().toLowerCase();
+  return JOB_UPDATE_FILTERS.some((filter) => filter.value === normalized) ? normalized : '';
+}
 
 function resolveMediaUrl(url) {
   return resolveApiMediaUrl(url, DEFAULT_IMAGE);
@@ -199,26 +204,24 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
   return (
     <div className="rk-cat-slider">
       <div className="rk-cat-slider-track">
-        <Link
-          prefetch={false}
-          href="/jobs/"
+        <button
+          type="button"
           className={`rk-cat-chip ${!selectedCategory ? 'active' : ''}`}
           aria-label="All categories"
           onClick={() => onSelectCategory(null)}
         >
           All
-        </Link>
+        </button>
         {categories.map((cat) => (
-          <Link
+          <button
             key={cat.id}
-            prefetch={false}
-            href={withTrailingSlash(`/jobs/${getCategorySlug(cat)}`)}
-            className={`rk-cat-chip ${selectedCategory === cat.id ? 'active' : ''}`}
+            type="button"
+            className={`rk-cat-chip ${Number(selectedCategory) === Number(cat.id) ? 'active' : ''}`}
             aria-label={`Filter by category: ${getCategoryName(cat)}`}
             onClick={() => onSelectCategory(cat.id)}
           >
             {getCategoryName(cat)}
-          </Link>
+          </button>
         ))}
       </div>
     </div>
@@ -435,6 +438,8 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
   // jisse main content kabhi kisi fallback ke peeche block nahi hota.
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [categoryId, setCategoryId] = useState(initialCategoryId);
+  const [jobUpdateType, setJobUpdateType] = useState('');
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -450,8 +455,6 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [categoryId, setCategoryId] = useState(initialCategoryId);
-  const [jobUpdateType, setJobUpdateType] = useState('');
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(initialArticles.length > PAGE_SIZE);
   const [loading, setLoading] = useState(initialArticles.length === 0);
@@ -474,6 +477,27 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
   const skippedInitialSidebarFetch = useRef(false);
 
   const selectedCategory = categoryId;
+
+  const syncUrlParams = (nextValues = {}) => {
+    if (typeof window === 'undefined') return;
+
+    const nextSearch = Object.prototype.hasOwnProperty.call(nextValues, 'search') ? nextValues.search : search;
+    const nextCategoryId = Object.prototype.hasOwnProperty.call(nextValues, 'categoryId') ? nextValues.categoryId : categoryId;
+    const params = new URLSearchParams(window.location.search);
+
+    if (nextSearch?.trim()) params.set('search', nextSearch.trim());
+    else params.delete('search');
+
+    if (nextCategoryId) params.set('category_id', String(nextCategoryId));
+    else params.delete('category_id');
+
+    params.delete('type');
+    params.delete('q');
+
+    const query = params.toString();
+    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}`;
+    window.history.replaceState(null, '', nextUrl);
+  };
 
   const fetchArticles = async (targetPage = 1) => {
     setLoading(true);
@@ -662,6 +686,8 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
           limit: String(SUGGESTION_LIMIT),
           v: String(Date.now()),
         });
+        if (categoryId) params.set('category_id', String(categoryId));
+        if (jobUpdateType) params.set('type', jobUpdateType);
         const response = await fetch(`${getApiBase()}/courses?${params.toString()}`, { cache: 'no-store' });
         if (!response.ok) throw new Error(`Job suggestions API returned ${response.status}`);
         const data = await response.json();
@@ -676,7 +702,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
     return () => {
       if (suggestDebounce.current) clearTimeout(suggestDebounce.current);
     };
-  }, [searchInput]);
+  }, [searchInput, categoryId, jobUpdateType]);
 
   // Close suggestion dropdown on outside click
   useEffect(() => {
@@ -692,7 +718,10 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    setSearch(searchInput.trim());
+    const nextSearch = searchInput.trim();
+    setSearch(nextSearch);
+    setPage(1);
+    syncUrlParams({ search: nextSearch });
     setShowSuggestions(false);
   };
 
@@ -718,11 +747,14 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
   const handleCategoryClick = (id) => {
     setCategoryId(id);
     setJobUpdateType('');
+    setPage(1);
+    syncUrlParams({ categoryId: id });
     closeOffcanvas();
   };
 
   const handleJobUpdateType = (type) => {
-    setJobUpdateType(type);
+    const nextType = getValidJobUpdateType(type);
+    setJobUpdateType(nextType);
     setPage(1);
   };
 

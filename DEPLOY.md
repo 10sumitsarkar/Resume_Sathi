@@ -6,7 +6,7 @@ Use this when you update the backend DB or public cache and need the frontend st
 
 ```bash
 # trigger Laravel rebuild endpoint (replace host if needed)
-curl -s -X POST "http://127.0.0.1:8000/api/public-cache/rebuild" | jq
+curl -s -X POST "https://api.resumesathi.com/api/public-cache/rebuild" | jq
 ```
 
 2) Regenerate frontend data cache and build (run in frontend repo):

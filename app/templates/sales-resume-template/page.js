@@ -1,8 +1,13 @@
 import SalesResumeTemplateClient from "./SalesResumeTemplateClient";
-import { buildTemplateMetadata } from "../seoTemplates";
+import { TemplateSeoScript, buildTemplateMetadata } from "../seoTemplates";
 
 export const metadata = buildTemplateMetadata("sales-resume-template");
 
 export default function SalesResumeTemplatePage() {
-  return <SalesResumeTemplateClient />;
+  return (
+    <>
+      <TemplateSeoScript slug="sales-resume-template" />
+      <SalesResumeTemplateClient />
+    </>
+  );
 }

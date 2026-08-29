@@ -2,8 +2,8 @@
 import ClientLayout from './ClientLayout';
 
 export const metadata = {
-  title: 'Your App',
-  description: 'Your app description',
+  title: 'Bio-Data Maker',
+  description: 'Create a printable bio-data with ResumeSathi using guided sections, photo-ready templates, and browser-based editing.',
 };
 
 export default function RootLayout({ children }) {

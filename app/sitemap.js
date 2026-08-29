@@ -3,6 +3,7 @@ import path from 'path';
 import { DEFAULT_SITE_BASE, getApiBase } from './lib/apiConfig';
 import { LESSONS } from './typing/_lib/lessons';
 import { getCategorySlug } from './jobs/jobCategoryUtils';
+import { SEO_TEMPLATES } from './templates/seoTemplates';
 
 const siteUrl = DEFAULT_SITE_BASE;
 
@@ -62,6 +63,13 @@ export default async function sitemap() {
     { url: `${baseUrl}/resume/upload-resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/bio-data/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/bio-data/resume-type/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${baseUrl}/templates/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    ...SEO_TEMPLATES.map((template) => ({
+      url: `${baseUrl}/templates/${encodeURIComponent(template.slug)}/`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.82,
+    })),
     { url: `${baseUrl}/tools/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
     { url: `${baseUrl}/tools/ats-checker/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.82 },
     { url: `${baseUrl}/tools/merge-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },

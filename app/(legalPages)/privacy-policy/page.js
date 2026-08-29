@@ -3,7 +3,7 @@ import PrivacyPolicyClient from './client';
 export const metadata = {
   title: 'Privacy Policy | ResumeSathi Resume & Bio-Data Maker',
   description:
-    'Read the ResumeSathi Privacy Policy to understand how we collect, use, store, and protect your personal information while you build resumes and bio-data on our free platform.',
+    'Read how ResumeSathi collects, uses, stores, and protects your information while you build resumes and bio-data on our free platform.',
   keywords: [
     'ResumeSathi privacy policy',
     'resume builder privacy',

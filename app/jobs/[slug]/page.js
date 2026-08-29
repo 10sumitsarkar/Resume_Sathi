@@ -1,11 +1,13 @@
 ﻿import React from "react";
 import fs from "fs";
 import path from "path";
+import { notFound } from "next/navigation";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
 import JobsPageClient from "../JobsPageClient";
 import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
 import { getCategoryName, getCategorySlug } from "../jobCategoryUtils";
 export const dynamicParams = false;
+const STATIC_404_SLUGS = ["[slug]", "%5Bslug%5D"];
 
 // Kuch fields (jaise og_image) DB me already percent-encoded save hote hain,
 // aur kuch (jaise hero_image) raw filename ke saath (spaces/commas ke saath).
@@ -49,6 +51,17 @@ function getJobsCache() {
 function getDefaultJobOgImage() {
   const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
   return `${siteUrl}/front-assets/images/og/job-og.png`;
+}
+
+function truncateMeta(value = "", max = 158) {
+  const normalized = String(value || "").replace(/\s+/g, " ").trim();
+  if (normalized.length <= max) return normalized;
+  return `${normalized.slice(0, max - 1).replace(/\s+\S*$/, "")}.`;
+}
+
+function getAbsoluteJobUrl(slug = "") {
+  const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
+  return `${siteUrl}${withTrailingSlash(`/jobs/${slug}`)}`;
 }
 
 function getCategoriesCache() {
@@ -106,15 +119,22 @@ async function getArticleData(slug) {
 export async function generateStaticParams() {
   const items = await getAllJobs();
   const categories = await getAllCategories();
+  const categorySlugs = categories.map(getCategorySlug).filter(Boolean);
   const slugs = [
     ...items.map(getJobSlug),
-    ...categories.map(getCategorySlug),
+    ...categorySlugs,
+    ...categorySlugs.map((slug) => `${slug}-jobs`),
   ];
 
-  return [...new Set(slugs)]
+  const staticSlugs = [...new Set(slugs)]
     .map(getJobSlug)
     .filter(Boolean)
     .map((slug) => ({ slug }));
+
+  return [
+    ...staticSlugs,
+    ...STATIC_404_SLUGS.map((slug) => ({ slug })),
+  ];
 }
 
 export async function generateMetadata({ params }) {
@@ -124,13 +144,13 @@ export async function generateMetadata({ params }) {
     const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
     const categoryName = getCategoryName(category);
     const canonical = `${siteUrl}${withTrailingSlash(`/jobs/${getCategorySlug(category)}`)}`;
-    const description = category.description || `Explore latest ${categoryName.toLowerCase()} openings, admit card updates, answer keys, results, eligibility, dates and application details on ResumeSathi.`;
+    const description = truncateMeta(category.description || `Explore latest ${categoryName.toLowerCase()} openings, admit cards, answer keys, results, eligibility and application dates on ResumeSathi.`);
     const ogImage = getDefaultJobOgImage();
 
     return {
-      title: `${categoryName} - Latest Openings, Admit Card, Answer Key & Result | ResumeSathi`,
+      title: `${categoryName} Jobs, Admit Card, Answer Key & Result`,
       description,
-      keywords: `${categoryName}, ${categoryName} latest jobs, ${categoryName} admit card, ${categoryName} answer key, ${categoryName} result, government jobs`,
+      keywords: `${categoryName}, ${categoryName} jobs, ${categoryName} admit card, ${categoryName} answer key, ${categoryName} result, government jobs`,
       alternates: { canonical },
       robots: { index: true, follow: true },
       openGraph: {
@@ -151,6 +171,14 @@ export async function generateMetadata({ params }) {
   }
 
   const article = slug ? await getArticleData(slug) : null;
+  if (!article) {
+    return {
+      title: "Job Page Not Found | ResumeSathi",
+      description: "The job page you are looking for could not be found on ResumeSathi.",
+      robots: { index: false, follow: true },
+    };
+  }
+
   const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
   const rawTitle =
     article?.meta_title ||
@@ -159,11 +187,12 @@ export async function generateMetadata({ params }) {
     article?.topic_name ||
     "Job Opening";
   const title = rawTitle;
-  const description =
+  const description = truncateMeta(
     article?.meta_description ||
     article?.og_description ||
     article?.description ||
-    "Explore this job opportunity on ResumeSathi and apply today.";
+    "Explore this job opportunity on ResumeSathi and apply today."
+  );
   const keywords =
     article?.meta_keywords ||
     article?.keywords ||
@@ -171,8 +200,8 @@ export async function generateMetadata({ params }) {
   const canonical = `${siteUrl}${withTrailingSlash(`/jobs/${getJobSlug(slug) || ""}`)}`;
   const resolvedImage = getDefaultJobOgImage();
   const categoryLabel = getCategoryLabel(article);
-  const seoTitle = title.includes("ResumeSathi") ? title : `${title} | ResumeSathi`;
-  const seoDescription = description || `Check ${rawTitle} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`;
+  const seoTitle = truncateMeta(title.replace(/\s*\|\s*ResumeSathi\s*$/i, ""), 58);
+  const seoDescription = description || truncateMeta(`Check ${rawTitle} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`);
 
   return {
     title: seoTitle,
@@ -181,7 +210,7 @@ export async function generateMetadata({ params }) {
     alternates: { canonical },
     robots: { index: true, follow: true },
     openGraph: {
-      title: seoTitle,
+      title: `${seoTitle} | ResumeSathi`,
       description: seoDescription,
       type: "article",
       url: canonical,
@@ -191,10 +220,64 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: "summary_large_image",
-      title: seoTitle,
+      title: `${seoTitle} | ResumeSathi`,
       description: seoDescription,
       images: [resolvedImage],
     },
+  };
+}
+
+function buildCategoryJsonLd(category, jobs = []) {
+  if (!category) return null;
+
+  const categoryName = getCategoryName(category);
+  const categorySlug = getCategorySlug(category);
+  const categoryUrl = getAbsoluteJobUrl(categorySlug);
+  const description = truncateMeta(category.description || `Browse latest ${categoryName.toLowerCase()} openings, admit cards, answer keys and results.`);
+
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": `${categoryUrl}#webpage`,
+        url: categoryUrl,
+        name: `${categoryName} Jobs`,
+        description,
+        isPartOf: {
+          "@type": "WebSite",
+          name: "ResumeSathi",
+          url: DEFAULT_SITE_BASE.replace(/\/+$/, ""),
+        },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Jobs",
+            item: getAbsoluteJobUrl(""),
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: categoryName,
+            item: categoryUrl,
+          },
+        ],
+      },
+      {
+        "@type": "ItemList",
+        name: `${categoryName} Jobs`,
+        itemListElement: jobs.slice(0, 20).map((job, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          url: getAbsoluteJobUrl(getJobSlug(job)),
+          name: getTitle(job),
+        })),
+      },
+    ],
   };
 }
 
@@ -416,19 +499,32 @@ export default async function JobDetailPage({ params }) {
     const categoryId = Number(category.id);
     const categoryJobs = jobs.filter((job) => Number(job.course_type || job.category_id || job.category?.id || job.course_category?.id || 0) === categoryId);
     const categoryName = getCategoryName(category);
+    const categoryJsonLd = buildCategoryJsonLd(category, categoryJobs);
 
     return (
-      <JobsPageClient
-        initialArticles={categoryJobs}
-        initialCategories={categories}
-        initialCategoryId={categoryId}
-        pageTitle={categoryName}
-        pageDescription={category.description || `Browse latest ${categoryName.toLowerCase()} openings, admit cards, answer keys and results.`}
-      />
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(categoryJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
+        <JobsPageClient
+          initialArticles={categoryJobs}
+          initialCategories={categories}
+          initialCategoryId={categoryId}
+          pageTitle={`${categoryName} Jobs`}
+          pageDescription={category.description || `Browse latest ${categoryName.toLowerCase()} openings, admit cards, answer keys and results.`}
+        />
+      </>
     );
   }
 
   const article = slug ? await getArticleData(slug) : null;
+  if (!article) {
+    notFound();
+  }
+
   const jobPostingJsonLd = buildJobPostingJsonLd(article, slug);
 
   return (

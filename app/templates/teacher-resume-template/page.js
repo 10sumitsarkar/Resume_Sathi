@@ -1,8 +1,13 @@
 import TeacherResumeTemplateClient from "./TeacherResumeTemplateClient";
-import { buildTemplateMetadata } from "../seoTemplates";
+import { TemplateSeoScript, buildTemplateMetadata } from "../seoTemplates";
 
 export const metadata = buildTemplateMetadata("teacher-resume-template");
 
 export default function TeacherResumeTemplatePage() {
-  return <TeacherResumeTemplateClient />;
+  return (
+    <>
+      <TemplateSeoScript slug="teacher-resume-template" />
+      <TeacherResumeTemplateClient />
+    </>
+  );
 }

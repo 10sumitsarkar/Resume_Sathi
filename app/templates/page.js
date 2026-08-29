@@ -1,7 +1,8 @@
 import ResumeTemplateContentClient from "./ResumeTemplateContentClient";
+import { buildTemplatesCollectionJsonLd } from "./seoTemplates";
 
 export const metadata = {
-  title: "Resume Templates for Freshers, Teachers, Sales, HR & Developers",
+  title: "Free Resume Templates by Job Role",
   description: "Browse human-written resume template pages for developers, freshers, teachers, sales, HR, accounting, operations, design, and management roles.",
   alternates: {
     canonical: "/templates/",
@@ -27,11 +28,20 @@ export const metadata = {
     images: ["/front-assets/images/og/home-og.png"],
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
   },
 };
 
 export default function ResumeTemplateContentPage() {
-  return <ResumeTemplateContentClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplatesCollectionJsonLd()) }}
+      />
+      <h1 className="visually-hidden">Free Resume Templates by Job Role</h1>
+      <ResumeTemplateContentClient />
+    </>
+  );
 }

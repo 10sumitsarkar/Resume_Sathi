@@ -3,7 +3,7 @@ import TermsClient from './client';
 export const metadata = {
   title: 'Terms & Conditions',
   description:
-    'Read the Terms and Conditions for using ResumeSathi, the free ATS-optimized resume builder. Understand your rights, responsibilities, and our usage policies before you build your resume.',
+    'Read the Terms and Conditions for using ResumeSathi, including user responsibilities, allowed use, account rules, and platform policies.',
   keywords: [
     'ResumeSathi terms and conditions',
     'resume builder terms of use',

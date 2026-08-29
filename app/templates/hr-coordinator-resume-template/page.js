@@ -1,8 +1,13 @@
 import HrCoordinatorResumeTemplateClient from "./HrCoordinatorResumeTemplateClient";
-import { buildTemplateMetadata } from "../seoTemplates";
+import { TemplateSeoScript, buildTemplateMetadata } from "../seoTemplates";
 
 export const metadata = buildTemplateMetadata("hr-coordinator-resume-template");
 
 export default function HrCoordinatorResumeTemplatePage() {
-  return <HrCoordinatorResumeTemplateClient />;
+  return (
+    <>
+      <TemplateSeoScript slug="hr-coordinator-resume-template" />
+      <HrCoordinatorResumeTemplateClient />
+    </>
+  );
 }

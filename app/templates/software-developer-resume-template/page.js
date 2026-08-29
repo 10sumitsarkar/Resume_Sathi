@@ -1,8 +1,13 @@
 import SoftwareDeveloperResumeTemplateClient from "./SoftwareDeveloperResumeTemplateClient";
-import { buildTemplateMetadata } from "../seoTemplates";
+import { TemplateSeoScript, buildTemplateMetadata } from "../seoTemplates";
 
 export const metadata = buildTemplateMetadata("software-developer-resume-template");
 
 export default function SoftwareDeveloperResumeTemplatePage() {
-  return <SoftwareDeveloperResumeTemplateClient />;
+  return (
+    <>
+      <TemplateSeoScript slug="software-developer-resume-template" />
+      <SoftwareDeveloperResumeTemplateClient />
+    </>
+  );
 }

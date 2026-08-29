@@ -2,8 +2,8 @@
 import ClientLayout from './ClientLayout';
 
 export const metadata = {
-  title: 'Your App',
-  description: 'Your app description',
+  title: 'Resume Builder',
+  description: 'Create a professional resume with ResumeSathi using guided sections, ATS-friendly templates, and browser-based editing.',
 };
 
 export default function RootLayout({ children }) {

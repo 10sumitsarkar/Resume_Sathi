@@ -1,8 +1,13 @@
 import OperationsExecutiveResumeTemplateClient from "./OperationsExecutiveResumeTemplateClient";
-import { buildTemplateMetadata } from "../seoTemplates";
+import { TemplateSeoScript, buildTemplateMetadata } from "../seoTemplates";
 
 export const metadata = buildTemplateMetadata("operations-executive-resume-template");
 
 export default function OperationsExecutiveResumeTemplatePage() {
-  return <OperationsExecutiveResumeTemplateClient />;
+  return (
+    <>
+      <TemplateSeoScript slug="operations-executive-resume-template" />
+      <OperationsExecutiveResumeTemplateClient />
+    </>
+  );
 }

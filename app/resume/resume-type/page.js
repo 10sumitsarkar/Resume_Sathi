@@ -22,5 +22,10 @@ export const metadata = {
 };
 
 export default function ResumeTypeClientWrapper() {
-  return <ResumeTypeClient />;
+  return (
+    <>
+      <h1 className="visually-hidden">Build Resume Instantly</h1>
+      <ResumeTypeClient />
+    </>
+  );
 }

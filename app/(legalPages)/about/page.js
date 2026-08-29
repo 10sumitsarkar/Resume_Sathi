@@ -83,9 +83,9 @@ const aboutFaqs = [
 ];
 
 export const metadata = {
-  title: 'About ResumeSathi | Free Resume & Bio-Data Maker, Career Tools, Jobs',
+  title: 'About ResumeSathi: Resume Builder, Tools & Jobs',
   description:
-    'Learn about ResumeSathi, a free career platform with ATS resume builder, printable bio-data maker, PDF tools, typing practice, latest job updates, and career blogs for job seekers.',
+    'Learn about ResumeSathi, a free career platform with resume builder, bio-data maker, PDF tools, typing practice, job updates, and career blogs.',
   keywords: [
     'about ResumeSathi',
     'ResumeSathi mission',

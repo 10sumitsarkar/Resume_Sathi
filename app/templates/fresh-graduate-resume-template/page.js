@@ -1,8 +1,13 @@
 import FreshGraduateResumeTemplateClient from "./FreshGraduateResumeTemplateClient";
-import { buildTemplateMetadata } from "../seoTemplates";
+import { TemplateSeoScript, buildTemplateMetadata } from "../seoTemplates";
 
 export const metadata = buildTemplateMetadata("fresh-graduate-resume-template");
 
 export default function FreshGraduateResumeTemplatePage() {
-  return <FreshGraduateResumeTemplateClient />;
+  return (
+    <>
+      <TemplateSeoScript slug="fresh-graduate-resume-template" />
+      <FreshGraduateResumeTemplateClient />
+    </>
+  );
 }

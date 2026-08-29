@@ -25,5 +25,10 @@ export const metadata = {
 };
 
 export default function UploadResumePage() {
-  return <UploadResume />;
+  return (
+    <>
+      <h1 className="visually-hidden">Upload Resume</h1>
+      <UploadResume />
+    </>
+  );
 }

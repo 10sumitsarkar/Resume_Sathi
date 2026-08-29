@@ -1,8 +1,13 @@
 import ProjectCoordinatorResumeTemplateClient from "./ProjectCoordinatorResumeTemplateClient";
-import { buildTemplateMetadata } from "../seoTemplates";
+import { TemplateSeoScript, buildTemplateMetadata } from "../seoTemplates";
 
 export const metadata = buildTemplateMetadata("project-coordinator-resume-template");
 
 export default function ProjectCoordinatorResumeTemplatePage() {
-  return <ProjectCoordinatorResumeTemplateClient />;
+  return (
+    <>
+      <TemplateSeoScript slug="project-coordinator-resume-template" />
+      <ProjectCoordinatorResumeTemplateClient />
+    </>
+  );
 }

@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getApiBase, resolveApiMediaUrl, withTrailingSlash } from '../lib/apiConfig';
-import { getCategoryName } from './jobCategoryUtils';
+import { getCategoryName, getCategorySlug } from './jobCategoryUtils';
 import './jobs.css';
 
 const IconBlog = () => (
@@ -204,24 +204,26 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
   return (
     <div className="rk-cat-slider">
       <div className="rk-cat-slider-track">
-        <button
-          type="button"
+        <Link
+          prefetch={false}
+          href="/jobs/"
           className={`rk-cat-chip ${!selectedCategory ? 'active' : ''}`}
           aria-label="All categories"
           onClick={() => onSelectCategory(null)}
         >
           All
-        </button>
+        </Link>
         {categories.map((cat) => (
-          <button
+          <Link
             key={cat.id}
-            type="button"
+            prefetch={false}
+            href={withTrailingSlash(`/jobs/${getCategorySlug(cat)}`)}
             className={`rk-cat-chip ${Number(selectedCategory) === Number(cat.id) ? 'active' : ''}`}
             aria-label={`Filter by category: ${getCategoryName(cat)}`}
             onClick={() => onSelectCategory(cat.id)}
           >
             {getCategoryName(cat)}
-          </button>
+          </Link>
         ))}
       </div>
     </div>
@@ -451,6 +453,10 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
       setSearchInput(q);
     }
     if (cid) {
+      const category = initialCategories.find((item) => Number(item.id) === Number(cid));
+      if (category) {
+        window.history.replaceState(null, '', withTrailingSlash(`/jobs/${getCategorySlug(category)}`));
+      }
       setCategoryId(Number(cid));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -482,15 +488,12 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
     if (typeof window === 'undefined') return;
 
     const nextSearch = Object.prototype.hasOwnProperty.call(nextValues, 'search') ? nextValues.search : search;
-    const nextCategoryId = Object.prototype.hasOwnProperty.call(nextValues, 'categoryId') ? nextValues.categoryId : categoryId;
     const params = new URLSearchParams(window.location.search);
 
     if (nextSearch?.trim()) params.set('search', nextSearch.trim());
     else params.delete('search');
 
-    if (nextCategoryId) params.set('category_id', String(nextCategoryId));
-    else params.delete('category_id');
-
+    params.delete('category_id');
     params.delete('type');
     params.delete('q');
 
@@ -748,7 +751,9 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
     setCategoryId(id);
     setJobUpdateType('');
     setPage(1);
-    syncUrlParams({ categoryId: id });
+    if (typeof window !== 'undefined') {
+      window.history.replaceState(null, '', id ? window.location.pathname : '/jobs/');
+    }
     closeOffcanvas();
   };
 
@@ -825,7 +830,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [], initial
                 latest={latest}
                 categories={categories}
                 selectedCategory={selectedCategory}
-                onSelectCategory={setCategoryId}
+                onSelectCategory={handleCategoryClick}
                 searchQuery={searchInput}
                 onSearch={setSearchInput}
                 onSubmit={handleSearchSubmit}

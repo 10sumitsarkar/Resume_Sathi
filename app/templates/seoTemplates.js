@@ -1,3 +1,5 @@
+import { getSiteCanonical } from "../lib/apiConfig";
+
 export const SEO_TEMPLATES = [
   {
     slug: "software-developer-resume-template",
@@ -76,8 +78,74 @@ export function buildTemplateMetadata(slug) {
       images: ["/front-assets/images/og/home-og.png"],
     },
     robots: {
-      index: false,
+      index: true,
       follow: true,
     },
   };
+}
+
+export function buildTemplateJsonLd(slug) {
+  const template = SEO_TEMPLATES.find((item) => item.slug === slug);
+  if (!template) return null;
+
+  const url = getSiteCanonical(`/templates/${template.slug}/`);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: template.title,
+    description: template.description,
+    url,
+    mainEntityOfPage: url,
+    image: getSiteCanonical("/front-assets/images/og/home-og.png"),
+    author: {
+      "@type": "Organization",
+      name: "ResumeSathi",
+      url: getSiteCanonical("/"),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "ResumeSathi",
+      logo: {
+        "@type": "ImageObject",
+        url: getSiteCanonical("/front-assets/images/logo.svg"),
+      },
+    },
+  };
+}
+
+export function buildTemplatesCollectionJsonLd() {
+  const url = getSiteCanonical("/templates/");
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Resume Templates",
+    description: "Browse free resume template pages by job role and create a professional resume with ResumeSathi.",
+    url,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: SEO_TEMPLATES.map((template, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: template.title,
+        url: getSiteCanonical(`/templates/${template.slug}/`),
+      })),
+    },
+  };
+}
+
+export function TemplateSeoScript({ slug }) {
+  const jsonLd = buildTemplateJsonLd(slug);
+  if (!jsonLd) return null;
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <h1 className="visually-hidden">{jsonLd.headline}</h1>
+    </>
+  );
 }

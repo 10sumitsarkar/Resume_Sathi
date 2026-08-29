@@ -21,9 +21,6 @@ export function getCategorySlug(categoryOrSlug) {
   if (!slug) return '';
 
   if (slug === 'railways') slug = 'railway';
-  if (!slug.endsWith('jobs') && !slug.endsWith('job')) {
-    slug = `${slug}-jobs`;
-  }
 
   return slug;
 }

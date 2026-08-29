@@ -22,5 +22,10 @@ export const metadata = {
 };
 
 export default function ResumeTypeClientWrapper() {
-  return <ResumeLists />;
+  return (
+    <>
+      <h1 className="visually-hidden">Free Resume Builder</h1>
+      <ResumeLists />
+    </>
+  );
 }

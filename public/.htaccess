@@ -1,5 +1,5 @@
 Options -MultiViews
-ErrorDocument 404 /404/
+ErrorDocument 404 /404.html
 RewriteEngine On
 
 # Use one canonical host so Google does not see www and non-www as duplicates.
@@ -18,10 +18,31 @@ RewriteRule ^blog/?$ /blog/? [R=301,L]
 # sitemap.xml file, so route requests to the PHP proxy before file checks.
 RewriteRule ^sitemap\.xml$ /sitemap.php [L]
 
-# Static shared hosting fallback for live blog/job detail pages.
-# Existing exported files/directories keep working; unknown slugs render the
-# client-side live page, which fetches fresh content from the API.
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^jobs/(.+)/?$ /jobs/live/ [L]
+# Legacy job category query URLs -> clean static category pages.
+RewriteCond %{QUERY_STRING} (^|&)category_id=9(&|$) [NC]
+RewriteRule ^jobs/?$ /jobs/railway/? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)category_id=10(&|$) [NC]
+RewriteRule ^jobs/?$ /jobs/state-psc/? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)category_id=11(&|$) [NC]
+RewriteRule ^jobs/?$ /jobs/judiciary/? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)category_id=12(&|$) [NC]
+RewriteRule ^jobs/?$ /jobs/defence/? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)category_id=13(&|$) [NC]
+RewriteRule ^jobs/?$ /jobs/psu/? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)category_id=14(&|$) [NC]
+RewriteRule ^jobs/?$ /jobs/university/? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)category_id=15(&|$) [NC]
+RewriteRule ^jobs/?$ /jobs/teaching/? [R=301,L]
+RewriteCond %{QUERY_STRING} (^|&)category_id=16(&|$) [NC]
+RewriteRule ^jobs/?$ /jobs/banking/? [R=301,L]
+
+# Legacy category suffix URLs -> clean canonical category URLs.
+RewriteRule ^jobs/railway-jobs/?$ /jobs/railway/ [R=301,L]
+RewriteRule ^jobs/banking-jobs/?$ /jobs/banking/ [R=301,L]
+RewriteRule ^jobs/state-psc-jobs/?$ /jobs/state-psc/ [R=301,L]
+RewriteRule ^jobs/judiciary-jobs/?$ /jobs/judiciary/ [R=301,L]
+RewriteRule ^jobs/defence-jobs/?$ /jobs/defence/ [R=301,L]
+RewriteRule ^jobs/psu-jobs/?$ /jobs/psu/ [R=301,L]
+RewriteRule ^jobs/university-jobs/?$ /jobs/university/ [R=301,L]
+RewriteRule ^jobs/teaching-jobs/?$ /jobs/teaching/ [R=301,L]
 

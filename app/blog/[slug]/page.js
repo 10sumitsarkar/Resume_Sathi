@@ -6,6 +6,7 @@ import ArticleDetailPageClient from "./ArticleDetailPageClient";
 import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
 
 export const dynamicParams = false;
+const STATIC_404_SLUGS = ["[slug]", "%5Bslug%5D"];
 
 function resolveImageUrl(url) {
   const backendBase = DEFAULT_BACKEND_BASE.replace(/\/+$/, "");
@@ -36,6 +37,7 @@ function getArticlesCache() {
   }
   return [];
 }
+
 async function getAllArticles() {
   return getArticlesCache();
 }
@@ -69,12 +71,23 @@ async function getArticleData(slug) {
   );
 }
 
+function truncateMeta(value = "", max = 50) {
+  const normalized = String(value || "").replace(/\s+/g, " ").trim();
+  if (normalized.length <= max) return normalized;
+  return `${normalized.slice(0, max - 1).replace(/\s+\S*$/, "")}.`;
+}
+
 export async function generateStaticParams() {
   const items = await getAllArticles();
-  return items
+  const staticSlugs = items
     .map(getArticleSlug)
     .filter(Boolean)
     .map((slug) => ({ slug }));
+
+  return [
+    ...staticSlugs,
+    ...STATIC_404_SLUGS.map((slug) => ({ slug })),
+  ];
 }
 
 export async function generateMetadata({ params }) {
@@ -101,7 +114,7 @@ export async function generateMetadata({ params }) {
     article?.title ||
     "Blog Article";
 
-  const title = rawTitle;
+  const title = truncateMeta(rawTitle);
 
   const description =
     article?.meta_description ||

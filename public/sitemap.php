@@ -66,6 +66,48 @@ function slug_from($item)
     return trim($value, '-');
 }
 
+function normalize_items($payload)
+{
+    if (!is_array($payload)) {
+        return [];
+    }
+
+    if (isset($payload['data']) && is_array($payload['data'])) {
+        return $payload['data'];
+    }
+
+    if (isset($payload['items']) && is_array($payload['items'])) {
+        return $payload['items'];
+    }
+
+    if (isset($payload['results']) && is_array($payload['results'])) {
+        return $payload['results'];
+    }
+
+    return $payload;
+}
+
+function category_slug_from($category)
+{
+    if (!is_array($category)) {
+        return '';
+    }
+
+    $raw = $category['course_url']
+        ?? $category['course_name']
+        ?? $category['article_name']
+        ?? $category['name']
+        ?? $category['title']
+        ?? '';
+
+    $value = strtolower(trim((string) $raw));
+    $value = str_replace('&', ' and ', $value);
+    $value = preg_replace('/[^a-z0-9]+/', '-', $value);
+    $value = trim($value, '-');
+
+    return $value === 'railways' ? 'railway' : $value;
+}
+
 function iso_date($item)
 {
     $raw = $item['updated_at'] ?? $item['created_at'] ?? 'now';
@@ -149,7 +191,7 @@ foreach ($staticRoutes as [$path, $changefreq, $priority]) {
 }
 
 $articlesPayload = fetch_json($backendBase . '/api/articles?limit=500');
-$articles = $articlesPayload['items'] ?? $articlesPayload['results'] ?? (is_array($articlesPayload) ? $articlesPayload : []);
+$articles = normalize_items($articlesPayload);
 foreach ($articles as $article) {
     $slug = is_array($article) ? slug_from($article) : '';
     if ($slug) {
@@ -157,8 +199,17 @@ foreach ($articles as $article) {
     }
 }
 
+$categoriesPayload = fetch_json($backendBase . '/api/course-categories');
+$categories = normalize_items($categoriesPayload);
+foreach ($categories as $category) {
+    $slug = category_slug_from($category);
+    if ($slug) {
+        add_url($routes, $seen, $frontendBase . '/jobs/' . rawurlencode($slug) . '/', iso_date($category), 'daily', '0.9');
+    }
+}
+
 $jobsPayload = fetch_json($backendBase . '/api/courses?limit=500');
-$jobs = $jobsPayload['items'] ?? $jobsPayload['results'] ?? (is_array($jobsPayload) ? $jobsPayload : []);
+$jobs = normalize_items($jobsPayload);
 foreach ($jobs as $job) {
     $slug = is_array($job) ? slug_from($job) : '';
     if ($slug) {

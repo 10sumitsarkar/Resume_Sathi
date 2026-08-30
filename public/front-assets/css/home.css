@@ -316,10 +316,8 @@
 }
 
 .rk-live-highlight-num {
-  font-variant-numeric: tabular-nums;
-  font-size: 1.35rem;
-  transition: .3s;
-  min-width: 7ch;
+  font-weight: 800;
+  font-size: 1.05rem;
 }
 
 .rk-live-highlight-label {
@@ -1212,7 +1210,7 @@
   color: #fff;
   font-weight: 900;
   font-size: .9rem;
-  background: linear-gradient(90deg, var(--rk-brand), var(--rk-primary));
+  background: #000;
 }
 
 .rk-biodata-photo {

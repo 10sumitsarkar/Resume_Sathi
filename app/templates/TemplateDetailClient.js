@@ -50,7 +50,7 @@ function DetailInner({ slug, ContentComponent }) {
   return (
     <>
       <NavBar />
-      <section className="container-fluid custom-container small-hero-area template-detail-hero">
+      <section className="container-fluid custom-container small-hero-area template-detail-hero m-0">
         <div className="left-part">
           <div>
             <Link href="/templates/" className="template-back-link">
@@ -59,7 +59,7 @@ function DetailInner({ slug, ContentComponent }) {
             <p className="template-content-eyebrow">{template.role}</p>
             <h1 className="fs-mob-22">{template.title}</h1>
           </div>
-          <p className="fs-mob-16">{template.note}</p>
+          <p className="fs-mob-16 ms-0">{template.note}</p>
           <button
             type="button"
             className="template-content-start template-hero-left-btn"

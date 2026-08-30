@@ -2281,14 +2281,14 @@ a {
   align-items: center;
   justify-content: center;
   gap: 15px;
-  margin-block: 50px;
+  margin-block: 15px 50px;
 
   .save-btn {
     display: block;
     border-radius: 8px;
     border: 1px solid #40f;
     background: #40f;
-    padding: 10px 20px;
+    padding: 8px 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2307,7 +2307,7 @@ a {
     border-radius: 8px;
     border: 1px solid var(--gray1);
     background: transparent;
-    padding: 10px 20px;
+    padding: 8px 20px;
     display: flex;
     align-items: center;
     justify-content: center;

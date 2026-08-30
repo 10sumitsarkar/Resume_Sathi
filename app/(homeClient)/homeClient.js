@@ -838,67 +838,6 @@ function ResumeCoverflow() {
 }
 
 // ── Daily Resume Counter (grows all day, resets to 0 at local midnight) ───
-const DAILY_TARGET = 4300; // roughly how many "resumes" the counter reaches by end of day
-const RATE_PER_SEC = DAILY_TARGET / 86400;
-
-function useDailyResumeCounter() {
-  const [count, setCount] = useState(0);
-  const [flash, setFlash] = useState(false);
-
-  useEffect(() => {
-    let tickTimeout;
-    let midnightTimeout;
-    let cancelled = false;
-
-    const secondsSinceMidnight = () => {
-      const now = new Date();
-      const start = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-      return (now - start) / 1000;
-    };
-
-    setCount(Math.max(0, Math.floor(secondsSinceMidnight() * RATE_PER_SEC)));
-
-    const scheduleTick = () => {
-      const delay = 3000 + Math.random() * 5000; // every 3-8s
-      tickTimeout = setTimeout(() => {
-        if (cancelled) return;
-        const add = Math.floor(Math.random() * 3) + 1; // +1, +2, or +3
-        setCount((c) => c + add);
-        setFlash(true);
-        setTimeout(() => setFlash(false), 500);
-        scheduleTick();
-      }, delay);
-    };
-    scheduleTick();
-
-    const scheduleMidnightReset = () => {
-      const now = new Date();
-      const nextMidnight = new Date(
-        now.getFullYear(),
-        now.getMonth(),
-        now.getDate() + 1,
-        0,
-        0,
-        2,
-      );
-      midnightTimeout = setTimeout(() => {
-        if (cancelled) return;
-        setCount(0);
-        scheduleMidnightReset();
-      }, nextMidnight - now);
-    };
-    scheduleMidnightReset();
-
-    return () => {
-      cancelled = true;
-      clearTimeout(tickTimeout);
-      clearTimeout(midnightTimeout);
-    };
-  }, []);
-
-  return { count, flash };
-}
-
 // ── Hero Image (simple, static) ───────────────────────────────────────────
 function HeroVideo() {
   return (
@@ -972,7 +911,7 @@ const templates = [
     desc: "Single-column, ATS-safe. Best for corporate & govt roles.",
     accent: "#cc0000",
     bg: "#fff5f5",
-    path: "/resume/templates/ResumeTemplate1",
+    path: "/templates/software-developer-resume-template/",
     image: "/front-assets/images/resume-img/template1-preview.jpg",
   },
 ];
@@ -1560,7 +1499,6 @@ export default function ResumeListClient({
 }) {
   const [jobs, setJobs] = useState(() => sortJobsByExpiry(initialJobs));
   const [blogs, setBlogs] = useState(initialBlogs);
-  const { count: dailyCount, flash: dailyFlash } = useDailyResumeCounter();
   const skippedInitialFetch = useRef(false);
 
   useEffect(() => {
@@ -1684,13 +1622,11 @@ export default function ResumeListClient({
           <div className="rk-stats-flex">
             <div className="rk-live-highlight">
               <span className="rk-live-highlight-dot" />
-              <span
-                className={`rk-live-highlight-num${dailyFlash ? " rk-live-flash" : ""}`}
-              >
-                {dailyCount.toLocaleString("en-IN")}
+              <span className="rk-live-highlight-num">
+                1M+
               </span>
               <span className="rk-live-highlight-label">
-                resumes created today — join them
+                students have created resumes
               </span>
             </div>
 

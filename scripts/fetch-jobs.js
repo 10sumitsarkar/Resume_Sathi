@@ -59,6 +59,15 @@ function fetchJson(url) {
   });
 }
 
+function normalizeItems(payload) {
+  if (Array.isArray(payload)) return payload;
+  if (!payload) return [];
+  if (Array.isArray(payload.data)) return payload.data;
+  if (Array.isArray(payload.items)) return payload.items;
+  if (Array.isArray(payload.results)) return payload.results;
+  return [];
+}
+
 async function main() {
   let jobsRaw;
   try {
@@ -71,7 +80,7 @@ async function main() {
     throw err;
   }
 
-  const jobs = Array.isArray(jobsRaw) ? jobsRaw : (jobsRaw.items || jobsRaw.results || []);
+  const jobs = normalizeItems(jobsRaw);
   if (!jobs.length) {
     if (hasUsableCache()) {
       console.warn('[fetch-jobs] /api/courses returned 0 jobs, using existing cache.');
@@ -82,7 +91,7 @@ async function main() {
   }
 
   const catsRaw = await fetchWithRetry(`${BACKEND_BASE}/api/course-categories`);
-  const categories = Array.isArray(catsRaw) ? catsRaw : (catsRaw.items || catsRaw.results || []);
+  const categories = normalizeItems(catsRaw);
 
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(jobsCachePath, JSON.stringify(jobs, null, 2));

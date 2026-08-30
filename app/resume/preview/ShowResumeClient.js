@@ -928,7 +928,7 @@ export default function ShowResume() {
                                 <img src="/front-assets/images/icons/download-pdf.svg" width={24} height={24} className='img-fluid' alt="PDF" />
                                 Download
                             </button>
-                            <button type='button' className='each-btn' onClick={handlePrint}>
+                            <button type='button' className='each-btn' onClick={downloadPDF}>
                                 <img src="/front-assets/images/icons/print.svg" width={24} height={24} className='img-fluid' alt="Print" />
                                 Print
                             </button>

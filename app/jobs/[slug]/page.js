@@ -7,7 +7,6 @@ import JobsPageClient from "../JobsPageClient";
 import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
 import { getCategoryName, getCategorySlug } from "../jobCategoryUtils";
 export const dynamicParams = false;
-const STATIC_404_SLUGS = ["[slug]", "%5Bslug%5D"];
 
 // Kuch fields (jaise og_image) DB me already percent-encoded save hote hain,
 // aur kuch (jaise hero_image) raw filename ke saath (spaces/commas ke saath).
@@ -131,10 +130,7 @@ export async function generateStaticParams() {
     .filter(Boolean)
     .map((slug) => ({ slug }));
 
-  return [
-    ...staticSlugs,
-    ...STATIC_404_SLUGS.map((slug) => ({ slug })),
-  ];
+  return staticSlugs;
 }
 
 export async function generateMetadata({ params }) {

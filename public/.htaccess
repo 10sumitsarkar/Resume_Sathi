@@ -46,3 +46,7 @@ RewriteRule ^jobs/psu-jobs/?$ /jobs/psu/ [R=301,L]
 RewriteRule ^jobs/university-jobs/?$ /jobs/university/ [R=301,L]
 RewriteRule ^jobs/teaching-jobs/?$ /jobs/teaching/ [R=301,L]
 
+<IfModule mod_headers.c>
+  SetEnvIf Request_URI "^/front-assets/images/job-hero\.webp$" is_jobs_hero
+  Header set Cache-Control "no-cache, must-revalidate" env=is_jobs_hero
+</IfModule>

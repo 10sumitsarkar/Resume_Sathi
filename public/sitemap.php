@@ -145,7 +145,6 @@ $staticRoutes = [
     ['/resume/resume-type/', 'weekly', '0.85'],
     ['/resume/upload-resume/', 'weekly', '0.8'],
     ['/bio-data/', 'weekly', '0.9'],
-    ['/bio-data/resume-type/', 'weekly', '0.85'],
     ['/templates/', 'weekly', '0.9'],
     ['/templates/software-developer-resume-template/', 'monthly', '0.82'],
     ['/templates/fresh-graduate-resume-template/', 'monthly', '0.82'],

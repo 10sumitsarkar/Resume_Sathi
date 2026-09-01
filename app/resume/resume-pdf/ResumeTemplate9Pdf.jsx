@@ -1,6 +1,14 @@
 import React from "react";
 import { Document, Page, View, Text, StyleSheet, Svg, Path, Circle } from "@react-pdf/renderer";
-import { PALETTE_COLORS, safeText, safeTextInline, formatDateRange, formatEducationDateRange, formatSingleDate } from "./pdfHelpers";
+import {
+  PALETTE_COLORS,
+  safeText,
+  safeTextInline,
+  formatDateRange,
+  formatEducationDateRange,
+  formatSingleDate,
+  formatPhoneDisplay,
+} from "./pdfHelpers";
 import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from "./PdfCommon";
 
 /**

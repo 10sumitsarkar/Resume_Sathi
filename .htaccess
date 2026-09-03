@@ -41,9 +41,12 @@ RewriteRule ^blog/?$ /blog/? [R=301,L]
   SetEnvIf Request_URI "^/front-assets/.*$" is_front_assets
   SetEnvIf Request_URI "^/front-assets/images/job-hero\.webp$" is_jobs_hero
   SetEnvIf Request_URI "^/api-config\.js$" is_api_config
+  SetEnvIf Request_URI "^/templates/?$" is_templates_page
 
   Header set Cache-Control "public, max-age=31536000, immutable" env=is_next_static
   Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=604800" env=is_front_assets
   Header set Cache-Control "no-cache, must-revalidate" env=is_jobs_hero
   Header set Cache-Control "public, max-age=604800, stale-while-revalidate=604800" env=is_api_config
+  Header unset X-Robots-Tag env=is_templates_page
+  Header set X-Robots-Tag "index, follow" env=is_templates_page
 </IfModule>

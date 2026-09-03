@@ -17,6 +17,7 @@ const seoPrefixes = [
   'terms-and-conditions',
   'disclaimer',
   'resume',
+  'templates',
   'tools',
   'typing',
 ];

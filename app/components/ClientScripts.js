@@ -36,11 +36,49 @@ function loadGoogleAnalytics() {
   document.head.appendChild(script);
 }
 
+function suppressInjectedPerformanceError() {
+  if (typeof window === "undefined") return undefined;
+
+  const isInjectedPerformanceError = (message, stack = "") => {
+    const text = `${message || ""} ${stack || ""}`;
+    return (
+      text.includes("Cannot read properties of undefined (reading 'startTime')") &&
+      text.includes("reportAllChanges")
+    );
+  };
+
+  const handleWindowError = (event) => {
+    if (isInjectedPerformanceError(event.message, event.error?.stack)) {
+      event.preventDefault();
+      return true;
+    }
+    return false;
+  };
+
+  const handleUnhandledRejection = (event) => {
+    const reason = event.reason;
+    if (isInjectedPerformanceError(reason?.message || String(reason), reason?.stack)) {
+      event.preventDefault();
+    }
+  };
+
+  window.addEventListener("error", handleWindowError);
+  window.addEventListener("unhandledrejection", handleUnhandledRejection);
+
+  return () => {
+    window.removeEventListener("error", handleWindowError);
+    window.removeEventListener("unhandledrejection", handleUnhandledRejection);
+  };
+}
+
 export default function ClientScripts() {
   useEffect(() => {
+    const cleanupInjectedErrorFilter = suppressInjectedPerformanceError();
     loadGoogleAnalytics();
     addScript("/api-config.js");
     addScript("/front-assets/js/bootstrap.bundle.min.js");
+
+    return cleanupInjectedErrorFilter;
   }, []);
 
   return null;

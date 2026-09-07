@@ -26,23 +26,6 @@ export default function ToolsPages() {
   return (
     <>
       <ToolsLists />
-      <section className="container-fluid custom-container py-5">
-        <h2>Free Online Tools</h2>
-        <p>
-          ResumeSathi tools help students, job seekers, and small teams finish
-          everyday browser tasks without installing extra software. You can
-          merge PDF files, generate CSS gradients, create animation snippets,
-          and use simple utilities that support resume building, portfolios,
-          forms, and online applications.
-        </p>
-        <p>
-          Every tool is designed to be quick, practical, and easy to understand.
-          Use the PDF tools when a job portal asks for one combined document,
-          use the design tools when you need clean website styling, and return
-          to the resume builder when you are ready to prepare a complete job
-          application.
-        </p>
-      </section>
     </>
   );
 }

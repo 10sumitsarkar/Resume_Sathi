@@ -45,16 +45,6 @@ function StepAccessGuard({ children }) {
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
 
-  useEffect(() => {
-    const normalizedPath = pathname.endsWith("/") && pathname !== "/"
-      ? pathname.slice(0, -1)
-      : pathname;
-    const shouldHideContent = !["/bio-data", "/bio-data/resume-type", "/bio-data/upload-resume"].includes(normalizedPath);
-
-    document.body.classList.toggle("bio-data-flow-content-hidden", shouldHideContent);
-    return () => document.body.classList.remove("bio-data-flow-content-hidden");
-  }, [pathname]);
-
   return (
     <ReduxProvider>
       {pathname !== "/bio-data" && <NavBar />}

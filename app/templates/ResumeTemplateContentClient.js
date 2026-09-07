@@ -266,21 +266,29 @@ export const TEMPLATE_CONTENT = [
   },
 ];
 
-export function createResumeFromTemplate(template, dispatch, router, setLoading, setLoadingTemplateId) {
+export function createResumeFromTemplate(
+  template,
+  dispatch,
+  router,
+  setLoading,
+  setLoadingTemplateId,
+) {
   const id = `${Date.now()}`;
 
   setLoading(true);
   if (setLoadingTemplateId) setLoadingTemplateId(template.id);
   dispatch(setId(id));
-  dispatch(setResumeConfigration({
-    id,
-    data: {
-      font_style: "poppins",
-      layout_style: template.layout,
-      color_palette: template.color,
-      selected_theme: template.id,
-    },
-  }));
+  dispatch(
+    setResumeConfigration({
+      id,
+      data: {
+        font_style: "poppins",
+        layout_style: template.layout,
+        color_palette: template.color,
+        selected_theme: template.id,
+      },
+    }),
+  );
 
   router.push(`/resume/personal-info/?id=${id}`);
 }
@@ -324,7 +332,7 @@ function ResumeTemplateContentInner() {
   return (
     <>
       <NavBar />
-      <section className="container-fluid custom-container small-hero-area template-hero-area">
+      <section className="container-fluid custom-container small-hero-area template-hero-area mt-0">
         <div className="left-part">
           <div>
             <label className="template-content-eyebrow">Resume Templates</label>
@@ -347,14 +355,18 @@ function ResumeTemplateContentInner() {
         </div>
       </section>
 
-      <section className="template-content-page py-custom pb-120">
+      <section className="template-content-page py-custom ">
         <div className="container-fluid custom-container">
           <div className="template-content-grid">
             {TEMPLATE_CONTENT.map((template) => (
               <article className="template-content-card" key={template.id}>
                 <div className="template-card-top">
                   <span>{template.role}</span>
-                  <span>{template.layout === "two-column" ? "Two Column" : "Single Column"}</span>
+                  <span>
+                    {template.layout === "two-column"
+                      ? "Two Column"
+                      : "Single Column"}
+                  </span>
                 </div>
                 <h2>{template.title}</h2>
                 <p>{template.note}</p>
@@ -367,10 +379,20 @@ function ResumeTemplateContentInner() {
                   <button
                     type="button"
                     className="template-card-start"
-                    onClick={() => createResumeFromTemplate(template, dispatch, router, setLoading, setLoadingTemplateId)}
+                    onClick={() =>
+                      createResumeFromTemplate(
+                        template,
+                        dispatch,
+                        router,
+                        setLoading,
+                        setLoadingTemplateId,
+                      )
+                    }
                     disabled={loading}
                   >
-                    {loading && loadingTemplateId === template.id ? "Opening..." : "Create Resume"}
+                    {loading && loadingTemplateId === template.id
+                      ? "Opening..."
+                      : "Create Resume"}
                   </button>
                   <Link
                     className="template-card-read"
@@ -384,6 +406,115 @@ function ResumeTemplateContentInner() {
           </div>
         </div>
       </section>
+
+      <section className="resume-content container-fluid custom-container pb-5 rk-article-text">
+  <h2>Resume templates by job role</h2>
+  <p>
+    A software developer and a sales executive don't need the same
+    resume. That sounds obvious once you say it out loud, but most
+    people still open one generic template and just swap the job title
+    at the top. Each of the templates above is written for a specific
+    kind of work — different summary tone, different way of listing
+    skills, different mistakes to watch out for depending on what field
+    you're in.
+  </p>
+  <p>
+    Open whichever one matches your background closest. Read the sample
+    page before you start typing anything of your own. Don't copy the
+    lines directly though — the point of the sample is to show you what
+    a recruiter in that field is scanning for first, not to give you
+    sentences to paste into your own resume.
+  </p>
+
+  <blockquote className="ps-3 my-4 fst-italic">
+    A template only saves you time on formatting. It can't write your
+    experience for you — and it shouldn't try to.
+  </blockquote>
+
+  <p>
+    Different roles ask for different things up front. A few examples of
+    what actually shifts from one template to another:
+  </p>
+  <ul>
+    <li>
+      Developers get more room for project work and tools used, without
+      turning the page into a wall of technical terms nobody outside the
+      team understands.
+    </li>
+    <li>
+      Fresh graduates lean harder on education and internships, simply
+      because there isn't much of a work history yet to fill the page
+      with.
+    </li>
+    <li>
+      Operations resumes stay plain and steady — coordination,
+      reporting, follow-ups — while sales resumes need numbers up front,
+      something a recruiter catches in the first glance.
+    </li>
+    <li>
+      Teachers get a layout built around classroom work and lesson
+      planning, which rarely fits properly into a corporate-style
+      template anyway.
+    </li>
+    <li>
+      Designers get more space for a portfolio link and actual outcomes
+      instead of job titles stacked on top of each other.
+    </li>
+    <li>
+      Accounts and finance resumes need to show accuracy and the
+      software you've worked with clearly, not hinted at.
+    </li>
+    <li>
+      HR resumes cover hiring, onboarding, and the daily admin work
+      nobody outside HR really sees.
+    </li>
+    <li>
+      A manager's resume has to hold reporting, timelines, and team
+      handling together without turning into three pages of paragraphs.
+    </li>
+  </ul>
+
+  <p>
+    Whatever template you pick, every sample line in it is there to be
+    replaced. Put in your own responsibilities. Your own tools. Numbers
+    you can actually defend if someone asks about them in an interview.
+    Your real education, not a placeholder. Copy the wording as-is and
+    it shows — reads like someone else's resume with a new name typed
+    at the top.
+  </p>
+  <p>
+    The part that stays useful across every single template here is the
+    structure, not the sentences. Section order, information grouped the
+    way a recruiter's eyes move down the page, nothing sitting there just
+    taking up space. Wording shifts a lot between roles. The logic behind
+    where things go doesn't shift nearly as much.
+  </p>
+  <p>
+    Not sure which one applies to you? Go with whatever matches the job
+    you're applying for next, not the one that matches your old
+    degree or your very first job from years back. A resume is written
+    for where you're going, not a record of where you've been. Someone
+    moving from operations into project management is better off
+    starting with the manager template and pulling in the relevant bits
+    from their operations background — not the reverse.
+  </p>
+  <p>
+    Worth skimming a template outside your own field once too. A sales
+    resume and an HR resume don't look alike at all on paper, but
+    underneath they're both doing the same thing — get to the point,
+    back it up with something specific, don't stretch the reader's
+    patience. That holds across nearly every role listed here even
+    though the sections look completely different.
+  </p>
+  <p>
+    Once you've picked a role and gone through what it needs, the
+    builder takes it from there. No formatting by hand, no guessing where
+    a section is supposed to sit. These templates exist to help you
+    write something worth reading before you even get to that step —
+    so what ends up on the page says something about you, not the same
+    five lines everyone else on the same layout is using.
+  </p>
+</section>
       <Footer />
       <FooterNav />
     </>

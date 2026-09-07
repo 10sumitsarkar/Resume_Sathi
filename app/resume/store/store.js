@@ -7,9 +7,9 @@ import {
   createTransform,
 } from 'redux-persist';
 
-import createIndexedDBStorage from 'redux-persist-indexeddb-storage';
+import createResilientPersistStorage from '../../lib/createResilientPersistStorage';
 
-const storage = createIndexedDBStorage('ResumeBuilderDB');
+const storage = createResilientPersistStorage('ResumeBuilderDB');
 
 const normalizeResumes = (resumes) => {
   if (Array.isArray(resumes)) {

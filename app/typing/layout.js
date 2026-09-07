@@ -43,7 +43,7 @@ export default function TypingLayout({ children }) {
     looking down at the keyboard every few seconds.
   </p>
 
-  <blockquote className="border-3 ps-3 my-4 fst-italic">
+  <blockquote className="ps-3 my-4 fst-italic">
     Speed comes on its own once your fingers stop thinking about where
     the keys are. Chasing speed before that just teaches you to type
     fast and wrong.

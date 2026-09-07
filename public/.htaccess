@@ -46,6 +46,15 @@ RewriteRule ^jobs/psu-jobs/?$ /jobs/psu/ [R=301,L]
 RewriteRule ^jobs/university-jobs/?$ /jobs/university/ [R=301,L]
 RewriteRule ^jobs/teaching-jobs/?$ /jobs/teaching/ [R=301,L]
 
+# Match Next's trailingSlash setting for clean HTML routes.
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]{2,5}$
+RewriteCond %{REQUEST_URI} !^/_next/ [NC]
+RewriteCond %{REQUEST_URI} !^/front-assets/ [NC]
+RewriteCond %{REQUEST_URI} !^/api-config\.js$ [NC]
+RewriteCond %{REQUEST_URI} !^/defer-styles\.js$ [NC]
+RewriteRule ^(.+)$ /$1/ [R=301,L]
+
 <IfModule mod_headers.c>
   SetEnvIf Request_URI "^/front-assets/images/job-hero\.webp$" is_jobs_hero
   Header set Cache-Control "no-cache, must-revalidate" env=is_jobs_hero

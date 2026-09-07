@@ -14,17 +14,6 @@ export const metadata = {
   },
   description: 'Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi. Explore career tools, job updates, and expert advice.',
   keywords: ['resume builder', 'ATS resume', 'free resume templates', 'career blog', 'job search tools', 'cover letter builder'],
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
   openGraph: {
     title: 'Free Resume Builder, ATS Resume Templates & Career Tools',
     description: 'Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.',

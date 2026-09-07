@@ -10,7 +10,9 @@ export default function FloatingTypingLink() {
     pathname === "/typing" ||
     pathname.startsWith("/typing/") ||
     pathname === "/resume" ||
-    pathname.startsWith("/resume/");
+    pathname.startsWith("/resume/") ||
+    pathname === "/bio-data" ||
+    pathname.startsWith("/bio-data/");
 
   if (hideOn) return null;
 

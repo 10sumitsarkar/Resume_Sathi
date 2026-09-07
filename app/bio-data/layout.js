@@ -11,6 +11,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <>
+      <style>{`
+        body.bio-data-flow-content-hidden .resume-content,
+        body.bio-data-flow-content-hidden .rk-footer {
+          display: none !important;
+        }
+      `}</style>
       <ClientLayout>
         {children}
       </ClientLayout>

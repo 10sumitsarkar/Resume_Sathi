@@ -12,6 +12,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <>
+      <style>{`
+        body.resume-flow-content-hidden .resume-content,
+        body.resume-flow-content-hidden .rk-footer {
+          display: none !important;
+        }
+      `}</style>
       <ClientLayout>{children}</ClientLayout>
       <section className="resume-content container-fluid custom-container pb-5 rk-article-text">
         <h2>Free Resume Builder</h2>

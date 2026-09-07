@@ -28,11 +28,6 @@ export default function ResumeTypeClient() {
 
   return (
     <>
-      <style>{`
-        .mob-footer-nav {
-         display: none;
-        }
-      `}</style>
       <div className="container custom-container">
         <div className="resume-selector">
           <img src="/front-assets/images/icons/resume.webp" alt="Bio Data" />

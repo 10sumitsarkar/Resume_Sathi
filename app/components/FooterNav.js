@@ -17,6 +17,14 @@ export default function FooterNav() {
     }, [pathname]);
 
     const activePath = currentPath || pathname;
+    const normalizedPath = activePath.endsWith('/') && activePath !== '/'
+        ? activePath.slice(0, -1)
+        : activePath;
+    const hideInResumeFlow = normalizedPath.startsWith('/resume/') && normalizedPath !== '/resume';
+    const hideInBioDataFlow = normalizedPath.startsWith('/bio-data/') && normalizedPath !== '/bio-data';
+
+    if (hideInResumeFlow || hideInBioDataFlow) return null;
+
     const isResumeActive = activePath.startsWith('/resume');
     const isToolsActive = activePath.startsWith('/tools');
     const visibleToolsBtn = activePath.startsWith('/tools/');

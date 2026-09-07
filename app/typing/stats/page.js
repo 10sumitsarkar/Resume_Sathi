@@ -146,6 +146,21 @@ export default function StatsPage() {
           </div>
         </>
       )}
+      <section className="tf-card p-4 p-sm-5 mt-5">
+        <h2 className="tf-font-display tf-display-3">
+          Understand your typing progress
+        </h2>
+        <p className="tf-text-muted tf-leading-relaxed mt-3">
+          The stats page turns your completed typing sessions into a private
+          progress view. It shows average WPM, best WPM, accuracy, practice
+          minutes, streaks, recent sessions, and keys that need more attention.
+        </p>
+        <p className="tf-text-muted tf-leading-relaxed">
+          Use this page after completing lessons or practice rounds. If a key
+          appears often in the missed-key list, return to a slower lesson and
+          rebuild accuracy before pushing for more speed.
+        </p>
+      </section>
       </div>
     </main>
   );

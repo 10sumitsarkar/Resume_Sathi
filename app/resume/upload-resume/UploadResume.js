@@ -1,12 +1,13 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 import mammoth from 'mammoth/mammoth.browser';
 import { setResumes } from '../reducer/resume-reducer';
+import '../(resumeLits)/resume-list.css';
 
 if (typeof window !== 'undefined') {
   pdfjsLib.GlobalWorkerOptions.workerSrc =
@@ -232,6 +233,11 @@ export default function UploadResume() {
   const resumes = useSelector((state) => state.resume.resumes);
   const MAX_FILE_SIZE_MB = 5;
 
+  useEffect(() => {
+    document.body.classList.add('resume-upload-page-active');
+    return () => document.body.classList.remove('resume-upload-page-active');
+  }, []);
+
   const isValidFileType = (file) => [
     'application/pdf',
     'application/msword',
@@ -294,6 +300,11 @@ export default function UploadResume() {
 
   return (
     <>
+      <style jsx global>{`
+        body.resume-upload-page-active .mob-footer-nav {
+          display: none !important;
+        }
+      `}</style>
       <section className='upload-resume-section py-custom'>
         <div className="container-fluid custom-container">
           <div className="row">

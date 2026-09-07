@@ -1,5 +1,3 @@
-"use client";
-
 import TemplateDetailClient from "../TemplateDetailClient";
 
 function SalesResumeTemplateContent() {
@@ -120,9 +118,15 @@ function SalesResumeTemplateContent() {
 
 export default function SalesResumeTemplateClient() {
   return (
-    <TemplateDetailClient
-      slug="sales-resume-template"
-      ContentComponent={SalesResumeTemplateContent}
-    />
+    <>
+      <noscript>
+        <section className="template-noscript-article">
+          <SalesResumeTemplateContent />
+        </section>
+      </noscript>
+      <TemplateDetailClient slug="sales-resume-template">
+        <SalesResumeTemplateContent />
+      </TemplateDetailClient>
+    </>
   );
 }

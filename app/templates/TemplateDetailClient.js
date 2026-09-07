@@ -36,7 +36,7 @@ const TEMPLATE_COMPONENTS = {
   ResumeTemplate9,
 };
 
-function DetailInner({ slug, ContentComponent }) {
+function DetailInner({ slug, children }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -95,7 +95,7 @@ function DetailInner({ slug, ContentComponent }) {
 
               <article className="template-article">
                 <div className="rk-article-text">
-                  {ContentComponent ? <ContentComponent /> : null}
+                  {children}
                 </div>
                 <button
                   type="button"
@@ -143,10 +143,10 @@ function DetailInner({ slug, ContentComponent }) {
   );
 }
 
-export default function TemplateDetailClient({ slug, ContentComponent }) {
+export default function TemplateDetailClient({ slug, children }) {
   return (
     <ReduxProvider>
-      <DetailInner slug={slug} ContentComponent={ContentComponent} />
+      <DetailInner slug={slug}>{children}</DetailInner>
     </ReduxProvider>
   );
 }

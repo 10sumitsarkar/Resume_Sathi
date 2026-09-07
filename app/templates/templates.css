@@ -15,6 +15,37 @@
   background: #ffffff;
 }
 
+.template-noscript-article {
+  color: #1f2430;
+  line-height: 1.7;
+  margin: 32px auto;
+  max-width: 900px;
+  padding: 0 16px;
+}
+
+.template-noscript-article h2 {
+  font-size: 24px;
+  margin: 28px 0 12px;
+}
+
+.template-noscript-article p,
+.template-noscript-article li {
+  font-size: 16px;
+}
+
+.template-noscript-article table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.template-noscript-article th,
+.template-noscript-article td {
+  border: 1px solid #f1e3e2;
+  padding: 10px 12px;
+  text-align: left;
+}
+
 .template-hero-area {
   margin-top: 14px;
 }

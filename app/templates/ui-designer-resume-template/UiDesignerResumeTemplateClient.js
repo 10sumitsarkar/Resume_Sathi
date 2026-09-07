@@ -1,5 +1,3 @@
-"use client";
-
 import TemplateDetailClient from "../TemplateDetailClient";
 
 function UiDesignerResumeTemplateContent() {
@@ -117,9 +115,15 @@ function UiDesignerResumeTemplateContent() {
 
 export default function UiDesignerResumeTemplateClient() {
   return (
-    <TemplateDetailClient
-      slug="ui-designer-resume-template"
-      ContentComponent={UiDesignerResumeTemplateContent}
-    />
+    <>
+      <noscript>
+        <section className="template-noscript-article">
+          <UiDesignerResumeTemplateContent />
+        </section>
+      </noscript>
+      <TemplateDetailClient slug="ui-designer-resume-template">
+        <UiDesignerResumeTemplateContent />
+      </TemplateDetailClient>
+    </>
   );
 }

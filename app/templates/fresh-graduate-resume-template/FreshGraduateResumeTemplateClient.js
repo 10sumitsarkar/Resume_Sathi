@@ -1,5 +1,3 @@
-"use client";
-
 import TemplateDetailClient from "../TemplateDetailClient";
 
 function FreshGraduateResumeTemplateContent() {
@@ -117,9 +115,15 @@ function FreshGraduateResumeTemplateContent() {
 
 export default function FreshGraduateResumeTemplateClient() {
   return (
-    <TemplateDetailClient
-      slug="fresh-graduate-resume-template"
-      ContentComponent={FreshGraduateResumeTemplateContent}
-    />
+    <>
+      <noscript>
+        <section className="template-noscript-article">
+          <FreshGraduateResumeTemplateContent />
+        </section>
+      </noscript>
+      <TemplateDetailClient slug="fresh-graduate-resume-template">
+        <FreshGraduateResumeTemplateContent />
+      </TemplateDetailClient>
+    </>
   );
 }

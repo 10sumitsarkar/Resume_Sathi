@@ -1,5 +1,3 @@
-"use client";
-
 import TemplateDetailClient from "../TemplateDetailClient";
 
 function ProjectCoordinatorResumeTemplateContent() {
@@ -118,9 +116,15 @@ function ProjectCoordinatorResumeTemplateContent() {
 
 export default function ProjectCoordinatorResumeTemplateClient() {
   return (
-    <TemplateDetailClient
-      slug="project-coordinator-resume-template"
-      ContentComponent={ProjectCoordinatorResumeTemplateContent}
-    />
+    <>
+      <noscript>
+        <section className="template-noscript-article">
+          <ProjectCoordinatorResumeTemplateContent />
+        </section>
+      </noscript>
+      <TemplateDetailClient slug="project-coordinator-resume-template">
+        <ProjectCoordinatorResumeTemplateContent />
+      </TemplateDetailClient>
+    </>
   );
 }

@@ -1,5 +1,3 @@
-"use client";
-
 import TemplateDetailClient from "../TemplateDetailClient";
 
 function AccountingResumeTemplateContent() {
@@ -67,9 +65,15 @@ function AccountingResumeTemplateContent() {
 
 export default function AccountingResumeTemplateClient() {
   return (
-    <TemplateDetailClient
-      slug="accounting-resume-template"
-      ContentComponent={AccountingResumeTemplateContent}
-    />
+    <>
+      <noscript>
+        <section className="template-noscript-article">
+          <AccountingResumeTemplateContent />
+        </section>
+      </noscript>
+      <TemplateDetailClient slug="accounting-resume-template">
+        <AccountingResumeTemplateContent />
+      </TemplateDetailClient>
+    </>
   );
 }

@@ -4,8 +4,6 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setResumes } from '../reducer/resume-reducer';
 import React, { useState } from 'react';
-import Footer from '../../components/Footer';
-import FooterNav from '../../components/FooterNav';
 import { ToastContainer, toast } from 'react-toastify';
 import Link from 'next/link';
 import 'react-toastify/dist/ReactToastify.css';
@@ -407,7 +405,7 @@ export default function ResumeLists() {
       </section>
 
       {/* ── Resume Cards ── */}
-      <section className="resumelist-section py-custom pb-120">
+      <section className="resumelist-section py-custom">
         <div className="container-fluid custom-container">
           {submittedResumeLists.length > 0 ? (
             <div className="row g-4">
@@ -598,9 +596,6 @@ export default function ResumeLists() {
           )}
         </div>
       </section>
-<Footer/>
-      <FooterNav />
-
       {/* Offscreen render target */}
       {renderResume && RenderTemplate && (
         <div

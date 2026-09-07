@@ -512,6 +512,24 @@ export default async function JobDetailPage({ params }) {
           pageTitle={`${categoryName} Jobs`}
           pageDescription={category.description || `Browse latest ${categoryName.toLowerCase()} openings, admit cards, answer keys and results.`}
         />
+        <section className="container-fluid custom-container py-5">
+          <h2>{categoryName} Jobs</h2>
+          <p>
+            Browse updated {categoryName.toLowerCase()} job posts, application
+            details, admit card notices, answer key updates, result information,
+            eligibility notes, and important dates in one place. ResumeSathi
+            keeps category pages simple so visitors can scan active updates and
+            open the full job article for complete instructions.
+          </p>
+          <p>
+            Before applying for any {categoryName.toLowerCase()} vacancy, read
+            the official notification carefully, confirm the last date, check
+            age and education requirements, and review the selection process.
+            Use the resume builder, bio-data maker, and template pages on
+            ResumeSathi when the application process asks for a clean profile or
+            supporting career document.
+          </p>
+        </section>
       </>
     );
   }

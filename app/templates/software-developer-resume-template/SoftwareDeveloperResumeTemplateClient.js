@@ -1,5 +1,3 @@
-"use client";
-
 import TemplateDetailClient from "../TemplateDetailClient";
 
 function SoftwareDeveloperResumeTemplateContent() {
@@ -140,9 +138,15 @@ function SoftwareDeveloperResumeTemplateContent() {
 
 export default function SoftwareDeveloperResumeTemplateClient() {
   return (
-    <TemplateDetailClient
-      slug="software-developer-resume-template"
-      ContentComponent={SoftwareDeveloperResumeTemplateContent}
-    />
+    <>
+      <noscript>
+        <section className="template-noscript-article">
+          <SoftwareDeveloperResumeTemplateContent />
+        </section>
+      </noscript>
+      <TemplateDetailClient slug="software-developer-resume-template">
+        <SoftwareDeveloperResumeTemplateContent />
+      </TemplateDetailClient>
+    </>
   );
 }

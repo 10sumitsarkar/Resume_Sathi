@@ -125,6 +125,25 @@ export default function TypingHome() {
             </div>
           </div>
         </div>
+        <section className="container-fluid custom-container mt-5">
+          <div className="tf-card p-4 p-sm-5">
+            <h2 className="tf-font-display tf-display-3">
+              Practice typing with lessons, tests, and progress tracking
+            </h2>
+            <p className="tf-text-muted tf-leading-relaxed mt-3">
+              ResumeSathi Typing helps you build speed and accuracy through a
+              mix of guided lessons and real practice modes. Beginners can start
+              with finger placement lessons, while regular users can jump into
+              timed tests, word drills, quotes, code snippets, or custom text.
+            </p>
+            <p className="tf-text-muted tf-leading-relaxed">
+              Your practice history stays in your browser, so you can track WPM,
+              accuracy, streaks, and commonly missed keys privately. Use the
+              lessons to build control, then use practice mode to improve rhythm
+              and confidence.
+            </p>
+          </div>
+        </section>
       </div>
     </div>
   );

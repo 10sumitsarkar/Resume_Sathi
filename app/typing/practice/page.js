@@ -77,6 +77,21 @@ export default function PracticePage() {
           <div className="tf-result-card"><span className="tf-result-icon accuracy">◎</span><div><div className="tf-result-number">{lastResult.accuracy}%</div><div className="tf-result-label">Accuracy</div></div></div>
           <div className="tf-result-card"><span className="tf-result-icon duration">◷</span><div><div className="tf-result-number">{lastResult.durationSec}s</div><div className="tf-result-label">Time Taken</div></div></div>
         </div><div className="tf-result-actions"><button onClick={resetSession} className="tf-btn-brand px-4 py-2">Try again</button></div></section>}
+        <section className="tf-card p-4 p-sm-5 mt-5">
+          <h2 className="tf-font-display tf-display-3">Typing practice modes</h2>
+          <p className="tf-text-muted tf-leading-relaxed mt-3">
+            Use practice mode when you want flexible typing exercises instead of
+            a guided lesson. Time attack is useful for measuring speed, word
+            rush helps with rhythm, quote typing builds sentence flow, and code
+            typing is helpful for developers who want to practice symbols and
+            indentation.
+          </p>
+          <p className="tf-text-muted tf-leading-relaxed">
+            After each completed round, check your WPM and accuracy together.
+            Speed is useful, but accuracy is what makes typing feel controlled
+            and reliable during real work.
+          </p>
+        </section>
       </div>
     </main>
   );

@@ -1,5 +1,3 @@
-"use client";
-
 import TemplateDetailClient from "../TemplateDetailClient";
 
 function HrCoordinatorResumeTemplateContent() {
@@ -121,9 +119,15 @@ function HrCoordinatorResumeTemplateContent() {
 
 export default function HrCoordinatorResumeTemplateClient() {
   return (
-    <TemplateDetailClient
-      slug="hr-coordinator-resume-template"
-      ContentComponent={HrCoordinatorResumeTemplateContent}
-    />
+    <>
+      <noscript>
+        <section className="template-noscript-article">
+          <HrCoordinatorResumeTemplateContent />
+        </section>
+      </noscript>
+      <TemplateDetailClient slug="hr-coordinator-resume-template">
+        <HrCoordinatorResumeTemplateContent />
+      </TemplateDetailClient>
+    </>
   );
 }

@@ -28,6 +28,11 @@ export default function UploadResumePage() {
   return (
     <>
       <h1 className="visually-hidden">Upload Resume</h1>
+      <noscript
+        dangerouslySetInnerHTML={{
+          __html: `<section><h2>Upload and update an existing resume</h2><p>ResumeSathi lets you upload an existing resume so you can reuse your information while creating a cleaner, updated version. This flow is helpful when you already have a resume but want to improve its structure, update details, or move the content into a professional template.</p><p>After uploading, review the extracted details carefully and edit the resume sections before downloading. Check your contact information, work experience, education, skills, and summary so the final resume is accurate and ready for applications.</p><ul><li>Import existing resume details for faster editing.</li><li>Review and correct extracted information before final export.</li><li>Use a clean ResumeSathi template for the updated resume.</li></ul></section>`,
+        }}
+      />
       <UploadResume />
     </>
   );

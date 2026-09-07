@@ -1,5 +1,3 @@
-"use client";
-
 import TemplateDetailClient from "../TemplateDetailClient";
 
 function OperationsExecutiveResumeTemplateContent() {
@@ -121,9 +119,15 @@ function OperationsExecutiveResumeTemplateContent() {
 
 export default function OperationsExecutiveResumeTemplateClient() {
   return (
-    <TemplateDetailClient
-      slug="operations-executive-resume-template"
-      ContentComponent={OperationsExecutiveResumeTemplateContent}
-    />
+    <>
+      <noscript>
+        <section className="template-noscript-article">
+          <OperationsExecutiveResumeTemplateContent />
+        </section>
+      </noscript>
+      <TemplateDetailClient slug="operations-executive-resume-template">
+        <OperationsExecutiveResumeTemplateContent />
+      </TemplateDetailClient>
+    </>
   );
 }

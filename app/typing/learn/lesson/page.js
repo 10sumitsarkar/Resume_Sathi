@@ -43,8 +43,11 @@ function LessonContent() {
 
 export default function LessonPage() {
 	return (
-		<Suspense fallback={<div>Loading lesson...</div>}>
-			<LessonContent />
-		</Suspense>
+		<main className="tf-page tf-animate-rise">
+			<h1 className="visually-hidden">Typing Lesson</h1>
+			<Suspense fallback={<div>Loading lesson...</div>}>
+				<LessonContent />
+			</Suspense>
+		</main>
 	);
 }

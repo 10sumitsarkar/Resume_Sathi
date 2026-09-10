@@ -14,10 +14,6 @@ RewriteRule ^typing/learn/lesson/?$ /typing/learn/lesson/%1/? [R=301,L]
 RewriteCond %{QUERY_STRING} (^|&)(q|search)=(%7B|\{)?search_term_string(%7D|\})?(&|$) [NC]
 RewriteRule ^blog/?$ /blog/? [R=301,L]
 
-# Keep sitemap dynamic on shared hosting. Next static export may generate a
-# sitemap.xml file, so route requests to the PHP proxy before file checks.
-RewriteRule ^sitemap\.xml$ /sitemap.php [L]
-
 # Legacy job category query URLs -> clean static category pages.
 RewriteCond %{QUERY_STRING} (^|&)category_id=9(&|$) [NC]
 RewriteRule ^jobs/?$ /jobs/railway/? [R=301,L]

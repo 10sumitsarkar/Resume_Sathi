@@ -97,5 +97,16 @@
     "updated_at": "2026-08-31T06:07:59.000000Z",
     "deleted_at": null,
     "created_by": 1
+  },
+  {
+    "id": 18,
+    "course_name": "SSC",
+    "course_url": "ssc",
+    "course_image": "",
+    "description": "The Staff Selection Commission (SSC) is a premier government organization in India that recruits eligible candidates for various Group 'B' and Group 'C' non-technical and technical posts across different Ministries, Departments, and Organizations of the Government of India.",
+    "created_at": "2026-09-10T07:48:36.000000Z",
+    "updated_at": "2026-09-10T07:48:36.000000Z",
+    "deleted_at": null,
+    "created_by": 1
   }
 ]

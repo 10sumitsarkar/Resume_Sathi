@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Script from "next/script";
 import JsonLd from "./components/JsonLd";
 import FloatingTypingLink from "./components/FloatingTypingLink";
 import ClientScripts from "./components/ClientScripts";
@@ -42,6 +43,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
+        <Script
+          src="https://quge5.com/88/tag.min.js"
+          data-zone="281121"
+          data-cfasync="false"
+          strategy="beforeInteractive"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/front-assets/css/bootstrap.min.css" as="style" />

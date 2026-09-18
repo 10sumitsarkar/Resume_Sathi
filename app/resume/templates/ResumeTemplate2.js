@@ -379,6 +379,7 @@ export default function ResumeTemplate2({
             {/* HEADER */}
             <div className="rt2_header">
               <h1 className="rt2_name resume-name">Neha Sharma</h1>
+              <p className="resume-job-title">Retail Sales Associate</p>
               <ContactRow
                 email="neha.sharma@email.com"
                 phone="+91 98765 33445"
@@ -510,6 +511,9 @@ export default function ResumeTemplate2({
               <h1 className="rt2_name resume-name">
                 {personalInfomation?.firstName} {personalInfomation?.lastName}
               </h1>
+              {personalInfomation?.job_title && (
+                <p className="resume-job-title">{personalInfomation.job_title}</p>
+              )}
               <ContactRow
                 email={personalInfomation?.email}
                 phone={[(personalInfomation?.country_code || ''), personalInfomation?.phone].filter(Boolean).join(' ')}

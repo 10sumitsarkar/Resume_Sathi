@@ -349,9 +349,9 @@ export default function ResumeLists() {
               </svg>
               100% Free • ATS Optimized
             </label>
-            <h1 className="fs-mob-22">Manage Your Resumes</h1>
+            <h1 className="fs-mob-22">Free Resume Builder</h1>
           </div>
-          <p className="fs-mob-16">Keep all your resumes organized, update them anytime, and export them in PDF, Word, or text format with ease.</p>
+          <p className="fs-mob-16">Create a free ATS-friendly resume online, manage your resumes, and export them in PDF, Word, or text format.</p>
           <Link prefetch={false} className="rl-create-btn" href="/resume/resume-type/">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14M5 12h14" />

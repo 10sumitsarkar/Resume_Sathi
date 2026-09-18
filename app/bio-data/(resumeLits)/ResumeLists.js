@@ -381,9 +381,9 @@ export default function ResumeLists() {
               </svg>
               100% Free • Printable Bio-Data
             </label>
-            <h1 className="fs-mob-22">Manage Your Bio-Data</h1>
+            <h1 className="fs-mob-22">Free Bio-Data Maker</h1>
           </div>
-          <p className="fs-mob-16">Keep all your bio-data documents organized, update them anytime, and export them in PDF, Word, or text format.</p>
+          <p className="fs-mob-16">Create a free printable bio-data online, manage your documents, and export them in PDF, Word, or text format.</p>
           <Link prefetch={false} className="rl-create-btn" href="/bio-data/resume-type/">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 5v14M5 12h14" />

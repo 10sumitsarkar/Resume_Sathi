@@ -299,8 +299,8 @@ export default function ResumeTemplate7({ additionalClass, isStatic = false, res
                 {personalInfomation?.firstName} {personalInfomation?.lastName}
               </h1>
               <div className="rt7_name_rule" />
-              {personalInfomation?.experience && (
-                <p className="rt7_role resume-job-title">{personalInfomation.experience}</p>
+              {personalInfomation?.job_title && (
+                <p className="rt7_role resume-job-title">{personalInfomation.job_title}</p>
               )}
               <div className="rt7_role_rule" />
               <ContactRow

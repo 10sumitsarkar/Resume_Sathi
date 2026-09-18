@@ -320,7 +320,7 @@ export default function ResumeTemplate3({ additionalClass, isStatic = false, res
                     <div className={`resume ResumeTemplate3 ${additionalClass}`}>
                         <Header
                             name={`${personalInfomation?.firstName || ''} ${personalInfomation?.lastName || ''}`.trim()}
-                            jobTitle={personalInfomation?.experience}
+                            jobTitle={personalInfomation?.job_title}
                             address={personalInfomation?.address}
                             city={personalInfomation?.city}
                             state={personalInfomation?.state}

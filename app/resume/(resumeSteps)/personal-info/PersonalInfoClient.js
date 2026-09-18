@@ -355,6 +355,13 @@ export default function PersonalInfo() {
                   {errors.experience && <p className="input-error">{errors.experience.message}</p>}
                 </div>
               </div>
+              <div className="col-md-6 col-lg-12 col-xl-6 mb-4">
+                <div className='each-input-div'>
+                  <label htmlFor="job_title">Desired Position<span className='text-danger'>*</span></label>
+                  <input type="text" {...register('job_title', { required: 'Job Title is required', validate: (value) => String(value || '').trim().length > 0 || 'Job Title is required' })} className={` ${errors.job_title ? 'is-invalid' : ''}`} id="job_title" placeholder="e.g., Frontend Developer" value={personalFormData.job_title || ''} />
+                </div>
+                {errors.job_title && <p className="input-error">{errors.job_title.message}</p>}
+              </div>
 
             </div >
           </div >

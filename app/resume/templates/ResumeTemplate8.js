@@ -248,8 +248,8 @@ export default function ResumeTemplate8({ additionalClass, isStatic = false, res
               <p className="rt8_name resume-name">
                 {personalInfomation?.firstName} {personalInfomation?.lastName}
               </p>
-              {personalInfomation?.experience && (
-                <p className="rt8_role resume-job-title">{personalInfomation.experience}</p>
+              {personalInfomation?.job_title && (
+                <p className="rt8_role resume-job-title">{personalInfomation.job_title}</p>
               )}
               <div className="rt8_contact_row">
                 {personalInfomation?.email && (

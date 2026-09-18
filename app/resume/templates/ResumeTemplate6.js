@@ -516,9 +516,9 @@ export default function ResumeTemplate6({
                 {`${personalInfomation?.firstName || ""} ${personalInfomation?.lastName || ""}`.trim()}
               </p>
               <div className="rt6_rule" />
-              {personalInfomation?.experience && (
+              {personalInfomation?.job_title && (
                 <p className="rt6_role resume-job-title">
-                  {personalInfomation.experience}
+                  {personalInfomation.job_title}
                 </p>
               )}
               <div className="rt6_rule" />

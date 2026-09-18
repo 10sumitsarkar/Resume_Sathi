@@ -382,8 +382,8 @@ const id = searchParams.get('id');
                       {personalInfomation?.lastName}
                     </p>
                     <p className="regular resume-job-title">
-                      {personalInfomation?.experience &&
-                        `(${personalInfomation.experience})`}
+                      {personalInfomation?.job_title &&
+                        `(${personalInfomation.job_title})`}
                     </p>
                   </div>
                   <ul>

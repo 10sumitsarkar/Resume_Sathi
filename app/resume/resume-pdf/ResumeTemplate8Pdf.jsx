@@ -265,7 +265,7 @@ const ResumeTemplate8Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
 
   const personal = resume.personal_infomation || {};
   const fullName = [personal.firstName, personal.lastName].filter(Boolean).join(" ") || resume.resume_name || "Your Name";
-  const jobTitle = safeText(personal.experience || personal.job_title);
+  const jobTitle = safeText(personal.job_title);
 
   const pageStyle = { ...styles.page, fontFamily: forceFallbackFont ? "Helvetica" : fontFamily || "Poppins" };
 

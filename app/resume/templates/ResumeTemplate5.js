@@ -516,8 +516,8 @@ export default function ResumeTemplate5({
                 <p className="rt5_name">
                   {personalInfomation.firstName} {personalInfomation.lastName}
                 </p>
-                {personalInfomation.experience && (
-                  <p className="rt5_role">{personalInfomation.experience}</p>
+                {personalInfomation.job_title && (
+                  <p className="rt5_role">{personalInfomation.job_title}</p>
                 )}
               </div>
             </div>

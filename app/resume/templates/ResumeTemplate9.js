@@ -219,7 +219,7 @@ export default function ResumeTemplate9({ additionalClass, isStatic = false, res
           <div className={`resume ResumeTemplate9 ${additionalClass}`}>
             <div className="rt9_sidebar">
               <p className="rt9_name resume-name">Sumit Sarkar</p>
-              <p className="rt9_role_tag resume-job-title">Fresher</p>
+              <p className="rt9_role_tag resume-job-title">Frontend Developer</p>
               <div className="rt9_name_underline" />
 
               <div className="rt9_sidebar_block">
@@ -296,8 +296,8 @@ export default function ResumeTemplate9({ additionalClass, isStatic = false, res
               <p className="rt9_name resume-name">
                 {personalInfomation?.firstName} {personalInfomation?.lastName}
               </p>
-              {personalInfomation?.experience && (
-                <p className="rt9_role_tag resume-job-title">{personalInfomation.experience}</p>
+              {personalInfomation?.job_title && (
+                <p className="rt9_role_tag resume-job-title">{personalInfomation.job_title}</p>
               )}
               <div className="rt9_name_underline" />
 

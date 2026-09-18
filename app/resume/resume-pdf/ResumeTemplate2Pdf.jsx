@@ -339,7 +339,7 @@ const ResumeTemplate2Pdf = ({
     [personal.firstName, personal.lastName].filter(Boolean).join(" ") ||
     resume.resume_name ||
     "Your Name";
-  const jobTitle = safeText(personal.experience || personal.job_title);
+  const jobTitle = safeText(personal.job_title);
   //   const profileSrc = resolveProfileImage(personal.photo);
   //   const initials = [personal.firstName, personal.lastName].filter(Boolean).map(x => x[0]).join('').slice(0, 2).toUpperCase();
 

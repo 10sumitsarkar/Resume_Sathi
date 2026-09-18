@@ -312,9 +312,9 @@ export default function ResumeTemplate4({
                 <p className="resume4_name resume-name">
                   {personalInfomation?.firstName} {personalInfomation?.lastName}
                 </p>
-                {personalInfomation?.experience && (
+                {personalInfomation?.job_title && (
                   <p className="resume4_job resume-job-title">
-                    {personalInfomation.experience}
+                    {personalInfomation.job_title}
                   </p>
                 )}
                 {contactItems.length > 0 && (

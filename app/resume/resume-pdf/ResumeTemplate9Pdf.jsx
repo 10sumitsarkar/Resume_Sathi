@@ -415,7 +415,7 @@ const ResumeTemplate9Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
 
   const personal = resume.personal_infomation || {};
   const fullName = [personal.firstName, personal.lastName].filter(Boolean).join(" ") || resume.resume_name || "Your Name";
-  const roleTag = safeText(personal.experience || personal.job_title);
+  const roleTag = safeText(personal.job_title);
 
   // FIX: spread styles.page (which has flexDirection: "row") so the
   // sidebar and content columns render side-by-side instead of stacking.

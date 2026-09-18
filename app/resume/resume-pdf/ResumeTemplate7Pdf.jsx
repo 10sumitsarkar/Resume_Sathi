@@ -301,7 +301,7 @@ const ResumeTemplate7Pdf = ({
     [personal.firstName, personal.lastName].filter(Boolean).join(" ") ||
     resume.resume_name ||
     "Your Name";
-  const jobTitle = safeText(personal.experience || personal.job_title);
+  const jobTitle = safeText(personal.job_title);
 
   const pageStyle = {
     ...styles.page,

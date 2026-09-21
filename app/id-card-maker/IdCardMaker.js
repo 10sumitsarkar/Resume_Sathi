@@ -205,6 +205,26 @@ export default function IdCardMaker() {
     );
   };
 
+  const moveSelectedByArrow = (deltaX, deltaY) => {
+    if (!selected || selected.locked) return;
+    const edgeVisibility = 20;
+    const nextX = Math.min(
+      Math.max(-(selected.width || 0) + edgeVisibility, (selected.x || 0) + deltaX),
+      cardSize.width - edgeVisibility,
+    );
+    const nextY = Math.min(
+      Math.max(-(selected.height || 0) + edgeVisibility, (selected.y || 0) + deltaY),
+      cardSize.height - edgeVisibility,
+    );
+    commit(
+      elements.map((item) =>
+        item.id === selected.id
+          ? { ...item, x: nextX, y: nextY }
+          : item,
+      ),
+    );
+  };
+
   const addElement = (type, shape = "rectangle") => {
     const defaults =
       type === "text"
@@ -338,13 +358,13 @@ export default function IdCardMaker() {
           entry.id === activeItem.id
             ? {
                 ...entry,
-                x: Math.max(
-                  0,
-                  start.item.x + (moveEvent.clientX - start.x) / scale,
+                x: Math.min(
+                  cardSize.width - 20,
+                  Math.max(-start.item.width + 20, start.item.x + (moveEvent.clientX - start.x) / scale),
                 ),
-                y: Math.max(
-                  0,
-                  start.item.y + (moveEvent.clientY - start.y) / scale,
+                y: Math.min(
+                  cardSize.height - 20,
+                  Math.max(-start.item.height + 20, start.item.y + (moveEvent.clientY - start.y) / scale),
                 ),
               }
             : entry,
@@ -839,7 +859,17 @@ export default function IdCardMaker() {
         target instanceof HTMLSelectElement;
       if (isTyping) return;
 
-      if ((event.key === "Delete" || event.key === "Backspace") && selectedId) {
+      if (selectedId && ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"].includes(event.key)) {
+        event.preventDefault();
+        const distance = event.shiftKey ? 10 : 1;
+        const movement = {
+          ArrowLeft: [-distance, 0],
+          ArrowRight: [distance, 0],
+          ArrowUp: [0, -distance],
+          ArrowDown: [0, distance],
+        }[event.key];
+        moveSelectedByArrow(...movement);
+      } else if ((event.key === "Delete" || event.key === "Backspace") && selectedId) {
         event.preventDefault();
         deleteSelected();
       } else if (
@@ -935,7 +965,7 @@ export default function IdCardMaker() {
 
               </div>
 
-              <div className="col-lg-6">
+              <div className="col-lg-6 d-none d-lg-block">
                 <div className="idm-hero-art" aria-hidden="true">
                   <div className="idm-hero-card idm-hero-card-back">
                     <MiniCard template={TEMPLATES[2]} face="back" width={554} fluid />
@@ -1441,7 +1471,7 @@ export default function IdCardMaker() {
             }
           }}
         >
-          ID Card Maker
+          <img src="/front-assets/images/logo/logo.svg" width={160} height={35} alt="ResumeSathi" />
         </button>
         <div className="toolbar-actions">
           <button aria-label="Undo" title="Undo" onClick={undo} disabled={!history.length}>

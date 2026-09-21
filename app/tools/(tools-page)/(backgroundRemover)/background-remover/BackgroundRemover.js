@@ -10,8 +10,10 @@ export default function BackgroundRemover() {
   const inputRef = useRef(null);
   const sourceUrlRef = useRef(null);
   const resultUrlRef = useRef(null);
+  const transparentBlobRef = useRef(null);
   const [source, setSource] = useState(null);
   const [resultUrl, setResultUrl] = useState("");
+  const [background, setBackground] = useState({ type: "transparent", color: "#ffffff" });
   const [dragOver, setDragOver] = useState(false);
   const [processing, setProcessing] = useState(false);
   const [processingStage, setProcessingStage] = useState("Preparing your image");
@@ -19,7 +21,41 @@ export default function BackgroundRemover() {
   useEffect(() => () => {
     if (sourceUrlRef.current) URL.revokeObjectURL(sourceUrlRef.current);
     if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
+    transparentBlobRef.current = null;
   }, []);
+
+  const renderWithBackground = async (transparentBlob, nextBackground) => {
+    if (nextBackground.type === "transparent") {
+      if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
+      const transparentUrl = URL.createObjectURL(transparentBlob);
+      resultUrlRef.current = transparentUrl;
+      setResultUrl(transparentUrl);
+      return;
+    }
+
+    const imageUrl = URL.createObjectURL(transparentBlob);
+    const image = new Image();
+    image.src = imageUrl;
+    await new Promise((resolve, reject) => {
+      image.onload = resolve;
+      image.onerror = reject;
+    });
+
+    const canvas = document.createElement("canvas");
+    canvas.width = image.naturalWidth;
+    canvas.height = image.naturalHeight;
+    const context = canvas.getContext("2d");
+    context.fillStyle = nextBackground.color;
+    context.fillRect(0, 0, canvas.width, canvas.height);
+    context.drawImage(image, 0, 0);
+    URL.revokeObjectURL(imageUrl);
+
+    const coloredBlob = await new Promise((resolve) => canvas.toBlob(resolve, "image/png"));
+    if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
+    const coloredUrl = URL.createObjectURL(coloredBlob);
+    resultUrlRef.current = coloredUrl;
+    setResultUrl(coloredUrl);
+  };
 
   const processImage = async (file, nextSource) => {
     setProcessing(true);
@@ -39,10 +75,9 @@ export default function BackgroundRemover() {
         },
       });
 
-      if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
-      const resultUrl = URL.createObjectURL(resultBlob);
-      resultUrlRef.current = resultUrl;
-      setResultUrl(resultUrl);
+      transparentBlobRef.current = resultBlob;
+      setBackground({ type: "transparent", color: "#ffffff" });
+      await renderWithBackground(resultBlob, { type: "transparent", color: "#ffffff" });
       setSource(nextSource);
       setProcessingStage("Done");
       toast.success("Background removed successfully");
@@ -52,6 +87,13 @@ export default function BackgroundRemover() {
       sourceUrlRef.current = null;
     } finally {
       setProcessing(false);
+    }
+  };
+
+  const chooseBackground = async (nextBackground) => {
+    setBackground(nextBackground);
+    if (transparentBlobRef.current) {
+      await renderWithBackground(transparentBlobRef.current, nextBackground);
     }
   };
 
@@ -75,16 +117,18 @@ export default function BackgroundRemover() {
   const reset = () => {
     if (sourceUrlRef.current) URL.revokeObjectURL(sourceUrlRef.current);
     if (resultUrlRef.current) URL.revokeObjectURL(resultUrlRef.current);
+    transparentBlobRef.current = null;
     sourceUrlRef.current = null;
     resultUrlRef.current = null;
     setSource(null);
     setResultUrl("");
+    setBackground({ type: "transparent", color: "#ffffff" });
   };
 
   const download = () => {
     if (!resultUrl || !source) return;
     const link = document.createElement("a");
-    link.download = `${source.name}-no-background.png`;
+    link.download = `${source.name}-${background.type === "transparent" ? "transparent" : "background"}.png`;
     link.href = resultUrl;
     link.click();
     toast.success("Transparent PNG downloaded");
@@ -133,6 +177,20 @@ export default function BackgroundRemover() {
               <div className="bg-remove-card-heading"><h2>Transparent Preview</h2><span>{source.image.naturalWidth} x {source.image.naturalHeight}px</span></div>
               <div className="bg-remove-preview checkerboard"><img src={resultUrl} alt="Image with background removed" /></div>
               <p className="bg-remove-hint">The checkerboard shows transparent pixels.</p>
+            </div>
+            <div className="bg-remove-color-section">
+              <div className="bg-remove-color-heading"><strong>Background color</strong><span>{background.type === "transparent" ? "Transparent" : background.color}</span></div>
+              <div className="bg-remove-color-options">
+                <button className={`bg-remove-color-swatch transparent-swatch${background.type === "transparent" ? " active" : ""}`} type="button" aria-label="Transparent background" title="Transparent" onClick={() => chooseBackground({ type: "transparent", color: "#ffffff" })} />
+                <button className={`bg-remove-color-swatch white-swatch${background.color === "#ffffff" && background.type !== "transparent" ? " active" : ""}`} type="button" aria-label="White background" title="White" onClick={() => chooseBackground({ type: "color", color: "#ffffff" })} />
+                <button className={`bg-remove-color-swatch black-swatch${background.color === "#111111" ? " active" : ""}`} type="button" aria-label="Black background" title="Black" onClick={() => chooseBackground({ type: "color", color: "#111111" })} />
+                <button className={`bg-remove-color-swatch blue-swatch${background.color === "#dbeafe" ? " active" : ""}`} type="button" aria-label="Blue background" title="Light blue" onClick={() => chooseBackground({ type: "color", color: "#dbeafe" })} />
+                <button className={`bg-remove-color-swatch red-swatch${background.color === "#fee2e2" ? " active" : ""}`} type="button" aria-label="Red background" title="Light red" onClick={() => chooseBackground({ type: "color", color: "#fee2e2" })} />
+                <label className={`bg-remove-custom-swatch${background.type === "color" && !["#ffffff", "#111111", "#dbeafe", "#fee2e2"].includes(background.color) ? " active" : ""}`} title="Choose custom color">
+                  <input type="color" value={background.color} onChange={(event) => chooseBackground({ type: "color", color: event.target.value })} aria-label="Choose custom background color" />
+                </label>
+              </div>
+              <p className="bg-remove-color-help">Choose a color or switch back to transparent anytime.</p>
             </div>
             <div className="bg-remove-settings">
               <h2>Background Removal</h2>

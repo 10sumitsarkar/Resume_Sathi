@@ -72,6 +72,174 @@
   background: #fff;
 }
 
+.rk-id-card-feature {
+  overflow: hidden;
+}
+
+.rk-id-card-points {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.rk-id-card-point {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--rk-ink);
+}
+
+.rk-id-card-bullet {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--rk-brand);
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.12);
+  flex-shrink: 0;
+}
+
+.rk-id-card-cta {
+  margin-top: 24px;
+}
+
+.rk-id-card-preview {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  padding: 24px;
+}
+
+.rk-id-card-sample {
+  position: relative;
+  width: min(100%, 340px);
+  border-radius: 22px;
+  background: linear-gradient(180deg, #ffffff 0%, #fff8f8 100%);
+  border: 1px solid rgba(204, 0, 0, 0.12);
+  box-shadow: 0 18px 40px rgba(31, 41, 55, 0.12);
+}
+
+.rk-id-card-sample--main {
+  padding: 18px 18px 16px;
+  transform: rotate(-7deg);
+}
+
+.rk-id-card-sample--mini {
+  position: absolute;
+  right: 26px;
+  bottom: 22px;
+  width: 180px;
+  padding: 16px 14px;
+  background: linear-gradient(135deg, #ffffff 0%, #fff1f2 100%);
+  border: 1px solid rgba(204, 0, 0, 0.11);
+  transform: rotate(9deg);
+  display: grid;
+  gap: 8px;
+}
+
+.rk-id-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.rk-id-card-logo {
+  width: 62px;
+  height: 22px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--rk-brand) 0%, #b80e0e 100%);
+  display: block;
+}
+
+.rk-id-card-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(204, 0, 0, 0.08);
+  color: var(--rk-brand);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+.rk-id-card-body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.rk-id-card-photo {
+  width: 72px;
+  height: 88px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #f5d0d0 0%, #fce7f3 100%);
+  border: 2px solid rgba(204, 0, 0, 0.16);
+}
+
+.rk-id-card-meta {
+  display: grid;
+  gap: 4px;
+  color: var(--rk-ink);
+}
+
+.rk-id-card-meta strong {
+  font-size: 1.05rem;
+}
+
+.rk-id-card-meta span,
+.rk-id-card-meta small {
+  color: var(--rk-muted);
+}
+
+.rk-id-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  gap: 10px;
+}
+
+.rk-id-card-line {
+  display: block;
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--rk-brand) 0%, rgba(204, 0, 0, 0.2) 100%);
+}
+
+.rk-id-card-qr {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background:
+    linear-gradient(90deg, #111827 0 20%, transparent 20% 30%, #111827 30% 40%, transparent 40% 50%, #111827 50% 60%, transparent 60% 70%, #111827 70% 80%, transparent 80% 100%),
+    linear-gradient(#111827 0 20%, transparent 20% 30%, #111827 30% 40%, transparent 40% 50%, #111827 50% 60%, transparent 60% 70%, #111827 70% 80%, transparent 80% 100%),
+    #fff;
+  background-size: 100% 100%;
+  border: 1px solid rgba(17, 24, 39, 0.18);
+}
+
+.rk-id-card-mini-tag {
+  font-size: .68rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--rk-brand);
+  font-weight: 700;
+}
+
+.rk-id-card-mini-text {
+  font-weight: 700;
+  color: var(--rk-ink);
+}
+
 .rk-btn {
   display: inline-flex;
   align-items: center;

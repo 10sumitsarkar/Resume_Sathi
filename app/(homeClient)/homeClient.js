@@ -1674,6 +1674,76 @@ export default function ResumeListClient({
         </div>
       </section>
 
+      <section className="rk-section rk-section--gray rk-id-card-feature">
+        <div className="container-fluid custom-container">
+          <div className="row align-items-center g-4">
+            <div className="col-lg-6">
+              <div className="rk-eyebrow">ID Card Maker</div>
+              <h2 className="rk-sec-title fs-mob-24">
+                Design school, employee, and event ID cards in minutes
+              </h2>
+              <p className="rk-sec-sub fs-mob-14">
+                Create print-ready front and back cards with ready-made layouts,
+                branding, QR codes, and editable fields for teams, students, and
+                visitors.
+              </p>
+
+              <div className="rk-id-card-points">
+                <div className="rk-id-card-point">
+                  <span className="rk-id-card-bullet" />
+                  <span>Front & back card layouts</span>
+                </div>
+                <div className="rk-id-card-point">
+                  <span className="rk-id-card-bullet" />
+                  <span>Customize name, photo, role, logo and QR</span>
+                </div>
+                <div className="rk-id-card-point">
+                  <span className="rk-id-card-bullet" />
+                  <span>Download high-resolution print-ready output</span>
+                </div>
+              </div>
+
+              <div className="rk-id-card-cta">
+                <Link
+                  prefetch={false}
+                  href="/id-card-maker/"
+                  className="rk-btn rk-btn--primary rk-btn--lg"
+                >
+                  Open ID Card Maker <Icon.ArrowRight />
+                </Link>
+              </div>
+            </div>
+
+            <div className="col-lg-6">
+              <div className="rk-id-card-preview" aria-label="ID Card maker preview">
+                <div className="rk-id-card-sample rk-id-card-sample--main">
+                  <div className="rk-id-card-header">
+                    <span className="rk-id-card-logo" />
+                    <span className="rk-id-card-badge">Staff</span>
+                  </div>
+                  <div className="rk-id-card-body">
+                    <div className="rk-id-card-photo" />
+                    <div className="rk-id-card-meta">
+                      <strong>Neha Sharma</strong>
+                      <span>Marketing Executive</span>
+                      <small>Employee ID #2048</small>
+                    </div>
+                  </div>
+                  <div className="rk-id-card-footer">
+                    <span className="rk-id-card-line" />
+                    <span className="rk-id-card-qr" />
+                  </div>
+                </div>
+                <div className="rk-id-card-sample rk-id-card-sample--mini">
+                  <span className="rk-id-card-mini-tag">Event Pass</span>
+                  <span className="rk-id-card-mini-text">College Fest 2026</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="rk-section rk-section--white" id="templates">
         <div className="container-fluid custom-container">
           <div className="rk-sec-head-row">

@@ -1,5 +1,5 @@
 {
-  "frontendBase": "https://www.resumesathi.com",
-  "backendBase": "https://api.resumesathi.com"
+  "frontendBase": "http://localhost:3000",
+  "backendBase": "http://127.0.0.1:8000"
 }
  

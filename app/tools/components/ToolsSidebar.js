@@ -153,6 +153,12 @@ useEffect(() => {
               </Link>
             </div>
             <div className='all-sub-items-div'>
+                <Link prefetch={false} href="/tools/background-remover/" className={`each-sub-item ${isActive('/tools/background-remover') ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Background Remover">
+                  <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Background Remover" />
+                  <span>Background Remover</span>
+                </Link>
+              </div>
+              <div className='all-sub-items-div'>
               <Link prefetch={false} href="/tools/signature-cropper/" className={`each-sub-item ${isActive('/tools/signature-cropper') ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Signature Cropper">
                 <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Signature Cropper" />
                 <span>Signature Cropper</span>
@@ -243,6 +249,12 @@ useEffect(() => {
                 <Link prefetch={false} href="/tools/age-calculator/" className={`each-sub-item ${isActive('/tools/age-calculator') ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Age Calculator" onClick={closeOffcanvas}>
                   <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Age Calculator" />
                   <span>Age Calculator</span>
+                </Link>
+              </div>
+              <div className='all-sub-items-div'>
+                <Link prefetch={false} href="/tools/background-remover/" className={`each-sub-item ${isActive('/tools/background-remover') ? 'active' : ''}`} data-bs-toggle="tooltip" data-bs-placement="right" title="Background Remover" onClick={closeOffcanvas}>
+                  <img src="/front-assets/images/icons/gradient-generator.svg" width={24} height={24} alt="Background Remover" />
+                  <span>Background Remover</span>
                 </Link>
               </div>
               <div className='all-sub-items-div'>

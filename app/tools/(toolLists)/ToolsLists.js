@@ -361,6 +361,15 @@ const TOOL_GROUPS = [
         tag: "Image",
         live: true,
       },
+      {
+        href: "/tools/background-remover/",
+        icon: <IconImage />,
+        tagIcon: <IconFileText />,
+        title: "Background Remover",
+        desc: "Remove backgrounds and download transparent PNGs.",
+        tag: "Image",
+        live: true,
+      },
     ],
   },
 ];

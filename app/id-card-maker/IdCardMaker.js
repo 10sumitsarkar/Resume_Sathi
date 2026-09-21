@@ -68,6 +68,8 @@ export default function IdCardMaker() {
   const categoryScrollRef = useRef(null);
   const pinchRef = useRef(null);
   const canvasAreaRef = useRef(null);
+  const pointerSnapshotRef = useRef([]);
+  const pointerStartStateRef = useRef([]);
 
   useEffect(() => {
     const updateViewportMode = () => {
@@ -156,8 +158,9 @@ export default function IdCardMaker() {
       : TEMPLATES.filter((template) => template.category === category);
   const selected = elements.find((item) => item.id === selectedId);
 
-  const commit = (next) => {
-    setHistory((previous) => [...previous.slice(-29), elements]);
+  const commit = (next, previousState = elements) => {
+    const snapshot = previousState.map((item) => ({ ...item }));
+    setHistory((previous) => [...previous.slice(-29), snapshot]);
     setFuture([]);
     setElements(next);
     setSides((previous) => ({ ...previous, [side]: next }));
@@ -302,19 +305,21 @@ export default function IdCardMaker() {
   const undo = () => {
     const previous = history.at(-1);
     if (!previous) return;
-    setFuture((current) => [elements, ...current]);
+    const currentSnapshot = elements.map((item) => ({ ...item }));
+    setFuture((current) => [currentSnapshot, ...current]);
     setHistory((current) => current.slice(0, -1));
-    setElements(previous);
-    setSides((current) => ({ ...current, [side]: previous }));
+    setElements(previous.map((item) => ({ ...item })));
+    setSides((current) => ({ ...current, [side]: previous.map((item) => ({ ...item })) }));
   };
 
   const redo = () => {
     const next = future[0];
     if (!next) return;
-    setHistory((current) => [...current, elements]);
+    const currentSnapshot = elements.map((item) => ({ ...item }));
+    setHistory((current) => [...current, currentSnapshot]);
     setFuture((current) => current.slice(1));
-    setElements(next);
-    setSides((current) => ({ ...current, [side]: next }));
+    setElements(next.map((item) => ({ ...item })));
+    setSides((current) => ({ ...current, [side]: next.map((item) => ({ ...item })) }));
   };
 
   const switchSide = (nextSide) => {
@@ -345,6 +350,7 @@ export default function IdCardMaker() {
     }
 
     setSelectedId(activeItem.id);
+    pointerStartStateRef.current = elements.map((entry) => ({ ...entry }));
     const start = { x: event.clientX, y: event.clientY, item: activeItem };
     const pointerTarget = event.currentTarget;
     const pointerId = event.pointerId;
@@ -353,8 +359,8 @@ export default function IdCardMaker() {
     const move = (moveEvent) => {
       if (!dragging) return;
       const scale = stageScale;
-      setElements((current) =>
-        current.map((entry) =>
+      setElements((current) => {
+        const next = current.map((entry) =>
           entry.id === activeItem.id
             ? {
                 ...entry,
@@ -368,8 +374,10 @@ export default function IdCardMaker() {
                 ),
               }
             : entry,
-        ),
-      );
+        );
+        pointerSnapshotRef.current = next.map((entry) => ({ ...entry }));
+        return next;
+      });
     };
     const stop = () => {
       if (!dragging) return;
@@ -378,7 +386,17 @@ export default function IdCardMaker() {
       window.removeEventListener("pointerup", stop);
       window.removeEventListener("pointercancel", stop);
       pointerTarget.releasePointerCapture?.(pointerId);
-      setSides((current) => ({ ...current, [side]: elements }));
+      const previousState = pointerStartStateRef.current.map((entry) => ({ ...entry }));
+      const finalState = pointerSnapshotRef.current.length
+        ? pointerSnapshotRef.current.map((entry) => ({ ...entry }))
+        : previousState;
+      const startedDifferent = JSON.stringify(previousState) !== JSON.stringify(finalState);
+      if (startedDifferent) {
+        setHistory((current) => [...current.slice(-29), previousState]);
+        setFuture([]);
+        setElements(finalState);
+        setSides((current) => ({ ...current, [side]: finalState }));
+      }
     };
     window.addEventListener("pointermove", move);
     window.addEventListener("pointerup", stop);
@@ -388,6 +406,7 @@ export default function IdCardMaker() {
   const onResizeStart = (event, item, corner = "se") => {
     event.stopPropagation();
     if (item.locked) return;
+    pointerStartStateRef.current = elements.map((entry) => ({ ...entry }));
     const start = { x: event.clientX, y: event.clientY, item };
     const pointerTarget = event.currentTarget;
     const pointerId = event.pointerId;
@@ -412,8 +431,8 @@ export default function IdCardMaker() {
       const nextY = corner.includes("n")
         ? Math.max(0, start.item.y + deltaY)
         : start.item.y;
-      setElements((current) =>
-        current.map((entry) =>
+      setElements((current) => {
+        const next = current.map((entry) =>
           entry.id === item.id
             ? {
                 ...entry,
@@ -423,8 +442,10 @@ export default function IdCardMaker() {
                 height: nextHeight,
               }
             : entry,
-        ),
-      );
+        );
+        pointerSnapshotRef.current = next.map((entry) => ({ ...entry }));
+        return next;
+      });
     };
     const stop = () => {
       if (!resizing) return;
@@ -433,6 +454,17 @@ export default function IdCardMaker() {
       window.removeEventListener("pointerup", stop);
       window.removeEventListener("pointercancel", stop);
       pointerTarget.releasePointerCapture?.(pointerId);
+      const previousState = pointerStartStateRef.current.map((entry) => ({ ...entry }));
+      const finalState = pointerSnapshotRef.current.length
+        ? pointerSnapshotRef.current.map((entry) => ({ ...entry }))
+        : previousState;
+      const startedDifferent = JSON.stringify(previousState) !== JSON.stringify(finalState);
+      if (startedDifferent) {
+        setHistory((current) => [...current.slice(-29), previousState]);
+        setFuture([]);
+        setElements(finalState);
+        setSides((current) => ({ ...current, [side]: finalState }));
+      }
     };
     window.addEventListener("pointermove", resize);
     window.addEventListener("pointerup", stop);
@@ -442,6 +474,7 @@ export default function IdCardMaker() {
   const onRotateStart = (event, item) => {
     event.stopPropagation();
     if (item.locked) return;
+    pointerStartStateRef.current = elements.map((entry) => ({ ...entry }));
     const elementBox = event.currentTarget.parentElement.getBoundingClientRect();
     const pointerTarget = event.currentTarget;
     const pointerId = event.pointerId;
@@ -473,11 +506,13 @@ export default function IdCardMaker() {
           ? { id: item.id, angle: closestAngle % 360 }
           : null,
       );
-      setElements((current) =>
-        current.map((entry) =>
+      setElements((current) => {
+        const next = current.map((entry) =>
           entry.id === item.id ? { ...entry, rotation } : entry,
-        ),
-      );
+        );
+        pointerSnapshotRef.current = next.map((entry) => ({ ...entry }));
+        return next;
+      });
     };
     const stop = () => {
       if (!rotating) return;
@@ -487,7 +522,17 @@ export default function IdCardMaker() {
       window.removeEventListener("pointercancel", stop);
       pointerTarget.releasePointerCapture?.(pointerId);
       setRotationGuide(null);
-      setSides((current) => ({ ...current, [side]: elements }));
+      const previousState = pointerStartStateRef.current.map((entry) => ({ ...entry }));
+      const finalState = pointerSnapshotRef.current.length
+        ? pointerSnapshotRef.current.map((entry) => ({ ...entry }))
+        : previousState;
+      const startedDifferent = JSON.stringify(previousState) !== JSON.stringify(finalState);
+      if (startedDifferent) {
+        setHistory((current) => [...current.slice(-29), previousState]);
+        setFuture([]);
+        setElements(finalState);
+        setSides((current) => ({ ...current, [side]: finalState }));
+      }
     };
     window.addEventListener("pointermove", rotate);
     window.addEventListener("pointerup", stop);
@@ -631,21 +676,19 @@ export default function IdCardMaker() {
               <button
                 key={template.id}
                 type="button"
+                className="context-template-item"
                 onClick={() => loadTemplate(template)}
               >
-                <span
-                  className="context-template-swatch"
-                  style={{ background: template.frontBg }}
-                >
-                  <i style={{ background: template.color }} />
-                </span>
+                <div className="context-template-preview">
+                  <MiniCard template={template} face="front" width={118} />
+                </div>
                 <span className="context-template-copy">
                   <strong>{template.name}</strong>
                   <small>{template.category}</small>
                 </span>
               </button>
             ))}
-            <button type="button" onClick={() => loadTemplate(null)}>
+            <button type="button" className="context-template-item blank" onClick={() => loadTemplate(null)}>
               <span className="context-template-swatch blank">
                 <Icon name="plus" size={16} />
               </span>
@@ -757,6 +800,7 @@ export default function IdCardMaker() {
             <div className="bg-color-row">
               <input
                 type="color"
+                className="bg-color-picker"
                 value={cardBg[side] || "#ffffff"}
                 onChange={(event) =>
                   setCardBg((current) => ({
@@ -767,17 +811,22 @@ export default function IdCardMaker() {
               />
               <div className="bg-swatch-row">
                 {["#ffffff", "#0f172a", "#eef2ff", "#ecfdf5", "#fff7ed", "#fef2f2"].map(
-                  (tone) => (
-                    <button
-                      key={tone}
-                      type="button"
-                      aria-label={`Background ${tone}`}
-                      style={{ background: tone }}
-                      onClick={() =>
-                        setCardBg((current) => ({ ...current, [side]: tone }))
-                      }
-                    />
-                  ),
+                  (tone) => {
+                    const isSelected = (cardBg[side] || "#ffffff") === tone;
+                    return (
+                      <button
+                        key={tone}
+                        type="button"
+                        aria-label={`Background ${tone}`}
+                        aria-pressed={isSelected}
+                        className={isSelected ? "bg-swatch active" : "bg-swatch"}
+                        style={{ background: tone }}
+                        onClick={() =>
+                          setCardBg((current) => ({ ...current, [side]: tone }))
+                        }
+                      />
+                    );
+                  },
                 )}
               </div>
             </div>
@@ -1103,7 +1152,7 @@ export default function IdCardMaker() {
                 </div>
               ) : (
                 filtered.map((template) => (
-                  <div className="col-12 col-md-6 col-lg-3" key={template.id}>
+                  <div className="col-12 col-md-6 col-lg-4" key={template.id}>
                     <article className="idm-tpl">
                       <div className="idm-tpl-thumb">
                         <div className="idm-face idm-face-front">

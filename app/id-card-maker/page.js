@@ -6,6 +6,7 @@ const DESCRIPTION =
   "Free online ID card maker with front and back templates for school, college, employee, visitor, event, medical, press, gym and volunteer cards. Edit in the browser and download a print-ready 4K file.";
 
 export const metadata = {
+  metadataBase: new URL("https://www.resumesathi.com"),
   title: TITLE,
   description: DESCRIPTION,
   keywords: [
@@ -18,6 +19,9 @@ export const metadata = {
     "gym membership card maker",
     "volunteer ID card",
     "front and back ID card template",
+    "free online ID card creator",
+    "printable ID card maker",
+    "PVC card design maker",
   ],
   alternates: { canonical: "/id-card-maker/" },
   openGraph: {
@@ -25,17 +29,28 @@ export const metadata = {
     description: DESCRIPTION,
     url: "/id-card-maker/",
     type: "website",
+    siteName: "ResumeSathi",
+    images: [
+      {
+        url: "/front-assets/images/og/home-og.png",
+        width: 1200,
+        height: 630,
+        alt: "ResumeSathi ID Card Maker",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: TITLE,
     description: DESCRIPTION,
+    images: ["/front-assets/images/og/home-og.png"],
   },
   robots: {
     index: true,
     follow: true,
     "max-image-preview": "large",
     "max-snippet": -1,
+    "max-video-preview": -1,
   },
 };
 

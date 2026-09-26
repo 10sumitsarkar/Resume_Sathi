@@ -1822,7 +1822,7 @@ export default function IdCardMaker() {
                 <rect x="9" y="2" width="21" height="15" rx="3" />
                 <path d="M14 9h10M14 13h6" />
               </svg>
-              <span>{side === "front" ? "Front" : "Back"}</span>
+              <span className="side-toggle-label">{side === "front" ? "Front" : "Back"}</span>
             </button>
           </div>
           <div className="card-stage-wrap" ref={canvasAreaRef}>

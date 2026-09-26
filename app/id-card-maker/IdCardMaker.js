@@ -282,12 +282,16 @@ export default function IdCardMaker() {
       : TEMPLATES.filter((template) => template.category === category);
   const selected = elements.find((item) => item.id === selectedId);
 
-  const commit = (next, previousState = elements) => {
-    const snapshot = previousState.map((item) => ({ ...item }));
-    setHistory((previous) => [...previous.slice(-29), snapshot]);
+  const commit = (next, previousState = null) => {
+    const currentSnapshot = (previousState ?? elements).map((item) => ({ ...item }));
+    setHistory((previous) => {
+      const lastSnapshot = previous.at(-1) || [];
+      const sameAsPrevious = JSON.stringify(lastSnapshot) === JSON.stringify(currentSnapshot);
+      return sameAsPrevious ? previous : [...previous.slice(-29), currentSnapshot];
+    });
     setFuture([]);
     setElements(next);
-    setSides((previous) => ({ ...previous, [side]: next }));
+    setSides((previous) => ({ ...previous, [side]: next.map((item) => ({ ...item })) }));
   };
 
   const loadTemplate = (template) => {
@@ -323,13 +327,18 @@ export default function IdCardMaker() {
 
   const updateSelected = (patch) => {
     if (!selected) return;
-    commit(
-      elements.map((item) =>
-        item.id === selected.id
-          ? fitTextToContent({ ...item, ...patch })
-          : item,
-      ),
+    const previousSnapshot = elements.map((item) => ({ ...item }));
+    const next = elements.map((item) =>
+      item.id === selected.id
+        ? fitTextToContent({ ...item, ...patch })
+        : item,
     );
+    const sameAsPrevious = JSON.stringify(previousSnapshot) === JSON.stringify(next);
+    if (sameAsPrevious) return;
+    setHistory((previous) => [...previous.slice(-29), previousSnapshot]);
+    setFuture([]);
+    setElements(next);
+    setSides((previous) => ({ ...previous, [side]: next.map((item) => ({ ...item })) }));
   };
 
   const moveSelectedByArrow = (deltaX, deltaY) => {
@@ -719,11 +728,23 @@ export default function IdCardMaker() {
       const nextMarkup = normalizeSvgMarkup(rawSvg);
       const originalColor = extractSvgColor(rawSvg);
       const dimensions = getSvgDimensions(rawSvg);
+      const maxWidth = Math.max(28, cardSize.width * 0.8);
+      const maxHeight = Math.max(20, cardSize.height * 0.8);
+      const scale = Math.min(
+        maxWidth / Math.max(dimensions.width, 1),
+        maxHeight / Math.max(dimensions.height, 1),
+        1,
+      );
+      const nextWidth = Math.max(28, Math.round(dimensions.width * scale));
+      const nextHeight = Math.max(20, Math.round(dimensions.height * scale));
+
       updateSelected({
         src: nextMarkup,
         color: originalColor,
-        width: dimensions.width,
-        height: dimensions.height,
+        width: nextWidth,
+        height: nextHeight,
+        x: Math.max(0, Math.min(cardSize.width - nextWidth, selected.x || 0)),
+        y: Math.max(0, Math.min(cardSize.height - nextHeight, selected.y || 0)),
       });
     };
     reader.readAsText(file);
@@ -2078,6 +2099,9 @@ function Properties({
               min="0"
               max="60"
               value={item.radius ?? 6}
+              style={{
+                background: sliderBackground(item.radius ?? 6, 0, 60),
+              }}
               onChange={(event) =>
                 update({ radius: Number(event.target.value) })
               }

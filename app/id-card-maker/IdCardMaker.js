@@ -1745,6 +1745,7 @@ export default function IdCardMaker() {
           </button>
           <button className="export-action" aria-label="Download front and back 4K ZIP" title="Download front and back 4K ZIP" onClick={exportCard}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14" /></svg>
+            <span className="export-label">Download</span>
           </button>
         </div>
       </header>
@@ -1891,7 +1892,7 @@ function CardElement({
     top: item.y,
     width: item.width,
     height: item.height,
-    transform: `rotate(${item.rotation}deg)`,
+    transform: `rotate(${item.rotation || 0}deg) scaleX(${item.flipX ? -1 : 1}) scaleY(${item.flipY ? -1 : 1})`,
     opacity: item.opacity,
     color: item.color,
     background:
@@ -2032,10 +2033,17 @@ function Properties({
       {item.type === "photo" && (
         <>
           <button
-            className="property-button"
+            type="button"
+            className="property-button property-upload-button"
             onClick={() => fileRef.current?.click()}
           >
-            {item.src ? "Replace photo" : "Upload photo"}
+            <span className="property-upload-copy">
+              <strong>{item.src ? "Replace photo" : "Upload photo"}</strong>
+              <small>{item.src ? "Swap your current image" : "PNG, JPG, GIF, WebP"}</small>
+            </span>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 16V4M7 9l5-5 5 5M5 19.5h14" />
+            </svg>
           </button>
           <input
             ref={fileRef}
@@ -2194,6 +2202,36 @@ function Properties({
           onChange={(event) => update({ opacity: Number(event.target.value) })}
         />
       </label>
+      {item.type === "photo" && (
+        <div className="photo-flip-controls" role="group" aria-label="Flip image direction">
+          <button
+            type="button"
+            className={item.flipX ? "active" : ""}
+            aria-label="Flip horizontally"
+            title="Flip horizontally"
+            onClick={() => update({ flipX: !(item.flipX ?? false) })}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 7h8l4 5-4 5H7" />
+              <path d="M3 10h4M3 14h4" />
+              <path d="M15 7l4 5-4 5" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            className={item.flipY ? "active" : ""}
+            aria-label="Flip vertically"
+            title="Flip vertically"
+            onClick={() => update({ flipY: !(item.flipY ?? false) })}
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 7v8l5 4 5-4V7" />
+              <path d="M10 3v4M14 3v4" />
+              <path d="M7 15l5 4 5-4" />
+            </svg>
+          </button>
+        </div>
+      )}
       <div className="property-action-dock">
         <div className="property-toggles">
           <button

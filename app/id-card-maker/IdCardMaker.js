@@ -6,6 +6,7 @@ import JSZip from "jszip";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import FooterNav from "../components/FooterNav";
+import CustomInput from "../components/CustomInput/CustomInput";
 import Icon, { CATEGORY_ICONS } from "./id-card-icons";
 import {
   CATEGORIES,
@@ -15,12 +16,135 @@ import {
   element,
   uid,
 } from "./id-card-templates";
+import { FONT_WEIGHT_OPTIONS, resolveFontWeight } from "./fontUtils.mjs";
+
+const sliderBackground = (value, min = 0, max = 100) => {
+  const safeMin = Number.isFinite(min) ? min : 0;
+  const safeMax = Number.isFinite(max) ? max : 100;
+  const safeValue = Math.min(Math.max(Number(value) || 0, safeMin), safeMax);
+  const percent = safeMax === safeMin ? 0 : ((safeValue - safeMin) / (safeMax - safeMin)) * 100;
+  return `linear-gradient(90deg, var(--id-red) 0%, var(--id-red) ${percent}%, #dfe5f1 ${percent}%, #dfe5f1 100%)`;
+};
+
+const DEFAULT_SVG_MARKUP = "";
+
+const extractSvgColor = (content) => {
+  const raw = String(content || "").trim();
+  if (!raw) return "#001691";
+
+  try {
+    const parser = new DOMParser();
+    const parsed = parser.parseFromString(raw, "image/svg+xml");
+    const svg = parsed.documentElement;
+    if (!svg || svg.nodeName.toLowerCase() !== "svg") return "#001691";
+
+    const candidates = Array.from(svg.querySelectorAll("*"))
+      .map((node) => node.getAttribute("fill") || node.getAttribute("stroke"))
+      .filter((value) => value && value !== "none" && !value.startsWith("url(") && !value.startsWith("var("));
+
+    return candidates[0] || svg.getAttribute("color") || "#001691";
+  } catch (_error) {
+    return "#001691";
+  }
+};
+
+const getSvgDimensions = (content) => {
+  const raw = String(content || "").trim();
+  if (!raw) return { width: 90, height: 90 };
+
+  try {
+    const parser = new DOMParser();
+    const parsed = parser.parseFromString(raw, "image/svg+xml");
+    const svg = parsed.documentElement;
+    if (!svg || svg.nodeName.toLowerCase() !== "svg") return { width: 90, height: 90 };
+
+    const widthAttr = svg.getAttribute("width");
+    const heightAttr = svg.getAttribute("height");
+    const viewBox = svg.getAttribute("viewBox");
+
+    const parseLength = (value) => {
+      if (!value) return null;
+      const clean = String(value).trim();
+      const numeric = Number.parseFloat(clean);
+      if (!Number.isFinite(numeric)) return null;
+      return numeric;
+    };
+
+    const width = parseLength(widthAttr) || (viewBox ? Number.parseFloat(viewBox.split(/\s+/)[2] || "0") : null) || 90;
+    const height = parseLength(heightAttr) || (viewBox ? Number.parseFloat(viewBox.split(/\s+/)[3] || "0") : null) || 90;
+
+    return { width: Math.max(20, width), height: Math.max(20, height) };
+  } catch (_error) {
+    return { width: 90, height: 90 };
+  }
+};
+
+const recolorSvgMarkup = (content, color) => {
+  const raw = String(content || "").trim();
+  if (!raw || !color) return raw;
+
+  try {
+    const parser = new DOMParser();
+    const parsed = parser.parseFromString(raw, "image/svg+xml");
+    const svg = parsed.documentElement;
+    if (!svg || svg.nodeName.toLowerCase() !== "svg") return raw;
+
+    svg.setAttribute("fill", color);
+    svg.setAttribute("stroke", color);
+
+    svg.querySelectorAll("*").forEach((node) => {
+      const fill = node.getAttribute("fill");
+      const stroke = node.getAttribute("stroke");
+      if (fill && fill !== "none" && !fill.startsWith("url(") && !fill.startsWith("var(")) {
+        node.setAttribute("fill", color);
+      }
+      if (stroke && stroke !== "none" && !stroke.startsWith("url(") && !stroke.startsWith("var(")) {
+        node.setAttribute("stroke", color);
+      }
+    });
+
+    return svg.outerHTML;
+  } catch (_error) {
+    return raw;
+  }
+};
+
+const normalizeSvgMarkup = (content) => {
+  const raw = String(content || "").trim();
+  if (!raw) return "";
+
+  try {
+    const parser = new DOMParser();
+    const parsed = parser.parseFromString(raw, "image/svg+xml");
+    const svg = parsed.documentElement;
+    if (!svg || svg.nodeName.toLowerCase() !== "svg") return raw;
+
+    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+    svg.setAttribute("preserveAspectRatio", "xMidYMid meet");
+
+    if (!svg.getAttribute("viewBox")) {
+      const width = svg.getAttribute("width") || "100";
+      const height = svg.getAttribute("height") || "100";
+      svg.setAttribute("viewBox", `0 0 ${Number.parseFloat(width) || 100} ${Number.parseFloat(height) || 100}`);
+    }
+
+    if (!svg.getAttribute("width") && !svg.getAttribute("height")) {
+      svg.setAttribute("width", "100%");
+      svg.setAttribute("height", "100%");
+    }
+
+    return svg.outerHTML;
+  } catch (_error) {
+    return raw;
+  }
+};
 
 const fitTextToContent = (item) => {
   if (item.type !== "text" || typeof document === "undefined") return item;
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
-  context.font = `${item.bold ? 800 : 500} ${item.fontSize || 16}px Arial`;
+  const fontWeight = resolveFontWeight(item);
+  context.font = `${fontWeight} ${item.fontSize || 16}px Arial`;
   const lines = String(item.text || "").split("\n");
   const contentWidth = Math.max(
     ...lines.map((line) => context.measureText(line || " ").width),
@@ -241,25 +365,36 @@ export default function IdCardMaker() {
             fontSize:
               shape === "heading" ? 28 : shape === "subheading" ? 20 : 16,
             color: "#111827",
+            fontWeight: shape === "heading" ? 800 : 500,
             bold: shape === "heading",
           }
         : type === "photo"
           ? { width: 110, height: 132 }
-          : type === "qr"
-            ? { width: 88, height: 88 }
-            : type === "barcode"
-              ? { width: 180, height: 26 }
-              : {
-                  text: "",
-                  shape,
-                  bg: "#dbe2ff",
-                  fillMode: "solid",
-                  borderColor: "#001691",
-                  borderWidth: 2,
-                  radius: shape === "circle" ? 50 : shape === "pill" ? 999 : 6,
-                  width: shape === "circle" || shape === "star" ? 72 : 120,
-                  height: shape === "line" ? 8 : 72,
-                };
+          : type === "svg"
+            ? {
+                width: 90,
+                height: 90,
+                color: "#001691",
+                fillColor: "#001691",
+                borderColor: "#001691",
+                borderWidth: 2,
+                fillMode: "solid",
+              }
+            : type === "qr"
+              ? { width: 88, height: 88 }
+              : type === "barcode"
+                ? { width: 180, height: 26 }
+                : {
+                    text: "",
+                    shape,
+                    bg: "#dbe2ff",
+                    fillMode: "solid",
+                    borderColor: "#001691",
+                    borderWidth: 2,
+                    radius: shape === "circle" ? 50 : shape === "pill" ? 999 : 6,
+                    width: shape === "circle" || shape === "star" ? 72 : 120,
+                    height: shape === "line" ? 8 : 72,
+                  };
     const next = [
       ...elements,
       fitTextToContent(element(type, { x: 40, y: 40, ...defaults })),
@@ -417,19 +552,46 @@ export default function IdCardMaker() {
       const scale = stageScale;
       const deltaX = (resizeEvent.clientX - start.x) / scale;
       const deltaY = (resizeEvent.clientY - start.y) / scale;
-      const nextWidth = Math.max(
+      const originalRatio = item.type === "svg" && item.width && item.height ? item.width / item.height : null;
+
+      let nextWidth = Math.max(
         28,
         start.item.width + (corner.includes("e") ? deltaX : -deltaX),
       );
-      const nextHeight = Math.max(
+      let nextHeight = Math.max(
         20,
         start.item.height + (corner.includes("s") ? deltaY : -deltaY),
       );
+
+      if (originalRatio) {
+        const widthFromHeight = Math.max(28, (start.item.height + (corner.includes("s") ? deltaY : -deltaY)) * originalRatio);
+        const heightFromWidth = Math.max(20, (start.item.width + (corner.includes("e") ? deltaX : -deltaX)) / originalRatio);
+
+        if (Math.abs(deltaX) >= Math.abs(deltaY)) {
+          nextWidth = Math.max(28, start.item.width + (corner.includes("e") ? deltaX : -deltaX));
+          nextHeight = Math.max(20, nextWidth / originalRatio);
+        } else {
+          nextHeight = Math.max(20, start.item.height + (corner.includes("s") ? deltaY : -deltaY));
+          nextWidth = Math.max(28, nextHeight * originalRatio);
+        }
+
+        if (corner.includes("e") && !corner.includes("w") && nextWidth < widthFromHeight) {
+          nextWidth = widthFromHeight;
+          nextHeight = nextWidth / originalRatio;
+        }
+        if (corner.includes("s") && !corner.includes("n") && nextHeight < heightFromWidth) {
+          nextHeight = heightFromWidth;
+          nextWidth = nextHeight * originalRatio;
+        }
+      }
+
+      const widthDelta = nextWidth - start.item.width;
+      const heightDelta = nextHeight - start.item.height;
       const nextX = corner.includes("w")
-        ? Math.max(0, start.item.x + deltaX)
+        ? Math.max(0, start.item.x + widthDelta)
         : start.item.x;
       const nextY = corner.includes("n")
-        ? Math.max(0, start.item.y + deltaY)
+        ? Math.max(0, start.item.y + heightDelta)
         : start.item.y;
       setElements((current) => {
         const next = current.map((entry) =>
@@ -547,6 +709,27 @@ export default function IdCardMaker() {
     event.target.value = "";
   };
 
+  const uploadSvg = (event) => {
+    const file = event.target.files?.[0];
+    if (!file || !selected || selected.type !== "svg") return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const rawSvg = String(reader.result || "");
+      const nextMarkup = normalizeSvgMarkup(rawSvg);
+      const originalColor = extractSvgColor(rawSvg);
+      const dimensions = getSvgDimensions(rawSvg);
+      updateSelected({
+        src: nextMarkup,
+        color: originalColor,
+        width: dimensions.width,
+        height: dimensions.height,
+      });
+    };
+    reader.readAsText(file);
+    event.target.value = "";
+  };
+
   const exportCard = async () => {
     if (!stageRef.current) return;
     const originalSide = side;
@@ -659,6 +842,7 @@ export default function IdCardMaker() {
               duplicate={duplicateSelected}
               layer={moveSelected}
               uploadPhoto={uploadPhoto}
+              uploadSvg={uploadSvg}
               fileRef={fileRef}
             />
           ) : (
@@ -845,20 +1029,29 @@ export default function IdCardMaker() {
       <>
         <div className="context-panel-title">Elements</div>
         <p className="context-panel-note">
-          Shapes, codes and photo frames. Text and uploads have their own tabs.
+          Add shapes or upload an SVG asset. Text and uploads have their own tabs.
         </p>
         <div className="quick-add-grid">
-          <button type="button" onClick={() => addElement("photo")}>
-            <Icon name="uploads" size={18} />
-            Photo frame
-          </button>
-          <button type="button" onClick={() => addElement("qr")}>
-            <Icon name="qr" size={18} />
-            QR code
-          </button>
-          <button type="button" onClick={() => addElement("barcode")}>
+          <button type="button" onClick={() => {
+            const svg = fitTextToContent(
+              element("svg", {
+                x: 40,
+                y: 40,
+                width: 90,
+                height: 90,
+                color: "#001691",
+                opacity: 1,
+                src: "",
+              }),
+            );
+            commit([...elements, svg]);
+            setSelectedId(svg.id);
+            setActivePanel("properties");
+            setMobileSheetOpen(true);
+            setTimeout(() => fileRef.current?.click(), 0);
+          }}>
             <Icon name="layers" size={18} />
-            Barcode
+            Upload SVG
           </button>
         </div>
         <div className="shape-picker">
@@ -1701,7 +1894,7 @@ function CardElement({
           ? "polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%)"
           : undefined,
     fontSize: item.fontSize,
-    fontWeight: item.bold ? 800 : 500,
+    fontWeight: resolveFontWeight(item),
   };
   const content =
     item.type === "photo" ? (
@@ -1715,6 +1908,21 @@ function CardElement({
       ) : (
         <span className="photo-placeholder">Photo</span>
       )
+    ) : item.type === "svg" ? (
+      item.src ? (
+        <div
+          className="card-svg-wrap"
+          style={{
+            width: "100%",
+            height: "100%",
+            color: item.color || "#001691",
+            opacity: item.opacity ?? 1,
+          }}
+          dangerouslySetInnerHTML={{
+            __html: normalizeSvgMarkup(item.src),
+          }}
+        />
+      ) : null
     ) : item.type === "qr" ? (
       <span className="qr-placeholder">QR</span>
     ) : item.type === "barcode" ? (
@@ -1786,6 +1994,7 @@ function Properties({
   duplicate,
   layer,
   uploadPhoto,
+  uploadSvg,
   fileRef,
 }) {
   return (
@@ -1820,13 +2029,17 @@ function Properties({
         <>
           <label>
             Shape fill
-            <select
+            <CustomInput
+              type="select"
               value={item.fillMode || "solid"}
-              onChange={(event) => update({ fillMode: event.target.value })}
-            >
-              <option value="solid">Solid</option>
-              <option value="stroke">Stroke</option>
-            </select>
+              options={[
+                { label: "Solid", value: "solid" },
+                { label: "Stroke", value: "stroke" },
+              ]}
+              onChange={(nextValue) => update({ fillMode: nextValue })}
+              placeholder="Select fill"
+              optionTextWeightMode={false}
+            />
           </label>
           <label>
             {item.fillMode === "stroke" ? "Stroke color" : "Fill color"}
@@ -1871,6 +2084,35 @@ function Properties({
             />
           </label>
         </>
+      ) : item.type === "svg" ? (
+        <>
+          <button
+            className="property-button"
+            onClick={() => fileRef.current?.click()}
+          >
+            Upload SVG
+          </button>
+          <input
+            ref={fileRef}
+            hidden
+            type="file"
+            accept=".svg,image/svg+xml"
+            onChange={uploadSvg}
+          />
+          <label>
+            SVG color
+            <input
+              type="color"
+              value={item.color || "#001691"}
+              onChange={(event) => {
+                update({
+                  color: event.target.value,
+                  src: item.src ? recolorSvgMarkup(item.src, event.target.value) : item.src,
+                });
+              }}
+            />
+          </label>
+        </>
       ) : (
         item.type !== "photo" && (
           <>
@@ -1894,6 +2136,23 @@ function Properties({
                 }
               />
             </label>
+            <label>
+              Font weight
+              <CustomInput
+                type="select"
+                value={resolveFontWeight(item)}
+                options={FONT_WEIGHT_OPTIONS}
+                onChange={(nextValue) => {
+                  const nextWeight = Number(nextValue);
+                  update({
+                    fontWeight: nextWeight,
+                    bold: nextWeight >= 700,
+                  });
+                }}
+                placeholder="Select weight"
+                optionTextWeightMode={true}
+              />
+            </label>
           </>
         )
       )}
@@ -1905,6 +2164,9 @@ function Properties({
           max="1"
           step="0.1"
           value={item.opacity}
+          style={{
+            background: sliderBackground(item.opacity ?? 1, 0.2, 1),
+          }}
           onChange={(event) => update({ opacity: Number(event.target.value) })}
         />
       </label>
@@ -2001,7 +2263,7 @@ function MiniCard({ template, face = "front", width = 196, fluid = false }) {
             opacity: item.opacity ?? 1,
             color: item.color,
             fontSize: (item.fontSize || 16) * scale,
-            fontWeight: item.bold ? 800 : 500,
+            fontWeight: resolveFontWeight(item),
             borderWidth: item.borderWidth ? item.borderWidth * scale : undefined,
             background:
               item.type === "shape" && item.fillMode !== "stroke"
@@ -2030,6 +2292,25 @@ function MiniCard({ template, face = "front", width = 196, fluid = false }) {
                   <circle cx="12" cy="9" r="3.6" />
                   <path d="M4.5 20c0-3.6 3.3-6 7.5-6s7.5 2.4 7.5 6" />
                 </svg>
+              </div>
+            );
+          }
+          if (item.type === "svg") {
+            return (
+              <div key={item.id} className="rk-mini-el rk-mini-svg" style={style}>
+                {item.src ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      color: item.color || "#001691",
+                      opacity: item.opacity ?? 1,
+                    }}
+                    dangerouslySetInnerHTML={{
+                      __html: normalizeSvgMarkup(item.src),
+                    }}
+                  />
+                ) : null}
               </div>
             );
           }

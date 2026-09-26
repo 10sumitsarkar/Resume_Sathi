@@ -66,6 +66,7 @@ export default async function sitemap() {
     { url: `${baseUrl}/resume/upload-resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/bio-data/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/templates/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${baseUrl}/id-card-maker/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     ...SEO_TEMPLATES.map((template) => ({
       url: `${baseUrl}/templates/${encodeURIComponent(template.slug)}/`,
       lastModified: new Date(),
@@ -73,6 +74,7 @@ export default async function sitemap() {
       priority: 0.82,
     })),
     { url: `${baseUrl}/tools/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${baseUrl}/tools/background-remover/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.82 },
     { url: `${baseUrl}/tools/ats-checker/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.82 },
     { url: `${baseUrl}/tools/merge-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
   { url: `${baseUrl}/tools/split-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },

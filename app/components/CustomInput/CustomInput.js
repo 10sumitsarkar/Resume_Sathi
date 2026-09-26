@@ -15,6 +15,7 @@ export default function CustomInput({
   className = "",
   minDate,
   maxDate,
+  optionTextWeightMode = false,
   // react-hook-form integration: pass register function and registerName/registerOptions
   register,
   registerName,
@@ -238,16 +239,24 @@ export default function CustomInput({
                 {filtered.length === 0 && (
                   <li className="rk-empty">No options</li>
                 )}
-                {filtered.map((opt, idx) => (
-                  <li
-                    role="option"
-                    key={`${opt.value ?? 'option'}-${idx}`}
-                    className="rk-select-item"
-                    onClick={() => handleSelect(opt)}
-                  >
-                    {opt.label ?? opt.value}
-                  </li>
-                ))}
+                {filtered.map((opt, idx) => {
+                  const numericWeight = Number(opt.value);
+                  const itemStyle = optionTextWeightMode && Number.isFinite(numericWeight)
+                    ? { fontWeight: numericWeight }
+                    : undefined;
+
+                  return (
+                    <li
+                      role="option"
+                      key={`${opt.value ?? 'option'}-${idx}`}
+                      className="rk-select-item"
+                      onClick={() => handleSelect(opt)}
+                      style={itemStyle}
+                    >
+                      {opt.label ?? opt.value}
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           )}

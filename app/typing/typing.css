@@ -238,6 +238,32 @@
   padding: 15px 0 15px;
 }
 
+.tf-ad-placement {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 760px;
+  min-height: 50px;
+  margin: 24px auto;
+  padding: 0 12px;
+  overflow: hidden;
+}
+
+.tf-ad-placement-top {
+  min-height: 50px;
+  margin: 16px auto;
+}
+
+.tf-ad-placement .resume-sathi-ad-slot {
+  max-width: 100%;
+}
+
+@media (min-width: 768px) {
+  .tf-ad-placement-top {
+    min-height: 90px;
+  }
+}
+
 .tf-page-intro {
   margin-bottom: 18px;
 }

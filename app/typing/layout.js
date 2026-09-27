@@ -3,6 +3,7 @@ import Navbar from "../components/NavBar";
 import Footer from "../components/Footer";
 import FooterNav from "../components/FooterNav";
 import TypingSubNav from "./_components/TypingSubNav";
+import { NativeBanner } from "../components/ads";
 import { typingMetadata, TypingJsonLd } from "./_lib/seo";
 
 export const metadata = typingMetadata({
@@ -135,6 +136,9 @@ export default function TypingLayout({ children }) {
     Typing is one of those skills where slow, steady repetition wins over
     forced effort almost every single time.
   </p>
+  <div className="tf-ad-placement">
+    <NativeBanner />
+  </div>
 </section>
       <Footer />
       <FooterNav />

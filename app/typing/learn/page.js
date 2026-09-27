@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { LESSONS } from "../_lib/lessons";
 import { readHistory, lessonBestWpm } from "../_lib/stats";
+import TypingContentAd from "../_components/TypingAd";
 
 export default function LearnPage() {
   const [history, setHistory] = useState([]);
@@ -63,6 +64,7 @@ export default function LearnPage() {
           })}
         </div>
       </div>
+      <TypingContentAd />
       <section className="container-fluid custom-container mt-5">
         <div className="tf-card p-4 p-sm-5">
           <h2 className="tf-font-display tf-display-3">

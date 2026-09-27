@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import TypingEngine from "./TypingEngine";
 import { addSession } from "../_lib/stats";
+import TypingContentAd from "./TypingAd";
 
 export default function LessonRunner({ lesson, nextLesson }) {
   const [drillIdx, setDrillIdx] = useState(0);
@@ -153,6 +154,7 @@ export default function LessonRunner({ lesson, nextLesson }) {
             </button>
           </div>
         )}
+        <TypingContentAd />
       </div>
     </div>
   );

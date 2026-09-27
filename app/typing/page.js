@@ -1,5 +1,6 @@
 import Link from "next/link";
 import HeroDemo from "./_components/HeroDemo";
+import TypingContentAd, { TypingTopAd } from "./_components/TypingAd";
 import { typingMetadata } from "./_lib/seo";
 
 export const metadata = typingMetadata({
@@ -106,6 +107,7 @@ export default function TypingHome() {
             ))}
           </div>
         </div>
+        <TypingTopAd />
         <div className="container-fluid custom-container">
           <div className="tf-card tf-py-10 mt-5 p-4 p-sm-5">
             <div className="row g-4 text-center text-sm-start">
@@ -125,6 +127,7 @@ export default function TypingHome() {
             </div>
           </div>
         </div>
+        <TypingContentAd />
         <section className="container-fluid custom-container mt-5">
           <div className="tf-card p-4 p-sm-5">
             <h2 className="tf-font-display tf-display-3">

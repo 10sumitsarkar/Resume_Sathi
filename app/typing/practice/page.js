@@ -5,6 +5,7 @@ import TypingEngine from "../_components/TypingEngine";
 import { generateWordSequence } from "../_lib/wordBank";
 import { QUOTES, CODE_SNIPPETS } from "../_lib/texts";
 import { addSession } from "../_lib/stats";
+import TypingContentAd from "../_components/TypingAd";
 
 const MODES = [
   { id: "time", label: "Time attack", tag: "15s / 30s / 60s", icon: "T" },
@@ -77,6 +78,7 @@ export default function PracticePage() {
           <div className="tf-result-card"><span className="tf-result-icon accuracy">◎</span><div><div className="tf-result-number">{lastResult.accuracy}%</div><div className="tf-result-label">Accuracy</div></div></div>
           <div className="tf-result-card"><span className="tf-result-icon duration">◷</span><div><div className="tf-result-number">{lastResult.durationSec}s</div><div className="tf-result-label">Time Taken</div></div></div>
         </div><div className="tf-result-actions"><button onClick={resetSession} className="tf-btn-brand px-4 py-2">Try again</button></div></section>}
+        <TypingContentAd />
         <section className="tf-card p-4 p-sm-5 mt-5">
           <h2 className="tf-font-display tf-display-3">Typing practice modes</h2>
           <p className="tf-text-muted tf-leading-relaxed mt-3">

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { readHistory, aggregate, clearHistory } from "../_lib/stats";
+import TypingContentAd from "../_components/TypingAd";
 
 function WpmTrend({ history }) {
   const points = history.slice(-30);
@@ -146,6 +147,7 @@ export default function StatsPage() {
           </div>
         </>
       )}
+      <TypingContentAd />
       <section className="tf-card p-4 p-sm-5 mt-5">
         <h2 className="tf-font-display tf-display-3">
           Understand your typing progress

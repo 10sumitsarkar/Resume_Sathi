@@ -16,6 +16,10 @@ RewriteCond %{REQUEST_URI} !^/api/ [NC]
 RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]{2,5}($|/) [NC]
 RewriteRule ^(.+?)/?$ /$1/ [R=301,L]
 
+# Block obviously fake or spam-like random URL paths so Google sees them as intentionally absent, not as real pages.
+RewriteCond %{REQUEST_URI} !^/(?:$|about/|blog/|jobs/|resume/|bio-data/|contact/|privacy-policy/|terms-and-conditions/|disclaimer/|tools/|typing/|templates/|robots\.txt|sitemap\.xml|ads\.txt|googleb7a2968e76c0f18\.html|front-assets/|_next/|api-config\.js|sw\.js|manifest\.json|favicon\.png|favicon\.ico|apple-touch-icon.*|.*\.(?:css|js|png|jpg|jpeg|gif|webp|svg|woff2?|ttf|json|xml))$ [NC]
+RewriteRule ^ - [R=410,L]
+
 # Replace query-string typing lesson URLs with clean canonical lesson URLs.
 RewriteCond %{QUERY_STRING} ^id=(home-row|top-row|bottom-row|numbers|punctuation|capitals|common-words|combined)$ [NC]
 RewriteRule ^typing/learn/lesson/?$ /typing/learn/lesson/%1/? [R=301,L]

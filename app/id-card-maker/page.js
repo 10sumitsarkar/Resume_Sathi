@@ -131,18 +131,23 @@ const jsonLd = {
     {
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Home", item: "/" },
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: "https://www.resumesathi.com/",
+        },
         {
           "@type": "ListItem",
           position: 2,
           name: "Tools",
-          item: "/tools/",
+          item: "https://www.resumesathi.com/tools/",
         },
         {
           "@type": "ListItem",
           position: 3,
           name: "ID Card Maker",
-          item: "/id-card-maker/",
+          item: "https://www.resumesathi.com/id-card-maker/",
         },
       ],
     },

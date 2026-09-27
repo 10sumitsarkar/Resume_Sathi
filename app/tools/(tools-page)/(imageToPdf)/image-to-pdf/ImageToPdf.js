@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/merge-pdf.css";
 import "../../../tools-css/image-to-pdf.css";
+import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 export default function ImageToPdf() {
   const inputRef = useRef(null);
@@ -160,6 +161,7 @@ export default function ImageToPdf() {
             </div>
           )}
         </div>
+        <ToolsPageAd format="728x90" />
 
         {images.length === 0 ? (
           <div
@@ -267,6 +269,7 @@ export default function ImageToPdf() {
         </div>
       )}
 
+      <ToolsPageAd native />
       <section className="image-to-pdf-info">
         <div className="info-block">
           <h2>Turn Your Photos And Screenshots Into A PDF</h2>
@@ -295,6 +298,7 @@ export default function ImageToPdf() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Adding And Arranging Your Images</h3>
           <p>
@@ -320,6 +324,7 @@ export default function ImageToPdf() {
           </p>
         </div>
 
+        <ToolsPageAd format="468x60" />
         <div className="info-block">
           <h3>What Happens To Image Quality</h3>
           <p>
@@ -343,6 +348,7 @@ export default function ImageToPdf() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Questions</h3>
           <div className="faq-list">

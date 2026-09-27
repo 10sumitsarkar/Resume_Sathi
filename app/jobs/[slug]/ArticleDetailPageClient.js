@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useParams, usePathname, useRouter } from 'next/navigation';
 import { getApiBase, getBackendBase, getSiteBase, resolveApiMediaUrl, withTrailingSlash } from '../../lib/apiConfig';
 import { getCategoryName, getCategorySlug } from '../jobCategoryUtils';
+import { Banner160x600, Banner300x250, Banner468x60, Banner728x90, NativeBanner } from '../../components/ads';
 import '../jobs.css';
 
 const DEFAULT_IMAGE = '/front-assets/images/og/job-og.png';
@@ -524,6 +525,10 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
         </div>
       </section>
 
+      <div className="rk-article-hero-ad">
+        <Banner728x90 />
+      </div>
+
       <section className="rk-blog-page">
         <div className="container-fluid custom-container">
           <div className="row g-4">
@@ -539,6 +544,9 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
                   ))}
                 </div>
               </article>
+              <div className="rk-article-bottom-native">
+                <NativeBanner />
+              </div>
             </div>
 
             <div className="col-md-4 col-lg-3">
@@ -560,12 +568,20 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
                   </ul>
                 </div>
 
+                <div className="rk-widget-ad">
+                  <Banner300x250 />
+                </div>
+
                 <div className="rk-widget rk-widget-cta">
                   <h4>Build Your Resume</h4>
                   <p>Create an ATS-optimized resume in minutes, 100% free.</p>
                   <Link prefetch={false} href="/resume/" className="rk-cta-btn">
                     <i className="bi bi-plus-lg"></i> Create Resume
                   </Link>
+                </div>
+
+                <div className="rk-widget-ad">
+                  <Banner160x600 />
                 </div>
               </aside>
             </div>
@@ -631,6 +647,10 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
             </Link>
           </div>
         </div>
+      </div>
+
+      <div className="rk-article-fixed-ad">
+        <Banner468x60 />
       </div>
     </div>
   );

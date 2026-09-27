@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeSocialMedias, deleteSocialMediaFromResume, reorderSocialMedias, markResumeStepSkipped } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import StepHeadingAd from '../../components/StepHeadingAd';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function SocialMedia() {
@@ -162,6 +163,7 @@ const id = searchParams.get('id');
           <h1>Social Media</h1>
           <p>Let's add your social media profiles to enhance your resume.</p>
         </div>
+        <StepHeadingAd />
 
         <div className='mt-5 mb-4'>
           {socialMedias.map((socialMedia, index) => (

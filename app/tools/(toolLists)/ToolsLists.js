@@ -2,6 +2,12 @@
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import FooterNav from "../../components/FooterNav";
+import {
+  Banner468x60,
+  Banner300x250,
+  Banner728x90,
+  NativeBanner,
+} from "../../components/ads";
 import "./tools-lists.css";
 
 // ── SVG Icons ──────────────────────────────────
@@ -469,6 +475,16 @@ export default function ToolsLists() {
                   ),
                 )}
               </div>
+              {group.key === "pdf" && (
+                <div className="d-flex justify-content-center my-4">
+                  <Banner728x90 />
+                </div>
+              )}
+              {group.key === "utility" && (
+                <div className="d-flex justify-content-center my-4">
+                  <NativeBanner />
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -493,6 +509,9 @@ export default function ToolsLists() {
           separate from the main resume builder instead of cramming everything
           into one place.
         </p>
+        <div className="d-flex justify-content-center my-4">
+          <Banner300x250 />
+        </div>
 
         <blockquote className="ps-3 my-4 fst-italic">
           A tool doesn't need to be big to be useful. It just needs to solve the
@@ -592,6 +611,9 @@ export default function ToolsLists() {
           application actually requires, that's usually where a new tool ends up
           here next.
         </p>
+        <div className="d-flex justify-content-center my-4">
+          <Banner468x60 />
+        </div>
       </section>
       <Footer />
       <FooterNav />

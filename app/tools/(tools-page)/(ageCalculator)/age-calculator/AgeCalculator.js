@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import "../../../tools-css/merge-pdf.css";
 import "../../../tools-css/age-calculator.css";
+import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 function calculateAge(dobValue, asOfValue) {
   if (!dobValue) return null;
@@ -187,6 +188,7 @@ export default function AgeCalculator() {
           <h1>Age <span>Calculator</span></h1>
           <p>Find exact age from date of birth. <br /><span>Years, months, days, and total days</span></p>
         </div>
+        <ToolsPageAd format="728x90" />
         <div className="age-calculator-panel">
           <div className="age-input-card">
             <DateSelector label="Date of birth" value={dob} onChange={setDob} />
@@ -211,6 +213,7 @@ export default function AgeCalculator() {
         </div>
       </section>
 
+      <ToolsPageAd native />
       <section className="age-calculator-info">
         <div className="info-block">
           <h2>Find Out Your Exact Age In Years, Months, And Days</h2>
@@ -242,6 +245,7 @@ export default function AgeCalculator() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Setting Your Date Of Birth And The Reference Date</h3>
           <p>
@@ -269,6 +273,7 @@ export default function AgeCalculator() {
           </p>
         </div>
 
+        <ToolsPageAd format="468x60" />
         <div className="info-block">
           <h3>Why The Reference Date Field Matters So Much</h3>
           <p>
@@ -293,6 +298,7 @@ export default function AgeCalculator() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Questions</h3>
           <div className="faq-list">

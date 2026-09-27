@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeAnyInternships, deleteAnyInternshipFromResume, reorderAnyInternships, markResumeStepSkipped } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import StepHeadingAd from '../../components/StepHeadingAd';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function Internship() {
@@ -175,6 +176,7 @@ const id = searchParams.get('id');
           <h1>Any Internship</h1>
           <p>Let's add your internship details to enhance your resume.</p>
         </div>
+        <StepHeadingAd />
 
         <div className='mt-5 mb-4'>
           {any_internships.map((anyInternship, index) => (

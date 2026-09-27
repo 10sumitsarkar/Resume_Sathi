@@ -17,6 +17,8 @@ import "../resume-css/resumeTemp.css";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "next/navigation";
 import { getResumeCustomizationClasses } from "../utils/fontSize";
+import { Banner320x50 } from "../../components/ads";
+import ViewportAd from "../../components/ads/ViewportAd";
 
 export default function ReviewResume({ isMainPreview = false }) {
   const [isHydrated, setIsHydrated] = useState(false);
@@ -63,6 +65,26 @@ const id = searchParams.get('id');
           <></>
         )}
       </div>
+      {!isMainPreview && (
+        <ViewportAd media="(min-width: 992px)">
+          <div
+            style={{
+              position: "fixed",
+              right: 0,
+              bottom: 0,
+              zIndex: 5,
+              width: "var(--review-resume-width)",
+              height: 50,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              background: "#fff",
+            }}
+          >
+            <Banner320x50 />
+          </div>
+        </ViewportAd>
+      )}
 
       <div
         className="offcanvas offcanvas-start"
@@ -82,7 +104,10 @@ const id = searchParams.get('id');
               aria-label="Close"
             ></button>
           </div>
-            <div className="scroll-div">
+            <div
+              className="scroll-div"
+              style={!isMainPreview ? { paddingBottom: 60 } : undefined}
+            >
             {SelectedTemplate ? (
                 <SelectedTemplate
                   isForDownload={false}
@@ -92,6 +117,26 @@ const id = searchParams.get('id');
                 <></>
               )}
             </div>
+          {!isMainPreview && (
+            <ViewportAd media="(max-width: 991px)">
+              <div
+                style={{
+                  position: "fixed",
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  zIndex: 1056,
+                  height: 50,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  background: "#fff",
+                }}
+              >
+                <Banner320x50 />
+              </div>
+            </ViewportAd>
+          )}
         </div>
       </div>
     </>

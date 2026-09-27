@@ -6,6 +6,7 @@ import '../../../tools-css/animate.min.css';
 import '../../../tools-css/css-animation.css';
 import CustomInput from '../../../../components/CustomInput/CustomInput';
 import Link from 'next/link';
+import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 export default function AnimationPreview() {
   const animations = {
@@ -90,12 +91,16 @@ export default function AnimationPreview() {
 
         <div className="tools-details-div">
           <h1>Animation.css Preview</h1>
+          <ToolsPageAd format="728x90" />
+          <ToolsPageAd native />
           <p>Easily apply stunning animations to your elements using Animate.css! Simply add the appropriate classes to your HTML elements and see the effects in action.</p>
+          <ToolsPageAd format="320x50" />
 
           <p className='text-with-head'>Add the following link inside the <code>&lt;head&gt;</code> tag of your HTML file.</p>
           <code className='full-code'>
             {`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">`}
           </code>
+          <ToolsPageAd format="320x50" />
           <h2>Core Classes (Required for Animations)</h2>
           <ul>
             <li><b>animate__animated → </b> Always required to apply animations.</li>
@@ -104,6 +109,7 @@ export default function AnimationPreview() {
             <li><b>animate__delay-1s, animate__delay-2s, animate__delay-3s →</b> Adds a delay before the animation starts.</li>
             <li><b>animate__faster, animate__fast, animate__slow, animate__slower →</b> Controls the animation speed.</li>
           </ul>
+          <ToolsPageAd format="320x50" />
           <blockquote>
             <p>This tool works perfectly on all devices, including smartphones and tablets&mdash;designed with mobile users in mind.</p>
           </blockquote>

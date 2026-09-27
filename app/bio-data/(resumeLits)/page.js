@@ -1,6 +1,27 @@
 import ResumeLists from "./ResumeLists";
 import Footer from "../../components/Footer";
 import FooterNav from "../../components/FooterNav";
+import {
+  Banner468x60,
+  Banner300x250,
+  Banner160x300,
+  Banner160x600,
+  Banner320x50,
+  Banner728x90,
+} from "../../components/ads";
+
+function BioDataAdPlacement({ name, children }) {
+  return (
+    <div
+      className="d-flex flex-column align-items-center gap-2 my-4"
+      role="region"
+      aria-label={`${name} ad placement`}
+    >
+      <span className="text-muted small">Ad test: {name}</span>
+      {children}
+    </div>
+  );
+}
 
 export const metadata = {
   title: 'Free Bio-Data Maker | ResumeSathi',
@@ -42,10 +63,16 @@ export default function ResumeTypeClientWrapper() {
         format is useful for personal, job-related, formal, and family-sharing
         purposes.
       </p>
+      <BioDataAdPlacement name="Banner 468x60">
+        <Banner468x60 />
+      </BioDataAdPlacement>
       <blockquote className="ps-3 my-4 fst-italic">
         A bio-data should say the right things in the right order without
         making the reader search for them.
       </blockquote>
+      <BioDataAdPlacement name="Banner 300x250">
+        <Banner300x250 />
+      </BioDataAdPlacement>
       <p>
         A useful bio-data is simple, accurate, and easy to scan. Clear sections
         make the document look complete without making it crowded.
@@ -78,11 +105,23 @@ export default function ResumeTypeClientWrapper() {
           </tbody>
         </table>
       </div>
+        <BioDataAdPlacement name="Banner 728x90">
+          <Banner728x90 />
+        </BioDataAdPlacement>
       <p>
         Before downloading, check spelling, dates, names, phone numbers, and
         email addresses carefully. Clean formatting matters, but accurate
         details are what make the final bio-data reliable.
       </p>
+        <BioDataAdPlacement name="Banner 320x50">
+          <Banner320x50 />
+        </BioDataAdPlacement>
+        <BioDataAdPlacement name="Banner 160x300">
+          <Banner160x300 />
+        </BioDataAdPlacement>
+        <BioDataAdPlacement name="Banner 160x600">
+          <Banner160x600 />
+        </BioDataAdPlacement>
     </section>
       <Footer />
       <FooterNav />

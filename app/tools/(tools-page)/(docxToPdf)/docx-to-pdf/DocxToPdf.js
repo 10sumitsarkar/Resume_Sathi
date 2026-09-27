@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/merge-pdf.css";
 import "../../../tools-css/docx-to-pdf.css";
+import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 export default function DocxToPdf() {
   const inputRef = useRef(null);
@@ -84,6 +85,7 @@ export default function DocxToPdf() {
           <h1>DOCX to <span>PDF</span></h1>
           <p>Convert Word documents into simple PDF files. <br /><span>Best for text-based documents</span></p>
         </div>
+        <ToolsPageAd format="728x90" />
         {!file ? (
           <div
             className={`drop-zone${dropZoneDragOver ? " drag-over" : ""}`}
@@ -135,6 +137,7 @@ export default function DocxToPdf() {
         </div>
       )}
 
+      <ToolsPageAd native />
       <section className="docx-to-pdf-info">
         <div className="info-block">
           <h2>Convert A Word Document Into A PDF</h2>
@@ -162,6 +165,7 @@ export default function DocxToPdf() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>What Happens After You Upload</h3>
           <p>
@@ -189,6 +193,7 @@ export default function DocxToPdf() {
           </p>
         </div>
 
+        <ToolsPageAd format="468x60" />
         <div className="info-block">
           <h3>A Few Things Worth Knowing</h3>
           <p>
@@ -212,6 +217,7 @@ export default function DocxToPdf() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Questions</h3>
           <div className="faq-list">

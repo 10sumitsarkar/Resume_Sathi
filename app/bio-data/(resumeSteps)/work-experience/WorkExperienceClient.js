@@ -12,6 +12,7 @@ import {
   markResumeStepSkipped,
 } from "../../reducer/resume-reducer";
 import MobProgressArea from "../../components/MobProgressArea";
+import StepHeadingAd from "../../components/StepHeadingAd";
 import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function WorkExperience() {
@@ -186,6 +187,7 @@ const id = searchParams.get('id');
             Let's add your professional experience to showcase your expertise.
           </p>
         </div>
+        <StepHeadingAd />
 
         <div className="mt-5 mb-4">
           {work_experiences.map((workEperience, index) => (

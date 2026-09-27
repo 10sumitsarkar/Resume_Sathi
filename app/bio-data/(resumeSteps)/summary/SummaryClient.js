@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeSummary } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import StepHeadingAd from '../../components/StepHeadingAd';
 
 export default function Summary() {
   const router = useRouter();
@@ -65,6 +66,7 @@ const id = searchParams.get('id');
           <h1>Summary / Objective</h1>
           <p>Let's define your career goals to highlight your aspirations.</p>
         </div>
+        <StepHeadingAd />
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-fluid px-0 py-custom pb-5 pb-md-0 mb-5 mb-md-0">
             <div className="row">

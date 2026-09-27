@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import '../../../tools-css/gradientGenerator.css';
 import Link from 'next/link';
 import CustomInput from '../../../../components/CustomInput/CustomInput';
+import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 export default function GradientGenerator() {
   const [colorCount, setColorCount] = useState(2);
@@ -341,8 +342,10 @@ export default function GradientGenerator() {
 
           </div>
 
+          <ToolsPageAd native />
           <div className="tools-details-div">
             <h1>CSS Gradient Generator &ndash; Create Stunning Backgrounds Online</h1>
+            <ToolsPageAd format="728x90" />
             <p>Design eye-catching CSS gradients with this free tool,gradient generator effect which works in a browser. That's right&mdash;you don't have to write any code to use this tool. It works for designers, developers, and people who are just looking for color ideas.</p>
             <h2>Features of this Tool</h2>
             <ul>
@@ -355,6 +358,7 @@ export default function GradientGenerator() {
             <blockquote>
               <p>This tool works perfectly on all devices, including smartphones and tablets&mdash;designed with mobile users in mind.</p>
             </blockquote>
+            <ToolsPageAd format="300x250" />
             <h2>Where You Can Use It</h2>
             <ul>
               <li>Stylish website backgrounds</li>
@@ -362,6 +366,7 @@ export default function GradientGenerator() {
               <li>Hero sections, cards, and banners</li>
               <li>UI design inspiration for apps and landing page</li>
             </ul>
+            <ToolsPageAd format="468x60" />
             <h2>Perfect Fit For</h2>
             <p>This gradient tool is ideal for:</p>
             <ul>
@@ -377,6 +382,7 @@ export default function GradientGenerator() {
               <li>Clear and clean interface</li>
               <li>Absolutely free to use</li>
             </ul>
+            <ToolsPageAd format="300x250" />
             <h2>Creating Beautiful Gradients Now</h2>
             <p>Use this tool to create vibrant, responsive CSS gradients which bring your web designs to life, spark creativity, and save you time.</p>
             <p>With just a few clicks, you can create your next amazing background.</p>

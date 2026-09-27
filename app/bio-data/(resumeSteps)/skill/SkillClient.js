@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeSkills, deleteSkillFromResume, reorderSkills, markResumeStepSkipped } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import StepHeadingAd from '../../components/StepHeadingAd';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function Skills() {
@@ -176,6 +177,7 @@ const id = searchParams.get('id');
           <h1>Skills</h1>
           <p>Let's add your key skills to highlight your expertise.</p>
         </div>
+        <StepHeadingAd />
 
         <div className='mt-5 mb-4'>
           {skills.map((skill, index) => (

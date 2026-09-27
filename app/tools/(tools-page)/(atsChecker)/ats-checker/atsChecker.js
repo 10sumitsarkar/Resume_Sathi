@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../../tools-css/ats-checker.css';
+import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 import {
   extractPdfText,
@@ -190,6 +191,7 @@ export default function AtsChecker() {
             keyword matching, and optimization suggestions.
           </p>
         </div>
+        <ToolsPageAd format="728x90" />
 
         {/* ── Upload Zone ── */}
         {!file && (
@@ -429,6 +431,7 @@ export default function AtsChecker() {
    Paste below the tool component's closing tag.
    ============================================================ */}
 
+<ToolsPageAd native />
 <section className="ats-checker-info">
 
   <div className="info-block">
@@ -477,6 +480,7 @@ export default function AtsChecker() {
     </p>
   </div>
 
+  <ToolsPageAd format="300x250" />
   <div className="info-block">
     <h3>Why This Actually Matters</h3>
     <p>
@@ -505,6 +509,7 @@ export default function AtsChecker() {
     </p>
   </div>
 
+  <ToolsPageAd format="468x60" />
   <div className="info-block">
     <h3>How To Use The Keyword List Properly</h3>
     <p>
@@ -529,6 +534,7 @@ export default function AtsChecker() {
     </ul>
   </div>
 
+  <ToolsPageAd format="300x250" />
   <div className="info-block">
     <h3>Questions</h3>
     <div className="faq-list">

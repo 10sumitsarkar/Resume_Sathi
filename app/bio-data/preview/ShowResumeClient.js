@@ -19,6 +19,17 @@ import ReviewResume from '../components/ReviewResume'
 import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
 import { getResumeCustomizationClasses } from '../utils/fontSize';
+import {
+    Banner160x300,
+    Banner160x600,
+    Banner300x250,
+    Banner320x50,
+    Banner468x60,
+    Banner728x90,
+    NativeBanner,
+} from '../../components/ads';
+import { ADS_ENABLED, AD_UNITS_ENABLED } from '../../components/ads/adsConfig';
+import ViewportAd from '../../components/ads/ViewportAd';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
@@ -55,6 +66,7 @@ export default function ShowResume() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
     const [loading, setLoading] = useState(false);
+    const [isDownloadAdModalOpen, setIsDownloadAdModalOpen] = useState(false);
     const componentRef = useRef(null);
     const [activeIndexes, setActiveIndexes] = useState([0, 2])
     const [mobCustomizeSlider, setMobCustomizeSlider] = useState()
@@ -670,6 +682,14 @@ export default function ShowResume() {
     };
     // ────────────────────────────────────────────────────────────────────────────
 
+    const runDownloadWithAdModal = (downloadAction) => {
+        const hasEnabledAd = ADS_ENABLED && Object.entries(AD_UNITS_ENABLED)
+            .some(([name, enabled]) => name !== 'socialBar' && enabled);
+
+        if (hasEnabledAd) setIsDownloadAdModalOpen(true);
+        downloadAction();
+    };
+
     return (
         <>
             <style dangerouslySetInnerHTML={{
@@ -746,6 +766,9 @@ export default function ShowResume() {
                             </svg>
                             Customization
                         </button>
+                    </div>
+                    <div className="d-flex justify-content-center my-2">
+                        <Banner320x50 />
                     </div>
 
                     <div className="tab-content costomize-tab-content">
@@ -882,24 +905,60 @@ export default function ShowResume() {
                             <ReviewResume isMainPreview={true} />
                         </div>
                     </div>
+                    <ViewportAd media="(min-width: 992px)">
+                        <div aria-hidden="true" style={{ height: 68 }} />
+                        <div style={{
+                            position: "fixed",
+                            left: "var(--left-customize-and-resumes-width)",
+                            right: "var(--right-download-resumes-width)",
+                            bottom: 0,
+                            zIndex: 2,
+                            height: 68,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "#fff",
+                            borderTop: "1px solid #e4e7eb",
+                        }}>
+                            <Banner468x60 />
+                        </div>
+                    </ViewportAd>
+                    <ViewportAd media="(max-width: 991px)">
+                        <div aria-hidden="true" style={{ height: 192 }} />
+                        <div style={{
+                            position: "fixed",
+                            left: 0,
+                            right: 0,
+                            bottom: 132,
+                            zIndex: 2,
+                            height: 58,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "#fff",
+                            borderTop: "1px solid #e4e7eb",
+                        }}>
+                            <Banner320x50 />
+                        </div>
+                    </ViewportAd>
                 </div>
 
                 <div className='right-download-div'>
                     <p className='download-heading'>Downloads</p>
-                    <button className='each-btn' onClick={downloadPDF}>
+                    <button className='each-btn' onClick={() => runDownloadWithAdModal(downloadPDF)}>
                         <img src="/front-assets/images/icons/download-pdf.svg" alt="PDF" />
                         PDF
                     </button>
-                    <button className='each-btn' onClick={downloadDOCX}>
+                    <button className='each-btn' onClick={() => runDownloadWithAdModal(downloadDOCX)}>
                         <img src="/front-assets/images/icons/download-docx.svg" alt="DOCX" />
                         DOCX
                     </button>
-                    <button className='each-btn' onClick={downloadTXT}>
+                    <button className='each-btn' onClick={() => runDownloadWithAdModal(downloadTXT)}>
                         <img src="/front-assets/images/icons/download-txt.svg" alt="TXT" />
                         TXT
                     </button>
                     <p className='download-heading'>Printing</p>
-                    <button className='each-btn' onClick={downloadPDF}>
+                    <button className='each-btn' onClick={() => runDownloadWithAdModal(downloadPDF)}>
                         <img src="/front-assets/images/icons/print.svg" alt="Print" />
                         Print
                     </button>
@@ -966,11 +1025,11 @@ export default function ShowResume() {
                 <div className="mob-show-bottom-nav custom-container d-lg-none">
                     <div className='form-button-div'>
                         <div className='all-mob-btn-div'>
-                            <button type='button' className='each-btn' onClick={downloadPDF}>
+                            <button type='button' className='each-btn' onClick={() => runDownloadWithAdModal(downloadPDF)}>
                                 <img src="/front-assets/images/icons/download-pdf.svg" width={24} height={24} className='img-fluid' alt="PDF" />
                                 Download
                             </button>
-                            <button type='button' className='each-btn' onClick={downloadPDF}>
+                            <button type='button' className='each-btn' onClick={() => runDownloadWithAdModal(downloadPDF)}>
                                 <img src="/front-assets/images/icons/print.svg" width={24} height={24} className='img-fluid' alt="Print" />
                                 Print
                             </button>
@@ -991,6 +1050,98 @@ export default function ShowResume() {
                 <div className='loader-div flex-column'>
                     <img src='/front-assets/images/pleasewait.gif' width={250} alt='Please wait' />
                     <p className='text-white m-0'>Generating...</p>
+                </div>
+            )}
+
+            {isDownloadAdModalOpen && (
+                <div
+                    role="presentation"
+                    onClick={(event) => {
+                        if (event.target === event.currentTarget) setIsDownloadAdModalOpen(false);
+                    }}
+                    style={{
+                        position: "fixed",
+                        inset: 0,
+                        zIndex: 1000001,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: 8,
+                        background: "rgba(0, 0, 0, 0.55)",
+                    }}
+                >
+                    <section
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="download-ad-modal-title"
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            width: "min(780px, calc(100vw - 16px))",
+                            height: "min(600px, calc(100dvh - 16px))",
+                            maxHeight: 600,
+                            overflow: "hidden",
+                            background: "#fff",
+                            borderRadius: 8,
+                            boxShadow: "0 12px 40px rgba(0, 0, 0, 0.28)",
+                        }}
+                    >
+                        <div style={{
+                            display: "flex",
+                            flex: "0 0 52px",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            padding: "0 16px",
+                            borderBottom: "1px solid #e5e7eb",
+                        }}>
+                            <h2 id="download-ad-modal-title" style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>
+                                Sponsored
+                            </h2>
+                            <button
+                                type="button"
+                                onClick={() => setIsDownloadAdModalOpen(false)}
+                                aria-label="Close advertisements"
+                                style={{
+                                    width: 36,
+                                    height: 36,
+                                    border: 0,
+                                    borderRadius: 4,
+                                    background: "transparent",
+                                    color: "#333",
+                                    cursor: "pointer",
+                                    fontSize: 24,
+                                    lineHeight: 1,
+                                }}
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <div style={{ flex: "1 1 auto", minHeight: 0, overflowY: "auto", padding: 12 }}>
+                            <ViewportAd media="(min-width: 768px)">
+                                <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                    <Banner728x90 />
+                                </div>
+                                <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                    <Banner468x60 />
+                                </div>
+                            </ViewportAd>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <Banner300x250 />
+                            </div>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <Banner160x300 />
+                            </div>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <Banner160x600 />
+                            </div>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <Banner320x50 />
+                            </div>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <NativeBanner />
+                            </div>
+                        </div>
+                    </section>
                 </div>
             )}
 

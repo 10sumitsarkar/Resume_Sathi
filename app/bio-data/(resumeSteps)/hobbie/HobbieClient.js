@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeHobbies, deleteHobbieFromResume, reorderHobbies, markResumeSubmitted, markResumeStepSkipped } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import StepHeadingAd from '../../components/StepHeadingAd';
 
 export default function Hobbie() {
 
@@ -192,6 +193,7 @@ const id = searchParams.get('id');
           <h1>Hobbies & Interests</h1>
           <p>Add the activities and interests you want in your bio-data.</p>
         </div>
+        <StepHeadingAd />
 
         <div className='mt-5 mb-4'>
           {hobbies.map((hobbie, index) => (

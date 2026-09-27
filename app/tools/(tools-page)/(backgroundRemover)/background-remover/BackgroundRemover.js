@@ -7,6 +7,7 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/background-remover.css";
+import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 export default function BackgroundRemover() {
   const inputRef = useRef(null);
@@ -217,6 +218,7 @@ export default function BackgroundRemover() {
           <h1>Background <span>Remover</span></h1>
           <p>Remove photo backgrounds online and download transparent PNGs.<br /><span>Perfect for portraits, products, and profile photos.</span></p>
         </div>
+        <ToolsPageAd format="728x90" />
 
         {!source ? (
           processing ? (
@@ -288,7 +290,8 @@ export default function BackgroundRemover() {
         <ToastContainer position="top-right" />
       </section>
 
-       <section className="bg-remover-info">
+      <ToolsPageAd native />
+      <section className="bg-remover-info">
         <div className="info-block">
           <h2>Remove The Background From Any Photo</h2>
           <p>
@@ -330,6 +333,7 @@ export default function BackgroundRemover() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Transparent Or A Solid Colour Behind</h3>
           <p>
@@ -357,6 +361,7 @@ export default function BackgroundRemover() {
           </p>
         </div>
 
+        <ToolsPageAd format="468x60" />
         <div className="info-block">
           <h3>Which Photos Work Best</h3>
           <p>
@@ -382,6 +387,7 @@ export default function BackgroundRemover() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Questions</h3>
           <div className="faq-list">

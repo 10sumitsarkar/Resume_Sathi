@@ -7,6 +7,17 @@ import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import FooterNav from "../components/FooterNav";
 import CustomInput from "../components/CustomInput/CustomInput";
+import {
+  Banner160x300,
+  Banner160x600,
+  Banner300x250,
+  Banner320x50,
+  Banner468x60,
+  Banner728x90,
+  NativeBanner,
+} from "../components/ads";
+import { ADS_ENABLED, AD_UNITS_ENABLED } from "../components/ads/adsConfig";
+import ViewportAd from "../components/ads/ViewportAd";
 import Icon, { CATEGORY_ICONS } from "./id-card-icons";
 import {
   CATEGORIES,
@@ -185,6 +196,7 @@ export default function IdCardMaker() {
   const [history, setHistory] = useState([]);
   const [future, setFuture] = useState([]);
   const [showEditor, setShowEditor] = useState(false);
+  const [isDownloadAdModalOpen, setIsDownloadAdModalOpen] = useState(false);
   const [activePanel, setActivePanel] = useState("elements");
   const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
   const stageRef = useRef(null);
@@ -816,6 +828,14 @@ export default function IdCardMaker() {
     }
   };
 
+  const runDownloadWithAdModal = () => {
+    const hasEnabledAd = ADS_ENABLED && Object.entries(AD_UNITS_ENABLED)
+      .some(([name, enabled]) => name !== "socialBar" && enabled);
+
+    if (hasEnabledAd) setIsDownloadAdModalOpen(true);
+    exportCard();
+  };
+
   const changeSize = (value) => {
     setSizeName(value);
     setCardSize(SIZES[value]);
@@ -1265,6 +1285,10 @@ export default function IdCardMaker() {
           </div>
         </section>
 
+        <div className="d-flex justify-content-center my-4 px-3">
+          <Banner728x90 />
+        </div>
+
         {/* ========================= SHOWCASE ========================= */}
         <section className="idm-section idm-section-soft">
           <div className="container text-center">
@@ -1413,6 +1437,10 @@ export default function IdCardMaker() {
           </div>
         </section>
 
+        <div className="d-flex justify-content-center my-4 px-3">
+          <NativeBanner />
+        </div>
+
         {/* ========================= TOOLS / FEATURES ========================= */}
         <section className="idm-section idm-section-soft">
           <div className="container">
@@ -1481,6 +1509,10 @@ export default function IdCardMaker() {
             </div>
           </div>
         </section>
+
+        <div className="d-flex justify-content-center my-4 px-3">
+          <Banner300x250 />
+        </div>
 
         {/* ========================= WHY FREE TABLE ========================= */}
         <section className="idm-section">
@@ -1678,6 +1710,10 @@ export default function IdCardMaker() {
           </div>
         </section>
 
+        <div className="d-flex justify-content-center my-4 px-3">
+          <Banner468x60 />
+        </div>
+
         {/* ========================= FINAL CTA ========================= */}
         <section className="idm-cta">
           <div className="idm-cta-bg-text" aria-hidden="true">FREE</div>
@@ -1743,7 +1779,7 @@ export default function IdCardMaker() {
           <button aria-label="Redo" title="Redo" onClick={redo} disabled={!future.length}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 7 5 5-5 5M20 12h-9a7 7 0 0 0-7 7" /></svg>
           </button>
-          <button className="export-action" aria-label="Download front and back 4K ZIP" title="Download front and back 4K ZIP" onClick={exportCard}>
+          <button className="export-action" aria-label="Download front and back 4K ZIP" title="Download front and back 4K ZIP" onClick={runDownloadWithAdModal}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14" /></svg>
             <span className="export-label">Download</span>
           </button>
@@ -1771,6 +1807,9 @@ export default function IdCardMaker() {
           >
             {renderContextPanel()}
           </div>
+        </aside>
+        <aside className="id-canvas-left-ad" aria-label="Advertisement">
+          <Banner160x600 />
         </aside>
         <div
           className={`mobile-sheet-overlay ${mobileSheetOpen ? "open" : ""}`}
@@ -1809,6 +1848,9 @@ export default function IdCardMaker() {
           </div>
         </footer>
         <section className="id-canvas-area">
+          <div className="id-canvas-ad">
+            <Banner320x50 />
+          </div>
           <div className="card-side-controls" aria-label="Card side">
             <button
               className="card-side-toggle"
@@ -1873,8 +1915,108 @@ export default function IdCardMaker() {
             </div>
           </div>
         </section>
+        <div className="id-editor-fixed-ad" aria-label="Advertisement">
+          <Banner160x600 />
+        </div>
       </div>
+      {isDownloadAdModalOpen && (
+        <DownloadAdModal onClose={() => setIsDownloadAdModalOpen(false)} />
+      )}
     </main>
+  );
+}
+
+function DownloadAdModal({ onClose }) {
+  return (
+    <div
+      role="presentation"
+      onClick={(event) => {
+        if (event.target === event.currentTarget) onClose();
+      }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 1000001,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 8,
+        background: "rgba(0, 0, 0, 0.55)",
+      }}
+    >
+      <section
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="id-card-download-ad-title"
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          width: "min(780px, calc(100vw - 16px))",
+          height: "min(600px, calc(100dvh - 16px))",
+          maxHeight: 600,
+          overflow: "hidden",
+          background: "#fff",
+          borderRadius: 8,
+          boxShadow: "0 12px 40px rgba(0, 0, 0, 0.28)",
+        }}
+      >
+        <div style={{
+          display: "flex",
+          flex: "0 0 52px",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 16px",
+          borderBottom: "1px solid #e5e7eb",
+        }}>
+          <h2 id="id-card-download-ad-title" style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>
+            Sponsored
+          </h2>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close advertisements"
+            style={{
+              width: 36,
+              height: 36,
+              border: 0,
+              borderRadius: 4,
+              background: "transparent",
+              color: "#333",
+              cursor: "pointer",
+              fontSize: 24,
+              lineHeight: 1,
+            }}
+          >
+            ×
+          </button>
+        </div>
+        <div style={{ flex: "1 1 auto", minHeight: 0, overflowY: "auto", padding: 12 }}>
+          <ViewportAd media="(min-width: 768px)">
+            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+              <Banner728x90 />
+            </div>
+            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+              <Banner468x60 />
+            </div>
+          </ViewportAd>
+          <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+            <Banner300x250 />
+          </div>
+          <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+            <Banner160x300 />
+          </div>
+          <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+            <Banner160x600 />
+          </div>
+          <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+            <Banner320x50 />
+          </div>
+          <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+            <NativeBanner />
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
 

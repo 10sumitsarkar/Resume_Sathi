@@ -3702,6 +3702,22 @@ body:has(.tools-sidebar.collapsed) .tooltip {
   padding-left: calc(var(--collapsedToolsSidebarWidth) + 20px);
 }
 
+.tools-sidebar-ad {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  padding: 16px 8px;
+}
+
+.tools-sidebar.collapsed .tools-sidebar-ad {
+  display: none;
+}
+
+.tools-sidebar-ad .resume-sathi-ad-slot {
+  width: 300px;
+  max-width: 100%;
+}
+
 .offcanvas-tools-sidebar {
   height: 100%;
 

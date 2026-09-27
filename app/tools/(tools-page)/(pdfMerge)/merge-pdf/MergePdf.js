@@ -6,6 +6,7 @@ import { PDFDocument } from "pdf-lib";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/merge-pdf.css";
+import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 const PdfPreviewClient = dynamic(() => import("./PdfPreviewClient"), {
   ssr: false,
@@ -348,6 +349,7 @@ export default function PdfMergePage() {
             </div>
           )}
         </div>
+        <ToolsPageAd format="728x90" />
 
         {/* Drop zone — hidden once files added */}
         {files.length === 0 && (
@@ -608,6 +610,7 @@ export default function PdfMergePage() {
    Paste below the tool component's closing tag.
    ============================================================ */}
 
+      <ToolsPageAd native />
       <section className="pdf-merge-info">
         <div className="info-block">
           <h2>Merge Multiple PDF Files Into One</h2>
@@ -625,6 +628,7 @@ export default function PdfMergePage() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Where People Actually Use This</h3>
           <p>
@@ -668,6 +672,7 @@ export default function PdfMergePage() {
           </p>
         </div>
 
+        <ToolsPageAd format="468x60" />
         <div className="info-block">
           <h3>Notes</h3>
           <p>
@@ -680,6 +685,7 @@ export default function PdfMergePage() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Questions</h3>
           <div className="faq-list">

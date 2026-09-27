@@ -14,6 +14,7 @@ import ResumeTemplate9 from '../templates/ResumeTemplate9'
 import { useDispatch, useSelector } from 'react-redux'
 import { setResumeConfigration } from '../reducer/resume-reducer'
 import { getResumeCustomizationClasses } from '../utils/fontSize'
+import { Banner300x250, Banner728x90, NativeBanner } from '../../components/ads'
 
 
 const AVAILABLE_TEMPLATES = [
@@ -182,6 +183,9 @@ export default function selectTheme() {
                                     </label>
                                 </div>
                             </div>
+                            <div className="d-none d-lg-flex justify-content-center my-4">
+                                <Banner300x250 />
+                            </div>
 
                         </div>
                     </div>
@@ -192,6 +196,9 @@ export default function selectTheme() {
                         <div className='resume-select-headings'>
                             <h1 className='fs-mob-24'>Choose Your Bio-Data Template</h1>
                             <p>Select a clean printable bio-data template</p>
+                        </div>
+                        <div className="d-flex justify-content-center my-4">
+                            <Banner728x90 />
                         </div>
                         <div className="row">
                             {AVAILABLE_TEMPLATES.map((template) => {
@@ -207,6 +214,9 @@ export default function selectTheme() {
                                     </div>
                                 );
                             })}
+                        </div>
+                        <div className="d-flex justify-content-center my-4">
+                            <NativeBanner />
                         </div>
 
                         <div className='use-template-btn-div custom-container'>

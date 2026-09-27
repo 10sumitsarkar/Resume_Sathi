@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/merge-pdf.css";
 import "../../../tools-css/pdf-remove.css";
+import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 const PagePreview = dynamic(() => import("./PagePreview"), { ssr: false });
 
@@ -185,6 +186,7 @@ export default function PdfRemoveClient() {
             </div>
           )}
         </div>
+        <ToolsPageAd format="728x90" />
 
         {!file && (
           <div
@@ -401,6 +403,7 @@ export default function PdfRemoveClient() {
         </div>
       )}
 
+      <ToolsPageAd native />
       <section className="pdf-remove-info">
         <div className="info-block">
           <h2>Remove Unwanted Pages From A PDF</h2>
@@ -441,6 +444,7 @@ export default function PdfRemoveClient() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Checking Order Before You Download</h3>
           <p>
@@ -464,6 +468,7 @@ export default function PdfRemoveClient() {
           </p>
         </div>
 
+        <ToolsPageAd format="468x60" />
         <div className="info-block">
           <h3>Notes</h3>
           <p>
@@ -475,6 +480,7 @@ export default function PdfRemoveClient() {
           </p>
         </div>
 
+        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Questions</h3>
           <div className="faq-list">

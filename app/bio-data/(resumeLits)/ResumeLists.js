@@ -23,6 +23,7 @@ import ResumeTemplate9 from '../templates/ResumeTemplate9';
 
 
 import { getResumeCustomizationClasses } from '../utils/fontSize';
+import { NativeBanner } from '../../components/ads';
 
 import "./resume-list.css";
 
@@ -590,6 +591,9 @@ export default function ResumeLists() {
                     </svg>
                     Create Your First Bio-Data
                   </Link>
+                  <div className="d-flex justify-content-center my-4">
+                    <NativeBanner />
+                  </div>
                 </div>
               </div>
             </div>

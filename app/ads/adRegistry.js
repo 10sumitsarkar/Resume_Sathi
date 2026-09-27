@@ -1,6 +1,9 @@
 export const AD_REGISTRY = {
   globalEnabled: true,
   ads: [
+    // =========================
+    // START: Ad #1 - 468x60
+    // =========================
     {
       id: "highrevenueformat-468x60",
       label: "High Revenue Format 468x60",
@@ -15,6 +18,13 @@ export const AD_REGISTRY = {
       },
       scriptSrc: "https://www.highrevenueformat.com/c4dc96f6bdc10e06a7b5d93db97f2365/invoke.js"
     },
+    // =========================
+    // END: Ad #1 - 468x60
+    // =========================
+
+    // =========================
+    // START: Ad #2 - 300x250
+    // =========================
     {
       id: "highrevenueformat-300x250",
       label: "High Revenue Format 300x250",
@@ -29,6 +39,13 @@ export const AD_REGISTRY = {
       },
       scriptSrc: "https://www.highrevenueformat.com/03d1b75431857c740d92990181bae63c/invoke.js"
     },
+    // =========================
+    // END: Ad #2 - 300x250
+    // =========================
+
+    // =========================
+    // START: Ad #3 - 160x300
+    // =========================
     {
       id: "highrevenueformat-160x300",
       label: "High Revenue Format 160x300",
@@ -43,6 +60,13 @@ export const AD_REGISTRY = {
       },
       scriptSrc: "https://www.highrevenueformat.com/b52e74090d7b6099b7a7978be93f7333/invoke.js"
     },
+    // =========================
+    // END: Ad #3 - 160x300
+    // =========================
+
+    // =========================
+    // START: Ad #4 - 160x600
+    // =========================
     {
       id: "highrevenueformat-160x600",
       label: "High Revenue Format 160x600",
@@ -57,6 +81,13 @@ export const AD_REGISTRY = {
       },
       scriptSrc: "https://www.highrevenueformat.com/848f0552d5d690d7a1e26a2f204e2327/invoke.js"
     },
+    // =========================
+    // END: Ad #4 - 160x600
+    // =========================
+
+    // =========================
+    // START: Ad #5 - 320x50
+    // =========================
     {
       id: "highrevenueformat-320x50",
       label: "High Revenue Format 320x50",
@@ -71,6 +102,13 @@ export const AD_REGISTRY = {
       },
       scriptSrc: "https://www.highrevenueformat.com/2dc4c4bb89d86c2e2913a6dd66713323/invoke.js"
     },
+    // =========================
+    // END: Ad #5 - 320x50
+    // =========================
+
+    // =========================
+    // START: Ad #6 - 728x90
+    // =========================
     {
       id: "highrevenueformat-728x90",
       label: "High Revenue Format 728x90",
@@ -85,6 +123,13 @@ export const AD_REGISTRY = {
       },
       scriptSrc: "https://www.highrevenueformat.com/4f4d65ff2ae7ca08e79ab9c9cabc10d7/invoke.js"
     },
+    // =========================
+    // END: Ad #6 - 728x90
+    // =========================
+
+    // =========================
+    // START: Ad #7 - Profitablerate inline
+    // =========================
     {
       id: "profitablerate-fd6c124f7e1d2e430eb5ef067f720094",
       label: "Profitablerate Network 728x90",
@@ -93,6 +138,13 @@ export const AD_REGISTRY = {
       scriptSrc: "https://pl31454620.profitableratecpmnetwork.com/fd6c124f7e1d2e430eb5ef067f720094/invoke.js",
       containerId: "container-fd6c124f7e1d2e430eb5ef067f720094"
     },
+    // =========================
+    // END: Ad #7 - Profitablerate inline
+    // =========================
+
+    // =========================
+    // START: Ad #8 - Profitablerate static
+    // =========================
     {
       id: "profitablerate-static-script",
       label: "Profitablerate static script",
@@ -100,6 +152,13 @@ export const AD_REGISTRY = {
       type: "script-only",
       scriptSrc: "https://pl31454623.profitableratecpmnetwork.com/6d/89/c4/6d89c46cd541d8c5225adb6f0e1df4f0.js"
     },
+    // =========================
+    // END: Ad #8 - Profitablerate static
+    // =========================
+
+    // =========================
+    // START: Example AdSense block (kept disabled by default)
+    // =========================
     {
       id: "adsense-top-banner",
       label: "AdSense sample banner",
@@ -109,6 +168,9 @@ export const AD_REGISTRY = {
       slot: "XXXXXXXXXX",
       scriptSrc: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
     }
+    // =========================
+    // END: Example AdSense block
+    // =========================
   ]
 };
 

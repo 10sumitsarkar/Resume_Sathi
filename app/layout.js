@@ -1,8 +1,7 @@
-import Link from "next/link";
-import Script from "next/script";
 import JsonLd from "./components/JsonLd";
 import FloatingTypingLink from "./components/FloatingTypingLink";
 import ClientScripts from "./components/ClientScripts";
+import SocialBar from "./components/ads/SocialBar";
 import { DEFAULT_SITE_BASE } from "./lib/apiConfig";
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
@@ -37,34 +36,10 @@ export const metadata = {
   },
 };
 
-const GA_MEASUREMENT_ID = "G-GMDRJBQDWL";
-
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
-        <Script
-          id="ad-zone-11818211"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(s){s.dataset.zone='11818211';s.src='https://nap5k.com/tag.min.js'})([document.documentElement,document.body].filter(Boolean).pop().appendChild(document.createElement('script')))",
-          }}
-        />
-        <Script
-          id="ad-zone-11818216"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(s){s.dataset.zone='11818216';s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement,document.body].filter(Boolean).pop().appendChild(document.createElement('script')))",
-          }}
-        />
-        <Script
-          src="https://5gvci.com/act/files/tag.min.js?z=11818196"
-          data-cfasync="false"
-          async
-          strategy="beforeInteractive"
-        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/front-assets/css/bootstrap.min.css" as="style" />
@@ -107,6 +82,7 @@ export default function RootLayout({ children }) {
         </main>
         <FloatingTypingLink />
         <ClientScripts />
+        <SocialBar />
       </body>
     </html>
   );

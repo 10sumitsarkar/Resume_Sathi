@@ -690,6 +690,9 @@ export default function ShowResume() {
                             Customization
                         </button>
                     </div>
+                    <div className="d-flex justify-content-center my-2">
+                        <Banner320x50 />
+                    </div>
 
                     <div className="tab-content costomize-tab-content">
                         <div className="tab-pane fade show active" id="templates" role="tabpanel">
@@ -852,12 +855,38 @@ export default function ShowResume() {
                         </div>
                     </div>
                     <ViewportAd media="(min-width: 992px)">
-                        <div className="d-flex justify-content-center my-3">
+                        <div aria-hidden="true" style={{ height: 68 }} />
+                        <div style={{
+                            position: "fixed",
+                            left: "var(--left-customize-and-resumes-width)",
+                            right: "var(--right-download-resumes-width)",
+                            bottom: 0,
+                            zIndex: 2,
+                            height: 68,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "#fff",
+                            borderTop: "1px solid #e4e7eb",
+                        }}>
                             <Banner468x60 />
                         </div>
                     </ViewportAd>
                     <ViewportAd media="(max-width: 991px)">
-                        <div className="d-flex justify-content-center my-3">
+                        <div aria-hidden="true" style={{ height: 192 }} />
+                        <div style={{
+                            position: "fixed",
+                            left: 0,
+                            right: 0,
+                            bottom: 132,
+                            zIndex: 2,
+                            height: 58,
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            background: "#fff",
+                            borderTop: "1px solid #e4e7eb",
+                        }}>
                             <Banner320x50 />
                         </div>
                     </ViewportAd>

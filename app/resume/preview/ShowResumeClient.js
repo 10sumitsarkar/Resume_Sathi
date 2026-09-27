@@ -982,6 +982,98 @@ export default function ShowResume() {
                 </div>
             )}
 
+            {isDownloadAdModalOpen && (
+                <div
+                    role="presentation"
+                    onClick={(event) => {
+                        if (event.target === event.currentTarget) setIsDownloadAdModalOpen(false);
+                    }}
+                    style={{
+                        position: "fixed",
+                        inset: 0,
+                        zIndex: 1000001,
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        padding: 8,
+                        background: "rgba(0, 0, 0, 0.55)",
+                    }}
+                >
+                    <section
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="download-ad-modal-title"
+                        style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            width: "min(780px, calc(100vw - 16px))",
+                            height: "min(600px, calc(100dvh - 16px))",
+                            maxHeight: 600,
+                            overflow: "hidden",
+                            background: "#fff",
+                            borderRadius: 8,
+                            boxShadow: "0 12px 40px rgba(0, 0, 0, 0.28)",
+                        }}
+                    >
+                        <div style={{
+                            display: "flex",
+                            flex: "0 0 52px",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            padding: "0 16px",
+                            borderBottom: "1px solid #e5e7eb",
+                        }}>
+                            <h2 id="download-ad-modal-title" style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>
+                                Sponsored
+                            </h2>
+                            <button
+                                type="button"
+                                onClick={() => setIsDownloadAdModalOpen(false)}
+                                aria-label="Close advertisements"
+                                style={{
+                                    width: 36,
+                                    height: 36,
+                                    border: 0,
+                                    borderRadius: 4,
+                                    background: "transparent",
+                                    color: "#333",
+                                    cursor: "pointer",
+                                    fontSize: 24,
+                                    lineHeight: 1,
+                                }}
+                            >
+                                ×
+                            </button>
+                        </div>
+                        <div style={{ flex: "1 1 auto", minHeight: 0, overflowY: "auto", padding: 12 }}>
+                            <ViewportAd media="(min-width: 768px)">
+                                <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                    <Banner728x90 />
+                                </div>
+                                <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                    <Banner468x60 />
+                                </div>
+                            </ViewportAd>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <Banner300x250 />
+                            </div>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <Banner160x300 />
+                            </div>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <Banner160x600 />
+                            </div>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <Banner320x50 />
+                            </div>
+                            <div className="d-flex justify-content-center py-2" aria-label="Advertisement">
+                                <NativeBanner />
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            )}
+
             <ToastContainer />
         </>
     )

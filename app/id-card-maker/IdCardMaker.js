@@ -2100,7 +2100,7 @@ function Properties({
               }
             />
           </label>
-          <label>
+          <label className="mb-3 mt-1 gap-3">
             Corner radius
             <input
               type="range"

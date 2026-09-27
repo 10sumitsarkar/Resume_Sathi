@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeLanguages, deleteLanguagesFromResume, reorderLanguages } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import StepHeadingAd from '../../components/StepHeadingAd';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function Language() {
@@ -167,6 +168,7 @@ const id = searchParams.get('id');
             <h1>Languages</h1>
             <p>Let's list the languages you speak and your proficiency level.</p>
           </div>
+          <StepHeadingAd />
   
           <div className='mt-5 mb-4'>
             {languages.map((language, index) => (

@@ -6,8 +6,29 @@ import { useRouter } from "next/navigation";
 import NavBar from "../components/NavBar";
 import Footer from "../components/Footer";
 import FooterNav from "../components/FooterNav";
+import {
+  Banner468x60,
+  Banner160x300,
+  Banner160x600,
+  Banner320x50,
+  Banner728x90,
+  NativeBanner,
+} from "../components/ads";
 import { getContentCacheUrl, resolveApiMediaUrl, withTrailingSlash } from "../lib/apiConfig";
 import "../../public/front-assets/css/home.css";
+
+function AdTestPlacement({ name, children }) {
+  return (
+    <div
+      role="region"
+      aria-label={`${name} test placement`}
+      style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, margin: "24px auto", padding: "0 12px" }}
+    >
+      {/* <span style={{ color: "#666", fontSize: 12 }}>Ad test: {name}</span> */}
+      {children}
+    </div>
+  );
+}
 
 // ── SVG Icon Library ──────────────────────────────────────────────────────
 const Icon = {
@@ -1117,7 +1138,7 @@ function BioDataPromo() {
               </Link>
             </div>
           </div>
-          <div className="rk-biodata-preview" aria-hidden="true">
+          <div className="rk-biodata-preview d-flex flex-column flex-sm-row gap-2 align-items-center" aria-hidden="true">
             <div className="rk-biodata-sheet">
               <div className="rk-biodata-sheet-title">BIO-DATA</div>
               <div className="rk-biodata-photo" />
@@ -1137,6 +1158,9 @@ function BioDataPromo() {
                 <span>Signature</span>
               </div>
             </div>
+            <AdTestPlacement name="Banner 160x300">
+        <Banner160x300 />
+      </AdTestPlacement>
           </div>
         </div>
       </div>
@@ -1649,6 +1673,10 @@ export default function ResumeListClient({
         </div>
       </section>
 
+      <AdTestPlacement name="Banner 728x90">
+        <Banner728x90 />
+      </AdTestPlacement>
+      
       <section className="rk-resume-showcase" id="resume-preview">
         <div className="container-fluid custom-container">
           <div className="rk-sec-head">
@@ -1673,6 +1701,7 @@ export default function ResumeListClient({
           </div>
         </div>
       </section>
+
 
       <section className="rk-section rk-section--gray rk-id-card-feature">
         <div className="container-fluid custom-container">
@@ -1744,6 +1773,7 @@ export default function ResumeListClient({
         </div>
       </section>
 
+
       <section className="rk-section rk-section--white" id="templates">
         <div className="container-fluid custom-container">
           <div className="rk-sec-head-row">
@@ -1797,6 +1827,12 @@ export default function ResumeListClient({
         </div>
       </section>
 
+      <AdTestPlacement name="Banner 468x60">
+        <Banner468x60 />
+      </AdTestPlacement>
+      
+      
+
       <section className="rk-hired-at">
         <div className="container-fluid custom-container">
           <div className="rk-hired-label">
@@ -1833,6 +1869,7 @@ export default function ResumeListClient({
       <WhyFreeSection />
       <BioDataPromo />
       <TypingPromo />
+      
       <section className="rk-section rk-section--white" id="jobs">
         <div className="container-fluid custom-container">
           <div className="rk-sec-head-row">
@@ -1867,6 +1904,10 @@ export default function ResumeListClient({
           )}
         </div>
       </section>
+
+      <AdTestPlacement name="Banner 320x50">
+        <Banner320x50 />
+      </AdTestPlacement>
 
       <section className="rk-section rk-section--gray" id="testimonials">
         <div className="container-fluid custom-container">
@@ -1915,6 +1956,10 @@ export default function ResumeListClient({
         </div>
       </section>
 
+      <AdTestPlacement name="Native Banner">
+        <NativeBanner />
+      </AdTestPlacement>
+
       <section className="rk-section rk-section--gray" id="faq">
         <div className="container-fluid custom-container rk-faq-wrap">
           <div className="rk-faq-left">
@@ -1949,6 +1994,12 @@ export default function ResumeListClient({
               FREE
             </text>
           </svg>
+        </div>
+
+        <div className="rk-cta-ads-banner d-none d-lg-block">
+          <AdTestPlacement name="Banner 160x600">
+        <Banner160x600 />
+      </AdTestPlacement>
         </div>
 
         <div className="container-fluid custom-container rk-cta-inner">

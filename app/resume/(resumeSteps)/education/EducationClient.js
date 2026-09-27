@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeEducations, deleteEducationFromResume, reorderEducations } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import StepHeadingAd from '../../components/StepHeadingAd';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function Education() {
@@ -179,6 +180,7 @@ const id = searchParams.get('id');
           <h1>Education</h1>
           <p>Let's define your career goals to highlight your aspirations.</p>
         </div>
+        <StepHeadingAd />
 
         <div className='mt-5 mb-4'>
           {educations.map((edu, index) => (

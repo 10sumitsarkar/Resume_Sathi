@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { useSearchParams, usePathname } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProgressPercent } from '../reducer/resume-reducer';
+import { Banner160x300, Banner300x250 } from '../../components/ads';
+import ViewportAd from '../../components/ads/ViewportAd';
 import {
   canOpenStep,
   getStepPath,
@@ -132,7 +134,17 @@ const id = searchParams.get('id');
         </div>
 
         <div className="scroll-div">
+          <ViewportAd media="(min-width: 992px)">
+            <div className="d-flex justify-content-center my-2">
+              <Banner300x250 />
+            </div>
+          </ViewportAd>
           {resumeSteps.map((step) => renderStepLink(step))}
+          <ViewportAd media="(min-width: 992px)">
+            <div className="d-flex justify-content-center my-2">
+              <Banner160x300 />
+            </div>
+          </ViewportAd>
         </div>
       </div>
 
@@ -155,7 +167,17 @@ const id = searchParams.get('id');
           </div>
 
           <div className="scroll-div">
+            <ViewportAd media="(max-width: 991px)">
+              <div className="d-flex justify-content-center my-2">
+                <Banner300x250 />
+              </div>
+            </ViewportAd>
             {resumeSteps.map((step) => renderStepLink(step, true))}
+            <ViewportAd media="(max-width: 991px)">
+              <div className="d-flex justify-content-center my-2">
+                <Banner160x300 />
+              </div>
+            </ViewportAd>
           </div>
         </div>
       </div>

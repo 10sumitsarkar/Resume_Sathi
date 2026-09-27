@@ -14,6 +14,7 @@ import ResumeTemplate9 from '../templates/ResumeTemplate9'
 import { useDispatch, useSelector } from 'react-redux'
 import { setResumeConfigration } from '../reducer/resume-reducer'
 import { getResumeCustomizationClasses } from '../utils/fontSize'
+import { Banner300x250, Banner728x90, NativeBanner } from '../../components/ads'
 
 
 const AVAILABLE_TEMPLATES = [
@@ -200,6 +201,9 @@ export default function selectTheme() {
                                     </label>
                                 </div>
                             </div>
+                            <div className="d-none d-lg-flex justify-content-center my-4">
+                                <Banner300x250 />
+                            </div>
 
                         </div>
                     </div>
@@ -210,6 +214,9 @@ export default function selectTheme() {
                         <div className='resume-select-headings'>
                             <h1 className='fs-mob-24'>Choose Your Resume Template</h1>
                             <p>Select a professionally designed resume template</p>
+                        </div>
+                        <div className="d-flex justify-content-center my-4">
+                            <Banner728x90 />
                         </div>
                         <div className="row">
                             {AVAILABLE_TEMPLATES.filter(template => !customizeData?.layout_style || customizeData?.layout_style === 'all' || template.component.layoutStyle === customizeData?.layout_style).map((template) => {
@@ -226,7 +233,9 @@ export default function selectTheme() {
                                 );
                             })}
                         </div>
-
+                        <div className="d-flex justify-content-center my-4">
+                            <NativeBanner />
+                        </div>
                         <div className='use-template-btn-div custom-container'>
                             <div className='mob-customize-btn d-md-none' onClick={() => setMobCustomizeSlider('open')}>
                                 <img src="/front-assets/images/icons/customization.svg" width={30} height={30} alt="Setting" />

@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumePersonalInfomation } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import StepHeadingAd from '../../components/StepHeadingAd';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 
 const COUNTRY_CODES = [
@@ -232,6 +233,7 @@ export default function PersonalInfo() {
           <h1>Personal Information</h1>
           <p>Let’s start with your basic details to build your professional profile.</p>
         </div>
+        <StepHeadingAd />
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="container-fluid px-0 py-custom  pb-5 pb-md-0 mb-5 mb-md-0">
             <div className="row">

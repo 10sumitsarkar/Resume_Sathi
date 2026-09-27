@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
 import mammoth from 'mammoth/mammoth.browser';
 import { setResumes } from '../reducer/resume-reducer';
+import { NativeBanner } from '../../components/ads';
 import '../(resumeLits)/resume-list.css';
 
 if (typeof window !== 'undefined') {
@@ -383,6 +384,9 @@ export default function UploadResume() {
           </div>
         </div>
       </section>
+      <div className="d-flex justify-content-center my-4">
+        <NativeBanner />
+      </div>
     </>
   );
 }

@@ -20,6 +20,17 @@ import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
 import { createResumePdf } from '../resume-pdf/createResumePdf';
 import { getResumeCustomizationClasses } from '../utils/fontSize';
+import {
+    Banner160x300,
+    Banner160x600,
+    Banner300x250,
+    Banner320x50,
+    Banner468x60,
+    Banner728x90,
+    NativeBanner,
+} from '../../components/ads';
+import { ADS_ENABLED, AD_UNITS_ENABLED } from '../../components/ads/adsConfig';
+import ViewportAd from '../../components/ads/ViewportAd';
 
 const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate1', component: ResumeTemplate1 },
@@ -40,6 +51,7 @@ export default function ShowResume() {
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
     const [loading, setLoading] = useState(false);
+    const [isDownloadAdModalOpen, setIsDownloadAdModalOpen] = useState(false);
     const componentRef = useRef(null);
     const [activeIndexes, setActiveIndexes] = useState([0, 1, 2])
     const [mobCustomizeSlider, setMobCustomizeSlider] = useState()
@@ -589,6 +601,14 @@ export default function ShowResume() {
     };
     // ────────────────────────────────────────────────────────────────────────────
 
+    const runDownloadWithAdModal = (downloadAction) => {
+        const hasEnabledAd = ADS_ENABLED && Object.entries(AD_UNITS_ENABLED)
+            .some(([name, enabled]) => name !== 'socialBar' && enabled);
+
+        if (hasEnabledAd) setIsDownloadAdModalOpen(true);
+        downloadAction();
+    };
+
     const filterLayout = (key, value) => {
         setCustomizeData({ ...customizeData, [key]: value });
     }
@@ -831,24 +851,34 @@ export default function ShowResume() {
                             <ReviewResume isMainPreview={true} />
                         </div>
                     </div>
+                    <ViewportAd media="(min-width: 992px)">
+                        <div className="d-flex justify-content-center my-3">
+                            <Banner468x60 />
+                        </div>
+                    </ViewportAd>
+                    <ViewportAd media="(max-width: 991px)">
+                        <div className="d-flex justify-content-center my-3">
+                            <Banner320x50 />
+                        </div>
+                    </ViewportAd>
                 </div>
 
                 <div className='right-download-div'>
                     <p className='download-heading'>Downloads</p>
-                    <button className='each-btn' onClick={downloadPDF}>
+                    <button className='each-btn' onClick={() => runDownloadWithAdModal(downloadPDF)}>
                         <img src="/front-assets/images/icons/download-pdf.svg" alt="PDF" />
                         PDF
                     </button>
-                    <button className='each-btn' onClick={downloadDOCX}>
+                    <button className='each-btn' onClick={() => runDownloadWithAdModal(downloadDOCX)}>
                         <img src="/front-assets/images/icons/download-docx.svg" alt="DOCX" />
                         DOCX
                     </button>
-                    <button className='each-btn' onClick={downloadTXT}>
+                    <button className='each-btn' onClick={() => runDownloadWithAdModal(downloadTXT)}>
                         <img src="/front-assets/images/icons/download-txt.svg" alt="TXT" />
                         TXT
                     </button>
                     <p className='download-heading'>Printing</p>
-                    <button className='each-btn' onClick={downloadPDF}>
+                    <button className='each-btn' onClick={() => runDownloadWithAdModal(downloadPDF)}>
                         <img src="/front-assets/images/icons/print.svg" alt="Print" />
                         Print
                     </button>
@@ -924,11 +954,11 @@ export default function ShowResume() {
                 <div className="mob-show-bottom-nav custom-container d-lg-none">
                     <div className='form-button-div'>
                         <div className='all-mob-btn-div'>
-                            <button type='button' className='each-btn' onClick={downloadPDF}>
+                            <button type='button' className='each-btn' onClick={() => runDownloadWithAdModal(downloadPDF)}>
                                 <img src="/front-assets/images/icons/download-pdf.svg" width={24} height={24} className='img-fluid' alt="PDF" />
                                 Download
                             </button>
-                            <button type='button' className='each-btn' onClick={downloadPDF}>
+                            <button type='button' className='each-btn' onClick={() => runDownloadWithAdModal(downloadPDF)}>
                                 <img src="/front-assets/images/icons/print.svg" width={24} height={24} className='img-fluid' alt="Print" />
                                 Print
                             </button>

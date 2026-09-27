@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { setResumeCertifications, deleteCertificateFromResume, reorderCertificates, markResumeStepSkipped } from '../../reducer/resume-reducer';
 import MobProgressArea from '../../components/MobProgressArea';
+import StepHeadingAd from '../../components/StepHeadingAd';
 import CustomInput from '../../../components/CustomInput/CustomInput';
 
 export default function Certifications() {
@@ -174,6 +175,7 @@ const {
           <h1>Certifications</h1>
           <p>Let's add your professional certifications to showcase your expertise.</p>
         </div>
+        <StepHeadingAd />
 
         <div className='mt-5 mb-4'>
           {certificates.map((certificate, index) => (

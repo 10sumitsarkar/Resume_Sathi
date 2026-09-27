@@ -1,9 +1,30 @@
 import UploadResume from "./UploadResume";
 import Footer from "../../components/Footer";
 import FooterNav from "../../components/FooterNav";
+import {
+  Banner468x60,
+  Banner300x250,
+  Banner160x300,
+  Banner160x600,
+  Banner320x50,
+  Banner728x90,
+} from "../../components/ads";
 import { DEFAULT_SITE_BASE } from "../../lib/apiConfig";
 const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 import "../(resumeLits)/resume-list.css";
+
+function ResumeAdPlacement({ name, children }) {
+  return (
+    <div
+      className="d-flex flex-column align-items-center gap-2 my-4"
+      role="region"
+      aria-label={`${name} ad placement`}
+    >
+      <span className="text-muted small">Ad test: {name}</span>
+      {children}
+    </div>
+  );
+}
 
 export const metadata = {
   title: "Upload Resume | ResumeSathi",
@@ -72,6 +93,9 @@ export default function UploadResumePage() {
           layout something a recruiter — or the software scanning it before a
           recruiter even opens it — can actually read without getting confused.
         </p>
+        <ResumeAdPlacement name="Banner 468x60">
+          <Banner468x60 />
+        </ResumeAdPlacement>
         <p>
           Freshers use it because they don't have five old resumes lying around
           to copy from. Students use it for their first internship application,
@@ -88,6 +112,9 @@ export default function UploadResumePage() {
           A resume doesn't need to impress anyone. It just needs to be
           understood in the first ten seconds someone looks at it.
         </blockquote>
+        <ResumeAdPlacement name="Banner 300x250">
+          <Banner300x250 />
+        </ResumeAdPlacement>
 
         <p>
           A resume that actually works doesn't try to sound impressive — it
@@ -135,6 +162,9 @@ export default function UploadResumePage() {
             </tbody>
           </table>
         </div>
+        <ResumeAdPlacement name="Banner 728x90">
+          <Banner728x90 />
+        </ResumeAdPlacement>
 
         <p>
           Stick to what a recruiter could check if they wanted to — your job
@@ -147,6 +177,9 @@ export default function UploadResumePage() {
           the role you're going after, so don't waste space on it just to fill
           the page.
         </p>
+        <ResumeAdPlacement name="Banner 320x50">
+          <Banner320x50 />
+        </ResumeAdPlacement>
         <p>
           The whole process is broken into smaller pages instead of one long,
           intimidating form, so you're not trying to remember twelve things at
@@ -158,6 +191,9 @@ export default function UploadResumePage() {
           aiming for next. A resume isn't a document you write once and forget;
           it should change as you do, section by section, over time.
         </p>
+        <ResumeAdPlacement name="Banner 160x300">
+          <Banner160x300 />
+        </ResumeAdPlacement>
         <p>
           Put your strongest details near the top and label each section
           plainly, without clever headings that sound nice but slow the reader
@@ -190,6 +226,9 @@ export default function UploadResumePage() {
           already done, in a way that's easy for someone else to understand
           quickly and take seriously.
         </p>
+        <ResumeAdPlacement name="Banner 160x600">
+          <Banner160x600 />
+        </ResumeAdPlacement>
       </section>
       <Footer />
       <FooterNav />

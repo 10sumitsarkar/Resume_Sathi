@@ -47,6 +47,12 @@
   max-width: 700px;
 }
 
+.rk-sec-head--left {
+  text-align: left;
+  margin: 0 0 24px;
+  max-width: 100%;
+}
+
 .rk-sec-head-actions {
   margin-top: 18px;
 }
@@ -443,10 +449,151 @@
   overflow: hidden;
 }
 
+.rk-resume-feature {
+  position: relative;
+  overflow: hidden;
+}
+
+.rk-resume-feature-head {
+  max-width: 760px;
+  margin: 0 auto 28px;
+}
+
+.rk-resume-feature-head .rk-sec-sub {
+  max-width: 700px;
+  margin-inline: auto;
+}
+
+.rk-resume-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 12px 0 28px;
+}
+
+.rk-resume-benefit-card {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid var(--rk-border);
+  border-radius: 20px;
+  padding: 22px 18px 18px;
+  box-shadow: 0 18px 30px -24px rgba(15, 23, 42, 0.28);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.rk-resume-benefit-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--rk-brand) 0%, #ffb4b4 100%);
+  border-radius: 20px 20px 0 0;
+}
+
+.rk-resume-benefit-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 40px -24px rgba(15, 23, 42, 0.32);
+}
+
+.rk-resume-benefit-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(204, 0, 0, 0.08);
+  color: var(--rk-primary);
+  margin-bottom: 16px;
+}
+
+.rk-resume-benefit-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+.rk-resume-benefit-title {
+  margin: 0 0 12px;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.4;
+  color: var(--rk-ink);
+}
+
+.rk-resume-benefit-points {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.rk-resume-benefit-points li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--rk-muted);
+  font-size: .88rem;
+  line-height: 1.6;
+}
+
+.rk-resume-benefit-points li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .52em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--rk-primary);
+  box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.12);
+}
+
 .rk-resume-showcase-cta {
   display: flex;
   justify-content: center;
   margin-top: 34px;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 991.98px) {
+  .rk-resume-feature-head {
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .rk-resume-feature-head .rk-sec-sub {
+    margin-inline: auto;
+  }
+
+  .rk-resume-benefit-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .rk-resume-showcase-cta {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .rk-resume-feature {
+    padding-top: 36px;
+  }
+
+  .rk-resume-benefit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rk-resume-showcase-cta {
+    justify-content: center;
+  }
+
+  .rk-resume-showcase-cta .rk-btn {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 /* ── Stats Section (right after hero) — brand color band, no cards ── */
@@ -1824,7 +1971,6 @@
 .rk-cta {
   position: relative;
   background: var(--rk-brand);
-  min-height: 600px;
   color: #fff;
   padding: 70px 0;
   overflow: hidden;

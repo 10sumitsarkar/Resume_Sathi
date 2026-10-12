@@ -294,18 +294,18 @@ function formatDate(value) {
 
 function PreviewCard({ item, type }) {
   const slug = getSlug(item);
-  const href = type === 'job' ? `/jobs/${slug}/` : `/blog/${slug}/`;
+  const href = `/blog/${slug}/`;
   const date = item?.created_at || item?.updated_at || item?.last_date || item?.application_end_date;
 
   return (
     <article className="ab-preview-card">
-      <div className="ab-preview-tag">{type === 'job' ? 'Job Update' : 'Career Blog'}</div>
+      <div className="ab-preview-tag">Career Blog</div>
       <h3>{getTitle(item)}</h3>
       <p>{getDescription(item) || 'Read the latest ResumeSathi update for better career planning and applications.'}</p>
       <div className="ab-preview-foot">
         <span>{formatDate(date)}</span>
         <Link prefetch={false} href={href}>
-          {type === 'job' ? 'View job' : 'Read blog'} <ArrowIcon />
+          Read blog <ArrowIcon />
         </Link>
       </div>
     </article>
@@ -336,7 +336,7 @@ const compareRows = [
   { feature: 'Speed', us: 'Move from resume to documents to jobs quickly', others: 'Repeated uploads and manual switching' },
 ];
 
-export default function AboutClient({ initialJobs = [], initialBlogs = [], faqs = [] }) {
+export default function AboutClient({ initialBlogs = [], faqs = [] }) {
   const [openFaq, setOpenFaq] = useState(0);
 
   return (
@@ -489,7 +489,7 @@ export default function AboutClient({ initialJobs = [], initialBlogs = [], faqs 
                   <span><CheckIcon /> Accuracy feedback</span>
                   <span><CheckIcon /> No signup needed</span>
                 </div>
-                <Link prefetch={false} className="ab-typing-button" href="/typing/">
+                <Link prefetch={false} className="ab-typing-button" href="/tools/typing/">
                   Start Typing Practice <ArrowIcon />
                 </Link>
               </div>
@@ -545,21 +545,6 @@ export default function AboutClient({ initialJobs = [], initialBlogs = [], faqs 
                   <h3>{s.title}</h3>
                   <p>{s.desc}</p>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="ab-preview-section">
-            <SectionHeader
-              eyebrow="Latest Jobs"
-              title="Fresh Job Updates for Candidates"
-              desc="Browse current openings, important dates, and application information."
-              href="/jobs/"
-              cta="View all jobs"
-            />
-            <div className="ab-preview-grid">
-              {initialJobs.slice(0, 6).map((job) => (
-                <PreviewCard key={job.id || getSlug(job)} item={job} type="job" />
               ))}
             </div>
           </div>

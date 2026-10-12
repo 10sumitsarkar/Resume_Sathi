@@ -1,0 +1,20 @@
+
+> nextjs-ResumeSathi@0.1.0 prebuild
+> node scripts/fetch-jobs.js && node scripts/fetch-articles.js
+
+[fetch-jobs] Attempt 1 -> https://api.resumesathi.com/api/courses?limit=500&include_contents=1
+[fetch-jobs] Attempt 1 -> https://api.resumesathi.com/api/course-categories
+[fetch-jobs] OK - 21 jobs, 10 categories cached.
+[fetch-articles] Attempt 1 -> https://api.resumesathi.com/api/articles?limit=500&include_contents=1
+[fetch-articles] Attempt 1 -> https://api.resumesathi.com/api/article-categories
+[fetch-articles] OK - 8 articles, 2 categories cached.
+
+> nextjs-ResumeSathi@0.1.0 build
+> next build
+
+⚠ Specified "redirects" will not automatically work with "output: export". See more info here: https://nextjs.org/docs/messages/export-no-custom-routes
+▲ Next.js 16.2.9 (Turbopack)
+
+  Creating an optimized production build ...
+⚠ Specified "redirects" will not automatically work with "output: export". See more info here: https://nextjs.org/docs/messages/export-no-custom-routes
+^C^C

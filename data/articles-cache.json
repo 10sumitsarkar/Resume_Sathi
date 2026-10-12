@@ -1,5 +1,213 @@
 [
   {
+    "id": 39,
+    "article_type": 2,
+    "article_title": "Resume Tips That Actually Get You Noticed",
+    "url_name": "resume-tips-that-get-you-noticed",
+    "meta_title": "Resume Tips That Actually Get You Noticed",
+    "meta_description": "Struggling to get interview callbacks? These practical resume tips cover ATS formatting, result-based bullet points, length, and common mistakes that quietly hurt your chances.",
+    "meta_keyword": "resume tips, how to write a resume that stands out, ats friendly resume tips, resume mistakes to avoid, how to make your resume better, resume formatting tips, resume length guide",
+    "canonical_tag": "articles/resume-tips/resume-tips-that-get-you-noticed",
+    "language_id": null,
+    "hero_image": "articles_image/file_1791299620.png",
+    "pageview": 0,
+    "created_by": 1,
+    "created_at": "2026-10-06T15:08:52.000000Z",
+    "is_draft": 0,
+    "is_active": 1,
+    "status": 1,
+    "updated_at": "2026-10-06T15:14:34.000000Z",
+    "deleted_at": null,
+    "user": {
+      "id": 1,
+      "first_name": "Hariom",
+      "last_name": "Prajapati",
+      "email": "hariomprajapati9029@gmail.com",
+      "mobile": "8840860841",
+      "birth_date": "08/01/1999",
+      "age": "23",
+      "gender": "male",
+      "profile_image": "Hariom.jpg",
+      "background_image": null,
+      "is_active": 1,
+      "created_at": "2021-09-12T13:19:51.000000Z",
+      "updated_at": "2026-07-12T10:04:13.000000Z"
+    },
+    "category": {
+      "id": 2,
+      "article_name": "Resume Tips",
+      "url_name": "resume-tips",
+      "article_description": "Expert tips and useful guidance to help you create a professional, ATS-friendly resume and improve your chances of getting hired.",
+      "created_at": "2026-08-13T03:37:18.000000Z",
+      "updated_at": "2026-08-13T03:37:18.000000Z"
+    },
+    "contents": [
+      {
+        "id": 39,
+        "article_id": 39,
+        "content": "<p>Somewhere around my fourth job switch, I finally sat down and compared two versions of my resume &mdash; the one that got me almost nothing but silence, and the one that suddenly started landing interviews. Same person, same experience, barely six months apart. The difference wasn't my career. It was how I'd written it down.</p>\r\n<p>Most resume advice online is either outdated (\"keep it to one page, always\") or so generic it doesn't actually help (\"highlight your achievements\"). So here's what I'd tell someone sitting down to fix their resume right now, not fluff, just the stuff that genuinely moves the needle.</p>\r\n<h2>1. Stop Writing What You Did. Write What Changed Because You Did It.</h2>\r\n<p>This is probably the single biggest shift. Most resumes read like a job description &mdash; \"managed social media accounts,\" \"handled customer queries,\" \"responsible for inventory.\" None of that tells a recruiter anything about whether you were good at it.</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Weak (Task-Based)</th>\r\n<th>Strong (Result-Based)</th>\r\n</tr>\r\n<tr>\r\n<td>Managed social media accounts</td>\r\n<td>Grew Instagram following from 4K to 22K in 8 months through a redesigned content calendar</td>\r\n</tr>\r\n<tr>\r\n<td>Handled customer queries</td>\r\n<td>Resolved an average of 60+ tickets daily with a 95% satisfaction score</td>\r\n</tr>\r\n<tr>\r\n<td>Responsible for inventory</td>\r\n<td>Reduced stock discrepancies by 40% by introducing a weekly audit system</td>\r\n</tr>\r\n<tr>\r\n<td>Helped with hiring</td>\r\n<td>Screened and shortlisted candidates for 15+ roles, cutting time-to-hire by two weeks</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>Notice the pattern &mdash; numbers, outcomes, and ideally something you specifically did to cause the change, not just a vague task you were nearby for.</p>\r\n<h2>2. One Resume for Every Job Is a Trap</h2>\r\n<p>I used to send the exact same PDF everywhere, convinced it was \"efficient.\" It's not efficient, it's just lazy in a way that quietly tanks your response rate. You don't need to rewrite the whole thing each time &mdash; just adjust the top third, swap keywords to match the job description, and reorder your bullet points so the most relevant stuff for that specific role sits at the top, not buried under something irrelevant.</p>\r\n<h2>3. Your Resume Has About 7 Seconds to Earn a Second Look</h2>\r\n<p>That's roughly how long a recruiter spends on an initial scan before deciding whether to actually read it properly or move on. So the top third of your resume carries the most weight &mdash; your title, your most recent role, and one or two standout lines. If the strongest stuff is sitting near the bottom of the page, it's probably not getting seen at all.</p>\r\n<h2>4. ATS Isn't Scary, But It's Picky</h2>\r\n<p>A lot of resumes get filtered out before a human ever opens them, simply because the formatting confuses the software reading it first. Nothing complicated to fix here, just a few habits worth building.</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Do</th>\r\n<th>Avoid</th>\r\n</tr>\r\n<tr>\r\n<td>Standard section headers (Experience, Education, Skills)</td>\r\n<td>Creative headers like \"My Journey\" or \"What I Bring\"</td>\r\n</tr>\r\n<tr>\r\n<td>Simple, single-column layout</td>\r\n<td>Multi-column designs, text boxes, graphics</td>\r\n</tr>\r\n<tr>\r\n<td>Keywords pulled directly from the job description</td>\r\n<td>Synonyms only, hoping the system \"figures it out\"</td>\r\n</tr>\r\n<tr>\r\n<td>.docx or standard PDF format</td>\r\n<td>Scanned images or heavily designed PDF templates</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>5. Cut the Stuff That's Just Taking Up Space</h2>\r\n<p>A few things people still include out of habit, even though they rarely help anymore:</p>\r\n<ul>\r\n<li>\"References available upon request\" &mdash; assumed, don't need to state it</li>\r\n<li>An objective statement at the top &mdash; replace with a short summary that actually says what you do</li>\r\n<li>Every single job you've ever had, including one you held for three unrelated months in college</li>\r\n<li>Skills that are either outdated or so basic they're expected by default (Microsoft Word, for instance)</li>\r\n<li>A photo &mdash; unless the role or country specifically expects it</li>\r\n</ul>\r\n<h2>6. Keep It Readable, Not Just \"Pretty\"</h2>\r\n<p>There's a difference between a resume that looks nice and one that's actually easy to scan. Recruiters are tired, moving fast, often reading on a small screen. A few simple habits help more than any fancy template:</p>\r\n<ul>\r\n<li>Consistent formatting &mdash; same font, same bullet style, same date format throughout</li>\r\n<li>Enough white space that it doesn't feel like a wall of text</li>\r\n<li>Bullet points over long paragraphs, always</li>\r\n<li>Bold used sparingly, just for things you genuinely want to catch the eye</li>\r\n</ul>\r\n<h2>7. Address Gaps Honestly, Don't Hide Them</h2>\r\n<p>If there's a gap in your work history, resist the urge to stretch dates or leave it awkwardly unexplained. A short, confident line is usually enough &mdash; \"Took a year to care for a family member\" or \"Freelanced on short-term projects while exploring a career shift.\" Recruiters have seen every version of a gap by now. What matters is that you're not pretending it isn't there.</p>\r\n<h2>8. Length: It Depends More Than People Think</h2>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Experience Level</th>\r\n<th>Reasonable Length</th>\r\n</tr>\r\n<tr>\r\n<td>Fresh graduate / early career</td>\r\n<td>1 page</td>\r\n</tr>\r\n<tr>\r\n<td>Mid-career (5-10 years)</td>\r\n<td>1-2 pages</td>\r\n</tr>\r\n<tr>\r\n<td>Senior / leadership roles</td>\r\n<td>2 pages is fine, sometimes expected</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>The old \"always one page\" rule doesn't really hold up once you've actually built a career worth describing. The goal isn't shortness for its own sake &mdash; it's relevance. Cut what doesn't serve the story, keep what does, regardless of exactly how many pages that lands on.</p>\r\n<h2>A Quick Pre-Send Checklist</h2>\r\n<ul>\r\n<li>Tailored to this specific job, not a generic copy</li>\r\n<li>Top third has your strongest, most relevant material</li>\r\n<li>Every bullet point shows a result, not just a task</li>\r\n<li>No typos &mdash; read it out loud once, you'll catch things your eyes skip over</li>\r\n<li>Saved with a sensible file name, not \"Resume_final_FINAL_v3\"</li>\r\n</ul>\r\n<p>None of this is complicated, honestly. It's mostly about treating your resume less like a formality and more like the one piece of marketing you're doing for yourself. Takes a bit more effort upfront, but it's the difference between silence and actually getting a call back.</p>\r\n<hr />\r\n<p><em>What's one resume change that actually made a noticeable difference for you? Would genuinely like to know what's worked for others.</em></p>",
+        "created_at": "2026-10-06T15:08:52.000000Z",
+        "updated_at": "2026-10-06T15:14:34.000000Z"
+      }
+    ]
+  },
+  {
+    "id": 38,
+    "article_type": 1,
+    "article_title": "How to Answer \"Tell Me About Yourself\" in an Interview",
+    "url_name": "how-to-answer-tell-me-about-yourself",
+    "meta_title": "How to Answer \"Tell Me About Yourself\" in an Interview",
+    "meta_description": "Struggling with \"tell me about yourself\" in interviews? Learn the simple Present-Past-Future framework to answer confidently without rambling, plus real examples.",
+    "meta_keyword": "tell me about yourself interview answer, how to answer tell me about yourself, interview self introduction tips, present past future interview framework, how to introduce yourself in an interview, common interview mistakes, interview answer examples",
+    "canonical_tag": "articles/web-articles/how-to-answer-tell-me-about-yourself",
+    "language_id": null,
+    "hero_image": "articles_image/file_1791299013.png",
+    "pageview": 0,
+    "created_by": 1,
+    "created_at": "2026-10-06T15:00:50.000000Z",
+    "is_draft": 0,
+    "is_active": 1,
+    "status": 1,
+    "updated_at": "2026-10-06T15:14:19.000000Z",
+    "deleted_at": null,
+    "user": {
+      "id": 1,
+      "first_name": "Hariom",
+      "last_name": "Prajapati",
+      "email": "hariomprajapati9029@gmail.com",
+      "mobile": "8840860841",
+      "birth_date": "08/01/1999",
+      "age": "23",
+      "gender": "male",
+      "profile_image": "Hariom.jpg",
+      "background_image": null,
+      "is_active": 1,
+      "created_at": "2021-09-12T13:19:51.000000Z",
+      "updated_at": "2026-07-12T10:04:13.000000Z"
+    },
+    "category": {
+      "id": 1,
+      "article_name": "Career Advice",
+      "url_name": "web-articles",
+      "article_description": "Expert tips for career growth, job search, and professional success.",
+      "created_at": "2021-09-12T17:33:33.000000Z",
+      "updated_at": "2026-07-16T15:18:01.000000Z"
+    },
+    "contents": [
+      {
+        "id": 38,
+        "article_id": 38,
+        "content": "<p>I bombed this question in my very first real interview. Not because I didn't know the answer &mdash; I knew my own life pretty well, obviously &mdash; but because I had no idea what they actually wanted to hear. So I just... started talking. Childhood, college, that one internship, a random hobby I thought made me sound interesting. Five minutes later the interviewer's eyes had that polite-but-tired look, and I knew I'd lost them somewhere around minute two.</p>\r\n<p>Turns out almost everyone fumbles this question at least once, because it feels so open-ended that it tricks you into thinking there's no wrong way to answer it. There absolutely is a wrong way. And there's a pretty reliable right way too, once you see the pattern.</p>\r\n<h2>Why This Question Trips People Up</h2>\r\n<p>It's usually the very first question in an interview, which means two things. One, you're still a little nervous, not fully warmed up. Two, whatever you say here sets the tone for everything after. Interviewers aren't actually asking for your life story &mdash; they're asking you to prove, in under two minutes, that you understand what matters for this role and can talk about yourself with some structure.</p>\r\n<p>Most people either go too broad (literally starting from childhood) or too narrow (just reciting their resume line by line, which the interviewer already has in front of them anyway).</p>\r\n<h2>The Structure That Actually Works</h2>\r\n<p>There's a pretty well-known framework here, sometimes called Present-Past-Future, and honestly it works because it mirrors how people naturally tell a coherent story.</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Part</th>\r\n<th>What Goes Here</th>\r\n<th>Rough Time</th>\r\n</tr>\r\n<tr>\r\n<td>Present</td>\r\n<td>What you're doing right now, in your current or most recent role</td>\r\n<td>20-30 seconds</td>\r\n</tr>\r\n<tr>\r\n<td>Past</td>\r\n<td>A quick path of how you got here &mdash; key experience, not your whole history</td>\r\n<td>30-45 seconds</td>\r\n</tr>\r\n<tr>\r\n<td>Future</td>\r\n<td>Why you're interested in this specific role, connecting it back to where you're headed</td>\r\n<td>20-30 seconds</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>Total answer should land somewhere around 90 seconds to two minutes. Shorter than people expect, honestly. If you're going past two and a half minutes, you've probably drifted into territory that belongs in a later question, not this one.</p>\r\n<h2>An Example, So This Isn't Just Theory</h2>\r\n<p>Let's say you're a marketing professional interviewing for a senior role at a new company. Something like this:</p>\r\n<blockquote>\"Right now I'm leading content strategy for a mid-size SaaS company, managing a small team and handling everything from campaign planning to performance tracking. Before that, I spent about three years on the agency side, which honestly gave me a pretty broad view of different industries early on &mdash; that's where I first got into data-driven content, which is still a big part of how I work today. What's drawing me to this role specifically is the chance to build something closer to in-house, where I can actually own the long-term strategy instead of jumping between client accounts every few months.\"</blockquote>\r\n<p>Notice what's missing &mdash; no childhood, no unrelated hobbies, no apologizing for a career gap nobody asked about yet. It's tight, it connects past experience to this specific opportunity, and it gives the interviewer a natural follow-up to ask about.</p>\r\n<h2>Common Mistakes People Make</h2>\r\n<ul>\r\n<li>Starting from way too far back &mdash; nobody needs to know what you studied in school if it was fifteen years ago and unrelated</li>\r\n<li>Just reading your resume out loud, word for word, adding nothing new</li>\r\n<li>Going on for five-plus minutes because the question felt like an invitation to share everything</li>\r\n<li>Not connecting anything back to the actual role you're interviewing for</li>\r\n<li>Being overly rehearsed, to the point it sounds robotic instead of conversational</li>\r\n<li>Oversharing personal details that have nothing to do with the job</li>\r\n</ul>\r\n<h2>How to Tailor It for Different Situations</h2>\r\n<p>This answer shouldn't be identical every time. A few common scenarios and how the emphasis shifts:</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Situation</th>\r\n<th>What to Emphasize</th>\r\n</tr>\r\n<tr>\r\n<td>Career switcher</td>\r\n<td>Transferable skills, and a clear, confident reason for the switch &mdash; don't apologize for it</td>\r\n</tr>\r\n<tr>\r\n<td>Fresh graduate, no experience</td>\r\n<td>Relevant coursework, internships, projects &mdash; lean on enthusiasm and specifics over polish</td>\r\n</tr>\r\n<tr>\r\n<td>Employment gap</td>\r\n<td>Brief, honest mention if it comes up naturally, then move forward &mdash; don't dwell</td>\r\n</tr>\r\n<tr>\r\n<td>Senior-level role</td>\r\n<td>Leadership outcomes, scope of responsibility, strategic impact over day-to-day tasks</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>What If You Freeze Up Mid-Answer?</h2>\r\n<p>It happens, even to people who've prepared. A quick trick &mdash; pause, take a breath, and just say something like \"let me circle back to that\" if you lose the thread. Interviewers genuinely don't expect a flawless, scripted performance. A slightly imperfect but genuine answer almost always lands better than one that sounds memorized word-for-word, because the memorized ones tend to fall apart the second a follow-up question comes in sideways.</p>\r\n<h2>Practice Without Sounding Like You're Reciting a Script</h2>\r\n<p>The trick isn't to write out a perfect paragraph and memorize it. That's actually where most of the robotic-sounding answers come from. Instead, just know your three beats &mdash; present, past, future &mdash; and practice saying them out loud a few different ways. The words will shift slightly each time, which is exactly what makes it sound natural instead of rehearsed.</p>\r\n<ul>\r\n<li>Say it out loud in the shower, car, wherever &mdash; not just in your head</li>\r\n<li>Time yourself once or twice, just to get a feel for where two minutes actually lands</li>\r\n<li>Adjust the \"future\" part for every single interview &mdash; this is the one piece that should never be copy-pasted</li>\r\n<li>Ask a friend to listen and tell you honestly if it felt natural or stiff</li>\r\n</ul>\r\n<h2>The Bigger Point</h2>\r\n<p>This question isn't really testing your life story. It's testing whether you can take something open-ended and shape it into something clear, relevant, and confident &mdash; which, if you think about it, is basically a preview of how you'd communicate on the job itself. Get this one right, and you've already set a good tone before the \"real\" questions even start.</p>\r\n<hr />\r\n<p><em>What's your go-to opening line when this question comes up? Curious what's worked for other people in actual interviews.</em></p>",
+        "created_at": "2026-10-06T15:00:50.000000Z",
+        "updated_at": "2026-10-06T15:14:19.000000Z"
+      }
+    ]
+  },
+  {
+    "id": 37,
+    "article_type": 1,
+    "article_title": "Career Advice Nobody Tells You Until It's Too Late",
+    "url_name": "career-advice-nobody-tells-you",
+    "meta_title": "Career Advice Nobody Tells You Until It's Too Late",
+    "meta_description": "Real career advice beyond the generic tips — networking, feedback, burnout, salary talks, and the habits that quietly make or break long-term career growth.",
+    "meta_keyword": "career advice, career growth tips, how to advance your career, career advice for professionals, networking tips for career growth, how to avoid burnout at work, salary negotiation tips, skills to stay relevant at work",
+    "canonical_tag": "articles/web-articles/career-advice-nobody-tells-you",
+    "language_id": null,
+    "hero_image": "articles_image/file_1791298747.png",
+    "pageview": 0,
+    "created_by": 1,
+    "created_at": "2026-10-06T14:55:10.000000Z",
+    "is_draft": 0,
+    "is_active": 1,
+    "status": 1,
+    "updated_at": "2026-10-06T15:14:03.000000Z",
+    "deleted_at": null,
+    "user": {
+      "id": 1,
+      "first_name": "Hariom",
+      "last_name": "Prajapati",
+      "email": "hariomprajapati9029@gmail.com",
+      "mobile": "8840860841",
+      "birth_date": "08/01/1999",
+      "age": "23",
+      "gender": "male",
+      "profile_image": "Hariom.jpg",
+      "background_image": null,
+      "is_active": 1,
+      "created_at": "2021-09-12T13:19:51.000000Z",
+      "updated_at": "2026-07-12T10:04:13.000000Z"
+    },
+    "category": {
+      "id": 1,
+      "article_name": "Career Advice",
+      "url_name": "web-articles",
+      "article_description": "Expert tips for career growth, job search, and professional success.",
+      "created_at": "2021-09-12T17:33:33.000000Z",
+      "updated_at": "2026-07-16T15:18:01.000000Z"
+    },
+    "contents": [
+      {
+        "id": 37,
+        "article_id": 37,
+        "content": "<p>A few years into my career, I had a mentor tell me something that honestly annoyed me at the time. She said, \"You're really good at your job. That's not the same as having a good career.\" I remember thinking, what's the difference, isn't that the whole point? Took me a good two or three years to actually understand what she meant.</p>\r\n<p>Most career advice floating around online is either too generic (\"follow your passion,\" thanks, very helpful) or too tactical (how to format a resume, how to answer one interview question). What's missing is the stuff in between &mdash; the decisions that quietly shape whether you're happy and growing ten years from now, or just... still there, doing the same thing, wondering what happened.</p>\r\n<p>So here's what I'd actually tell someone starting out, or even someone five-six years in who feels stuck.</p>\r\n<h2>1. Being Good at Your Job Isn't the Same as Building a Career</h2>\r\n<p>This is the one that took me longest to get. You can be excellent at your day-to-day work &mdash; hit every deadline, get great feedback, be the person everyone relies on &mdash; and still have zero career momentum. Why? Because being reliable keeps you where you are. It doesn't necessarily move you forward.</p>\r\n<p>Career growth usually comes from visibility, from taking on things slightly outside your comfort zone, from being known for something specific. Doing your job well is the baseline. It's not the strategy.</p>\r\n<h2>2. Your Network Matters More Than Your Resume, Most of the Time</h2>\r\n<p>I know this sounds like something a LinkedIn influencer would say, but it's genuinely true, and not in some slimy networking-event way either. Most good opportunities &mdash; the roles that never even get posted publicly &mdash; come through someone who already knows your work, or knows someone who does.</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Traditional Job Search</th>\r\n<th>Relationship-Based Opportunities</th>\r\n</tr>\r\n<tr>\r\n<td>Apply, wait, hope the ATS picks you up</td>\r\n<td>Someone recommends you directly to a hiring manager</td>\r\n</tr>\r\n<tr>\r\n<td>Competing against hundreds of applicants</td>\r\n<td>Often the only name being considered, or one of two</td>\r\n</tr>\r\n<tr>\r\n<td>Resume has to do all the talking</td>\r\n<td>Your reputation already did half the work</td>\r\n</tr>\r\n<tr>\r\n<td>Slower, less predictable</td>\r\n<td>Faster, and usually a better cultural fit</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>None of this means stop applying to jobs normally. Just means don't treat your network as something you only reach out to when you need something. By then it's a bit late, honestly.</p>\r\n<h2>3. Ask for Feedback Before You Need It</h2>\r\n<p>Most people only ask for feedback during a performance review, when it's already too structured, too formal, and honestly often too late to actually act on in a meaningful way. The people who grow faster are the ones who ask casually, regularly &mdash; \"hey, how'd that presentation land, anything I should've done differently?\" &mdash; right after something happens, while it's still fresh.</p>\r\n<p>It feels a little uncomfortable at first, asking for critique when nobody's forcing the conversation. But that discomfort is exactly why most people skip it, which is also exactly why doing it anyway sets you apart.</p>\r\n<h2>4. Don't Wait for a Title to Act Like the Next Level</h2>\r\n<p>This one's controversial, I know, and I'm not saying do unpaid extra work indefinitely hoping someone notices. But there's a real difference between doing your current job well and showing you're ready for the next one. If you want to be a manager, start mentoring someone informally. If you want to lead projects, start volunteering for the messy, ambiguous ones nobody else wants.</p>\r\n<p>Titles usually follow behavior, not the other way around. Waiting passively for someone to hand you a promotion because you've technically been there long enough rarely works out the way people hope.</p>\r\n<h2>5. Your Skills Have a Shelf Life &mdash; Keep Checking the Expiry Date</h2>\r\n<p>Whatever got you your current job probably won't be enough to get you the next one, especially with how fast things are shifting right now across most industries. Doesn't mean panic and go learn ten new tools overnight. Just means build in some regular habit of checking: is what I know still relevant, or am I coasting on something that mattered three years ago?</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Question to Ask Yourself</th>\r\n<th>Why It Matters</th>\r\n</tr>\r\n<tr>\r\n<td>What's changed in my industry in the last year?</td>\r\n<td>Shows if you're still paying attention or on autopilot</td>\r\n</tr>\r\n<tr>\r\n<td>When did I last learn something uncomfortable?</td>\r\n<td>Comfort usually means stagnation, not mastery</td>\r\n</tr>\r\n<tr>\r\n<td>Could I explain my work to someone outside my field?</td>\r\n<td>Tests whether you actually understand it or just execute it</td>\r\n</tr>\r\n<tr>\r\n<td>Am I the most replaceable or least replaceable person on my team?</td>\r\n<td>Honest answer tells you where you actually stand</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>6. Burnout Doesn't Always Look Like Burnout</h2>\r\n<p>People imagine burnout as dramatic &mdash; crying at your desk, unable to get out of bed. Sometimes it's quieter than that. It's just... not caring anymore. Doing the minimum, not because you're lazy, but because something in you has already checked out, even if your calendar's still full.</p>\r\n<p>If that sounds familiar, it's worth addressing way before it turns into the dramatic version. Not with some generic \"take a vacation\" advice either &mdash; more like, actually figuring out what specifically drained you, and whether it's fixable where you are or whether it's a sign you've outgrown the role.</p>\r\n<h2>7. Saying No Is a Career Skill, Not a Personality Flaw</h2>\r\n<p>Early on, I said yes to everything. Every extra task, every \"can you just quickly help with this,\" every meeting I didn't need to be in. Felt generous and ambitious at the time. In hindsight, it just made me the person everyone dumped random work onto, without actually building my reputation for anything specific.</p>\r\n<p>Saying no, selectively and politely, to things that don't align with where you're trying to go &mdash; that's not rude. That's someone who understands what they're actually optimizing for.</p>\r\n<h2>8. Money Conversations Aren't as Awkward as They Feel</h2>\r\n<p>A lot of people avoid negotiating salary, or avoid asking for a raise, because the conversation feels uncomfortable. Understandable. But here's the thing &mdash; that one slightly awkward 10-minute conversation can be worth more, financially, than years of quietly hoping someone notices your effort and rewards it unprompted.</p>\r\n<ul>\r\n<li>Know your market rate before you walk in &mdash; not a guess, actual numbers</li>\r\n<li>Bring specific results, not just \"I've worked hard\"</li>\r\n<li>Ask directly, don't hint around it hoping they'll offer first</li>\r\n<li>Be okay with \"not right now\" as an answer &mdash; it's not a final no, usually just a timing issue</li>\r\n</ul>\r\n<h2>Where Most People Go Wrong</h2>\r\n<p>If I had to boil this whole thing down, most stalled careers aren't stalled because someone isn't talented or isn't working hard enough. It's usually smaller things compounding quietly over time &mdash; not building relationships early enough, not asking for feedback until it's forced, not noticing when skills started going stale, not being honest with themselves about burnout until it's already bad.</p>\r\n<p>None of this is complicated advice. It's just stuff that's easy to know and genuinely hard to actually do consistently. Which, honestly, is probably true of most good advice.</p>\r\n<hr />\r\n<p><em>What's one piece of career advice that actually changed something for you? Drop it below, always curious what's worked for other people.</em></p>",
+        "created_at": "2026-10-06T14:55:10.000000Z",
+        "updated_at": "2026-10-06T15:14:03.000000Z"
+      }
+    ]
+  },
+  {
+    "id": 36,
+    "article_type": 2,
+    "article_title": "Why You Should Never Put a Photo on Your Resume",
+    "url_name": "why-not-put-photo-on-resume",
+    "meta_title": "Why You Should Never Put a Photo on Your Resume",
+    "meta_description": "Thinking of adding a photo to your resume? Here's why it can hurt your chances — from ATS parsing issues to hiring bias — and where your photo should actually go instead.",
+    "meta_keyword": "photo on resume, should you put a photo on your resume, resume photo mistake, ats resume parsing issues, resume with picture pros and cons, linkedin photo vs resume photo, resume formatting mistakes, professional resume tips",
+    "canonical_tag": "articles/resume-tips/why-not-put-photo-on-resume",
+    "language_id": null,
+    "hero_image": "articles_image/file_1791298280.png",
+    "pageview": 0,
+    "created_by": 1,
+    "created_at": "2026-10-06T14:41:50.000000Z",
+    "is_draft": 0,
+    "is_active": 1,
+    "status": 1,
+    "updated_at": "2026-10-06T15:14:48.000000Z",
+    "deleted_at": null,
+    "user": {
+      "id": 1,
+      "first_name": "Hariom",
+      "last_name": "Prajapati",
+      "email": "hariomprajapati9029@gmail.com",
+      "mobile": "8840860841",
+      "birth_date": "08/01/1999",
+      "age": "23",
+      "gender": "male",
+      "profile_image": "Hariom.jpg",
+      "background_image": null,
+      "is_active": 1,
+      "created_at": "2021-09-12T13:19:51.000000Z",
+      "updated_at": "2026-07-12T10:04:13.000000Z"
+    },
+    "category": {
+      "id": 2,
+      "article_name": "Resume Tips",
+      "url_name": "resume-tips",
+      "article_description": "Expert tips and useful guidance to help you create a professional, ATS-friendly resume and improve your chances of getting hired.",
+      "created_at": "2026-08-13T03:37:18.000000Z",
+      "updated_at": "2026-08-13T03:37:18.000000Z"
+    },
+    "contents": [
+      {
+        "id": 36,
+        "article_id": 36,
+        "content": "<p>I used to think adding a photo made my resume look more \"professional.\" Looked good in my head &mdash; a nice headshot in the corner, polished, put-together. Then a hiring manager friend of mine actually laughed when she saw it. Not in a mean way, more like, \"oh, you still do that?\" That one comment changed how I look at resumes completely.</p>\r\n<p>Turns out, in a lot of places &mdash; especially if you're applying to companies in the US, UK, or any multinational &mdash; a photo on your resume isn't just unnecessary. It can actually work against you. I didn't believe it at first either. Felt almost counterintuitive, like, how could a photo possibly hurt me? But once you actually sit down and think through how recruiters and hiring software work, it starts making a lot more sense.</p>\r\n<p>Let's go through this properly, one reason at a time.</p>\r\n<h2>1. It Opens the Door to Bias (Even Unintentional Bias)</h2>\r\n<p>Nobody wants to admit this, but it's true &mdash; the moment a recruiter sees your face, their brain starts making judgments. Age, race, weight, whether you \"look tired,\" whether you \"look like a good fit.\" None of this is fair, and most recruiters aren't doing it on purpose. It's not malicious most of the time. It's just how human brains work &mdash; we form snap impressions in milliseconds, long before logic kicks in.</p>\r\n<p>This is exactly why so many companies that genuinely care about fair hiring practices will strip photos out of resumes before passing them to the hiring manager. Some go even further and anonymize names too, because names can carry the same kind of unconscious bias. If a company is actively removing something from your resume before it even gets reviewed, that should tell you something about whether it was helping you in the first place.</p>\r\n<h2>2. Legal Risk for the Company Hiring You</h2>\r\n<p>This part genuinely surprises people when I bring it up. In countries like the US, including a photo can actually create legal exposure for the employer, not you. Here's the logic &mdash; if they reject you, and you happen to be, say, over 40, or belong to a visible minority group, a photo on your resume makes it much harder for them to prove in court (if it ever came to that) that the rejection had absolutely nothing to do with how you look.</p>\r\n<p>Because of this, a lot of HR departments have a blanket policy: resumes with photos get flagged, sometimes discarded automatically, or the candidate gets asked to resend a version without one. Either way, you've just added an extra step of friction that nobody asked you for, and in a hiring process where attention spans are already short, friction is the last thing you want.</p>\r\n<h2>3. ATS Software Doesn't Know What to Do With It</h2>\r\n<p>Most companies today &mdash; even smaller ones &mdash; run resumes through an ATS (applicant tracking system) before a human ever opens the file. These systems are built to parse plain text. Your name, your work history, your skills section, your education. That's what they're optimized for.</p>\r\n<p>Images confuse them. Sometimes the photo file breaks the formatting entirely, pushes your actual content into weird columns, or just gets ignored while quietly eating up space that could've held one more line about something you actually accomplished.</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Resume Element</th>\r\n<th>What ATS Typically Does With It</th>\r\n</tr>\r\n<tr>\r\n<td>Plain text (skills, experience, education)</td>\r\n<td>Reads and indexes it correctly</td>\r\n</tr>\r\n<tr>\r\n<td>Photo</td>\r\n<td>Often ignored entirely, sometimes breaks the layout</td>\r\n</tr>\r\n<tr>\r\n<td>Fancy icons or graphics</td>\r\n<td>Frequently causes parsing errors</td>\r\n</tr>\r\n<tr>\r\n<td>Tables inside the resume itself</td>\r\n<td>Can scramble the reading order completely</td>\r\n</tr>\r\n<tr>\r\n<td>Headers/footers with contact info</td>\r\n<td>Sometimes skipped by older ATS versions</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<p>If you've ever wondered why a resume that looks gorgeous in Canva gets rejected before a human even sees it &mdash; this is usually why. The visual stuff that looks great to your eyes is often invisible, or actively harmful, to the software reading it first.</p>\r\n<h2>4. It Takes Up Space That Should Be Selling You</h2>\r\n<p>A resume photo usually eats up a good chunk of real estate &mdash; space that could instead hold one more bullet point about a result you delivered, a project you actually led, a number that proves your value in a way adjectives never will. Recruiters, on average, spend something like 6 to 7 seconds on that first resume scan. Maybe a little more if something catches their eye early.</p>\r\n<p>Think about what that means practically. You've got a few seconds to prove you're worth a second look. Do you want that space occupied by a photo, or by the line that says you increased efficiency by 18% or led a cross-functional team through a product launch? The math isn't close.</p>\r\n<h2>5. It Can Look Outdated, Even If You Don't Mean It To</h2>\r\n<p>Photo-on-resume used to be the norm, especially a decade or two back, and it's still completely standard practice in some countries &mdash; parts of Europe, for instance, or certain Asian markets where it's practically expected. But in a lot of modern hiring, especially tech and corporate roles in English-speaking markets, it tends to read as a little old-fashioned.</p>\r\n<p>It's not a dealbreaker by itself. Nobody's going to toss your resume just because of a photo alone. But combined with other dated habits &mdash; an \"Objective\" statement at the top, Times New Roman font, a fax number nobody's used since 2009 &mdash; it starts to paint a picture of someone who hasn't updated their approach in a while. And that impression, fair or not, matters.</p>\r\n<h2>So Where Should Your Photo Actually Go?</h2>\r\n<p>LinkedIn. Genuinely, that's really it. Your LinkedIn photo matters a lot more than people realize &mdash; recruiters absolutely judge that one, and it should look current, approachable, and professional. People form an opinion about your LinkedIn photo in roughly the same few seconds they'd glance at a resume, so it's not like photos don't matter anywhere. They just belong somewhere else.</p>\r\n<table border=\"1\" cellspacing=\"0\" cellpadding=\"8\">\r\n<tbody>\r\n<tr>\r\n<th>Where</th>\r\n<th>Photo Needed?</th>\r\n</tr>\r\n<tr>\r\n<td>Resume</td>\r\n<td>No &mdash; leave it off</td>\r\n</tr>\r\n<tr>\r\n<td>LinkedIn profile</td>\r\n<td>Yes, and keep it recent</td>\r\n</tr>\r\n<tr>\r\n<td>Portfolio website</td>\r\n<td>Optional, depends on the field you're in</td>\r\n</tr>\r\n<tr>\r\n<td>Modeling/acting resume (special case)</td>\r\n<td>Yes, that's just how that industry works</td>\r\n</tr>\r\n<tr>\r\n<td>Email signature</td>\r\n<td>Optional, not a big deal either way</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n<h2>A Few Exceptions Worth Knowing</h2>\r\n<p>Like most advice, this isn't a universal rule carved in stone. There are a handful of situations where it genuinely doesn't apply:</p>\r\n<ul>\r\n<li>Some countries &mdash; Germany, and parts of Asia in particular &mdash; still expect a photo on resumes, so it's worth checking local hiring norms before assuming the US/UK standard applies everywhere</li>\r\n<li>Creative industries like acting, modeling, or certain performance-based roles genuinely require a photo as part of the application</li>\r\n<li>If a job posting explicitly asks for a photo to be included, just follow the instruction, don't overthink it</li>\r\n<li>Internal company transfers sometimes use a slightly different, more relaxed format where a photo doesn't matter either way</li>\r\n</ul>\r\n<p>Outside of those specific cases though, my honest take is just leave it off. Your resume has exactly one job &mdash; get you an interview. Let your actual work history do that heavy lifting, not your headshot.</p>\r\n<h2>What To Do Instead</h2>\r\n<p>If you're used to having a photo on your resume and now feel like something's missing without it, here's what to fill that space with instead:</p>\r\n<ul>\r\n<li>A short, specific summary line at the top &mdash; not a generic \"hardworking professional seeking opportunities\" line, but something that actually says what you do and what you're good at</li>\r\n<li>One more quantified achievement from your most recent role</li>\r\n<li>A skills section tailored to the actual job description you're applying for</li>\r\n<li>Extra white space &mdash; believe it or not, a resume that's slightly less cramped actually reads easier and looks more confident</li>\r\n</ul>\r\n<p>None of these feel as visually exciting as a nice headshot, sure. But they're doing actual work for you, which is more than a photo can say.</p>\r\n<hr />\r\n<p><em>Did you have a photo on your resume before? Curious whether it ever came up in an interview, good or bad &mdash; drop it in the comments.</em></p>",
+        "created_at": "2026-10-06T14:41:50.000000Z",
+        "updated_at": "2026-10-06T15:14:48.000000Z"
+      }
+    ]
+  },
+  {
     "id": 35,
     "article_type": 1,
     "article_title": "She Found Out a Colleague Earned 18% More — For the Same Job",

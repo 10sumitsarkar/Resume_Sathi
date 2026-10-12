@@ -1,0 +1,5 @@
+⚠ Specified "redirects" will not automatically work with "output: export". See more info here: https://nextjs.org/docs/messages/export-no-custom-routes
+▲ Next.js 16.2.9 (Turbopack)
+
+  Creating an optimized production build ...
+⚠ Specified "redirects" will not automatically work with "output: export". See more info here: https://nextjs.org/docs/messages/export-no-custom-routes

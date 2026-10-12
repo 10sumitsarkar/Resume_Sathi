@@ -22,7 +22,7 @@ function AdTestPlacement({ name, children }) {
     <div
       role="region"
       aria-label={`${name} test placement`}
-      style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8, margin: "24px auto", padding: "0 12px" }}
+      style={{ display: "none", flexDirection: "column", alignItems: "center", gap: 8, margin: "24px auto", padding: "0 12px" }}
     >
       {/* <span style={{ color: "#666", fontSize: 12 }}>Ad test: {name}</span> */}
       {children}
@@ -1019,6 +1019,101 @@ const tools = [
   }
 ];
 
+function ResumeFocusSection() {
+  const resumeBenefits = [
+    {
+      title: "ATS-friendly resume templates",
+      points: [
+        "Modern resume templates for job seekers",
+        "ATS resume format for better screening results",
+        "Clean resume layout for recruiters and hiring teams",
+        "Professional resume design that feels polished",
+        "Simple resume builder for freshers and professionals",
+      ],
+    },
+    {
+      title: "Built for every career stage",
+      points: [
+        "Resume maker for freshers and experienced candidates",
+        "Career resume builder for students and job seekers",
+        "Customize sections for skills, education, and work history",
+        "Create a professional CV for any industry",
+        "Easy resume editing for rapid job applications",
+      ],
+    },
+    {
+      title: "No signup, no friction",
+      points: [
+        "Free resume builder with no signup required",
+        "Create a resume online in minutes without hassle",
+        "Instant resume editing in your browser",
+        "No account needed for quick online resume creation",
+        "Fast workflow for job applications and interviews",
+      ],
+    },
+    {
+      title: "Download in professional formats",
+      points: [
+        "Download resume as PDF for jobs and portals",
+        "Print-ready resume format for interviews",
+        "Professional CV export with clean final layout",
+        "Free resume download without watermark or signup",
+        "Share a polished resume for hiring managers and recruiters",
+      ],
+    },
+  ];
+
+  return (
+    <section className="rk-section rk-section--white rk-resume-feature" id="resume-builder">
+      <div className="container-fluid custom-container">
+        <div className="rk-sec-head rk-resume-feature-head">
+          <div className="rk-eyebrow">Resume Builder</div>
+          <h2 className="rk-sec-title fs-mob-24 mb-3">
+            Create a professional resume that helps you get shortlisted.
+          </h2>
+          <p className="rk-sec-sub fs-mob-14 mb-4">
+            ResumeSathi helps job seekers create clean, ATS-friendly resumes with modern layouts,
+            smart formatting, and a fast workflow designed for real job applications.
+          </p>
+        </div>
+
+        <div className="rk-resume-benefit-grid">
+          {resumeBenefits.map((item) => (
+            <div key={item.title} className="rk-resume-benefit-card">
+              <div className="rk-resume-benefit-icon">
+                <Icon.Check />
+              </div>
+              <h3 className="rk-resume-benefit-title">{item.title}</h3>
+              <ul className="rk-resume-benefit-points">
+                {item.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        <div className="rk-resume-showcase-cta justify-content-center mt-0">
+          <Link
+            prefetch={false}
+            href="/resume/resume-type/"
+            className="rk-btn rk-btn--primary rk-btn--lg"
+          >
+            Build My Resume <Icon.ArrowRight />
+          </Link>
+          <Link
+            prefetch={false}
+            href="/templates/"
+            className="rk-btn rk-btn--outline rk-btn--lg"
+          >
+            View Resume Templates
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ── Why Free Comparison ────────────────────────────────────────────────
 const comparisonRows = [
   {
@@ -1198,7 +1293,7 @@ function TypingPromo() {
             </div>
             <Link
               prefetch={false}
-              href="/typing/"
+              href="/tools/typing/"
               className="rk-btn rk-typing-button"
             >
               Start typing practice <Icon.ArrowRight />
@@ -1517,54 +1612,50 @@ function FAQ() {
 }
 
 // ── Root Component ────────────────────────────────────────────────────────
+const HOME_BLOG_LIMIT = 6;
+
 export default function ResumeListClient({
-  initialJobs = [],
   initialBlogs = [],
 }) {
-  const [jobs, setJobs] = useState(() => sortJobsByExpiry(initialJobs));
-  const [blogs, setBlogs] = useState(initialBlogs);
-  const skippedInitialFetch = useRef(false);
+  const [blogs, setBlogs] = useState(() => Array.isArray(initialBlogs) ? initialBlogs.slice(0, HOME_BLOG_LIMIT) : []);
 
   useEffect(() => {
-    // 👇 SSR se already jobs/blogs data mil chuka hai to pehla client
-    // fetch skip karo — taaki Googlebot ke render mein good data
-    // overwrite/empty na ho agar API robots.txt se blocked ho.
-    if (!skippedInitialFetch.current) {
-      skippedInitialFetch.current = true;
-      if (initialJobs.length > 0 && initialBlogs.length > 0) {
-        return;
-      }
+    const homepageInitialBlogs = Array.isArray(initialBlogs) ? initialBlogs : [];
+    const shouldFetchMoreBlogs = homepageInitialBlogs.length < HOME_BLOG_LIMIT;
+
+    if (!shouldFetchMoreBlogs) {
+      setBlogs(homepageInitialBlogs.slice(0, HOME_BLOG_LIMIT));
+      return;
     }
+
+    let cancelled = false;
 
     const fetchData = async () => {
       try {
-        const [jobsResponse, articlesResponse] = await Promise.all([
-          fetch(`${getContentCacheUrl('jobs.json')}?v=${Date.now()}`, { cache: 'no-store' }),
-          fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' }),
-        ]);
-
-        const jobsData = jobsResponse.ok ? await jobsResponse.json() : [];
-        const articlesData = articlesResponse.ok
-          ? await articlesResponse.json()
-          : [];
-
-        const normalizedJobs = Array.isArray(jobsData)
-          ? jobsData
-          : jobsData.items || jobsData.results || [];
+        const articlesResponse = await fetch(`${getContentCacheUrl('articles.json')}?v=${Date.now()}`, { cache: 'no-store' });
+        const articlesData = articlesResponse.ok ? await articlesResponse.json() : [];
         const normalizedArticles = Array.isArray(articlesData)
           ? articlesData
           : articlesData.items || articlesData.results || [];
 
-        setJobs(sortJobsByExpiry(normalizedJobs).slice(0, 6));
-        setBlogs(normalizedArticles.slice(0, 6));
+        const fallbackBlogs = normalizedArticles.length > 0 ? normalizedArticles : homepageInitialBlogs;
+        if (!cancelled) {
+          setBlogs(fallbackBlogs.slice(0, HOME_BLOG_LIMIT));
+        }
       } catch (error) {
-        console.error("Failed to load homepage content", error);
-        // 👇 SSR data already hai to khaali mat karo
+        console.error("Failed to load homepage blog content", error);
+        if (!cancelled) {
+          setBlogs(homepageInitialBlogs.slice(0, HOME_BLOG_LIMIT));
+        }
       }
     };
 
     fetchData();
-  }, []);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [initialBlogs]);
 
   return (
     <div className="rk-root">
@@ -1735,7 +1826,7 @@ export default function ResumeListClient({
               <div className="rk-id-card-cta">
                 <Link
                   prefetch={false}
-                  href="/id-card-maker/"
+                  href="/tools/id-card-maker/"
                   className="rk-btn rk-btn--primary rk-btn--lg"
                 >
                   Open ID Card Maker <Icon.ArrowRight />
@@ -1866,45 +1957,11 @@ export default function ResumeListClient({
           </div>
         </div>
       </section>
+      <ResumeFocusSection />
       <WhyFreeSection />
       <BioDataPromo />
       <TypingPromo />
       
-      <section className="rk-section rk-section--white" id="jobs">
-        <div className="container-fluid custom-container">
-          <div className="rk-sec-head-row">
-            <div>
-              <div className="rk-eyebrow">Jobs</div>
-              <h2 className="rk-sec-title fs-mob-24">
-                Latest job openings for job seekers
-              </h2>
-              <p className="rk-sec-sub fs-mob-14">
-                Find fresh opportunities, check deadlines, and apply with a
-                stronger resume.
-              </p>
-            </div>
-            <Link
-              prefetch={false}
-              href="/jobs/"
-              className="rk-btn rk-btn--outline rk-btn--sm"
-            >
-              All jobs <Icon.ArrowRight />
-            </Link>
-          </div>
-          {jobs.length > 0 ? (
-            <OwlSlider ariaLabel="Latest job openings">
-              {jobs.slice(0, 6).map((j) => (
-                <div key={j.id || getSlug(j)} className="item">
-                  <JobCard job={j} href={withTrailingSlash(`/jobs/${getSlug(j)}`)} />
-                </div>
-              ))}
-            </OwlSlider>
-          ) : (
-            <p className="rk-sec-sub">Loading latest job openings...</p>
-          )}
-        </div>
-      </section>
-
       <AdTestPlacement name="Banner 320x50">
         <Banner320x50 />
       </AdTestPlacement>
@@ -1942,15 +1999,29 @@ export default function ResumeListClient({
               All articles <Icon.ArrowRight />
             </Link>
           </div>
-          {blogs.length > 0 ? (
-            <OwlSlider ariaLabel="Career blog articles">
-              {blogs.map((b) => (
-                <div key={b.id || getSlug(b)} className="item">
-                  <BlogCard blog={b} href={withTrailingSlash(`/blog/${getSlug(b)}`)} />
-                </div>
-              ))}
-            </OwlSlider>
-          ) : (
+          {blogs.length > 0 ? (() => {
+            const homeBlogs = blogs.slice(0, HOME_BLOG_LIMIT);
+            return (
+              <OwlSlider
+                ariaLabel="Career blog articles"
+                options={{
+                  responsive: {
+                    0: { items: 1 },
+                    480: { items: 2 },
+                    768: { items: 2 },
+                    1024: { items: 3 },
+                    1400: { items: 4 },
+                  },
+                }}
+              >
+                {homeBlogs.map((b) => (
+                  <div key={b.id || getSlug(b)} className="item">
+                    <BlogCard blog={b} href={withTrailingSlash(`/blog/${getSlug(b)}`)} />
+                  </div>
+                ))}
+              </OwlSlider>
+            );
+          })() : (
             <p className="rk-sec-sub">Loading latest career articles...</p>
           )}
         </div>

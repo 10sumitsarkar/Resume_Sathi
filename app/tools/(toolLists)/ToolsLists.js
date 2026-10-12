@@ -250,6 +250,22 @@ const IconArrowRight = () => (
   </svg>
 );
 
+const IconKeyboard = () => (
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="5" width="18" height="14" rx="2" />
+    <path d="M7 10h.01M11 10h.01M15 10h.01M19 10h.01M7 14h10M17 14h.01" />
+  </svg>
+);
+
 const IconTools = () => (
   <svg
     width="14"
@@ -349,6 +365,24 @@ const TOOL_GROUPS = [
     icon: <IconTools />,
     label: "Utility",
     tools: [
+      {
+        href: "/tools/typing/",
+        icon: <IconKeyboard />,
+        tagIcon: <IconFileText />,
+        title: "Typing Practice",
+        desc: "Improve speed, accuracy, and touch typing with guided lessons and tests.",
+        tag: "Typing",
+        live: true,
+      },
+      {
+        href: "/tools/id-card-maker/",
+        icon: <IconIdBadge />,
+        tagIcon: <IconFileText />,
+        title: "ID Card Maker",
+        desc: "Create printable ID cards and badges in browser with a clean preview flow.",
+        tag: "Card",
+        live: true,
+      },
       {
         href: "/tools/age-calculator/",
         icon: <IconCalendar />,

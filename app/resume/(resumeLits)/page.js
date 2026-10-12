@@ -38,8 +38,9 @@ function ResumeAdPlacement({ name, children }) {
       className="d-flex flex-column align-items-center gap-2 my-4"
       role="region"
       aria-label={`${name} ad placement`}
+      style={{ display: "none" }}
+      aria-hidden="true"
     >
-      <span className="text-muted small">Ad test: {name}</span>
       {children}
     </div>
   );

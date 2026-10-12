@@ -12,7 +12,6 @@ export default function NavBar({ className = "" }) {
     const isResumeActive = pathname.startsWith('/resume');
     const isToolsActive = pathname.startsWith('/tools');
     const isBlogActive = pathname.startsWith('/blog');
-    const isJobActive = pathname.startsWith('/jobs');
 
     const closeAll = () => {
         setDdOpen(false);
@@ -46,19 +45,17 @@ export default function NavBar({ className = "" }) {
                                 </svg>
                                 Tools
                             </Link>
-                            <Link prefetch={false} href="/jobs/" className={`nav-link ${isJobActive ? 'active' : ''}`}>
-                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="3" y1="22" x2="21" y2="22" /><line x1="6" y1="18" x2="6" y2="11" /><line x1="10" y1="18" x2="10" y2="11" />
-                                    <line x1="14" y1="18" x2="14" y2="11" /><line x1="18" y1="18" x2="18" y2="11" />
-                                    <polygon points="12 2 20 7 4 7" />
-                                </svg>
-                                Jobs
-                            </Link>
                             <Link prefetch={false} href="/blog/" className={`nav-link ${isBlogActive ? 'active' : ''}`}>
                                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M4 4h16v16H4z" /><line x1="8" y1="9" x2="16" y2="9" /><line x1="8" y1="13" x2="16" y2="13" /><line x1="8" y1="17" x2="12" y2="17" />
                                 </svg>
                                 Blog
+                            </Link>
+                            <Link prefetch={false} href="/about/" className="nav-link">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                    <circle cx="12" cy="12" r="9" /><path d="M12 16v-4" /><path d="M12 8h.01" />
+                                </svg>
+                                About
                             </Link>
                         </div>
 
@@ -115,14 +112,6 @@ export default function NavBar({ className = "" }) {
                                 </svg>
                                 Tools
                             </Link>
-                            <Link prefetch={false} href="/jobs/" className="offcanvas-link" onClick={closeAll}>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <line x1="3" y1="22" x2="21" y2="22" /><line x1="6" y1="18" x2="6" y2="11" /><line x1="10" y1="18" x2="10" y2="11" />
-                                    <line x1="14" y1="18" x2="14" y2="11" /><line x1="18" y1="18" x2="18" y2="11" />
-                                    <polygon points="12 2 20 7 4 7" />
-                                </svg>
-                                Jobs
-                            </Link>
                             <Link prefetch={false} href="/blog/" className="offcanvas-link" onClick={closeAll}>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M4 4h16v16H4z" /><line x1="8" y1="9" x2="16" y2="9" /><line x1="8" y1="13" x2="16" y2="13" /><line x1="8" y1="17" x2="12" y2="17" />
@@ -143,7 +132,7 @@ export default function NavBar({ className = "" }) {
                                 </svg>
                                 Bio Data
                             </Link>
-                            <Link prefetch={false} href="/id-card-maker/" className="offcanvas-link" onClick={closeAll}>
+                            <Link prefetch={false} href="/tools/id-card-maker/" className="offcanvas-link" onClick={closeAll}>
                                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <rect x="3" y="5" width="18" height="14" rx="2" />
                                     <path d="M7 9h10M7 13h5" />

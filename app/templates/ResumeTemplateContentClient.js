@@ -336,13 +336,20 @@ function ResumeTemplateContentInner() {
         <div className="left-part">
           <div>
             <label className="template-content-eyebrow">Resume Templates</label>
-            <h1 className="fs-mob-22">Choose a resume style</h1>
+            <h1 className="fs-mob-22">Free Resume Templates for Every Career Stage</h1>
           </div>
           <p className="fs-mob-16">
-            Read a sample page first, or start creating with the template you
-            like. The selected design will open on the personal information
-            step.
+            Choose a professional resume template for freshers, developers,
+            teachers, sales, HR, accounting, and other job roles. Compare styles,
+            read the sample layout, and create an ATS-friendly resume in minutes.
           </p>
+          <div className="d-flex flex-wrap gap-2 mt-3">
+            {['ATS-friendly', 'Freshers', 'Experienced', 'Developer', 'Teacher', 'Sales', 'HR'].map((tag) => (
+              <span key={tag} className="badge rounded-pill text-bg-light border px-3 py-2 fw-medium">
+                {tag}
+              </span>
+            ))}
+          </div>
         </div>
         <div className="right-part d-none d-md-block">
           <img
@@ -350,7 +357,7 @@ function ResumeTemplateContentInner() {
             className="img-fluid"
             width={500}
             height={360}
-            alt="Resume templates"
+            alt="Resume template examples for job seekers"
           />
         </div>
       </section>

@@ -125,7 +125,6 @@ export const metadata = {
 };
 
 export default function AboutPage() {
-  const initialJobs = toPreviewItems(readCache('jobs-cache.json'), 'job');
   const initialBlogs = toPreviewItems(readCache('articles-cache.json'), 'blog');
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -146,7 +145,7 @@ export default function AboutPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <AboutClient initialJobs={initialJobs} initialBlogs={initialBlogs} faqs={aboutFaqs} />
+      <AboutClient initialBlogs={initialBlogs} faqs={aboutFaqs} />
     </>
   );
 }

@@ -1,8 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { DEFAULT_SITE_BASE, getApiBase } from './lib/apiConfig';
-import { LESSONS } from './typing/_lib/lessons';
-import { getCategorySlug } from './jobs/jobCategoryUtils';
 import { SEO_TEMPLATES } from './templates/seoTemplates';
 
 const siteUrl = DEFAULT_SITE_BASE;
@@ -60,41 +58,17 @@ export default async function sitemap() {
   const routes = [
     { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
     { url: `${baseUrl}/blog/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${baseUrl}/jobs/`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.95 },
     { url: `${baseUrl}/resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/resume/resume-type/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
     { url: `${baseUrl}/resume/upload-resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/bio-data/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/templates/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/id-card-maker/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     ...SEO_TEMPLATES.map((template) => ({
       url: `${baseUrl}/templates/${encodeURIComponent(template.slug)}/`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.82,
     })),
-    { url: `${baseUrl}/tools/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
-    { url: `${baseUrl}/tools/background-remover/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.82 },
-    { url: `${baseUrl}/tools/ats-checker/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.82 },
-    { url: `${baseUrl}/tools/merge-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  { url: `${baseUrl}/tools/split-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  { url: `${baseUrl}/tools/pdf-remove/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  { url: `${baseUrl}/tools/pdf-compressor/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-  { url: `${baseUrl}/tools/docx-to-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.78 },
-  { url: `${baseUrl}/tools/image-to-pdf/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.78 },
-  { url: `${baseUrl}/tools/signature-cropper/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.76 },
-  { url: `${baseUrl}/tools/age-calculator/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.76 },
-  { url: `${baseUrl}/typing/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-{ url: `${baseUrl}/typing/practice/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-{ url: `${baseUrl}/typing/learn/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-{ url: `${baseUrl}/typing/learn/lesson/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-...LESSONS.map((lesson) => ({
-  url: `${baseUrl}/typing/learn/lesson/${encodeURIComponent(lesson.id)}/`,
-  lastModified: new Date(),
-  changeFrequency: 'monthly',
-  priority: 0.72,
-})),
-{ url: `${baseUrl}/typing/stats/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
 { url: `${baseUrl}/about/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
 { url: `${baseUrl}/contact/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.65 },
 { url: `${baseUrl}/privacy-policy/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
@@ -115,41 +89,6 @@ export default async function sitemap() {
           lastModified: new Date(article.updated_at || article.created_at || Date.now()),
           changeFrequency: 'monthly',
           priority: 0.8,
-        });
-      }
-    }
-  });
-
-  const jobs = await fetchLiveItems('/courses?limit=500', 'jobs-cache.json');
-  const jobCategories = await fetchLiveItems('/course-categories', 'categories-cache.json');
-  const seenJobUrls = new Set(routes.map((route) => route.url));
-  jobCategories.forEach((category) => {
-    const slug = getCategorySlug(category);
-    if (slug) {
-      const url = `${baseUrl}/jobs/${encodeURIComponent(slug)}/`;
-      if (!seenJobUrls.has(url)) {
-        seenJobUrls.add(url);
-        routes.push({
-          url,
-          lastModified: new Date(category.updated_at || category.created_at || Date.now()),
-          changeFrequency: 'daily',
-          priority: 0.9,
-        });
-      }
-    }
-  });
-
-  jobs.forEach((job) => {
-    const slug = getSlug(job);
-    if (slug) {
-      const url = `${baseUrl}/jobs/${encodeURIComponent(slug)}/`;
-      if (!seenJobUrls.has(url)) {
-        seenJobUrls.add(url);
-        routes.push({
-          url,
-          lastModified: new Date(job.updated_at || job.created_at || Date.now()),
-          changeFrequency: 'daily',
-          priority: 0.85,
         });
       }
     }

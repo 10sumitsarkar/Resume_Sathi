@@ -3,7 +3,7 @@ import path from 'path';
 import ResumeListClient from "./homeClient";
 import { DEFAULT_SITE_BASE } from "../lib/apiConfig";
 
-// ðŸ‘‡ Ab network fetch nahi â€” jobs/blogs preview sections ke liye
+// Ab network fetch nahi — jobs/blogs preview sections ke liye
 // build-time cached data use karte hain (jobs/[slug] aur blog/[slug] ke
 // liye already ban chuki data/jobs-cache.json aur data/articles-cache.json).
 function readCache(filename) {
@@ -20,7 +20,7 @@ function readCache(filename) {
 export const metadata = {
   title: "100% Free Resume Builder | Create a Resume Online, No Signup",
   description:
-    "Build a professional, ATS-friendly resume for free â€” no signup, no login, no payment. Anyone can create a job-ready resume online in minutes, 100% free forever.",
+    "Build a professional, ATS-friendly resume for free — no signup, no login, no payment. Anyone can create a job-ready resume online in minutes, 100% free forever.",
   keywords: [
     "resume builder",
     "free resume builder",
@@ -38,7 +38,7 @@ export const metadata = {
   openGraph: {
     title: "100% Free Resume Builder | Create a Resume Online, No Signup",
     description:
-      "Anyone can create a professional, ATS-friendly resume for free â€” no signup, no login, no hidden cost. 100% free, always.",
+      "Anyone can create a professional, ATS-friendly resume for free — no signup, no login, no hidden cost. 100% free, always.",
     url: "/",
     type: "website",
     siteName: "ResumeSathi",
@@ -48,15 +48,15 @@ export const metadata = {
     card: "summary_large_image",
     title: "100% Free Resume Builder | Create a Resume Online, No Signup",
     description:
-      "Anyone can create a professional, ATS-friendly resume for free â€” no signup, no login, no hidden cost. 100% free, always.",
+      "Anyone can create a professional, ATS-friendly resume for free — no signup, no login, no hidden cost. 100% free, always.",
     images: ["/front-assets/images/og/home-og.png"],
   },
 };
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
-const initialJobs = readCache('jobs-cache.json').slice(0, 8);
-const initialBlogs = readCache('articles-cache.json').slice(0, 6);
+const HOME_BLOG_LIMIT = 6;
+const initialBlogs = readCache('articles-cache.json').slice(0, HOME_BLOG_LIMIT);
 
 const jsonLd = [
   {
@@ -66,7 +66,7 @@ const jsonLd = [
     url: SITE_URL,
     logo: `${SITE_URL}/front-assets/images/logo/logo.svg`,
     description:
-      "ResumeSathi is a 100% free, ATS-friendly resume builder. All data stays in your browser â€” nothing is ever uploaded to a server.",
+      "ResumeSathi is a 100% free, ATS-friendly resume builder. All data stays in your browser — nothing is ever uploaded to a server.",
   },
   {
     "@context": "https://schema.org",
@@ -87,7 +87,7 @@ const jsonLd = [
       priceCurrency: "INR",
     },
     description:
-      "Build ATS-friendly resumes and cover letters for free. No signup required â€” all data is stored locally in your browser.",
+      "Build ATS-friendly resumes and cover letters for free. No signup required — all data is stored locally in your browser.",
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.9",
@@ -127,7 +127,7 @@ const jsonLd = [
         name: "How do I download my resume as a PDF?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Once you complete your resume, click the 'Download PDF' button. The browser print dialog opens â€” select 'Save as PDF' to save it to your device. No extra software needed.",
+          text: "Once you complete your resume, click the 'Download PDF' button. The browser print dialog opens — select 'Save as PDF' to save it to your device. No extra software needed.",
         },
       },
       {
@@ -149,7 +149,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ResumeListClient initialJobs={initialJobs} initialBlogs={initialBlogs} />
+      <ResumeListClient initialBlogs={initialBlogs} />
     </>
   );
 }

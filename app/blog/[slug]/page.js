@@ -21,9 +21,9 @@ function resolveImageUrl(url) {
   return `${backendBase}/${normalized}`;
 }
 
-// ðŸ‘‡ Ab network fetch nahi â€” scripts/fetch-articles.js build se pehle ek hi
+// 📌 Ab network fetch nahi — scripts/fetch-articles.js build se pehle ek hi
 // baar /api/articles fetch karke data/articles-cache.json mein save karta hai.
-// generateStaticParams, generateMetadata, aur page component â€” teeno isi
+// generateStaticParams, generateMetadata, aur page component — teeno isi
 // SAME cached data ko use karte hain, isliye kisi bhi article ka data
 // alag-alag build calls ki wajah se mismatch/missing nahi hoga.
 function getArticlesCache() {

@@ -1,0 +1,13 @@
+/* Temporary global ad shutdown while waiting for Adsense approval. */
+.resume-sathi-ad-slot,
+[aria-label="Advertisement"],
+.tf-ad-placement,
+.rk-widget-ad,
+.rk-article-hero-ad,
+.rk-article-fixed-ad,
+.id-canvas-ad,
+.id-editor-fixed-ad,
+.id-canvas-left-ad,
+.tools-sidebar-ad {
+  display: none !important;
+}

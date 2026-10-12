@@ -7,6 +7,8 @@ export default function FloatingTypingLink() {
   const pathname = usePathname();
 
   const hideOn =
+    pathname === "/tools/typing" ||
+    pathname.startsWith("/tools/typing/") ||
     pathname === "/typing" ||
     pathname.startsWith("/typing/") ||
     pathname === "/resume" ||
@@ -19,7 +21,7 @@ export default function FloatingTypingLink() {
   return (
     <Link
       prefetch={false}
-      href="/typing/"
+      href="/tools/typing/"
       className="rk-fixed-typing-link"
       aria-label="Start typing practice"
     >

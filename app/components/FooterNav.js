@@ -28,10 +28,9 @@ export default function FooterNav() {
     const isResumeActive = activePath.startsWith('/resume');
     const isToolsActive = activePath.startsWith('/tools');
     const visibleToolsBtn = activePath.startsWith('/tools/');
-    const visibleCreateBtn = !activePath.startsWith('/tools') && !activePath.startsWith('/blog') && !activePath.startsWith('/jobs');
-    const visibleBlogsBtn = activePath.startsWith('/blog') || activePath.startsWith('/jobs');
+    const visibleCreateBtn = !activePath.startsWith('/tools') && !activePath.startsWith('/blog');
+    const visibleBlogsBtn = activePath.startsWith('/blog');
     const isblogActive = activePath.startsWith('/blog');
-    const isjobsActive = activePath.startsWith('/jobs');
 
     return (
         <>
@@ -87,6 +86,20 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
+                        <Link prefetch={false} href="/bio-data/">
+                            <div className={getNavClassName(activePath.startsWith('/bio-data'))}>
+                                <div>
+                                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M20 4H8.5C7.11929 4 6 5.11929 6 6.5V25.5C6 26.8807 7.11929 28 8.5 28H23.5C24.8807 28 26 26.8807 26 25.5V11L20 4Z" stroke="#001691" strokeWidth="2" strokeLinejoin="round"/>
+                                        <path d="M20 4V11H26" stroke="#001691" strokeWidth="2" strokeLinejoin="round"/>
+                                        <path d="M11 16H21" stroke="#cc0000" strokeWidth="2" strokeLinecap="round"/>
+                                        <path d="M11 20H18" stroke="#cc0000" strokeWidth="2" strokeLinecap="round"/>
+                                        <path d="M11 24H16" stroke="#cc0000" strokeWidth="2" strokeLinecap="round"/>
+                                    </svg>
+                                    <p>Bio Data</p>
+                                </div>
+                            </div>
+                        </Link>
                         <Link prefetch={false} href="/tools/">
                             <div className={getNavClassName(isToolsActive)}>
                                 <div>
@@ -97,17 +110,6 @@ export default function FooterNav() {
                                     </svg>
 
                                     <p>Tools</p>
-                                </div>
-                            </div>
-                        </Link>
-                        <Link prefetch={false} href="/jobs/">
-                             <div className={getNavClassName(isjobsActive)}>
-                                <div>
-                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8.69925 29.25C8.69925 29.25 8.4255 14.275 8.92925 8.6525C8.96519 8.22205 9.13032 7.81249 9.403 7.4775C11.7043 4.6675 14.9574 3 16.0449 3C17.1324 3 20.528 4.6675 22.8461 7.47812C23.1224 7.81312 23.2818 8.22063 23.3211 8.65313C23.8243 14.2744 23.5505 29.25 23.5505 29.25" stroke="#001691" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            <path d="M8.74687 11.8625C7.90187 11.8917 7.18625 11.9208 6.6 11.95C6.02437 11.9739 5.47865 12.2129 5.07081 12.6198C4.66296 13.0268 4.42268 13.5719 4.3975 14.1475C4.325 15.6125 4.25 17.8544 4.25 20.875V29.25M23.5031 11.8625C24.3481 11.8913 25.0638 11.9206 25.65 11.9506C26.2254 11.9746 26.7709 12.2137 27.1786 12.6204C27.5863 13.0272 27.8266 13.5721 27.8519 14.1475C27.925 15.6125 28 17.8544 28 20.875V29.25M18.625 29.25V24.2494C18.625 22.8681 17.5063 21.75 16.125 21.75C14.7437 21.75 13.625 22.8687 13.625 24.2494V29.25M13.625 13V14.25M13.625 17.375V18.625M18.625 13V14.25M18.625 17.375V18.625M29.25 29.25H3M14.25 8.625C14.25 9.12228 14.4475 9.59919 14.7992 9.95083C15.1508 10.3025 15.6277 10.5 16.125 10.5C16.6223 10.5 17.0992 10.3025 17.4508 9.95083C17.8025 9.59919 18 9.12228 18 8.625C18 8.12772 17.8025 7.65081 17.4508 7.29917C17.0992 6.94754 16.6223 6.75 16.125 6.75C15.6277 6.75 15.1508 6.94754 14.7992 7.29917C14.4475 7.65081 14.25 8.12772 14.25 8.625Z" stroke="#CC0000" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                            </svg>                                
-                                    <p>Jobs</p>
                                 </div>
                             </div>
                         </Link>

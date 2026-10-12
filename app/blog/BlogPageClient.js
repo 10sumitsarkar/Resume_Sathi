@@ -342,7 +342,7 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
       <ul>
         {pages.map((p, idx) =>
           p === '...' ? (
-            <li key={`dots-${idx}`} className="rk-page-dots">â€¦</li>
+            <li key={`dots-${idx}`} className="rk-page-dots">…¦</li>
           ) : (
             <li key={p}>
               <button
@@ -370,7 +370,7 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
 }
 
 function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
-  // ðŸ‘‡ SSR se aaye hue initial data se state seed karo â€” pehla render
+  // 📌 SSR se aaye hue initial data se state seed karo — pehla render
   // (jo Googlebot dekhta hai) already articles se bhara hoga.
   const [articles, setArticles] = useState(() => latestFirst(initialArticles).slice(0, PAGE_SIZE));
   const [latest, setLatest] = useState(() =>
@@ -380,7 +380,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const [clientCategoriesReady, setClientCategoriesReady] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [lastFetchError, setLastFetchError] = useState('');
-  // ðŸ‘‡ NAYA: static export (no Node server) me useSearchParams() nahi use karte â€”
+  // 📌 NAYA: static export (no Node server) me useSearchParams() nahi use karte —
   // yeh Suspense boundary maangta hai aur build ke time uska fallback hi static
   // HTML me bake ho jaata hai. Iski jagah plain window.location.search read
   // karte hain, sirf client-side, taaki main content kabhi block na ho.
@@ -416,7 +416,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const offcanvasSearchWrapRef = useRef(null);
   const offcanvasCloseRef = useRef(null);
 
-  // ðŸ‘‡ Pehle mount pe agar SSR data already sahi hai (default view â€” koi
+  // 📌 Pehle mount pe agar SSR data already sahi hai (default view — koi
   // search/category nahi), to client-side fetch skip karo. Isse Googlebot
   // ke liye SSR data kabhi overwrite/empty nahi hoga agar API robots.txt
   // se blocked ho.
@@ -458,8 +458,8 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
       setHasMore(targetPage * PAGE_SIZE < total);
     } catch (error) {
       console.error(error);
-      // ðŸ‘‡ Sirf tab khaali karo jab humare paas already koi achha
-      // SSR data na ho â€” warna network fail hone par good content
+      // 📌 Sirf tab khaali karo jab humare paas already koi achha
+      // SSR data na ho — warna network fail hone par good content
       // overwrite ho jaayega (jaise robots.txt block ki wajah se).
       if (initialArticles.length === 0) {
         setArticles([]);

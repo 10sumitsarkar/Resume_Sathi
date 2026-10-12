@@ -2,14 +2,14 @@ import ResumeTemplateContentClient from "./ResumeTemplateContentClient";
 import { SEO_TEMPLATES, buildTemplatesCollectionJsonLd } from "./seoTemplates";
 
 export const metadata = {
-  title: "Free Resume Templates by Job Role",
-  description: "Browse human-written resume template pages for developers, freshers, teachers, sales, HR, accounting, operations, design, and management roles.",
+  title: "Free Resume Templates for Freshers, Developers, Teachers & More",
+  description: "Choose a free ATS-friendly resume template for freshers, developers, teachers, sales, HR, accounting, and other job roles. Build a professional resume in minutes.",
   alternates: {
     canonical: "/templates/",
   },
   openGraph: {
-    title: "Resume Templates for Different Job Roles | ResumeSathi",
-    description: "Choose a resume template by role, read the sample content, or create a resume with the selected design.",
+    title: "Free Resume Templates for Every Career Stage | ResumeSathi",
+    description: "Pick a professional resume template matching your role and create a clean, ATS-friendly CV in minutes.",
     url: "/templates/",
     type: "website",
     images: [
@@ -17,14 +17,14 @@ export const metadata = {
         url: "/front-assets/images/og/home-og.png",
         width: 1200,
         height: 630,
-        alt: "ResumeSathi resume templates",
+        alt: "ResumeSathi free resume templates",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Resume Templates for Different Job Roles | ResumeSathi",
-    description: "Choose a resume template by role, read the sample content, or create a resume with the selected design.",
+    title: "Free Resume Templates for Every Career Stage | ResumeSathi",
+    description: "Pick a professional resume template matching your role and create a clean, ATS-friendly CV in minutes.",
     images: ["/front-assets/images/og/home-og.png"],
   },
   robots: {

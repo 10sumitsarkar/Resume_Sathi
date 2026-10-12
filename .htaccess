@@ -64,3 +64,7 @@ RewriteRule ^blog/?$ /blog/? [R=301,L]
   Header unset X-Robots-Tag env=is_templates_page
   Header set X-Robots-Tag "index, follow" env=is_templates_page
 </IfModule>
+
+# Block legacy/removed content routes at the end so no job, typing, or id-card pages remain publicly reachable.
+RewriteCond %{REQUEST_URI} ^/(?:jobs(?:/.*)?|typing(?:/.*)?|tools/(?:id-card-maker|typing)(?:/.*)?)/?$ [NC]
+RewriteRule ^ - [F,L]

@@ -649,7 +649,7 @@ export default function ToolsLists() {
           <Banner468x60 />
         </div>
       </section>
-      <Footer />
+      <Footer showToolLinks />
       <FooterNav />
     </>
   );

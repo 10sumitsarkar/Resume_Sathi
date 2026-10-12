@@ -960,6 +960,7 @@ function TemplateCarousel() {
   );
 }
 
+/*
 // ── Tools ─────────────────────────────────────────────────────────────────
 const tools = [
   {
@@ -1018,6 +1019,7 @@ const tools = [
     href: "/tools/age-calculator/",
   }
 ];
+*/
 
 function ResumeFocusSection() {
   const resumeBenefits = [
@@ -1702,13 +1704,13 @@ export default function ResumeListClient({
                 >
                   Choose a Template <Icon.ArrowRight />
                 </Link>
-                <Link
+                {/* <Link
                   prefetch={false}
                   href="/tools/"
                   className="rk-btn rk-btn--outline rk-btn--lg" style={{minWidth:0}}
                 >
                   Explore Tools
-                </Link>
+                </Link> */}
               </div>
 
               <div className="rk-trust-row">
@@ -1794,7 +1796,7 @@ export default function ResumeListClient({
       </section>
 
 
-      <section className="rk-section rk-section--gray rk-id-card-feature">
+      {/* <section className="rk-section rk-section--gray rk-id-card-feature">
         <div className="container-fluid custom-container">
           <div className="row align-items-center g-4">
             <div className="col-lg-6">
@@ -1862,10 +1864,10 @@ export default function ResumeListClient({
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
 
-      <section className="rk-section rk-section--white" id="templates">
+      {/* <section className="rk-section rk-section--white" id="templates">
         <div className="container-fluid custom-container">
           <div className="rk-sec-head-row">
             <div>
@@ -1916,7 +1918,7 @@ export default function ResumeListClient({
             ))}
           </OwlSlider>
         </div>
-      </section>
+      </section> */}
 
       <AdTestPlacement name="Banner 468x60">
         <Banner468x60 />
@@ -1960,7 +1962,7 @@ export default function ResumeListClient({
       <ResumeFocusSection />
       <WhyFreeSection />
       <BioDataPromo />
-      <TypingPromo />
+      {/* <TypingPromo /> */}
       
       <AdTestPlacement name="Banner 320x50">
         <Banner320x50 />
@@ -2098,9 +2100,9 @@ export default function ResumeListClient({
               >
                 Choose a Template <Icon.ArrowRight />
               </Link>
-              <Link prefetch={false} href="/tools/" className="rk-cta-btn-ghost">
+              {/* <Link prefetch={false} href="/tools/" className="rk-cta-btn-ghost">
                 <Icon.Rocket /> Explore Free Tools
-              </Link>
+              </Link> */}
             </div>
 
             <p className="rk-cta-footnote">

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-export default function Footer() {
+export default function Footer({ showToolLinks = false }) {
   return (
     <footer className="rk-footer">
       <div className="container-fluid custom-container rk-footer-inner">
@@ -28,9 +28,13 @@ export default function Footer() {
 
             <Link prefetch={false} href="/templates/">Resume Templates</Link>
             <Link prefetch={false} href="/bio-data/">Bio Data</Link>
-            <Link prefetch={false} href="/tools/id-card-maker/">ID Card Maker</Link>
-            <Link prefetch={false} href="/tools/">Tools</Link>
-            <Link prefetch={false} href="/tools/typing/">Typing Practice</Link>
+            {showToolLinks && (
+              <>
+                <Link prefetch={false} href="/tools/id-card-maker/">ID Card Maker</Link>
+                <Link prefetch={false} href="/tools/">Tools</Link>
+                <Link prefetch={false} href="/tools/typing/">Typing Practice</Link>
+              </>
+            )}
           </div>
 
           <div className="rk-footer-col">

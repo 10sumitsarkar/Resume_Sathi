@@ -140,7 +140,7 @@ export default function TypingLayout({ children }) {
           <NativeBanner />
         </div>
       </section>
-      <Footer />
+      <Footer showToolLinks />
       <FooterNav />
     </>
   );

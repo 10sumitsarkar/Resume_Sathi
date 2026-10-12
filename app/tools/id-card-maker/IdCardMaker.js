@@ -1770,7 +1770,7 @@ export default function IdCardMaker() {
           </div>
         </section>
         </main>
-        <Footer />
+        <Footer showToolLinks />
         <FooterNav />
       </>
     );

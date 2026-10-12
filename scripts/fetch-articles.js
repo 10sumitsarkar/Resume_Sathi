@@ -59,6 +59,24 @@ function fetchJson(url) {
   });
 }
 
+function writeCacheFile(filePath, data) {
+  const tempPath = `${filePath}.${process.pid}.tmp`;
+
+  fs.writeFileSync(tempPath, JSON.stringify(data, null, 2), 'utf-8');
+  try {
+    fs.renameSync(tempPath, filePath);
+  } catch (err) {
+    try {
+      fs.unlinkSync(tempPath);
+    } catch (cleanupError) {
+      if (cleanupError.code !== 'ENOENT') {
+        console.warn(`[fetch-articles] Could not remove temporary cache ${tempPath}: ${cleanupError.message}`);
+      }
+    }
+    throw new Error(`Could not replace cache file ${filePath}: ${err.message}`, { cause: err });
+  }
+}
+
 async function main() {
   let articlesRaw;
   try {
@@ -88,8 +106,8 @@ async function main() {
   const categories = Array.isArray(catsRaw) ? catsRaw : (catsRaw.items || catsRaw.results || []);
 
   fs.mkdirSync(outDir, { recursive: true });
-  fs.writeFileSync(articlesCachePath, JSON.stringify(articles, null, 2));
-  fs.writeFileSync(categoriesCachePath, JSON.stringify(categories, null, 2));
+  writeCacheFile(articlesCachePath, articles);
+  writeCacheFile(categoriesCachePath, categories);
 
   console.log(`[fetch-articles] OK - ${articles.length} articles, ${categories.length} categories cached.`);
 }

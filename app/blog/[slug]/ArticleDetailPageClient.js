@@ -225,7 +225,13 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
   );
 }
 
-export default function ArticleDetailPageClient({ article: initialArticle, slug: initialSlug }) {
+export default function ArticleDetailPageClient({
+  article: initialArticle,
+  slug: initialSlug,
+  articleIndex = [],
+  initialLatest = [],
+  initialCategories = [],
+}) {
   const params = useParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -234,8 +240,8 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     : '';
   const slug = params?.slug || initialSlug || pathSlug;
   const [article, setArticle] = useState(initialArticle || null);
-  const [latest, setLatest] = useState([]);
-  const [categories, setCategories] = useState([]);
+  const [latest, setLatest] = useState(initialLatest);
+  const [categories, setCategories] = useState(initialCategories);
   const [offcanvasSearch, setOffcanvasSearch] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -273,35 +279,6 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
     }
   };
 
-  const fetchLatest = async () => {
-    try {
-      const response = await fetch(`${getApiBase()}/articles/latest?limit=5&v=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) {
-        throw new Error(`Latest articles request failed with status ${response.status}`);
-      }
-      const data = await response.json();
-      const articles = Array.isArray(data) ? data : (data.items || data.results || []);
-      setLatest(articles.filter((item) => getSlug(item) !== getSlug(slug)).slice(0, 5));
-    } catch (err) {
-      console.error(err);
-      setLatest([]);
-    }
-  };
-
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch(`${getApiBase()}/article-categories?v=${Date.now()}`, { cache: 'no-store' });
-      if (!response.ok) {
-        throw new Error(`Categories request failed with status ${response.status}`);
-      }
-      const data = await response.json();
-      setCategories(Array.isArray(data) ? data : []);
-    } catch (err) {
-      console.error(err);
-      setCategories([]);
-    }
-  };
-
   const fetchComments = async (id) => {
     if (!id) return;
     try {
@@ -326,9 +303,9 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
 
   useEffect(() => {
     if (!slug) return;
-    fetchLatest();
-    fetchCategories();
-  }, [slug]);
+    setLatest(initialLatest);
+    setCategories(initialCategories);
+  }, [slug, initialLatest, initialCategories]);
 
   useEffect(() => {
     if (article?.id) {
@@ -395,31 +372,26 @@ export default function ArticleDetailPageClient({ article: initialArticle, slug:
       return;
     }
 
-    suggestDebounce.current = setTimeout(async () => {
-      try {
-        const params = new URLSearchParams({
-          search: term,
-          limit: '6',
-          v: String(Date.now()),
-        });
-        const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
-        if (!response.ok) {
-          throw new Error(`Article suggestions request failed with status ${response.status}`);
-        }
-        const data = await response.json();
-        const articles = Array.isArray(data) ? data : (data.items || data.results || []);
-        setSuggestions(articles.slice(0, 6));
-        setShowSuggestions(true);
-      } catch (error) {
-        console.error(error);
-        setSuggestions([]);
-      }
+    suggestDebounce.current = setTimeout(() => {
+      const normalizedTerm = term.toLowerCase();
+      const matches = articleIndex.filter((item) => {
+        const haystack = [
+          getTitle(item),
+          item.description || item.meta_description || item.short_description || item.excerpt || '',
+          getCategoryLabel(item),
+          item.url_name || '',
+          item.slug || '',
+        ].join(' ').toLowerCase();
+        return haystack.includes(normalizedTerm);
+      });
+      setSuggestions(matches.slice(0, 6));
+      setShowSuggestions(true);
     }, 250);
 
     return () => {
       if (suggestDebounce.current) clearTimeout(suggestDebounce.current);
     };
-  }, [offcanvasSearch]);
+  }, [articleIndex, offcanvasSearch]);
 
   useEffect(() => {
     function handleClickOutside(event) {

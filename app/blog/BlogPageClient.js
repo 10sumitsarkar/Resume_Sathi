@@ -1,5 +1,5 @@
 ﻿"use client";
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getApiBase, resolveApiMediaUrl, withTrailingSlash } from '../lib/apiConfig';
@@ -58,23 +58,8 @@ function normalizeItems(data) {
   return Array.isArray(data) ? data : (data?.items || data?.results || []);
 }
 
-function getTotalCount(data, fallback = 0) {
-  return Number(data?.total || data?.count || fallback || 0);
-}
-
 function getCategoryId(item) {
   return Number(item?.article_type || item?.category_id || item?.category?.id || 0);
-}
-
-function getItemKey(item) {
-  return item?.id || getSlug(item) || item?.url_name || '';
-}
-
-function mergeByKey(existing = [], incoming = []) {
-  const map = new Map();
-  existing.forEach((it) => map.set(getItemKey(it), it));
-  incoming.forEach((it) => map.set(getItemKey(it), it));
-  return latestFirst(Array.from(map.values()));
 }
 
 function latestFirst(items = []) {
@@ -177,7 +162,7 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
           <button
             key={cat.id}
             type="button"
-            className={`rk-cat-chip ${selectedCategory === cat.id ? 'active' : ''}`}
+            className={`rk-cat-chip ${Number(selectedCategory) === Number(cat.id) ? 'active' : ''}`}
             onClick={() => onSelectCategory(cat.id)}
           >
             {cat.article_name || cat.name || cat.title}
@@ -314,19 +299,18 @@ function Sidebar({
   );
 }
 
-function Pagination({ currentPage, hasMore, onPageChange }) {
-  const maxKnownPage = hasMore ? currentPage + 1 : currentPage;
+function Pagination({ currentPage, totalPages, onPageChange }) {
   const pages = [];
   const start = Math.max(1, currentPage - 2);
-  const end = Math.min(maxKnownPage, currentPage + 2);
+  const end = Math.min(totalPages, currentPage + 2);
 
   if (start > 1) pages.push(1);
   if (start > 2) pages.push('...');
   for (let p = start; p <= end; p++) pages.push(p);
-  if (end < maxKnownPage - 1) pages.push('...');
-  if (end < maxKnownPage) pages.push(maxKnownPage);
+  if (end < totalPages - 1) pages.push('...');
+  if (end < totalPages) pages.push(totalPages);
 
-  if (maxKnownPage <= 1) return null;
+  if (totalPages <= 1) return null;
 
   return (
     <nav className="rk-pagination" aria-label="Blog pagination">
@@ -360,7 +344,7 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
       <button
         type="button"
         className="rk-page-arrow"
-        disabled={!hasMore}
+        disabled={currentPage >= totalPages}
         onClick={() => onPageChange(currentPage + 1)}
       >
         Next <i className="bi bi-chevron-right"></i>
@@ -372,7 +356,7 @@ function Pagination({ currentPage, hasMore, onPageChange }) {
 function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   // 📌 SSR se aaye hue initial data se state seed karo — pehla render
   // (jo Googlebot dekhta hai) already articles se bhara hoga.
-  const [articles, setArticles] = useState(() => latestFirst(initialArticles).slice(0, PAGE_SIZE));
+  const [allArticles] = useState(() => latestFirst(initialArticles));
   const [latest, setLatest] = useState(() =>
     latestFirst(initialArticles).slice(0, 3)
   );
@@ -403,8 +387,6 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   }, []);
   const [categoryId, setCategoryId] = useState(null);
   const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(initialArticles.length > PAGE_SIZE);
-  const [loading, setLoading] = useState(initialArticles.length === 0);
   const searchDebounce = useRef(null);
   const pathname = usePathname();
   const previousPathname = useRef(pathname);
@@ -416,59 +398,15 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   const offcanvasSearchWrapRef = useRef(null);
   const offcanvasCloseRef = useRef(null);
 
-  // 📌 Pehle mount pe agar SSR data already sahi hai (default view — koi
-  // search/category nahi), to client-side fetch skip karo. Isse Googlebot
-  // ke liye SSR data kabhi overwrite/empty nahi hoga agar API robots.txt
-  // se blocked ho.
-  const skippedInitialArticlesFetch = useRef(false);
   const skippedInitialSidebarFetch = useRef(false);
 
   const selectedCategory = categoryId;
-
-  const fetchArticles = async (targetPage = 1) => {
-    setLoading((articles?.length || 0) === 0);
-    try {
-      const params = new URLSearchParams({
-        page: String(targetPage),
-        limit: String(PAGE_SIZE),
-        v: String(Date.now()),
-      });
-
-      if (search.trim()) params.set('search', search.trim());
-      if (categoryId) params.set('category_id', String(categoryId));
-
-      const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
-      if (!response.ok) throw new Error(`Articles API returned ${response.status}`);
-
-      const data = await response.json();
-      const pagedItems = normalizeItems(data);
-      const total = getTotalCount(data, pagedItems.length);
-
-      // If we already have SSR-provided articles on page 1, merge instead of
-      // replacing so SSR content (and its SEO visibility) isn't briefly removed
-      // during a client fetch. This also allows new items to appear when
-      // navigating client-side without requiring a full refresh.
-      if (targetPage === 1 && !search.trim() && !categoryId && articles && articles.length > 0) {
-        const merged = mergeByKey(articles, pagedItems).slice(0, PAGE_SIZE);
-        setArticles(merged);
-      } else {
-        setArticles(latestFirst(pagedItems));
-      }
-      setPage(targetPage);
-      setHasMore(targetPage * PAGE_SIZE < total);
-    } catch (error) {
-      console.error(error);
-      // 📌 Sirf tab khaali karo jab humare paas already koi achha
-      // SSR data na ho — warna network fail hone par good content
-      // overwrite ho jaayega (jaise robots.txt block ki wajah se).
-      if (initialArticles.length === 0) {
-        setArticles([]);
-        setHasMore(false);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  const filteredArticles = useMemo(
+    () => filterArticles(allArticles, search, categoryId),
+    [allArticles, search, categoryId]
+  );
+  const totalPages = Math.ceil(filteredArticles.length / PAGE_SIZE);
+  const articles = filteredArticles.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   const fetchSidebar = async () => {
     setLastFetchError('');
@@ -516,7 +454,6 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
     window.__rk_triggerRefresh = async () => {
       setClientCategoriesReady(false);
       await fetchSidebar();
-      await fetchArticles(1);
       setClientCategoriesReady(true);
     };
     return () => {
@@ -550,15 +487,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   }, [pathname]);
 
   useEffect(() => {
-    if (!skippedInitialArticlesFetch.current) {
-      skippedInitialArticlesFetch.current = true;
-      // Initial JSON sirf first paint ke liye hai; agar SSR ke paas already content hai
-      // aur koi search/category filter applied nahi hai, to hum firbhi
-      // client fetch chalayeinge lekin fetchArticles() ko merge karne ke liye
-      // banaya gaya hai taaki SSR content kabhi briefly remove na ho.
-    }
-    fetchArticles(1);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setPage(1);
   }, [search, categoryId]);
 
   useEffect(() => {
@@ -584,28 +513,15 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
       return;
     }
 
-    suggestDebounce.current = setTimeout(async () => {
-      try {
-        const params = new URLSearchParams({
-          search: term,
-          limit: String(SUGGESTION_LIMIT),
-          v: String(Date.now()),
-        });
-        const response = await fetch(`${getApiBase()}/articles?${params.toString()}`, { cache: 'no-store' });
-        if (!response.ok) throw new Error(`Suggestions API returned ${response.status}`);
-        const data = await response.json();
-        setSuggestions(normalizeItems(data).slice(0, SUGGESTION_LIMIT));
-        setShowSuggestions(true);
-      } catch (error) {
-        console.error(error);
-        setSuggestions([]);
-      }
+    suggestDebounce.current = setTimeout(() => {
+      setSuggestions(filterArticles(allArticles, term, null).slice(0, SUGGESTION_LIMIT));
+      setShowSuggestions(true);
     }, 300);
 
     return () => {
       if (suggestDebounce.current) clearTimeout(suggestDebounce.current);
     };
-  }, [searchInput]);
+  }, [allArticles, searchInput]);
 
   // Close suggestion dropdown on outside click
   useEffect(() => {
@@ -631,21 +547,23 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   };
 
   const handlePageChange = (nextPage) => {
-    fetchArticles(nextPage);
+    setPage(Math.max(1, Math.min(nextPage, totalPages)));
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const closeOffcanvas = () => {
-    if (offcanvasCloseRef.current) {
+    if (offcanvasCloseRef.current?.closest('.offcanvas.show')) {
       offcanvasCloseRef.current.click();
     }
   };
 
   // Selecting a category chip filters the list AND closes the offcanvas
   const handleCategoryClick = (id) => {
-    setCategoryId(id);
+    const nextCategoryId = id == null ? null : Number(id);
+    setCategoryId(Number.isFinite(nextCategoryId) ? nextCategoryId : null);
+    setPage(1);
     closeOffcanvas();
   };
 
@@ -697,12 +615,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
         <div className="container-fluid custom-container pb-120">
           <div className="row g-4">
             <div className="col-md-8 col-lg-9">
-              {loading ? (
-                <div className="rk-loading">
-                  <div className="rk-spinner"></div>
-                  Loading articles...
-                </div>
-              ) : articles.length === 0 ? (
+              {articles.length === 0 ? (
                 <div className="rk-empty">
                   <i className="bi bi-inboxes"></i>
                   <p>No articles found for these filters.</p>
@@ -714,7 +627,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
                       <BlogCard key={article.id} article={article} />
                     ))}
                   </div>
-                  <Pagination currentPage={page} hasMore={hasMore} onPageChange={handlePageChange} />
+                  <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
                 </>
               )}
             </div>
@@ -724,7 +637,7 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
                 latest={latest}
                 categories={categories}
                 selectedCategory={selectedCategory}
-                onSelectCategory={setCategoryId}
+                onSelectCategory={handleCategoryClick}
                 searchQuery={searchInput}
                 onSearch={setSearchInput}
                 onSubmit={handleSearchSubmit}
@@ -826,4 +739,3 @@ export default function BlogPageClient({ initialArticles = [], initialCategories
     <BlogPageContent initialArticles={initialArticles} initialCategories={initialCategories} />
   );
 }
-

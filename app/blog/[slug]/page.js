@@ -71,6 +71,53 @@ async function getArticleData(slug) {
   );
 }
 
+function getArticleIndex(items) {
+  return items.map((item) => ({
+    id: item.id,
+    slug: item.slug,
+    url_name: item.url_name,
+    canonical_tag: item.canonical_tag,
+    article_title: item.article_title,
+    title: item.title,
+    meta_title: item.meta_title,
+    description: item.description,
+    meta_description: item.meta_description,
+    short_description: item.short_description,
+    excerpt: item.excerpt,
+    category: item.category ? {
+      id: item.category.id,
+      article_name: item.category.article_name,
+      name: item.category.name,
+      title: item.category.title,
+    } : null,
+    category_id: item.category_id,
+    article_type: item.article_type,
+    hero_image: item.hero_image,
+    image: item.image,
+    created_at: item.created_at,
+    updated_at: item.updated_at,
+  }));
+}
+
+function latestFirst(items) {
+  return items.slice().sort((a, b) => {
+    const bTime = new Date(b.updated_at || b.created_at || 0).getTime();
+    const aTime = new Date(a.updated_at || a.created_at || 0).getTime();
+    return bTime - aTime;
+  });
+}
+
+function getArticleCategories() {
+  const filePath = path.join(process.cwd(), "data", "article-categories-cache.json");
+  try {
+    const data = JSON.parse(fs.readFileSync(filePath, "utf-8"));
+    return Array.isArray(data) ? data : [];
+  } catch (error) {
+    console.error("FATAL: could not read data/article-categories-cache.json", error);
+    return [];
+  }
+}
+
 function truncateMeta(value = "", max = 50) {
   const normalized = String(value || "").replace(/\s+/g, " ").trim();
   if (normalized.length <= max) return normalized;
@@ -174,14 +221,26 @@ export default async function ArticleDetailPage({ params }) {
   const { slug } = await params;
 
   const article = await getArticleData(slug);
+  const articleIndex = getArticleIndex(await getAllArticles());
 
   if (!article) {
     notFound();
   }
 
-  return <ArticleDetailPageClient article={article} slug={slug} />;
-}
+  const latestArticles = latestFirst(articleIndex)
+    .filter((item) => getArticleSlug(item) !== getArticleSlug(slug))
+    .slice(0, 5);
 
+  return (
+    <ArticleDetailPageClient
+      article={article}
+      slug={slug}
+      articleIndex={articleIndex}
+      initialLatest={latestArticles}
+      initialCategories={getArticleCategories()}
+    />
+  );
+}
 
 
 

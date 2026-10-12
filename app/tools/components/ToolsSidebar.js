@@ -138,7 +138,7 @@ const SidebarIcon = ({ name }) => {
   return icons[name] || icons.resume;
 };
 
-export default function ToolsSidebar() {
+export default function ToolsSidebar({ showDesktopSidebar = true }) {
 
   const pathname = usePathname();
   const isActive = (href) => pathname === href || pathname === `${href}/`;
@@ -160,13 +160,15 @@ export default function ToolsSidebar() {
   // Show hide sidebar items start
   const showHideItems = (btn) => {
     const sidebarArea = document.querySelector('.tools-sidebar');
-    if (window.innerWidth < 991) {
-      if (!sidebarArea.classList.contains('collapsed')) {
-        sidebarArea.classList.add('collapsed');
+    if (sidebarArea) {
+      if (window.innerWidth < 991) {
+        if (!sidebarArea.classList.contains('collapsed')) {
+          sidebarArea.classList.add('collapsed');
+        }
       }
-    }
-    else {
-      sidebarArea.classList.remove('collapsed');
+      else {
+        sidebarArea.classList.remove('collapsed');
+      }
     }
     setSideBtn(btn);
   }
@@ -201,7 +203,7 @@ useEffect(() => {
 
   return (
     <>
-      <div className='tools-sidebar '>
+      {showDesktopSidebar && <div className='tools-sidebar '>
         <div className="header">
           <div className='left-side'>
             <p>Tools</p>
@@ -318,7 +320,7 @@ useEffect(() => {
           </div>
 
         </div>
-      </div>
+      </div>}
 
 
       <div className="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabIndex="-1" id="commonOffcanvas" aria-labelledby="commonOffcanvasLabel">

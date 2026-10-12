@@ -2,6 +2,7 @@
 import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import FooterNav from "../../components/FooterNav";
+import ToolsSidebar from "../components/ToolsSidebar";
 import {
   Banner468x60,
   Banner300x250,
@@ -419,6 +420,7 @@ export default function ToolsLists() {
   return (
     <>
       <NavBar />
+      <ToolsSidebar showDesktopSidebar={false} />
       <section className="container-fluid custom-container small-hero-area">
         <div className="left-part">
           <div>

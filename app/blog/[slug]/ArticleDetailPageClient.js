@@ -459,7 +459,7 @@ export default function ArticleDetailPageClient({
 
   const categoryLabel = article.category?.article_name || article.category?.name || article.category?.title || 'General';
   const selectedCategoryId = article.category?.id || article.category_id || null;
-  const authorName = article.user?.name || 'Admin';
+  const authorName = [article.user?.first_name, article.user?.last_name].filter(Boolean).join(' ').trim() || article.user?.name || 'Admin';
   const heroImage = article.hero_image || article.image || article.meta_image || article.og_image;
   const contentSections = getArticleContentSections(article);
 

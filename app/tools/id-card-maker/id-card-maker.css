@@ -2913,9 +2913,9 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
 
 .idm-hero-card {
    position: absolute;
-   left: 0;
+   left: 10%;
    top: 50%;
-   width: 100%;
+   width: 80%;
    border-radius: 12px;
    overflow: hidden;
    background: #fff;

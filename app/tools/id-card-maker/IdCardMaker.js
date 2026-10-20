@@ -2441,7 +2441,7 @@ function MiniCard({ template, face = "front", width = 196, fluid = false }) {
 
   useLayoutEffect(() => {
     if (!fluid || !cardRef.current) return undefined;
-    const parent = cardRef.current.closest(".idm-hero-art");
+    const parent = cardRef.current.closest(".idm-hero-card");
     if (!parent) return undefined;
     const updateWidth = () => {
       const nextWidth = Math.max(1, parent.clientWidth);

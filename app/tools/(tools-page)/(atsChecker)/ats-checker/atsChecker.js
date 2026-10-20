@@ -435,92 +435,159 @@ export default function AtsChecker() {
 <section className="ats-checker-info">
 
   <div className="info-block">
-    <h2>What This Tool Checks</h2>
+    <h2>Check Your Resume the Way Hiring Software Reads It</h2>
     <p>
-      Before a recruiter opens your resume, a software system usually
-      scans it first. This is called an ATS, and most companies use one
-      today, even small ones. If your resume is missing a section, or
-      the format confuses the software, it can get rejected before any
-      human sees it. You never even find out why. This tool looks at
-      your resume and checks it against 7 things ATS software usually
-      looks for email, phone number, LinkedIn, work experience,
-      education, skills, and a summary. Based on that it gives you a
-      score out of 100 and tells you what's missing so you can fix it
-      before you apply anywhere.
+      Applying for a job usually means your resume meets a machine
+      before it meets a person. Most companies, big or small, run
+      incoming applications through an applicant tracking system, which
+      sorts, filters and ranks them. If the software cannot find your
+      email address or cannot make sense of your work history, your
+      application may sit at the bottom of a pile that nobody opens.
+      Nobody tells you this happened. You just never hear back.
+    </p>
+    <p>
+      This ATS Checker is built to catch those problems early. Upload
+      your resume, and it scans the text for seven things that hiring
+      software commonly expects to find. You get a score out of 100 and
+      a plain list of what is missing, so you can fix it before sending
+      the resume anywhere.
     </p>
   </div>
 
   <div className="info-block">
-    <h3>How Scoring Works</h3>
+    <h3>The Seven Things It Looks For</h3>
     <p>
-      Just upload your resume, either as a PDF or a DOCX file. The tool
-      reads through the text and checks if it can find each of the 7
-      sections: a working email, a phone number, a LinkedIn link, your
-      work history, education, skills, and a short summary at the top.
-      Every section it finds adds to your score. A lot of people are
-      surprised their score is low even though their resume looks fine
-      to them. Usually it's because one or two sections are missing, or
-      the software just can't read them properly, even if a human eye
-      would catch it easily.
+      The checker does not judge your writing or your career. It only
+      looks for the basic pieces that most ATS platforms try to pull
+      out of a resume. Here is what each one means and why it matters.
+    </p>
+    <ul className="info-list info-list--plain">
+      <li><strong>Email address:</strong> This is how a recruiter reaches you. If the software cannot read it, your application can end up with no contact details at all.</li>
+      <li><strong>Phone number:</strong> Many recruiters still prefer a quick call, especially for fresher and entry level roles.</li>
+      <li><strong>LinkedIn link:</strong> Plenty of hiring teams check your profile before they check anything else, so the link needs to be present and readable.</li>
+      <li><strong>Work experience:</strong> The system tries to separate your jobs, titles and dates. A messy layout can scramble this part badly.</li>
+      <li><strong>Education:</strong> Some roles filter on degree or institution, so this section has to be easy to find.</li>
+      <li><strong>Skills:</strong> This is where most keyword matching happens, so a clear skills section helps a lot.</li>
+      <li><strong>Summary:</strong> A short introduction at the top tells both the software and the recruiter who you are in a few lines.</li>
+    </ul>
+  </div>
+
+  <blockquote>
+    A resume can look perfect on your screen and still read as a
+    jumble to software. The checker shows you the version the machine
+    sees, not the one you see.
+  </blockquote>
+
+  <div className="info-block">
+    <h3>How the Score Is Worked Out</h3>
+    <p>
+      Upload a PDF or a DOCX file and the tool reads the text inside
+      it. It then looks for each of the seven items above. Every item
+      it finds adds to your total, and the final number is out of 100.
+      Anything missing is listed so you know exactly where the points
+      were lost.
+    </p>
+    <p>
+      People are often surprised by a low score on a resume they
+      worked hard on. In most cases the reason is simple. One or two
+      sections are missing, or they are placed somewhere the software
+      cannot read, such as a header, a text box or an image. A person
+      would spot that content immediately. A parser will not.
     </p>
   </div>
 
   <div className="info-block">
-    <h3>Job Description Matching</h3>
+    <h3>Matching Your Resume to a Job Description</h3>
     <p>
-      You can also paste in a job description and the tool will compare
-      it to your resume. It pulls out the important words from the job
-      post things like specific skills, tools, or job titles and
-      shows you which ones your resume already has and which ones are
-      missing. A lot of ATS systems actually rank resumes based on how
-      many of these words match before a recruiter even looks at them
-      manually. So two people with similar experience can get very
-      different results just because one used the same wording as the
-      job post and the other didn't.
+      The score tells you whether your resume is readable. Keyword
+      matching tells you whether it fits a particular job. Paste the
+      job description into the box and the tool picks out the important
+      terms, such as skills, software, certifications and job titles.
+      It then shows which of those already appear in your resume and
+      which do not.
+    </p>
+    <p>
+      This matters because many ATS platforms rank applicants by how
+      closely their resume matches the posting. Two candidates with
+      almost the same experience can land far apart in that ranking
+      only because one wrote "customer support" and the other wrote
+      "client servicing" when the job post used the first phrase. The
+      match list makes these gaps easy to see.
     </p>
   </div>
 
   <ToolsPageAd format="300x250" />
+
   <div className="info-block">
-    <h3>Why This Actually Matters</h3>
+    <h3>Why Good Candidates Get Filtered Out</h3>
     <p>
-      A lot of resumes get rejected for reasons that have nothing to do
-      with the person's actual skills. Maybe the contact info was put in
-      the header, and the ATS software skipped that part completely.
-      Maybe the resume used a table for job titles and dates, and the
-      software read it in the wrong order or missed it. These are small
-      formatting choices, but they can knock a genuinely good candidate
-      out of the running before anyone even reads their resume properly.
-      Once you know this happens, it's easier to avoid it.
+      Most automatic rejections have nothing to do with ability. They
+      come from formatting decisions that seemed harmless at the time.
+      Someone puts their phone number in the page header because it
+      looks tidy, and the parser skips the header completely. Someone
+      else lays out their job history in a table with dates on the
+      right, and the software reads the cells in the wrong order, so a
+      2019 job appears to end before it began.
+    </p>
+    <p>
+      None of this says anything about the person. It is just how
+      parsers behave. Once you know it, the fixes are quick, and most
+      of them take less than ten minutes.
     </p>
   </div>
 
   <div className="info-block">
-    <h3>Mistakes People Make Without Realizing</h3>
-    <p>
-      Putting your email or phone number in the header or footer is a
-      common one some ATS tools just don't read that area. Using
-      tables for your job history is another, since the software can
-      read the cells out of order. Writing your skills in vague words
-      instead of the exact terms from the job post also hurts your
-      match score. And a lot of people skip the summary section
-      entirely, thinking it's not important, when actually both the
-      software and the recruiter usually look for it right at the top.
-    </p>
+    <h3>Mistakes That Cost People Points</h3>
+    <ul className="info-list info-list--plain">
+      <li><strong>Contact details in the header or footer.</strong> Move them into the main body, near your name.</li>
+      <li><strong>Job history inside tables.</strong> Plain lines of text are safer than cells and columns.</li>
+      <li><strong>Two column templates.</strong> The text can be read straight across both columns, which mixes unrelated lines together.</li>
+      <li><strong>Vague skill names.</strong> If the job post says "Google Analytics", write that instead of "web tools".</li>
+      <li><strong>No summary at all.</strong> Many people skip it because it feels optional. Recruiters usually look for it first.</li>
+      <li><strong>Icons instead of words.</strong> A small phone symbol next to a number is fine, but a symbol with no number is just an image to the software.</li>
+    </ul>
   </div>
 
   <ToolsPageAd format="468x60" />
+
   <div className="info-block">
-    <h3>How To Use The Keyword List Properly</h3>
+    <h3>Using the Missing Keyword List Sensibly</h3>
     <p>
-      When you see the list of missing keywords, don't just paste all
-      of them into your resume blindly. Go through the list and only
-      add the ones that are actually true for you something you've
-      really done or used. Add them in a normal sentence, not just as a
-      random word dropped in. If a keyword doesn't fit your background
-      at all, skip it. Recruiters do read the resume eventually, and
-      keywords with no real substance behind them usually stand out in
-      a bad way.
+      When the tool lists keywords your resume lacks, resist the urge
+      to paste every one of them in. Read through the list and keep
+      only what is true for you. If you have actually used a tool or
+      handled a task, add it, and put it inside a real sentence, such
+      as a bullet under the job where you did that work. A word dropped
+      at the bottom of the page with no context does very little.
+    </p>
+    <p>
+      If a keyword does not match your background, leave it out. A
+      recruiter will read your resume sooner or later, and an interview
+      question about a skill you only pasted in for the score is an
+      uncomfortable moment. Honest wording with a few missing keywords
+      is a better position than a stuffed resume you cannot defend.
+    </p>
+  </div>
+
+  <blockquote>
+    Add a keyword only if you can talk about it for two minutes in an
+    interview.
+  </blockquote>
+
+  <div className="info-block">
+    <h3>A Simple Routine Before Every Application</h3>
+    <ol>
+      <li>Upload your current resume and note the first score.</li>
+      <li>Fix whatever the checker flags as missing, starting with contact details and summary.</li>
+      <li>Paste the job description for the role you are applying to.</li>
+      <li>Add the genuine missing keywords in natural sentences.</li>
+      <li>Run the check again and compare the two scores.</li>
+      <li>Save the final file as a PDF, unless the portal asks for DOCX.</li>
+    </ol>
+    <p>
+      Repeat steps three to five for each new job. The base resume
+      stays the same, but the wording should lean a little toward each
+      posting.
     </p>
   </div>
 
@@ -535,6 +602,7 @@ export default function AtsChecker() {
   </div>
 
   <ToolsPageAd format="300x250" />
+
   <div className="info-block">
     <h3>Questions</h3>
     <div className="faq-list">
@@ -542,104 +610,112 @@ export default function AtsChecker() {
       <details className="faq-item">
         <summary>Is this free?</summary>
         <p>
-          Yes, it's completely free. No signup, no card details, no
-          limit on how many times you can use it. Upload, check your
-          score, paste a job description, run it again as many times as
-          you want.
+          Yes. There is no signup and no card needed, and you can run
+          as many checks as you like. Upload, read the score, paste a
+          job description and try again whenever you want.
         </p>
       </details>
 
       <details className="faq-item">
         <summary>Does a high score guarantee an interview?</summary>
         <p>
-          No, and I don't want to promise something untrue here. A high
-          score just means your resume is less likely to get filtered
-          out by the software. What happens after that whether you
-          get called for an interview depends on your actual
-          experience and how well you do after that point.
+          No. A high score only means the software is less likely to
+          trip over your resume. Whether you are called depends on your
+          experience, the other applicants and the hiring team. Think
+          of the score as clearing one hurdle, not winning the race.
         </p>
       </details>
 
       <details className="faq-item">
         <summary>Is my resume stored anywhere?</summary>
         <p>
-          No. Everything happens inside your own browser. Your file is
-          never sent anywhere. Close the tab and it's gone.
+          No. The check runs inside your own browser and the file is
+          not sent to any server. When you close the tab, it is gone.
         </p>
       </details>
 
       <details className="faq-item">
         <summary>What file types can I upload?</summary>
         <p>
-          PDF and DOCX, which covers most resumes people already have.
-          If yours is in Google Docs or something else, just export it
-          as a PDF first. Scanned PDFs work too, through OCR, though the
-          result depends on how clear the scan is.
+          PDF and DOCX. If your resume lives in Google Docs, download it
+          as a PDF first. Scanned PDFs also work through OCR, though the
+          result depends on how sharp the scan is. A blurry photo of a
+          printout will not read well.
         </p>
       </details>
 
       <details className="faq-item">
         <summary>My resume looks fine but the score is low. Why?</summary>
         <p>
-          The software doesn't see your resume the way you do. It reads
-          raw text only. If you're using tables, columns, or icons, the
-          software might not read that content correctly even though it
-          looks perfectly normal to your eyes.
+          Software reads raw text, not design. Tables, columns, text
+          boxes and icons can hide content from it even when everything
+          looks normal to you. Check which of the seven items the tool
+          says is missing, then see whether that content sits in a
+          header, a box or a column.
         </p>
       </details>
 
       <details className="faq-item">
         <summary>Should I avoid fancy templates with columns and icons?</summary>
         <p>
-          If you're applying somewhere that likely uses an ATS, yes, a
-          simple layout usually works better. Multi-column resumes look
-          nice but the software can read the text in the wrong order or
-          skip parts of it. Save the fancier designs for situations
-          where you know a person will look at it first.
+          If the company probably uses an ATS, a plain single column
+          layout is the safer choice. Designed templates look good, but
+          the text can be read in the wrong order. Keep the fancy
+          version for cases where you are sure a person will see it
+          first, like sending it directly to someone you know.
         </p>
       </details>
 
       <details className="faq-item">
         <summary>How often should I check my resume?</summary>
         <p>
-          Check it once to get a starting score, fix what it flags, then
-          check again. It's also worth running the keyword match every
-          time you apply somewhere new, since job posts use different
-          wording even for similar roles.
+          Once to get a starting point, once more after your fixes, and
+          again with the keyword match for every new job you apply to.
+          Job posts word similar roles differently, so a resume that
+          matched one posting well can match the next one poorly.
         </p>
       </details>
 
       <details className="faq-item">
         <summary>Does this work exactly like the ATS my target company uses?</summary>
         <p>
-          Not exactly, since there are many different ATS platforms out
-          there and each works a little differently. This tool checks
-          the things that show up across most of them sections,
-          contact info, keyword match. It's a solid general check, but
-          it can't promise to match one specific company's system
-          exactly.
+          Not exactly. There are many ATS products and each behaves a
+          little differently. This tool checks things that most of them
+          care about, such as contact details, main sections and
+          keywords. It is a solid general check, but it cannot copy one
+          company's private system.
         </p>
       </details>
 
       <details className="faq-item">
-        <summary>What's a good score to aim for?</summary>
+        <summary>What is a good score to aim for?</summary>
         <p>
-          Anywhere in the "Good" or "Excellent" range gives you a decent
-          shot. Don't force a perfect score by adding things that aren't
-          true about you. A slightly lower score with honest content is
-          better than a high score that falls apart when someone asks
-          you a follow-up question.
+          Anything in the Good or Excellent range puts you in a decent
+          spot. Do not chase a perfect 100 by adding things that are
+          not true. A slightly lower score with honest content beats a
+          high score that falls apart in an interview.
         </p>
       </details>
 
       <details className="faq-item">
         <summary>Is this only useful for tech jobs?</summary>
         <p>
-          No, it works for any field. ATS software is used in marketing,
-          finance, healthcare, sales, and pretty much everywhere else
-          too. The keyword matching is actually just as useful outside
-          tech, since non-tech job posts often have specific terms and
-          certifications that matter a lot.
+          No. Applicant tracking systems are used in marketing,
+          finance, healthcare, sales, teaching and most other fields.
+          Keyword matching can be even more useful outside tech, since
+          non-tech postings often name specific certifications,
+          licences and tools that the software looks for.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Can freshers with no work experience use it?</summary>
+        <p>
+          Yes. If you have no jobs to list, internships, projects and
+          training can go under the experience heading. A fresher
+          resume will often score lower on that one item, which is
+          normal. Focus on a clear summary, a solid skills section and
+          good keyword matches for the role.
         </p>
       </details>
 

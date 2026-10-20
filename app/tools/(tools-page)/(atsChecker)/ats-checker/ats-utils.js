@@ -8,7 +8,7 @@ export async function extractPdfText(file) {
     const pdfjsLib = await import("pdfjs-dist");
 
     pdfjsLib.GlobalWorkerOptions.workerSrc =
-        `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+        `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 
     const buffer = await file.arrayBuffer();
 
@@ -44,7 +44,7 @@ export async function extractPdfOCR(file) {
     const pdfjsLib = await import("pdfjs-dist");
 
     pdfjsLib.GlobalWorkerOptions.workerSrc =
-        `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
+        `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
 
     const buffer = await file.arrayBuffer();
 

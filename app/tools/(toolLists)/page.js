@@ -1,30 +1,67 @@
 import ToolsLists from "./ToolsLists";
 
+const TITLE = "Free Online Tools for Resume, PDF & Documents | ResumeSathi";
+const DESCRIPTION =
+  "Free tools for job applications: ATS checker, merge, split and compress PDF, DOCX to PDF, signature cropper, background remover, age calculator. No signup.";
+const OG_IMAGE = "/front-assets/images/og/home-og.png";
+
 export const metadata = {
-  title: "Free Online Tools",
-  description:
-    "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",
-  keywords: ["free online tools", "merge PDF", "gradient generator", "CSS animation generator"],
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  keywords: [
+    "free online tools",
+    "ATS resume checker",
+    "merge PDF online",
+    "compress PDF",
+    "split PDF",
+    "DOCX to PDF",
+    "image to PDF",
+    "signature cropper",
+    "background remover",
+    "age calculator",
+    "typing practice",
+    "ID card maker",
+  ],
   alternates: { canonical: "/tools/" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large" },
+  },
   openGraph: {
-    title: "Free Online Tools",
-    description: "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",
+    title: TITLE,
+    description: DESCRIPTION,
     url: "/tools/",
-    type: "website", 
+    type: "website",
     siteName: "ResumeSathi",
-    images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi tools" }],
+    locale: "en_IN",
+    images: [{ url: OG_IMAGE, width: 1200, height: 630, alt: "ResumeSathi free career and document tools" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Online Tools",
-    description: "Use ResumeSathi’s free online tools to merge PDFs, generate gradients, create CSS animations, and improve your resume workflow.",
-    images: ["/front-assets/images/og/home-og.png"],
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [OG_IMAGE],
   },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  name: "Career & Document Tools",
+  description: DESCRIPTION,
+  url: "https://www.resumesathi.com/tools/",
+  isPartOf: { "@type": "WebSite", name: "ResumeSathi", url: "https://www.resumesathi.com/" },
+  inLanguage: "en-IN",
 };
 
 export default function ToolsPages() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <ToolsLists />
     </>
   );

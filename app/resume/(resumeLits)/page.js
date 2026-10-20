@@ -50,61 +50,89 @@ export default function ResumeTypeClientWrapper() {
   return (
     <>
       <ResumeLists />
-   <section className="resume-content container-fluid custom-container pb-5 rk-article-text">
-  <h2>Free Resume Builder</h2>
+<section className="resume-content container-fluid custom-container pb-5 rk-article-text">
+
+  <h2>Free Resume Builder for Freshers, Students and Working Professionals</h2>
+
   <p>
-    ResumeSathi is a free resume builder made for people who just want a
-    clean, professional resume without spending hours fighting with Word
-    formatting or paying for a template someone else designed for a
-    completely different job market. The builder walks you through each
-    section one at a time — personal details, profile summary, education,
-    work experience, internships, skills, languages, certificates, and
-    social links — so you're never staring at a blank page wondering where
-    to start or what goes where.
+    Most people open a blank Word file, type their name at the top and
+    then lose half an hour moving a text box that refuses to stay where
+    it is. The resume itself is not hard to write. The formatting around
+    it is what eats the time. ResumeSathi is a free resume builder made
+    to remove that part, so you can spend your effort on what the resume
+    says instead of how it is lined up.
   </p>
+
   <p>
-    You pick a resume flow that matches where you are in your career, fill
-    in your details step by step, preview how it looks against the
-    template you've chosen, and download it once you're happy with it.
-    Nothing about the process is complicated on purpose. The whole point
-    is to take the stress out of writing a resume while still keeping the
-    layout something a recruiter — or the software scanning it before a
-    recruiter even opens it — can actually read without getting confused.
+    You choose a resume flow that fits your stage in your career and
+    fill in one section at a time. Once the details are in, you see a
+    preview in the template you picked, make changes if something looks
+    off, and download the file when you are happy with it. The layout is
+    kept simple on purpose, so that a recruiter, or the software that
+    scans resumes before a recruiter does, can read it without
+    trouble.
   </p>
+
   <ResumeAdPlacement name="Banner 468x60">
     <Banner468x60 />
   </ResumeAdPlacement>
+
   <p>
-    Freshers use it because they don't have five old resumes lying around
-    to copy from. Students use it for their first internship application,
-    when they're not even sure what counts as "experience" yet. People
-    with eight or ten years behind them use it to finally get rid of a
-    format they've been dragging along since their very first job, back
-    when they didn't know any better. And if you already have a resume
-    sitting on your laptop from two years ago, you can upload it, edit
-    whatever's outdated, and move forward instead of rebuilding the whole
-    thing from zero.
+    A fresher usually has no old resume to copy from, and that blank
+    page can feel heavy. A student applying for a first internship often
+    does not know what counts as experience yet. Someone with eight or
+    ten years of work has the opposite problem, an old format that has
+    followed them from job to job and now looks tired. All three can
+    start here. And if you already have a resume saved on your laptop
+    from a couple of years back, you can upload it, update what is out
+    of date and carry on, instead of typing everything again.
   </p>
 
   <blockquote className="ps-3 my-4 fst-italic">
-    A resume doesn't need to impress anyone. It just needs to be
-    understood in the first ten seconds someone looks at it.
+    A resume does not have to impress anyone. It has to make sense to a
+    stranger within the first ten seconds.
   </blockquote>
+
   <ResumeAdPlacement name="Banner 300x250">
     <Banner300x250 />
   </ResumeAdPlacement>
 
+  <h3>What the Builder Asks You to Fill In</h3>
+
   <p>
-    A resume that actually works doesn't try to sound impressive — it
-    tries to be clear. Recruiters go through hundreds of these in a
-    single week, and the ones that stand out are usually the ones that
-    get straight to the point. ResumeSathi pushes you toward that: short,
-    specific summaries instead of vague lines like "hardworking team
-    player" or "passionate about growth," work experience points that
-    mention what you actually did and what came out of it, skills you can
-    genuinely back up in an interview instead of a list copied from a job
-    posting, and education details laid out plainly without unnecessary
-    decoration.
+    The form is split into sections, and you go through them in order.
+    Nothing is hidden, so you always know what comes next. These are the
+    sections you will meet and what each one is for.
+  </p>
+
+  <ul>
+    <li><strong>Personal details:</strong> your name, phone number, email and city. Keep the email address simple and professional.</li>
+    <li><strong>Profile summary:</strong> two or three lines at the top that say who you are and what kind of role you want.</li>
+    <li><strong>Education:</strong> your degrees, schools or colleges and the years. Put the latest one first.</li>
+    <li><strong>Work experience:</strong> the companies, job titles, dates and what you actually did in each role.</li>
+    <li><strong>Internships:</strong> a separate place for short stints, which matters a lot if you are early in your career.</li>
+    <li><strong>Skills:</strong> the tools and abilities you use and could talk about in an interview.</li>
+    <li><strong>Languages:</strong> the languages you can speak or write, which can help in some customer facing and regional roles.</li>
+    <li><strong>Certificates:</strong> courses and certifications that support the job you are applying for.</li>
+    <li><strong>Social links:</strong> your LinkedIn profile, and a portfolio or GitHub page if it adds something real.</li>
+  </ul>
+
+  <p>
+    You do not have to stuff every section just because it exists. If
+    you have no internships, leave that one empty. A shorter resume that
+    is honest and tidy is better than a long one padded with filler.
+  </p>
+
+  <h3>Write Lines That Say Something</h3>
+
+  <p>
+    Recruiters read a huge number of resumes in a week, and the ones
+    that stand out are usually the plainest. Phrases like "hardworking
+    team player" or "passionate about growth" tell the reader nothing,
+    because every second resume uses them. What helps is a specific
+    line about something you did and what came out of it. The builder
+    nudges you in that direction by giving you short, separate spaces
+    for each point instead of one giant text box.
   </p>
 
   <div className="table-responsive my-4">
@@ -128,77 +156,177 @@ export default function ResumeTypeClientWrapper() {
           <td>Knowledge of Excel and reporting</td>
           <td>Built a weekly sales report in Excel that cut reporting time from 2 hours to 20 minutes</td>
         </tr>
+        <tr>
+          <td>Worked on college projects</td>
+          <td>Built a student attendance app with two classmates and presented it to the department</td>
+        </tr>
       </tbody>
     </table>
   </div>
+
+  <p>
+    Notice the pattern in the better lines. Each one has an action, a
+    number or a clear result, and something a recruiter could ask you
+    about. If you cannot think of a number, describe the outcome in
+    plain words instead. "Cut the number of customer complaints" is still
+    stronger than "handled customer complaints."
+  </p>
+
   <ResumeAdPlacement name="Banner 728x90">
     <Banner728x90 />
   </ResumeAdPlacement>
 
+  <h3>What to Include and What to Leave Out</h3>
+
   <p>
-    Stick to what a recruiter could check if they wanted to — your job
-    titles, the companies you worked at, the dates, the projects you
-    built or contributed to, the tools you used day to day, what you
-    achieved in numbers where possible, and your education record. Leave
-    out personal details that don't add anything to the application
-    unless a specific job posting or application form asks for them.
-    Nobody's shortlisting you because of your hobbies section unless it's
-    genuinely relevant to the role you're going after, so don't waste
-    space on it just to fill the page.
+    A good rule is to include only what a recruiter could check if they
+    wanted to. That means your job titles, the companies you worked for,
+    your dates, the projects you built or helped with, the tools you use
+    every day, results with numbers where you have them, and your
+    education record.
   </p>
+
+  <p>
+    Leave out personal details that add nothing to the application,
+    unless a specific job posting or form asks for them. Nobody gets
+    shortlisted because of a hobbies section, unless the hobby is
+    actually relevant to the role. If you are applying for a content
+    writing job, a blog you run is worth a line. A list of "reading,
+    music, travelling" just fills space. The same goes for a long
+    objective statement. A short, clear profile summary does the job
+    better.
+  </p>
+
   <ResumeAdPlacement name="Banner 320x50">
     <Banner320x50 />
   </ResumeAdPlacement>
+
+  <h3>Work Through It in Small Steps</h3>
+
   <p>
-    The whole process is broken into smaller pages instead of one long,
-    intimidating form, so you're not trying to remember twelve things at
-    once while your attention drifts halfway through. You can go back,
-    fix a line that didn't read right the first time, switch to a
-    different template if the one you picked doesn't feel like you
-    anymore, and come back later — weeks or even months later — when
-    you've picked up a new skill, finished a certification, or changed
-    what kind of role you're aiming for next. A resume isn't a document
-    you write once and forget; it should change as you do, section by
-    section, over time.
+    The process is broken into smaller pages instead of one long form,
+    so you are not trying to remember twelve things at once. That helps
+    more than it sounds. When a form is short, you give each answer a bit
+    more thought, and the writing improves.
   </p>
+
+  <p>
+    You can go back at any point and fix a line that did not read right
+    the first time. If the template you picked no longer feels like
+    you, switch to another one and check the preview again. You can also
+    stop halfway and return later. A lot of people come back weeks or
+    months after their first visit, once they have finished a course,
+    learned a new tool or decided to aim at a different kind of job. A
+    resume is not something you write once and forget. It should change
+    as you do.
+  </p>
+
   <ResumeAdPlacement name="Banner 160x300">
     <Banner160x300 />
   </ResumeAdPlacement>
+
+  <h3>Make the Top of the Page Do the Heavy Lifting</h3>
+
   <p>
-    Put your strongest details near the top and label each section
-    plainly, without clever headings that sound nice but slow the reader
-    down. Recruiters aren't reading your resume top to bottom like a
-    story — they're scanning it, often in under a minute, sometimes less.
-    Within a few seconds, someone glancing at your resume should be able
-    to tell what role you're suited for, how much experience you carry,
-    what you studied, and where your real strengths sit. If they have to
-    dig for that information, chances are they've already moved on to the
-    next resume in the pile, and you never even get a fair look.
+    Put your strongest details near the top and label every section in
+    plain words. Headings like "Experience" and "Education" may look
+    boring, but they are exactly what a reader and a scanning program
+    both expect. A clever heading that sounds nice only slows people
+    down.
   </p>
+
   <p>
-    If you're applying to more than one type of role, don't send out the
-    same resume to all of them and hope for the best. Build a separate,
-    focused version for each one — adjust your summary, reorder your
-    skills so the relevant ones sit up top, and pick the projects and
-    work examples that actually match what that particular job
-    description is asking for. It takes a little more effort on your
-    side, but a resume that speaks directly to the role almost always
-    performs better than one written to cover everything at once and
-    ends up saying very little about anything.
+    Remember that nobody reads a resume from top to bottom like a story.
+    It gets scanned, usually in under a minute and sometimes in
+    a few seconds. In that short window, the reader should be able to
+    tell what role you suit, roughly how much experience you have, what
+    you studied and where your real strengths are. If they have to dig
+    for any of it, there is a fair chance they move on to the next
+    resume, and you never get a proper look.
   </p>
+
+  <blockquote className="ps-3 my-4 fst-italic">
+    If someone has to hunt for your best skill, they will probably not
+    hunt for long.
+  </blockquote>
+
+  <h3>One Resume Does Not Fit Every Job</h3>
+
   <p>
-    Keep every line truthful while you're at it. A resume that oversells
-    you might get you through the first screening, but it usually falls
-    apart in the first five minutes of an actual interview, and that's a
-    far worse position to be in than simply being honest from the start.
-    ResumeSathi isn't trying to make you sound like someone else — it's
-    trying to help you present who you already are, and what you've
-    already done, in a way that's easy for someone else to understand
-    quickly and take seriously.
+    If you are applying for more than one type of role, do not send the
+    same file to all of them and hope it works. Build a separate,
+    focused version for each. Change the summary, move the skills that
+    matter for that job to the top and pick the projects and work
+    examples that match what the job description asks for.
   </p>
+
+  <p>
+    It takes some extra effort, but a resume written for one role almost
+    always does better than one written to cover everything. The general
+    version tends to say very little about anything. Say you are
+    applying for both a customer support job and a data entry job. The
+    support version should lead with communication, handling queries
+    and tools like ticketing software. The data entry version should
+    lead with typing speed, accuracy and spreadsheet work. Same person,
+    two different first impressions.
+  </p>
+
+  <h3>Already Have a Resume? Start From That</h3>
+
+  <p>
+    Plenty of visitors do not begin from scratch. They have a resume
+    from an earlier job search, and it is just outdated. You can upload
+    it, correct the old dates, add the new role or certificate, remove
+    what no longer applies and then pick a template you like. It is much
+    faster than rebuilding, and you are less likely to forget something
+    you wrote well the first time.
+  </p>
+
+  <p>
+    Old resumes also tend to carry bad habits. A paragraph of five lines
+    under each job, a skills list copied from a job posting, a phone
+    number that has changed. Going through each section again, one at a
+    time, is a good chance to clean those up.
+  </p>
+
+  <h3>Keep Every Line Truthful</h3>
+
+  <p>
+    A resume that oversells you might get through the first screening,
+    but it usually falls apart in the first five minutes of an
+    interview. That is a much worse place to be than simply being honest
+    from the start. If you list a skill, expect to be asked about it. If
+    you claim a result, expect someone to ask how you got there.
+  </p>
+
+  <p>
+    ResumeSathi is not trying to turn you into someone else. The idea is
+    to help you present who you already are and what you have already
+    done, in a way that is easy for another person to understand quickly
+    and take seriously.
+  </p>
+
+  <h3>A Quick Check Before You Download</h3>
+
+  <ol>
+    <li>Read the whole resume out loud once. Awkward sentences are easy to hear.</li>
+    <li>Check your phone number and email for typing mistakes. This is the most common error.</li>
+    <li>Make sure the dates in education and work experience do not overlap in a confusing way.</li>
+    <li>Look at the preview and confirm nothing is cut off or pushed onto a second page for no reason.</li>
+    <li>Ask yourself if every skill on the list is something you could discuss for two minutes.</li>
+    <li>Name the file properly, with your name in it, before sending it anywhere.</li>
+  </ol>
+
+  <p>
+    A resume built this way will not win any design awards, and it does
+    not need to. It needs to be clear, honest and easy to read, so the
+    person on the other side can quickly see why you are worth a call.
+  </p>
+
   <ResumeAdPlacement name="Banner 160x600">
     <Banner160x600 />
   </ResumeAdPlacement>
+
 </section>
       <Footer />
       <FooterNav />

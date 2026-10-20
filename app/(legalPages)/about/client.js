@@ -653,9 +653,9 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
                 <Link prefetch={false} className="ab-cta-btn-ghost" href="/bio-data/resume-type/">
                   Create Bio-Data <ArrowIcon />
                 </Link>
-                {/* <Link prefetch={false} className="ab-cta-btn-ghost" href="/tools/">
+                <Link prefetch={false} className="ab-cta-btn-ghost" href="/tools/">
                   Explore Free Tools <ArrowIcon />
-                </Link> */}
+                </Link>
               </div>
               <p className="ab-cta-footnote"><Icon.Lock /> No signup needed for core tools - Built for job seekers</p>
             </div>

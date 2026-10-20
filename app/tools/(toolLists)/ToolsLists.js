@@ -429,7 +429,7 @@ export default function ToolsLists() {
             </label>
             <h1 className="fs-mob-22">Career & Document Tools</h1>
           </div>
-          <p className='className="fs-mob-16"'>
+          <p className="fs-mob-16">
             Everything you need to optimize resumes, manage PDF documents, and
             streamline your job application workflow—all in one place.
           </p>
@@ -526,132 +526,165 @@ export default function ToolsLists() {
         </div>
       </section>
       <section className="resume-content container-fluid custom-container pb-5 rk-article-text">
-        <h2>Free Online Tools</h2>
-        <p>
-          ResumeSathi's tools section exists because job applications rarely
-          stop at just the resume. Somewhere along the way you're merging PDFs
-          for a portal that only accepts one file, tweaking a gradient for a
-          portfolio page, or trying to get a small animation working on a
-          website without pulling in a whole design tool for a five-minute job.
-          These utilities are built for exactly that — quick browser tasks that
-          students, job seekers, and small teams need done without installing
-          anything or signing up for another paid subscription.
-        </p>
-        <p>
-          Nothing here is meant to be complicated. You open the tool, do the one
-          thing it's built for, and get back to whatever you were actually
-          working on — the resume, the application form, the portfolio site,
-          whatever it was. That's really the whole idea behind keeping these
-          separate from the main resume builder instead of cramming everything
-          into one place.
-        </p>
+<h2>Free Online Tools for Job Applications, Forms and Everyday Documents</h2>
+
+<p>Most people think a job application is finished once the resume is written. It usually isn't. The resume is the easy part. The trouble starts on the upload page, when the portal says it will only accept one PDF under 500 KB, your photo needs a white background, and your signature has to be exactly 140 by 60 pixels. All of this tends to come up the night before the last date.</p>
+
+<p>That is the reason this Tools section exists on ResumeSathi. Each tool does one small job and does it quickly. You open it, finish the task, download the file and go back to your application. There is nothing to install and no account to create. Since the site is built so your data stays on your own device, your marksheets and ID proofs are not being handed around to strangers.</p>
+
+<img src="/front-assets/images/tools/resumesathi-free-tools-overview.webp" alt="ResumeSathi free career and document tools page" width="600" height="315" loading="lazy" />
+
+<blockquote>Most rejected applications don't fail because of a big mistake. A file is slightly too heavy, a photo is the wrong size, a page is upside down. These are small problems, and they shouldn't need expensive software to fix.</blockquote>
+
+<h3>PDF Tools for Portals That Want Everything in One File</h3>
+
+<p>Government job portals and a lot of company career pages ask for a single combined PDF. That one file is supposed to hold your resume, your 10th and 12th marksheets, your degree, an experience letter and an ID proof. Getting there usually means juggling a dozen scans and photos. The six PDF tools below cover that whole mess.</p>
+
+<h4>Merge PDF</h4>
+<p>This joins several PDFs into one file. You can drag the files into the order you want before merging, so your resume sits on top and the certificates follow. Think about the order before you click merge. A recruiter often reads only the first page properly, so it should be the one that matters most.</p>
+
+<h4>Split PDF</h4>
+<p>Sometimes you need the opposite. You might have a 40 page scanned file and the form wants only three pages from it. Split PDF lets you pull out the pages you need, or break one large file into smaller ones.</p>
+
+<h4>Remove PDF Pages</h4>
+<p>Scanners love to add a blank page at the end, and phone scanning apps sometimes capture the same page twice. Instead of scanning everything again, delete the unwanted pages and download a clean copy.</p>
+
+<h4>Compress PDF</h4>
+<p>File size limits cause more upload errors than anything else. A few photos scanned on a phone can easily reach 8 or 10 MB, while the portal stops at 1 MB. Compress PDF brings the size down so the file fits. Some quality is lost when a file shrinks, so open the result afterwards and zoom in to make sure the text and stamps are still readable.</p>
+
+<h4>DOCX to PDF</h4>
+<p>A resume made in Word can look different on another computer. Fonts shift, margins move and a heading lands alone at the bottom of a page. Converting to PDF locks the layout as you designed it. Most portals ask for PDF anyway, so this saves you a step.</p>
+
+<h4>Image to PDF</h4>
+<p>If your certificates exist only as phone photos, this tool turns JPG and PNG images into a proper PDF. Add several images and they come out as one document, which is exactly what most forms want.</p>
+
+<div className="table-responsive">
+  <table className="table table-bordered">
+    <thead>
+      <tr>
+        <th>Tool</th>
+        <th>Use it when</th>
+        <th>Quick tip</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Merge PDF</td>
+        <td>The portal wants resume, certificates and ID proof in one file</td>
+        <td>Decide the page order first, then merge</td>
+      </tr>
+      <tr>
+        <td>Split PDF</td>
+        <td>You need only a few pages from a long scanned file</td>
+        <td>Note the page numbers beforehand</td>
+      </tr>
+      <tr>
+        <td>Remove PDF Pages</td>
+        <td>A blank or duplicate page slipped into the file</td>
+        <td>Check the preview before downloading</td>
+      </tr>
+      <tr>
+        <td>Compress PDF</td>
+        <td>Your file is above the portal's size limit</td>
+        <td>Zoom into the result to confirm text is readable</td>
+      </tr>
+      <tr>
+        <td>DOCX to PDF</td>
+        <td>You want the Word layout to stay exactly as it is</td>
+        <td>Proofread before converting</td>
+      </tr>
+      <tr>
+        <td>Image to PDF</td>
+        <td>Your documents are phone photos, not PDFs</td>
+        <td>Keep the images straight and well lit</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Photo and Signature: Where Many Forms Get Stuck</h3>
+
+<p>Nearly every application form ends with an upload section for a photo and a signature, and it is the place where a lot of people get stuck. The rules are strict. The photo has to be a certain width and height, under a certain size in KB, with a plain background. One pixel off and the portal throws an error without telling you much about what went wrong.</p>
+
+<h4>Signature Cropper</h4>
+<p>Sign on a white sheet of paper, take a photo with your phone and upload it. Then crop and resize it to the exact dimensions the form asks for. You don't need to hunt for a separate photo editing app just to trim a signature.</p>
+
+<img src="/front-assets/images/tools/signature-cropper-form-size.webp" alt="Cropping a scanned signature to the exact size required by an application form" width="600" height="315" loading="lazy" />
+
+<h4>Background Remover</h4>
+<p>Need a passport size photo with a clean white background, or a neat photo for your resume or LinkedIn? Background Remover cuts out the background and gives you a transparent PNG. From there you can place the photo on white or any light colour the form accepts.</p>
+
+<blockquote>Check the photo and signature requirements at the start, not after you have filled in everything else. Once you know the exact dimensions, the whole job takes about ten minutes.</blockquote>
+
+<h3>Typing Practice for Exams Where Speed Counts</h3>
+
+<p>Several government posts include a typing test. Clerk, data entry operator and stenographer roles are common examples. In these tests accuracy matters as much as speed, because every mistake pulls your score down.</p>
+
+<p>The Typing Practice tool has guided lessons and timed tests. Start with the lessons to get your finger placement right, then take the tests to see how fast you type and how many errors you make. Half an hour every day for a few weeks does more than one long session the night before the exam.</p>
+
+<h3>ID Card Maker for Schools, Offices and Events</h3>
+
+<p>Ordering ID cards from a print shop can be expensive when you only need a few, or when you need them in a hurry. ID Card Maker lets you design printable ID cards and badges right in the browser. A live preview shows how the card will look, so you can fix a spelling mistake or a misplaced photo before anything goes to print.</p>
+
+<p>It works well for a small school, a coaching centre, a short event or a new team that just needs temporary badges.</p>
+
+<h3>Age Calculator for Checking Eligibility</h3>
+
+<p>Almost every government recruitment notice has an age limit, and the age is counted on a specific cut-off date. A lot of applicants guess their age and find out later that they were a few days over the limit. That is a painful way to lose a year.</p>
+
+<p>The Age Calculator gives your exact age in years, months and days. Enter the cut-off date from the notification and you will know straight away whether you are eligible. It also helps when a form asks for your age on a particular date and you don't want to count on your fingers.</p>
+
+<h3>ATS Checker for One Last Look at Your Resume</h3>
+
+<p>Many companies run resumes through an Applicant Tracking System before a person sees them. The software looks for keywords from the job description and checks whether the format can be read properly. A resume with tables, odd columns or missing keywords can be filtered out even when the candidate is a good fit.</p>
+
+<p>The ATS Checker reads your resume and shows how compatible it is, along with how well your keywords match the role. It tells you what to change instead of leaving you to guess. The best time to use it is after your resume is written and before you send it anywhere.</p>
+
+<h3>A Real Example: Filling a Government Job Form</h3>
+
+<p>Say you are applying for a government post. The portal wants your resume, 10th and 12th marksheets, a graduation certificate, a photo and a signature. Here is how the tools fit together:</p>
+
+<ol>
+  <li>Check your age against the cut-off date with the Age Calculator.</li>
+  <li>Build or update your resume in the Resume Builder, then run it through the ATS Checker.</li>
+  <li>Turn your certificate photos into PDFs with Image to PDF.</li>
+  <li>Join the resume and certificates into one file using Merge PDF.</li>
+  <li>If the file is too large, shrink it with Compress PDF.</li>
+  <li>Clean up your photo with Background Remover and fit your signature to the required size with Signature Cropper.</li>
+  <li>Look through every file once, then upload.</li>
+</ol>
+
+<p>Done in this order, the whole thing often takes less than an hour, and you aren't panicking when the deadline is close.</p>
         <div className="d-flex justify-content-center my-4">
           <Banner300x250 />
         </div>
 
-        <blockquote className="ps-3 my-4 fst-italic">
-          A tool doesn't need to be big to be useful. It just needs to solve the
-          one small problem that's stopping you from finishing everything else.
-        </blockquote>
+      <h3>When These Tools Make Sense, and When They Don't</h3>
 
-        <p>
-          The PDF tools come in handy more often than people expect. A lot of
-          job portals and government application forms ask for a single combined
-          PDF — your resume, certificates, and ID proof all in one file — and
-          merging three or four separate PDFs shouldn't require downloading
-          desktop software just to do it once. The same goes for situations
-          where you need to split a large PDF, rearrange pages, or shrink a file
-          that's too big for an upload limit. These are small jobs, but they
-          hold up an entire application if you don't have a quick way to handle
-          them.
-        </p>
+<p>These tools are meant for quick, specific jobs. If you are laying out a 300 page book or doing serious photo retouching, you will want proper desktop software. But if you need to fix one form, one resume or one upload, these do the job without any fuss.</p>
 
-        <div className="table-responsive my-4">
-          <table className="table table-bordered align-middle">
-            <thead>
-              <tr>
-                <th>Tool</th>
-                <th>Useful for</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>PDF Merge</td>
-                <td>
-                  Combining resume, certificates, and ID proof into one file for
-                  job portals
-                </td>
-              </tr>
-              <tr>
-                <td>CSS Gradient Generator</td>
-                <td>
-                  Getting clean background colors for a portfolio or personal
-                  website without guessing hex codes
-                </td>
-              </tr>
-              <tr>
-                <td>Animation Snippets</td>
-                <td>
-                  Copy-ready CSS animations for buttons, cards, and hover
-                  effects
-                </td>
-              </tr>
-              <tr>
-                <td>Resume Builder</td>
-                <td>
-                  Bringing everything together into a complete, ready-to-send
-                  application
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<h3>Frequently Asked Questions</h3>
 
-        <p>
-          The design tools serve a different kind of need. If you're building a
-          portfolio site to go along with your resume, or just want a personal
-          page that doesn't look like a default template, small things like a
-          proper gradient or a smooth animation make more difference than people
-          expect. The gradient generator lets you pick colors visually and get
-          the CSS code without sitting there adjusting hex values by trial and
-          error. The animation snippets work the same way — pick something close
-          to what you want, copy the code, and drop it into your project instead
-          of writing it from scratch.
-        </p>
-        <p>
-          None of these tools try to replace proper design or development
-          software. They're built for the smaller, in-between moments — when you
-          need one specific thing done and don't want to open a heavier
-          application just for that. A student prepping for internship
-          applications might use the PDF merge tool once and never touch it
-          again for months. Someone building their first portfolio site might
-          live in the gradient tool for an afternoon. Both uses are exactly what
-          these were made for.
-        </p>
-        <p>
-          Use the PDF tools when a job portal specifically asks for one combined
-          document instead of separate attachments — this comes up more often
-          with government job applications and formal recruitment portals than
-          most people expect. Use the design tools when you're setting up
-          something visual, whether that's a portfolio, a personal site, or even
-          just a form that needs to look presentable. And when you're ready to
-          actually put together the application itself, that's when it makes
-          sense to head back to the resume builder and bring everything into one
-          finished document.
-        </p>
-        <p>
-          These tools will keep growing over time based on what people actually
-          run into while applying for jobs — small, repetitive tasks that don't
-          deserve their own separate app but still need to get done properly. If
-          there's a gap between what the resume builder covers and what a real
-          application actually requires, that's usually where a new tool ends up
-          here next.
-        </p>
+<h4>Are these tools really free?</h4>
+<p>Yes. You can use them without signing up, and there is no card or account involved.</p>
+
+<h4>Are my documents safe?</h4>
+<p>ResumeSathi is built around the idea that your data stays on your device. Even so, it is a good habit to delete sensitive files like ID proofs from shared computers once you are done.</p>
+
+<h4>Can I use them on my phone?</h4>
+<p>Yes, they run in the browser, so they open on both phones and laptops. For large PDFs, a laptop is usually more comfortable.</p>
+
+<h4>Will compressing a PDF ruin its quality?</h4>
+<p>It can reduce quality a little, because that is how the file gets smaller. Open the compressed file and check that the text, signatures and stamps are still clear before you upload it.</p>
+
+<blockquote>Write your resume in the Resume Builder and keep this Tools page open for everything else. Used together, they take most of the stress out of applying.</blockquote>
+
+<p>New tools will be added over time, based on the problems people actually run into while applying for jobs. If you feel something important is missing, send a message through the Contact page and it will be looked at.</p>
         <div className="d-flex justify-content-center my-4">
           <Banner468x60 />
         </div>
       </section>
-      <Footer showToolLinks />
+      <Footer />
       <FooterNav />
     </>
   );

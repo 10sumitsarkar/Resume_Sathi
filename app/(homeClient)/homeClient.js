@@ -1704,13 +1704,13 @@ export default function ResumeListClient({
                 >
                   Choose a Template <Icon.ArrowRight />
                 </Link>
-                {/* <Link
+                <Link
                   prefetch={false}
                   href="/tools/"
                   className="rk-btn rk-btn--outline rk-btn--lg" style={{minWidth:0}}
                 >
                   Explore Tools
-                </Link> */}
+                </Link>
               </div>
 
               <div className="rk-trust-row">
@@ -2100,9 +2100,9 @@ export default function ResumeListClient({
               >
                 Choose a Template <Icon.ArrowRight />
               </Link>
-              {/* <Link prefetch={false} href="/tools/" className="rk-cta-btn-ghost">
+              <Link prefetch={false} href="/tools/" className="rk-cta-btn-ghost">
                 <Icon.Rocket /> Explore Free Tools
-              </Link> */}
+              </Link>
             </div>
 
             <p className="rk-cta-footnote">

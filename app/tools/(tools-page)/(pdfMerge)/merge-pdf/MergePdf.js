@@ -612,171 +612,275 @@ export default function PdfMergePage() {
 
       <ToolsPageAd native />
       <section className="pdf-merge-info">
-        <div className="info-block">
-          <h2>Merge Multiple PDF Files Into One</h2>
-          <p>
-            A lot of forms ask for one single PDF, but your documents are
-            usually spread across separate files. Government job portals want
-            your resume, certificates, and ID proof together in one upload.
-            Companies want a resume with the cover letter attached, not two
-            separate attachments in an email. And honestly, sometimes you've
-            just scanned a few pages from your phone and now there are four or
-            five files lying around that should really be one. This tool takes
-            whatever PDFs you give it and joins them, in whatever order you
-            want, so you end up with a single file you can actually submit
-            somewhere.
-          </p>
-        </div>
 
-        <ToolsPageAd format="300x250" />
-        <div className="info-block">
-          <h3>Where People Actually Use This</h3>
-          <p>
-            Government job applications in India come up a lot here many portals
-            flat out reject multiple attachments and want everything bundled
-            into one PDF with your resume, mark sheets, category certificate,
-            sometimes even a photo. Job seekers use it for resumes too, joining
-            a cover letter to the resume before sending it out, since two
-            attachments in an email can look a bit messy. Then there's the more
-            everyday case, scanning pages one at a time on a phone and ending up
-            with a pile of separate files that need to become one PDF before you
-            can send them anywhere.
-          </p>
-        </div>
+  <div className="info-block">
+    <h2>Join Several PDF Files Into One Clean Document</h2>
+    <p>
+      Forms love asking for one file, and documents love living in many.
+      Your resume is in one place, your marksheets are in a scanning
+      app, your ID proof is a separate download, and the cover letter
+      is sitting in an email draft. Then the upload page says "attach a
+      single PDF" and you are left staring at five files with no easy
+      way to join them.
+    </p>
+    <p>
+      This tool fixes that. Add the PDFs you have, put them in the order
+      you want and download one merged file. It takes a couple of
+      minutes, and you do not need any software on your computer or
+      phone to do it.
+    </p>
+  </div>
 
-        <div className="info-block">
-          <h3>Reordering Your Files</h3>
-          <p>
-            After you upload, each file shows up as a card with a number on it,
-            showing the order it'll appear in once merged. If that's not right,
-            no need to start over just drag the card where you want it. On a
-            laptop or desktop, click and drag. On a phone, there's a small
-            handle icon on each card, hold that and move it around. The numbers
-            update as you go so you can see the final order before you commit to
-            merging. Worth double-checking this before you download, since
-            fixing it after is more work than fixing it now.
-          </p>
-        </div>
+  <ToolsPageAd format="300x250" />
 
-        <div className="info-block">
-          <h3>Does It Affect Quality?</h3>
-          <p>
-            Not really. Merging is just putting pages from separate files into
-            one new file. Nothing gets compressed or resized in the process, and
-            the content inside each page stays exactly as it was. So a high-res
-            scan comes out the other end still high-res, and a document exported
-            from Word still looks like it did before. Your original files aren't
-            touched either they stay right where they were on your device the
-            whole time, since the tool is only reading them to build the new
-            merged version.
-          </p>
-        </div>
+  <div className="info-block">
+    <h3>Where People Actually Use This</h3>
+    <p>
+      The most common reason is a government job application in India.
+      Many portals refuse multiple attachments and want everything
+      bundled into one PDF. That usually means a resume, mark sheets, a
+      category certificate and sometimes a photo, all in a fixed order.
+      A portal that rejects your file at the final step is a frustrating
+      thing to deal with close to the last date.
+    </p>
+    <ul className="info-list info-list--plain">
+      <li><strong>Government and private job forms.</strong> Resume, certificates and ID proof together in one upload.</li>
+      <li><strong>Resume plus cover letter.</strong> One attachment looks tidier in a recruiter's inbox than two.</li>
+      <li><strong>Phone scans.</strong> When you scan page by page, you end up with a pile of small files that need to become one.</li>
+      <li><strong>College and scholarship applications.</strong> Fee receipts, certificates and ID cards often go up as a single document.</li>
+      <li><strong>Bills and records.</strong> Joining several invoices or statements into one file for a claim or a reimbursement.</li>
+    </ul>
+  </div>
 
-        <ToolsPageAd format="468x60" />
-        <div className="info-block">
-          <h3>Notes</h3>
-          <p>
-            The final order follows exactly what you see on screen, so take a
-            second to check the card order before hitting Merge & Download.
-            Everything runs inside your browser on your own device, meaning
-            there's no server involved at any point and nothing gets uploaded or
-            saved anywhere. Once the tab is closed, that's it, there's nothing
-            left sitting around.
-          </p>
-        </div>
+  <blockquote>
+    A merged file with the right page order looks organised. The same
+    pages in the wrong order look careless, even when everything is
+    correct.
+  </blockquote>
 
-        <ToolsPageAd format="300x250" />
-        <div className="info-block">
-          <h3>Questions</h3>
-          <div className="faq-list">
-            <details className="faq-item">
-              <summary>Is this free?</summary>
-              <p>
-                Yep, completely free, no signup or login needed. Use it as many
-                times as you want.
-              </p>
-            </details>
+  <div className="info-block">
+    <h3>How To Use It</h3>
+    <ol>
+      <li>Upload the PDF files you want to join. You can pick several at once.</li>
+      <li>Each file appears as a numbered card showing its place in the final document.</li>
+      <li>Drag the cards until the order is right.</li>
+      <li>Remove any file you added by mistake using the small remove button on its card.</li>
+      <li>Click Merge &amp; Download to get your single PDF.</li>
+    </ol>
+  </div>
 
-            <details className="faq-item">
-              <summary>How many files can I merge at once?</summary>
-              <p>
-                No real limit here. Two files or twenty, either works. A big
-                batch of large files might just take a bit longer to process,
-                that's about it.
-              </p>
-            </details>
+  <div className="info-block">
+    <h3>Reordering Your Files</h3>
+    <p>
+      After you upload, every file shows up as a card with a number on
+      it. That number is the position the file will take once merged. If
+      the order is wrong, you do not have to start over. Just drag the
+      card to where it belongs.
+    </p>
+    <p>
+      On a laptop or desktop, click the card and drag it. On a phone,
+      each card has a small handle icon. Press and hold the handle, then
+      move the card up or down. The numbers update as you move things
+      around, so you can see the final order before you commit. Check
+      it once properly before downloading, because fixing a merged file
+      afterwards is far more work than fixing the list now.
+    </p>
+  </div>
 
-            <details className="faq-item">
-              <summary>Can I change the order after uploading?</summary>
-              <p>
-                Yes, and that's basically the point of the drag feature. Move
-                the cards around however you like before merging. On mobile, use
-                the small handle on the card to drag it.
-              </p>
-            </details>
+  <div className="info-block">
+    <h3>Does Merging Affect Quality?</h3>
+    <p>
+      No. Merging only places the pages from different files into one
+      new file. Nothing is compressed or resized along the way, and the
+      content of each page stays as it was. A high resolution scan comes
+      out still sharp, and a document exported from Word looks exactly
+      like it did before.
+    </p>
+    <p>
+      Your original files are not touched either. They stay where they
+      were on your device the whole time. The tool only reads them to
+      build the new merged version, so you can always go back to the
+      originals if something needs changing.
+    </p>
+  </div>
 
-            <details className="faq-item">
-              <summary>Are my files sent to a server anywhere?</summary>
-              <p>
-                No, this all happens right in your browser. Your files stay on
-                your device the entire time and there's nothing saved once you
-                leave the page.
-              </p>
-            </details>
+  <ToolsPageAd format="468x60" />
 
-            <details className="faq-item">
-              <summary>Does merging lower the quality of my PDFs?</summary>
-              <p>
-                No. The pages get joined as they are, nothing gets compressed or
-                resized along the way. What you upload is what you get back,
-                just combined.
-              </p>
-            </details>
+  <div className="info-block">
+    <h3>A Sensible Order for a Job Application</h3>
+    <p>
+      If a portal does not specify the order, a simple sequence works
+      well for most recruiters. Put the document they care about most at
+      the top and the supporting proofs after it.
+    </p>
+    <ol>
+      <li>Resume or application form</li>
+      <li>Cover letter, if you have one</li>
+      <li>Educational certificates, from the highest qualification down</li>
+      <li>Experience letters, if relevant</li>
+      <li>Category or other special certificates</li>
+      <li>ID proof</li>
+    </ol>
+    <p>
+      If the notification gives its own order, always follow that one
+      instead. Some portals check documents in the sequence they list
+      them, and a different order can create confusion.
+    </p>
+  </div>
 
-            <details className="faq-item">
-              <summary>Can I merge PDFs that have a password?</summary>
-              <p>
-                If a PDF is heavily locked down, it's usually easier to remove
-                the password first with an unlock tool and then merge it here.
-              </p>
-            </details>
+  <blockquote>
+    Read the upload instructions first. Ten seconds spent on the
+    required order can save you a rejected application.
+  </blockquote>
 
-            <details className="faq-item">
-              <summary>Will my original files get changed?</summary>
-              <p>
-                No, they stay exactly as they are on your device. The tool reads
-                them to build a new file, that's all, your originals are left
-                alone.
-              </p>
-            </details>
+  <div className="info-block">
+    <h3>Small Mistakes That Cause Trouble</h3>
+    <p>
+      Most problems come from the files you feed in, not from the
+      merging itself. A scan that is sideways will stay sideways in the
+      final document, so fix the orientation before you merge. A
+      blurry photo of a certificate will look just as blurry in the
+      merged file. And a file with a vague name like "scan_final_2" is
+      easy to place in the wrong spot when you have ten of them, so
+      rename your files clearly before uploading, such as "resume",
+      "10th marksheet" and "aadhaar".
+    </p>
+    <p>
+      Another thing worth remembering is that a merged file can be
+      large. If the portal has a size limit, check the final file's size
+      before you try to upload it. If it is over the limit, run it
+      through a compress tool before submitting.
+    </p>
+  </div>
 
-            <details className="faq-item">
-              <summary>What if I upload the wrong file by mistake?</summary>
-              <p>
-                There's a small remove button on each card, so just take it off
-                the list before merging. No need to restart the whole thing.
-              </p>
-            </details>
+  <div className="info-block">
+    <h3>Notes</h3>
+    <p>
+      The final order follows exactly what you see on screen, so take a
+      moment to check the card order before you press Merge &amp;
+      Download. Everything runs inside your browser on your own device.
+      There is no server involved at any point, and nothing gets
+      uploaded or saved anywhere. Once you close the tab, nothing is
+      left behind.
+    </p>
+  </div>
 
-            <details className="faq-item">
-              <summary>Can I merge scans from my phone?</summary>
-              <p>
-                Definitely, this is actually one of the most common reasons
-                people use this. Upload the scanned pages, arrange them, merge
-                into one file.
-              </p>
-            </details>
+  <ToolsPageAd format="300x250" />
 
-            <details className="faq-item">
-              <summary>Do I need to download any software?</summary>
-              <p>
-                Nope, it all works in your browser, laptop or phone doesn't
-                matter. Open the page, upload, done.
-              </p>
-            </details>
-          </div>
-        </div>
-      </section>
+  <div className="info-block">
+    <h3>Questions</h3>
+    <div className="faq-list">
+
+      <details className="faq-item">
+        <summary>Is this free?</summary>
+        <p>
+          Yes. It is completely free, with no signup or login. You can
+          use it as many times as you like.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>How many files can I merge at once?</summary>
+        <p>
+          There is no fixed limit here. Two files or twenty both work. A
+          big batch of large files may simply take a little longer to
+          process.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Can I change the order after uploading?</summary>
+        <p>
+          Yes, and that is the whole point of the drag feature. Move the
+          cards around as much as you like before merging. On mobile,
+          use the small handle on each card to drag it.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Are my files sent to a server anywhere?</summary>
+        <p>
+          No. Everything happens in your browser. Your files stay on
+          your device the whole time and nothing is saved after you
+          leave the page.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Does merging lower the quality of my PDFs?</summary>
+        <p>
+          No. Pages are joined as they are, and nothing is compressed or
+          resized. What you upload is what you get back, only combined
+          into one file.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Can I merge PDFs that have a password?</summary>
+        <p>
+          A heavily locked file can be a problem. In that case it is
+          usually easier to remove the password first with an unlock
+          tool, then merge the file here.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Will my original files get changed?</summary>
+        <p>
+          No. They stay exactly as they are on your device. The tool
+          reads them to build a new file and leaves your originals
+          alone.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>What if I upload the wrong file by mistake?</summary>
+        <p>
+          Every card has a small remove button. Take the file off the
+          list before merging, and you do not have to restart anything.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Can I merge scans from my phone?</summary>
+        <p>
+          Yes, and it is one of the most common reasons people use this
+          tool. Upload the scanned pages, arrange them and merge them
+          into one file.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Do I need to download any software?</summary>
+        <p>
+          No. It works in your browser, on a laptop or a phone. Open the
+          page, upload your files and download the result.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>Can I merge images with PDFs?</summary>
+        <p>
+          This tool joins PDF files only. If your documents are photos
+          in JPG or PNG format, turn them into a PDF first with the
+          Image to PDF tool, then bring them here to merge.
+        </p>
+      </details>
+
+      <details className="faq-item">
+        <summary>What if the merged file is too big for the portal?</summary>
+        <p>
+          Merging does not shrink anything, so the final size is roughly
+          the total of all your files. If it is above the portal's
+          limit, use the Compress PDF tool on the merged file and check
+          that the text is still readable afterwards.
+        </p>
+      </details>
+
+    </div>
+  </div>
+
+</section>
     </div>
   );
 }

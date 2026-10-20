@@ -210,10 +210,6 @@ export default function IdCardMaker() {
   const pointerStartStateRef = useRef([]);
 
   useEffect(() => {
-    sideRef.current = side;
-  }, [side]);
-
-  useEffect(() => {
     const updateViewportMode = () => {
       setViewportMode(window.innerWidth <= 640 ? "mobile" : "desktop");
     };
@@ -300,8 +296,13 @@ export default function IdCardMaker() {
       : TEMPLATES.filter((template) => template.category === category);
   const selected = elements.find((item) => item.id === selectedId);
 
+  const setActiveSide = (nextSide) => {
+    sideRef.current = nextSide;
+    setSide(nextSide);
+  };
+
   const persistCurrentSide = (nextElements) => {
-    const activeSide = side;
+    const activeSide = sideRef.current;
     const normalized = Array.isArray(nextElements)
       ? nextElements.map((item) => ({ ...item }))
       : [];
@@ -349,8 +350,7 @@ export default function IdCardMaker() {
     sidesRef.current = initialSides;
     setElements(front);
     setSides(initialSides);
-    sideRef.current = "front";
-    setSide("front");
+    setActiveSide("front");
     setSelectedId(front[0]?.id || null);
     setActivePanel("properties");
     setMobileSheetOpen(false);
@@ -499,21 +499,20 @@ export default function IdCardMaker() {
     persistCurrentSide(next.map((item) => ({ ...item })));
   };
 
-  const switchSide = (nextSide) => {
-    if (nextSide === side) return;
+  const switchSide = () => {
+    const currentSide = sideRef.current;
+    const nextSide = currentSide === "front" ? "back" : "front";
 
-    const currentSide = side;
     const nextSnapshot = {
       ...sidesRef.current,
       [currentSide]: elements.map((item) => ({ ...item })),
     };
     const nextElements = (nextSnapshot[nextSide] || []).map((item) => ({ ...item }));
 
-    sideRef.current = nextSide;
     sidesRef.current = nextSnapshot;
     setSides(nextSnapshot);
     setSideFlipping(true);
-    setSide(nextSide);
+    setActiveSide(nextSide);
     setElements(nextElements);
     setSelectedId(nextElements[0]?.id || null);
     window.setTimeout(() => setSideFlipping(false), 520);
@@ -537,6 +536,7 @@ export default function IdCardMaker() {
 
     setSelectedId(activeItem.id);
     pointerStartStateRef.current = elements.map((entry) => ({ ...entry }));
+    pointerSnapshotRef.current = pointerStartStateRef.current.map((entry) => ({ ...entry }));
     const start = { x: event.clientX, y: event.clientY, item: activeItem };
     const pointerTarget = event.currentTarget;
     const pointerId = event.pointerId;
@@ -592,6 +592,7 @@ export default function IdCardMaker() {
     event.stopPropagation();
     if (item.locked) return;
     pointerStartStateRef.current = elements.map((entry) => ({ ...entry }));
+    pointerSnapshotRef.current = pointerStartStateRef.current.map((entry) => ({ ...entry }));
     const start = { x: event.clientX, y: event.clientY, item };
     const pointerTarget = event.currentTarget;
     const pointerId = event.pointerId;
@@ -676,6 +677,7 @@ export default function IdCardMaker() {
     event.stopPropagation();
     if (item.locked) return;
     pointerStartStateRef.current = elements.map((entry) => ({ ...entry }));
+    pointerSnapshotRef.current = pointerStartStateRef.current.map((entry) => ({ ...entry }));
     const elementBox = event.currentTarget.parentElement.getBoundingClientRect();
     const pointerTarget = event.currentTarget;
     const pointerId = event.pointerId;
@@ -819,14 +821,14 @@ export default function IdCardMaker() {
     try {
       const frontElements = sides.front || (originalSide === "front" ? originalElements : []);
       const backElements = sides.back || (originalSide === "back" ? originalElements : []);
-      setSide("front");
+      setActiveSide("front");
       setElements(frontElements);
       await new Promise(requestAnimationFrame);
       await new Promise(requestAnimationFrame);
       const frontImage = await captureSide("front");
       zip.file(frontImage.name, frontImage.blob);
 
-      setSide("back");
+      setActiveSide("back");
       setElements(backElements);
       await new Promise(requestAnimationFrame);
       await new Promise(requestAnimationFrame);
@@ -840,7 +842,7 @@ export default function IdCardMaker() {
       link.click();
       URL.revokeObjectURL(link.href);
     } finally {
-      setSide(originalSide);
+      setActiveSide(originalSide);
       setElements(originalElements);
     }
   };
@@ -1770,7 +1772,7 @@ export default function IdCardMaker() {
           </div>
         </section>
         </main>
-        <Footer showToolLinks />
+        <Footer />
         <FooterNav />
       </>
     );
@@ -1874,7 +1876,7 @@ export default function IdCardMaker() {
               type="button"
               aria-label={`Showing ${side}. Switch to ${side === "front" ? "back" : "front"}`}
               title={`Showing ${side}. Click to switch`}
-              onClick={() => switchSide(side === "front" ? "back" : "front")}
+              onClick={switchSide}
             >
               <svg viewBox="0 0 32 24" aria-hidden="true">
                 <rect x="2" y="5" width="21" height="15" rx="3" />

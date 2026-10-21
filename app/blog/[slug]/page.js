@@ -4,6 +4,7 @@ import React from "react";
 import { notFound } from "next/navigation";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
 import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
+import { latestFirst } from "../articleSort";
 
 export const dynamicParams = false;
 const STATIC_404_SLUGS = ["[slug]", "%5Bslug%5D"];
@@ -97,14 +98,6 @@ function getArticleIndex(items) {
     created_at: item.created_at,
     updated_at: item.updated_at,
   }));
-}
-
-function latestFirst(items) {
-  return items.slice().sort((a, b) => {
-    const bTime = new Date(b.updated_at || b.created_at || 0).getTime();
-    const aTime = new Date(a.updated_at || a.created_at || 0).getTime();
-    return bTime - aTime;
-  });
 }
 
 function getArticleCategories() {
@@ -241,7 +234,6 @@ export default async function ArticleDetailPage({ params }) {
     />
   );
 }
-
 
 
 

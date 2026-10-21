@@ -1,6 +1,7 @@
 ﻿import fs from 'fs';
 import path from 'path';
 import BlogPageClient from './BlogPageClient';
+import { latestFirst } from './articleSort';
 import { DEFAULT_SITE_BASE } from '../lib/apiConfig';
 
 function readCache(filename) {
@@ -16,14 +17,6 @@ function readCache(filename) {
 }
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, '');
-
-function latestFirst(items) {
-  return items.slice().sort((a, b) => {
-    const bTime = new Date(b.updated_at || b.created_at || 0).getTime();
-    const aTime = new Date(a.updated_at || a.created_at || 0).getTime();
-    return bTime - aTime;
-  });
-}
 
 const articles = latestFirst(readCache('articles-cache.json'));
 

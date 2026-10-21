@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getApiBase, resolveApiMediaUrl, withTrailingSlash } from '../lib/apiConfig';
+import { latestFirst } from './articleSort';
 import './blog.css';
 
 const IconBlog = () => (
@@ -12,7 +13,8 @@ const IconBlog = () => (
 );
 
 const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.png';
-const PAGE_SIZE = 10;
+const MOBILE_PAGE_SIZE = 10;
+const DESKTOP_PAGE_SIZE = 12;
 const SUGGESTION_LIMIT = 6;
 
 function resolveMediaUrl(url) {
@@ -60,14 +62,6 @@ function normalizeItems(data) {
 
 function getCategoryId(item) {
   return Number(item?.article_type || item?.category_id || item?.category?.id || 0);
-}
-
-function latestFirst(items = []) {
-  return items.slice().sort((a, b) => {
-    const bTime = new Date(b.updated_at || b.created_at || 0).getTime();
-    const aTime = new Date(a.updated_at || a.created_at || 0).getTime();
-    return bTime - aTime;
-  });
 }
 
 function filterArticles(items, search, categoryId) {
@@ -387,9 +381,24 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   }, []);
   const [categoryId, setCategoryId] = useState(null);
   const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(MOBILE_PAGE_SIZE);
   const searchDebounce = useRef(null);
   const pathname = usePathname();
   const previousPathname = useRef(pathname);
+
+  useEffect(() => {
+    const updatePageSize = () => {
+      setPageSize(
+        window.matchMedia('(min-width: 992px)').matches
+          ? DESKTOP_PAGE_SIZE
+          : MOBILE_PAGE_SIZE
+      );
+    };
+
+    updatePageSize();
+    window.addEventListener('resize', updatePageSize);
+    return () => window.removeEventListener('resize', updatePageSize);
+  }, []);
 
   // Search-suggestion dropdown state (offcanvas search only)
   const [suggestions, setSuggestions] = useState([]);
@@ -405,8 +414,14 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
     () => filterArticles(allArticles, search, categoryId),
     [allArticles, search, categoryId]
   );
-  const totalPages = Math.ceil(filteredArticles.length / PAGE_SIZE);
-  const articles = filteredArticles.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const totalPages = Math.ceil(filteredArticles.length / pageSize);
+  const articles = filteredArticles.slice((page - 1) * pageSize, page * pageSize);
+
+  useEffect(() => {
+    if (page > Math.max(totalPages, 1)) {
+      setPage(Math.max(totalPages, 1));
+    }
+  }, [page, totalPages]);
 
   const fetchSidebar = async () => {
     setLastFetchError('');

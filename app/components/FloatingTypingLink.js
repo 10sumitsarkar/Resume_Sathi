@@ -16,8 +16,9 @@ export default function FloatingTypingLink() {
     pathname === "/bio-data" ||
     pathname.startsWith("/bio-data/");
 
+  const isHomePage = pathname === "/";
   const isToolsPage = pathname === "/tools" || pathname.startsWith("/tools/");
-  if (!isToolsPage || hideOn) return null;
+  if ((!isHomePage && !isToolsPage) || hideOn) return null;
 
   return (
     <Link

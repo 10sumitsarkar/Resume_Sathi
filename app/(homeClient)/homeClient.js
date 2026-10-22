@@ -1796,7 +1796,7 @@ export default function ResumeListClient({
       </section>
 
 
-      {/* <section className="rk-section rk-section--gray rk-id-card-feature">
+      <section className="rk-section rk-section--gray rk-id-card-feature">
         <div className="container-fluid custom-container">
           <div className="row align-items-center g-4">
             <div className="col-lg-6">
@@ -1864,7 +1864,7 @@ export default function ResumeListClient({
             </div>
           </div>
         </div>
-      </section> */}
+      </section>
 
 
       {/* <section className="rk-section rk-section--white" id="templates">
@@ -1962,7 +1962,7 @@ export default function ResumeListClient({
       <ResumeFocusSection />
       <WhyFreeSection />
       <BioDataPromo />
-      {/* <TypingPromo /> */}
+      <TypingPromo />
       
       <AdTestPlacement name="Banner 320x50">
         <Banner320x50 />

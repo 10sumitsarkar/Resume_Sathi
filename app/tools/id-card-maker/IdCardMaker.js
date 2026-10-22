@@ -37,6 +37,16 @@ const sliderBackground = (value, min = 0, max = 100) => {
   return `linear-gradient(90deg, var(--id-red) 0%, var(--id-red) ${percent}%, #dfe5f1 ${percent}%, #dfe5f1 100%)`;
 };
 
+const FONT_FAMILY_OPTIONS = [
+  { label: "Arial", value: "Arial, sans-serif" },
+  { label: "Georgia", value: "Georgia, serif" },
+  { label: "Times New Roman", value: '"Times New Roman", serif' },
+  { label: "Verdana", value: "Verdana, sans-serif" },
+  { label: "Trebuchet MS", value: '"Trebuchet MS", sans-serif' },
+  { label: "Courier New", value: '"Courier New", monospace' },
+  { label: "System UI", value: "system-ui, sans-serif" },
+];
+
 const DEFAULT_SVG_MARKUP = "";
 
 const extractSvgColor = (content) => {
@@ -154,8 +164,10 @@ const fitTextToContent = (item) => {
   if (item.type !== "text" || typeof document === "undefined") return item;
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
+  if (!context) return item;
   const fontWeight = resolveFontWeight(item);
-  context.font = `${fontWeight} ${item.fontSize || 16}px Arial`;
+  const fontFamily = item.fontFamily || "Arial, sans-serif";
+  context.font = `${item.italic ? "italic " : ""}${fontWeight} ${item.fontSize || 16}px ${fontFamily}`;
   const lines = String(item.text || "").split("\n");
   const contentWidth = Math.max(
     ...lines.map((line) => context.measureText(line || " ").width),
@@ -197,6 +209,7 @@ export default function IdCardMaker() {
   const [future, setFuture] = useState([]);
   const [showEditor, setShowEditor] = useState(false);
   const [isDownloadAdModalOpen, setIsDownloadAdModalOpen] = useState(false);
+  const [isDownloading, setIsDownloading] = useState(false);
   const [activePanel, setActivePanel] = useState("elements");
   const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
   const sideRef = useRef("front");
@@ -366,7 +379,9 @@ export default function IdCardMaker() {
     const previousSnapshot = elements.map((item) => ({ ...item }));
     const next = elements.map((item) =>
       item.id === selected.id
-        ? fitTextToContent({ ...item, ...patch })
+        ? selected.type === "text" && ("width" in patch || "height" in patch)
+          ? { ...item, ...patch }
+          : fitTextToContent({ ...item, ...patch })
         : item,
     );
     const sameAsPrevious = JSON.stringify(previousSnapshot) === JSON.stringify(next);
@@ -411,6 +426,7 @@ export default function IdCardMaker() {
             color: "#111827",
             fontWeight: shape === "heading" ? 800 : 500,
             bold: shape === "heading",
+            fontFamily: "Arial, sans-serif",
           }
         : type === "photo"
           ? { width: 110, height: 132 }
@@ -434,7 +450,7 @@ export default function IdCardMaker() {
                     bg: "#dbe2ff",
                     fillMode: "solid",
                     borderColor: "#001691",
-                    borderWidth: 2,
+                    borderWidth: 0,
                     radius: shape === "circle" ? 50 : shape === "pill" ? 999 : 6,
                     width: shape === "circle" || shape === "star" ? 72 : 120,
                     height: shape === "line" ? 8 : 72,
@@ -784,6 +800,7 @@ export default function IdCardMaker() {
 
   const exportCard = async () => {
     if (!stageRef.current) return;
+    setIsDownloading(true);
     const originalSide = side;
     const originalElements = elements;
     const exportScale = 3840 / Math.max(cardSize.width, cardSize.height);
@@ -844,10 +861,13 @@ export default function IdCardMaker() {
     } finally {
       setActiveSide(originalSide);
       setElements(originalElements);
+      setIsDownloading(false);
     }
   };
 
   const runDownloadWithAdModal = () => {
+    if (isDownloading) return;
+
     const hasEnabledAd = ADS_ENABLED && Object.entries(AD_UNITS_ENABLED)
       .some(([name, enabled]) => name !== "socialBar" && enabled);
 
@@ -964,23 +984,43 @@ export default function IdCardMaker() {
         <>
           <div className="context-panel-title">Uploads</div>
           <p className="context-panel-note">
-            If a photo frame already exists, this will replace the image in it.
+            Each upload adds a new photo frame. Use Replace photo to change an existing image.
           </p>
           <button
             className="context-add-button"
             onClick={() => {
-              const existing = elements.find((item) => item.type === "photo");
-
-              if (existing) {
-                setSelectedId(existing.id);
-                setActivePanel("properties");
-                setMobileSheetOpen(true);
-                setTimeout(() => fileRef.current?.click(), 0);
-                return;
-              }
-
+              const photoWidth = 120;
+              const photoHeight = 140;
+              const gap = 12;
+              const getPositions = (max, size) => {
+                const positions = [];
+                for (let position = gap; position <= max; position += size + gap) {
+                  positions.push(position);
+                }
+                if (positions.length === 0) positions.push(Math.max(0, max));
+                return positions;
+              };
+              const xPositions = getPositions(cardSize.width - photoWidth - gap, photoWidth);
+              const yPositions = getPositions(cardSize.height - photoHeight - gap, photoHeight);
+              const existingPhotos = elements.filter((item) => item.type === "photo");
+              const position = yPositions.flatMap((y) =>
+                xPositions.map((x) => ({ x, y })),
+              ).find(({ x, y }) =>
+                existingPhotos.every((photo) =>
+                  x + photoWidth <= photo.x ||
+                  x >= photo.x + photo.width ||
+                  y + photoHeight <= photo.y ||
+                  y >= photo.y + photo.height,
+                ),
+              );
+              const fallbackOffset = existingPhotos.length * 14;
               const photo = fitTextToContent(
-                element("photo", { x: 64, y: 60, width: 120, height: 140 }),
+                element("photo", {
+                  x: position?.x ?? Math.min(fallbackOffset, Math.max(0, cardSize.width - photoWidth)),
+                  y: position?.y ?? Math.min(fallbackOffset, Math.max(0, cardSize.height - photoHeight)),
+                  width: photoWidth,
+                  height: photoHeight,
+                }),
               );
               commit([...elements, photo]);
               setSelectedId(photo.id);
@@ -1019,23 +1059,61 @@ export default function IdCardMaker() {
           </label>
           {sizeName === "Custom" && (
             <div className="custom-size-fields">
-              <label>
+              <label className="custom-size-control">
                 Width
-                <input
-                  type="number"
-                  min="40"
-                  value={cardSize.width}
-                  onChange={(event) => updateCustomSize("width", event.target.value)}
-                />
+                <div className="text-number-stepper">
+                  <input
+                    type="number"
+                    min="40"
+                    value={cardSize.width}
+                    aria-label="Custom card width"
+                    onChange={(event) => updateCustomSize("width", event.target.value)}
+                  />
+                  <div className="text-stepper-buttons">
+                    <button
+                      type="button"
+                      aria-label="Increase card width"
+                      onClick={() => updateCustomSize("width", cardSize.width + 1)}
+                    >
+                      +
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Decrease card width"
+                      onClick={() => updateCustomSize("width", cardSize.width - 1)}
+                    >
+                      −
+                    </button>
+                  </div>
+                </div>
               </label>
-              <label>
+              <label className="custom-size-control">
                 Height
-                <input
-                  type="number"
-                  min="40"
-                  value={cardSize.height}
-                  onChange={(event) => updateCustomSize("height", event.target.value)}
-                />
+                <div className="text-number-stepper">
+                  <input
+                    type="number"
+                    min="40"
+                    value={cardSize.height}
+                    aria-label="Custom card height"
+                    onChange={(event) => updateCustomSize("height", event.target.value)}
+                  />
+                  <div className="text-stepper-buttons">
+                    <button
+                      type="button"
+                      aria-label="Increase card height"
+                      onClick={() => updateCustomSize("height", cardSize.height + 1)}
+                    >
+                      +
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="Decrease card height"
+                      onClick={() => updateCustomSize("height", cardSize.height - 1)}
+                    >
+                      −
+                    </button>
+                  </div>
+                </div>
               </label>
             </div>
           )}
@@ -1798,7 +1876,7 @@ export default function IdCardMaker() {
           <button aria-label="Redo" title="Redo" onClick={redo} disabled={!future.length}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 7 5 5-5 5M20 12h-9a7 7 0 0 0-7 7" /></svg>
           </button>
-          <button className="export-action" aria-label="Download front and back 4K ZIP" title="Download front and back 4K ZIP" onClick={runDownloadWithAdModal}>
+          <button className="export-action" aria-label="Download front and back 4K ZIP" title="Download front and back 4K ZIP" onClick={runDownloadWithAdModal} disabled={isDownloading} aria-busy={isDownloading}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14" /></svg>
             <span className="export-label">Download</span>
           </button>
@@ -1941,6 +2019,18 @@ export default function IdCardMaker() {
       {isDownloadAdModalOpen && (
         <DownloadAdModal onClose={() => setIsDownloadAdModalOpen(false)} />
       )}
+      {isDownloading && (
+        <div className="loader-div id-card-download-loader" role="status" aria-live="polite">
+          <div className="loader-inner-div">
+            <div className="box" id="loader1"></div>
+            <div className="box" id="loader2"></div>
+            <div className="box" id="loader3"></div>
+            <div className="box" id="loader4"></div>
+            <div className="box" id="loader5"></div>
+          </div>
+          <div className="id-card-loader-text">Preparing your ID card download...</div>
+        </div>
+      )}
     </main>
   );
 }
@@ -2059,17 +2149,21 @@ function CardElement({
     background:
       item.type === "shape" && item.fillMode !== "stroke" ? item.bg : undefined,
     border:
-      item.type === "shape" && item.fillMode === "stroke"
-        ? `${item.borderWidth || 2}px solid ${item.borderColor || "#b42318"}`
-        : undefined,
+      item.type === "photo" && (item.borderWidth ?? 0) > 0
+        ? `${item.borderWidth}px solid ${item.borderColor || "#b42318"}`
+        : item.type === "shape"
+          ? `${item.borderWidth ?? 2}px solid ${item.borderColor || "#b42318"}`
+          : undefined,
     borderRadius:
       item.shape === "circle"
         ? "50%"
         : item.shape === "pill"
           ? "999px"
-          : item.type === "shape"
-            ? `${item.radius ?? 6}px`
-            : undefined,
+          : item.type === "photo"
+            ? `${item.radius ?? 0}px`
+            : item.type === "shape"
+              ? `${item.radius ?? 6}px`
+              : undefined,
     clipPath:
       item.shape === "triangle"
         ? "polygon(50% 0, 100% 100%, 0 100%)"
@@ -2078,6 +2172,10 @@ function CardElement({
           : undefined,
     fontSize: item.fontSize,
     fontWeight: resolveFontWeight(item),
+    fontFamily: item.fontFamily || undefined,
+    fontStyle: item.italic ? "italic" : "normal",
+    textDecoration: item.underline ? "underline" : "none",
+    textAlign: item.textAlign || "left",
   };
   const content =
     item.type === "photo" ? (
@@ -2111,14 +2209,25 @@ function CardElement({
     ) : item.type === "barcode" ? (
       <span className="barcode-placeholder">||||||||||||</span>
     ) : item.type === "shape" ? (
-      item.text
+      <span
+        className="card-shape-label"
+        style={{ width: "100%", textAlign: item.textAlign || "left" }}
+      >
+        {item.text || ""}
+      </span>
     ) : (
-      item.text?.split("\n").map((line, index) => (
-        <span key={index}>
-          {line}
-          {index < item.text.split("\n").length - 1 && <br />}
-        </span>
-      ))
+      <span
+        className="card-text-content"
+        style={{
+          fontFamily: item.fontFamily || "Arial, sans-serif",
+          fontStyle: item.italic ? "italic" : "normal",
+          fontWeight: resolveFontWeight(item),
+          textDecoration: item.underline ? "underline" : "none",
+          textAlign: item.textAlign || "left",
+        }}
+      >
+        {item.text || ""}
+      </span>
     );
   return (
     <div
@@ -2130,7 +2239,19 @@ function CardElement({
         onSelect(item.id);
       }}
     >
-      <div className="element-content">{content}</div>
+      <div
+        className="element-content"
+        style={{
+          justifyContent: "flex-start",
+          textAlign: item.textAlign || "left",
+          borderRadius:
+            item.type === "photo"
+              ? `${Math.max(0, (item.radius ?? 0) - (item.borderWidth ?? 0))}px`
+              : undefined,
+        }}
+      >
+        {content}
+      </div>
       {selected && rotationGuide?.id === item.id && (
         <span
           className="rotation-guide-line"
@@ -2180,16 +2301,271 @@ function Properties({
   uploadSvg,
   fileRef,
 }) {
+  const isText = item.type === "text";
+  const fontSize = item.fontSize || 16;
+  const transparency = Math.round((1 - (item.opacity ?? 1)) * 100);
+  const rotation = item.rotation || 0;
+  const customizeHeading = {
+    shape: "Customize Shape",
+    text: "Customize Text",
+    photo: "Customize Image",
+    svg: "Customize SVG",
+  }[item.type];
+  const updateNumber = (key, value, min, max) => {
+    const number = Number(value);
+    if (Number.isFinite(number)) {
+      update({ [key]: Math.min(max, Math.max(min, number)) });
+    }
+  };
+
   return (
     <div className="properties-form">
-      {(item.type === "text" || item.type === "shape") && (
+      {customizeHeading && (
+        <h3 className="properties-section-heading">{customizeHeading}</h3>
+      )}
+      {isText && (
         <label>
-          {item.type === "text" ? "Text / label" : "Label"}
+          Add Text
           <textarea
+            className="text-entry"
             value={item.text || ""}
             onChange={(event) => update({ text: event.target.value })}
           />
         </label>
+      )}
+      {item.type === "shape" && (
+        <div className="shape-label-field">
+          <div className="shape-label-heading">
+            <span>Label</span>
+            <div className="shape-label-alignments" role="group" aria-label="Label alignment">
+              {[
+                { value: "left", label: "Align left", icon: "left" },
+                { value: "center", label: "Align center", icon: "center" },
+                { value: "right", label: "Align right", icon: "right" },
+              ].map(({ value, label, icon }) => (
+                <button
+                  key={value}
+                  type="button"
+                  className={(item.textAlign || "left") === value ? "active" : ""}
+                  aria-label={label}
+                  aria-pressed={(item.textAlign || "left") === value}
+                  onClick={() => update({ textAlign: value })}
+                >
+                  <span className={`text-align-icon align-${icon}`} aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+          <textarea
+            value={item.text || ""}
+            aria-label="Shape label"
+            onChange={(event) => update({ text: event.target.value })}
+          />
+        </div>
+      )}
+      {isText && (
+        <>
+          <div className="text-style-controls">
+            <label className="text-style-font">
+              <span>Text style</span>
+              <CustomInput
+                type="select"
+                value={item.fontFamily || "Arial, sans-serif"}
+                options={FONT_FAMILY_OPTIONS.map((font) => ({
+                  ...font,
+                  style: { fontFamily: font.value },
+                }))}
+                onChange={(fontFamily) => update({ fontFamily })}
+                placeholder="Select font"
+                className="text-font-select"
+                optionTextWeightMode={false}
+              />
+            </label>
+            <label className="text-size-control">
+              <span>Size</span>
+              <div className="text-number-stepper">
+                <input
+                  type="number"
+                  min="8"
+                  max="72"
+                  value={fontSize}
+                  aria-label="Font size"
+                  onChange={(event) =>
+                    updateNumber("fontSize", event.target.value, 8, 72)
+                  }
+                />
+                <div className="text-stepper-buttons">
+                  <button
+                    type="button"
+                    aria-label="Increase font size"
+                    onClick={() => updateNumber("fontSize", fontSize + 1, 8, 72)}
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Decrease font size"
+                    onClick={() => updateNumber("fontSize", fontSize - 1, 8, 72)}
+                  >
+                    −
+                  </button>
+                </div>
+              </div>
+            </label>
+          </div>
+          <div className="text-format-controls" role="group" aria-label="Text formatting">
+            <input
+              type="color"
+              value={item.color || "#111827"}
+              aria-label="Text color"
+              onChange={(event) => update({ color: event.target.value })}
+            />
+            <button
+              type="button"
+              className={resolveFontWeight(item) >= 700 ? "active" : ""}
+              aria-label="Bold"
+              aria-pressed={resolveFontWeight(item) >= 700}
+              onClick={() => {
+                const bold = resolveFontWeight(item) < 700;
+                update({ fontWeight: bold ? 700 : 500, bold });
+              }}
+            >
+              <strong>B</strong>
+            </button>
+            <button
+              type="button"
+              className={item.italic ? "active" : ""}
+              aria-label="Italic"
+              aria-pressed={Boolean(item.italic)}
+              onClick={() => update({ italic: !item.italic })}
+            >
+              <em>I</em>
+            </button>
+            <button
+              type="button"
+              className={item.underline ? "active" : ""}
+              aria-label="Underline"
+              aria-pressed={Boolean(item.underline)}
+              onClick={() => update({ underline: !item.underline })}
+            >
+              <span className="underline-format-icon">U</span>
+            </button>
+            <span className="text-format-divider" aria-hidden="true" />
+            {[
+              { value: "left", label: "Align left", icon: "left" },
+              { value: "center", label: "Align center", icon: "center" },
+              { value: "right", label: "Align right", icon: "right" },
+            ].map(({ value, label, icon }) => (
+              <button
+                key={value}
+                type="button"
+                className={(item.textAlign || "left") === value ? "active" : ""}
+                aria-label={label}
+                aria-pressed={(item.textAlign || "left") === value}
+                onClick={() => update({ textAlign: value })}
+              >
+                <span className={`text-align-icon align-${icon}`} aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+              </button>
+            ))}
+          </div>
+          <div className="text-adjustment-control">
+            <span>Transparency</span>
+            <div className="text-number-stepper">
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={transparency}
+                aria-label="Transparency percentage"
+                onChange={(event) =>
+                  updateNumber(
+                    "opacity",
+                    1 - Number(event.target.value) / 100,
+                    0,
+                    1,
+                  )
+                }
+              />
+              <div className="text-stepper-buttons">
+                <button
+                  type="button"
+                  aria-label="Increase transparency"
+                  onClick={() => updateNumber("opacity", 1 - (transparency + 1) / 100, 0, 1)}
+                >
+                  +
+                </button>
+                <button
+                  type="button"
+                  aria-label="Decrease transparency"
+                  onClick={() => updateNumber("opacity", 1 - (transparency - 1) / 100, 0, 1)}
+                >
+                  −
+                </button>
+              </div>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value={transparency}
+              aria-label="Transparency"
+              style={{ background: sliderBackground(transparency, 0, 100) }}
+              onChange={(event) =>
+                update({ opacity: 1 - Number(event.target.value) / 100 })
+              }
+            />
+          </div>
+          <div className="text-adjustment-control">
+            <span>Rotation</span>
+            <div className="text-number-stepper">
+              <input
+                type="number"
+                min="0"
+                max="360"
+                value={rotation}
+                aria-label="Rotation in degrees"
+                onChange={(event) =>
+                  updateNumber("rotation", event.target.value, 0, 360)
+                }
+              />
+              <div className="text-stepper-buttons">
+                <button
+                  type="button"
+                  aria-label="Increase rotation"
+                  onClick={() => updateNumber("rotation", rotation + 1, 0, 360)}
+                >
+                  +
+                </button>
+                <button
+                  type="button"
+                  aria-label="Decrease rotation"
+                  onClick={() => updateNumber("rotation", rotation - 1, 0, 360)}
+                >
+                  −
+                </button>
+              </div>
+            </div>
+            <input
+              type="range"
+              min="0"
+              max="360"
+              value={Math.min(360, rotation)}
+              aria-label="Rotation"
+              style={{ background: sliderBackground(rotation, 0, 360) }}
+              onChange={(event) =>
+                update({ rotation: Number(event.target.value) })
+              }
+            />
+          </div>
+        </>
       )}
       {item.type === "photo" && (
         <>
@@ -2213,6 +2589,46 @@ function Properties({
             accept="image/*"
             onChange={uploadPhoto}
           />
+          <div className="shape-color-controls">
+            <label>
+              Stroke color
+              <input
+                type="color"
+                value={item.borderColor || "#b42318"}
+                aria-label="Image stroke color"
+                onChange={(event) => update({ borderColor: event.target.value })}
+              />
+            </label>
+            <label>
+              Stroke width
+              <input
+                type="number"
+                min="0"
+                max="20"
+                value={item.borderWidth ?? 0}
+                aria-label="Image stroke width"
+                onChange={(event) =>
+                  updateNumber("borderWidth", event.target.value, 0, 20)
+                }
+              />
+            </label>
+          </div>
+          <label className="mb-3 mt-1 gap-3">
+            Corner radius
+            <input
+              type="range"
+              min="0"
+              max="60"
+              value={item.radius ?? 0}
+              aria-label="Image border radius"
+              style={{
+                background: sliderBackground(item.radius ?? 0, 0, 60),
+              }}
+              onChange={(event) =>
+                update({ radius: Number(event.target.value) })
+              }
+            />
+          </label>
         </>
       )}
       {item.type === "shape" ? (
@@ -2226,38 +2642,45 @@ function Properties({
                 { label: "Solid", value: "solid" },
                 { label: "Stroke", value: "stroke" },
               ]}
-              onChange={(nextValue) => update({ fillMode: nextValue })}
+              onChange={(nextValue) =>
+                update({
+                  fillMode: nextValue,
+                  borderWidth:
+                    nextValue === "solid" ? 0 : item.borderWidth || 2,
+                })
+              }
               placeholder="Select fill"
               optionTextWeightMode={false}
             />
           </label>
-          <label>
-            {item.fillMode === "stroke" ? "Stroke color" : "Fill color"}
-            <input
-              type="color"
-              value={
-                item.fillMode === "stroke"
-                  ? item.borderColor || "#b42318"
-                  : item.bg || "#fecaca"
-              }
-              onChange={(event) =>
-                update(
-                  item.fillMode === "stroke"
-                    ? { borderColor: event.target.value }
-                    : { bg: event.target.value },
-                )
-              }
-            />
-          </label>
+          <div className="shape-color-controls">
+            <label>
+              Fill color
+              <input
+                type="color"
+                value={item.bg || "#fecaca"}
+                disabled={item.fillMode === "stroke"}
+                onChange={(event) => update({ bg: event.target.value })}
+              />
+            </label>
+            <label>
+              Stroke color
+              <input
+                type="color"
+                value={item.borderColor || "#b42318"}
+                onChange={(event) => update({ borderColor: event.target.value })}
+              />
+            </label>
+          </div>
           <label>
             Thickness
             <input
               type="number"
-              min="1"
+              min="0"
               max="20"
-              value={item.borderWidth || 2}
+              value={item.borderWidth ?? 0}
               onChange={(event) =>
-                update({ borderWidth: Number(event.target.value) })
+                updateNumber("borderWidth", event.target.value, 0, 20)
               }
             />
           </label>
@@ -2307,7 +2730,7 @@ function Properties({
           </label>
         </>
       ) : (
-        item.type !== "photo" && (
+        item.type !== "photo" && !isText && (
           <>
             <label>
               Text color
@@ -2349,20 +2772,66 @@ function Properties({
           </>
         )
       )}
-      <label>
-        Opacity
-        <input
-          type="range"
-          min="0.2"
-          max="1"
-          step="0.1"
-          value={item.opacity}
-          style={{
-            background: sliderBackground(item.opacity ?? 1, 0.2, 1),
-          }}
-          onChange={(event) => update({ opacity: Number(event.target.value) })}
-        />
-      </label>
+      {!isText && (
+        <label>
+          Opacity
+          <input
+            type="range"
+            min="0.2"
+            max="1"
+            step="0.1"
+            value={item.opacity}
+            style={{
+              background: sliderBackground(item.opacity ?? 1, 0.2, 1),
+            }}
+            onChange={(event) => update({ opacity: Number(event.target.value) })}
+          />
+        </label>
+      )}
+      {(item.type === "photo" || item.type === "shape") && (
+        <div className="text-adjustment-control">
+          <span>Rotation</span>
+          <div className="text-number-stepper">
+            <input
+              type="number"
+              min="0"
+              max="360"
+              value={rotation}
+              aria-label="Rotation in degrees"
+              onChange={(event) =>
+                updateNumber("rotation", event.target.value, 0, 360)
+              }
+            />
+            <div className="text-stepper-buttons">
+              <button
+                type="button"
+                aria-label="Increase rotation"
+                onClick={() => updateNumber("rotation", rotation + 1, 0, 360)}
+              >
+                +
+              </button>
+              <button
+                type="button"
+                aria-label="Decrease rotation"
+                onClick={() => updateNumber("rotation", rotation - 1, 0, 360)}
+              >
+                −
+              </button>
+            </div>
+          </div>
+          <input
+            type="range"
+            min="0"
+            max="360"
+            value={Math.min(360, rotation)}
+            aria-label="Rotation"
+            style={{ background: sliderBackground(rotation, 0, 360) }}
+            onChange={(event) =>
+              update({ rotation: Number(event.target.value) })
+            }
+          />
+        </div>
+      )}
       {item.type === "photo" && (
         <div className="photo-flip-controls" role="group" aria-label="Flip image direction">
           <button
@@ -2393,6 +2862,47 @@ function Properties({
           </button>
         </div>
       )}
+      <div className="element-dimension-controls">
+        {[
+          { key: "width", label: "Width", min: 28, max: 2000 },
+          { key: "height", label: "Height", min: 20, max: 2000 },
+        ].map(({ key, label, min, max }) => {
+          const dimension = Math.round(item[key] || min);
+          return (
+            <label key={key}>
+              <span>{label}</span>
+              <div className="text-number-stepper">
+                <input
+                  type="number"
+                  min={min}
+                  max={max}
+                  value={dimension}
+                  aria-label={`${label} in pixels`}
+                  onChange={(event) =>
+                    updateNumber(key, event.target.value, min, max)
+                  }
+                />
+                <div className="text-stepper-buttons">
+                  <button
+                    type="button"
+                    aria-label={`Increase ${label.toLowerCase()}`}
+                    onClick={() => updateNumber(key, dimension + 1, min, max)}
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    aria-label={`Decrease ${label.toLowerCase()}`}
+                    onClick={() => updateNumber(key, dimension - 1, min, max)}
+                  >
+                    −
+                  </button>
+                </div>
+              </div>
+            </label>
+          );
+        })}
+      </div>
       <div className="property-action-dock">
         <div className="property-toggles">
           <button
@@ -2494,6 +3004,11 @@ function MiniCard({ template, face = "front", width = 196, fluid = false }) {
             color: item.color,
             fontSize: (item.fontSize || 16) * scale,
             fontWeight: resolveFontWeight(item),
+            fontFamily: item.fontFamily || undefined,
+            fontStyle: item.italic ? "italic" : "normal",
+            textDecoration: item.underline ? "underline" : "none",
+            textAlign: item.textAlign || "left",
+            alignItems: "flex-start",
             borderWidth: item.borderWidth ? item.borderWidth * scale : undefined,
             background:
               item.type === "shape" && item.fillMode !== "stroke"
@@ -2556,11 +3071,20 @@ function MiniCard({ template, face = "front", width = 196, fluid = false }) {
           }
           return (
             <div key={item.id} className="rk-mini-el rk-mini-text" style={style}>
-              {item.type === "text"
-                ? String(item.text || "")
-                    .split("\n")
-                    .map((line, index) => <span key={index}>{line}</span>)
-                : null}
+              {item.type === "text" ? (
+                <span
+                  className="rk-mini-text-content"
+                  style={{
+                    fontFamily: item.fontFamily || "Arial, sans-serif",
+                    fontStyle: item.italic ? "italic" : "normal",
+                    fontWeight: resolveFontWeight(item),
+                    textDecoration: item.underline ? "underline" : "none",
+                    textAlign: item.textAlign || "left",
+                  }}
+                >
+                  {item.text || ""}
+                </span>
+              ) : null}
             </div>
           );
         })}

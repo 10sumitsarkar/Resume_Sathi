@@ -57,6 +57,9 @@ export default function CustomInput({
             .includes(query.toLowerCase()),
         )
       : options;
+  const selectedOption = options.find(
+    (option) => option.value === (selectedValue ?? value),
+  );
 
   // register props for react-hook-form if provided
   let regProps = null;
@@ -199,6 +202,7 @@ export default function CustomInput({
           >
             <span
               className={`rk-select-value ${!selectedValue && !value ? "placeholder" : ""}`}
+              style={selectedOption?.style}
             >
               {(() => {
                 const displayVal = selectedValue ?? value;
@@ -241,9 +245,12 @@ export default function CustomInput({
                 )}
                 {filtered.map((opt, idx) => {
                   const numericWeight = Number(opt.value);
-                  const itemStyle = optionTextWeightMode && Number.isFinite(numericWeight)
-                    ? { fontWeight: numericWeight }
-                    : undefined;
+                  const itemStyle = {
+                    ...opt.style,
+                    ...(optionTextWeightMode && Number.isFinite(numericWeight)
+                      ? { fontWeight: numericWeight }
+                      : {}),
+                  };
 
                   return (
                     <li

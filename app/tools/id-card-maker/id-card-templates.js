@@ -56,6 +56,7 @@ const SH = (shape, x, y, w, h, bg, extra = {}) =>
     bg,
     text: "",
     fillMode: "solid",
+    borderWidth: 0,
     radius: shape === "circle" ? 50 : shape === "pill" ? 999 : 0,
     ...extra,
   });

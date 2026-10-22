@@ -297,7 +297,7 @@
 
 .id-editor-layout {
    display: grid;
-   grid-template-columns: 312px minmax(0, 1fr);
+   grid-template-columns: 384px minmax(0, 1fr);
    height: calc(100vh - 64px);
    background: #f3f4f6;
    gap: 0
@@ -319,8 +319,9 @@
    display: flex;
    flex-direction: row;
    overflow: hidden;
-   max-width: 312px;
-   width: 312px
+   max-width: 384px;
+   width: 384px;
+   flex: 0 0 384px
 }
 
 .id-maker-rail {
@@ -596,6 +597,10 @@
 .properties-form textarea {
    min-height: 74px;
    resize: vertical
+}
+
+.properties-form textarea.text-entry {
+   min-height: 122px
 }
 
 .properties-form input[type="color"] {
@@ -964,7 +969,7 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
 }
 
 .id-editor-layout {
-   grid-template-columns: 312px minmax(0, 1fr);
+   grid-template-columns: 384px minmax(0, 1fr);
    overflow: hidden
 }
 
@@ -976,7 +981,7 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
    .id-editor-layout {
       width: 100%;
       margin-left: 0;
-      grid-template-columns: 312px minmax(0, 1fr);
+      grid-template-columns: 384px minmax(0, 1fr);
    }
 
    .id-canvas-left-ad {
@@ -1487,45 +1492,45 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
    -webkit-appearance: none;
    -moz-appearance: none;
    width: 100%;
-   height: 6px;
-   border-radius: 999px;
+   height: 3px;
+   border-radius: 3px;
    background: linear-gradient(90deg, #cc0000 0%, #cc0000 50%, #dfe5f1 50%, #dfe5f1 100%);
    outline: none;
    cursor: pointer
 }
 
 .properties-form>label input[type="range"]::-webkit-slider-runnable-track {
-   height: 6px;
-   border-radius: 999px;
+   height: 3px;
+   border-radius: 3px;
    background: transparent
 }
 
 .properties-form>label input[type="range"]::-webkit-slider-thumb {
    -webkit-appearance: none;
    appearance: none;
-   width: 18px;
-   height: 18px;
+   width: 12px;
+   height: 12px;
    border-radius: 50%;
    background: #fff;
-   border: 3px solid var(--id-red);
-   box-shadow: 0 1px 6px rgba(204, 0, 0, .3);
-   margin-top: -6px
+   border: 1px solid var(--id-red);
+   box-shadow: 0 1px 4px rgba(204, 0, 0, .2);
+   margin-top: -4.5px
 }
 
 .properties-form>label input[type="range"]::-moz-range-track {
-   height: 6px;
-   border-radius: 999px;
+   height: 3px;
+   border-radius: 3px;
    background: transparent
 }
 
 .properties-form>label input[type="range"]::-moz-range-thumb {
-   width: 18px;
-   height: 18px;
+   width: 10px;
+   height: 10px;
    border: none;
    border-radius: 50%;
    background: #fff;
-   border: 3px solid var(--id-red);
-   box-shadow: 0 1px 6px rgba(204, 0, 0, .3)
+   border: 1px solid var(--id-red);
+   box-shadow: 0 1px 4px rgba(204, 0, 0, .2)
 }
 
 .properties-form>label input[type="range"]:focus {
@@ -1992,8 +1997,8 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
    font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif
 }
 
-.id-maker-shell *,
-.id-maker-app * {
+.id-maker-shell *:not(.card-element):not(.card-element *):not(.rk-mini-el):not(.rk-mini-el *):not(.text-font-select):not(.text-font-select *):not(.text-stepper-buttons):not(.text-stepper-buttons *),
+.id-maker-app *:not(.card-element):not(.card-element *):not(.rk-mini-el):not(.rk-mini-el *):not(.text-font-select):not(.text-font-select *):not(.text-stepper-buttons):not(.text-stepper-buttons *) {
    font-family: inherit !important
 }
 
@@ -2030,32 +2035,35 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
 .custom-size-fields {
    display: grid;
    grid-template-columns: repeat(2, minmax(0, 1fr));
-   gap: 8px;
+   gap: 10px;
    margin-top: 10px
 }
 
-.custom-size-fields label {
+.custom-size-fields label.custom-size-control {
    display: flex;
+   min-width: 0;
    flex-direction: column;
-   gap: 5px;
-   color: var(--id-blue);
-   font: 700 10px Arial, sans-serif
+   gap: 7px;
+   color: #334155;
+   font: 700 11px Arial, sans-serif;
+   letter-spacing: 0;
+   text-transform: none
 }
 
-.custom-size-fields input {
+.custom-size-fields .text-number-stepper {
    width: 100%;
-   box-sizing: border-box;
-   border: 1px solid #d8deeb;
-   border-radius: 7px;
-   padding: 8px;
-   background: #f9fbff;
-   color: #17202a;
-   font: 12px Arial, sans-serif
+   height: 42px
 }
 
-.custom-size-fields input:focus {
-   outline: 2px solid rgba(204, 0, 0, .18);
-   border-color: var(--id-red)
+.custom-size-fields .text-number-stepper input[type="number"] {
+   box-sizing: border-box;
+   min-height: 0;
+   padding: 7px 8px;
+   border: 0;
+   border-radius: 0;
+   background: transparent;
+   color: #344054;
+   font: 14px Arial, sans-serif
 }
 
 .toolbar-actions button {
@@ -2157,7 +2165,61 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
 }
 
 .property-action-dock {
-   width: 230px
+   width: 302px
+}
+
+.property-action-dock {
+   box-sizing: border-box;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 8px;
+   padding: 6px 12px;
+   border-top-color: #e5e7eb;
+   box-shadow: 0 -4px 12px rgba(15, 23, 42, .08)
+}
+
+.property-action-dock .property-toggles,
+.property-action-dock .property-actions {
+   display: flex;
+   min-width: 0;
+   flex: 0 0 auto;
+   align-items: center;
+   justify-content: flex-start;
+   gap: 8px
+}
+
+.property-action-dock button,
+.property-action-dock .property-actions button,
+.property-action-dock .property-toggles button {
+   box-sizing: border-box;
+   flex: 0 0 30px;
+   width: 30px;
+   min-width: 30px;
+   height: 30px;
+   margin: 0;
+   padding: 0;
+   border: 1px solid transparent;
+   border-radius: 6px;
+   background: #fff;
+   color: #344054;
+   transition: background-color .15s ease, border-color .15s ease, color .15s ease
+}
+
+.property-action-dock button:hover,
+.property-action-dock button.active {
+   border-color: rgba(204, 0, 0, .24);
+   background: rgba(204, 0, 0, .08) !important;
+   color: var(--id-red)
+}
+
+.property-action-dock button.danger-button {
+   color: var(--id-red)
+}
+
+.property-action-dock svg {
+   width: 18px;
+   height: 18px
 }
 
 .mobile-sheet {
@@ -2338,7 +2400,8 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
 /* card text is left aligned so template layouts line up on a grid */
 .rk-root .card-element.element-text .element-content {
    justify-content: flex-start;
-   text-align: left
+   width: 100%;
+   text-align: inherit
 }
 
 .rk-root .card-element.element-text .element-content span {
@@ -2614,7 +2677,439 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
 
 .rk-mini-text span {
    display: block;
-   white-space: nowrap
+   width: 100%;
+   white-space: pre-wrap;
+   overflow-wrap: anywhere
+}
+
+.element-dimension-controls {
+   display: grid;
+   grid-template-columns: repeat(2, minmax(0, 1fr));
+   gap: 10px
+}
+
+.properties-form .properties-section-heading {
+   margin: 0;
+   color: #171d2a;
+   font: 700 16px/1.3 Arial, sans-serif;
+   letter-spacing: 0;
+   text-transform: none
+}
+
+.properties-form .element-dimension-controls label {
+   display: flex;
+   min-width: 0;
+   flex-direction: column;
+   gap: 7px;
+   color: #334155;
+   font: 700 11px Arial, sans-serif;
+   letter-spacing: 0;
+   text-transform: none
+}
+
+.shape-color-controls {
+   display: grid;
+   grid-template-columns: repeat(2, minmax(0, 1fr));
+   gap: 10px;
+   min-width: 0
+}
+
+.properties-form .shape-color-controls label {
+   display: flex;
+   min-width: 0;
+   flex-direction: column;
+   gap: 7px;
+   color: #334155;
+   font: 700 11px Arial, sans-serif;
+   letter-spacing: 0;
+   text-transform: none
+}
+
+.properties-form .shape-color-controls input[type="color"] {
+   box-sizing: border-box;
+   width: 100%;
+   min-width: 0;
+   height: 42px;
+   min-height: 42px
+}
+
+.properties-form .shape-color-controls input[type="color"]:disabled {
+   cursor: not-allowed;
+   opacity: .45
+}
+
+.text-style-controls {
+   display: grid;
+   grid-template-columns: minmax(0, 1fr) 88px;
+   align-items: end;
+   gap: 10px
+}
+
+.properties-form .text-style-controls label,
+.properties-form .text-adjustment-control {
+   display: flex;
+   flex-direction: column;
+   gap: 7px;
+   color: #334155;
+   font: 700 11px Arial, sans-serif;
+   letter-spacing: 0;
+   text-transform: none
+}
+
+.properties-form .text-style-controls label {
+   min-width: 0;
+   margin: 0
+}
+
+.properties-form .text-style-controls label > span {
+   min-height: 15px;
+   line-height: 15px
+}
+
+.properties-form .text-style-controls select {
+   width: 100%;
+   min-width: 0;
+   min-height: 42px;
+   padding: 8px 10px;
+   border: 1px solid #d8dde3;
+   border-radius: 10px;
+   background: #fff;
+   color: #1f2937;
+   font: 14px Arial, sans-serif
+}
+
+.properties-form .text-style-font .rk-input-root,
+.properties-form .text-style-font .rk-select,
+.properties-form .text-style-font .rk-select-toggle {
+   width: 100%;
+   min-width: 0
+}
+
+.properties-form .text-style-font .rk-select-toggle {
+   min-height: 42px;
+   height: 42px;
+   margin: 0;
+   padding: 8px 10px;
+   border-color: #d8dde3;
+   border-radius: 10px;
+   color: #1f2937;
+   font-size: 14px
+}
+
+.properties-form .text-style-controls .text-number-stepper {
+   height: 42px
+}
+
+.properties-form .text-style-font .rk-select-panel {
+   z-index: 80
+}
+
+.properties-form .text-style-font .rk-select-item {
+   font-size: 14px
+}
+
+.text-number-stepper {
+   min-width: 0;
+   height: 42px;
+   display: flex;
+   align-items: stretch;
+   border: 1px solid #d8dde3;
+   border-radius: 10px;
+   overflow: hidden;
+   background: #fff
+}
+
+.text-number-stepper input[type="number"] {
+   width: 100%;
+   min-width: 0;
+   padding: 7px 8px;
+   border: 0;
+   outline: 0;
+   color: #344054;
+   background: transparent;
+   font: 14px Arial, sans-serif;
+   appearance: textfield;
+   -moz-appearance: textfield
+}
+
+.text-number-stepper input[type="number"]::-webkit-inner-spin-button,
+.text-number-stepper input[type="number"]::-webkit-outer-spin-button {
+   margin: 0;
+   -webkit-appearance: none
+}
+
+.text-stepper-buttons {
+   width: 27px;
+   flex: 0 0 27px;
+   display: flex;
+   flex-direction: column;
+   border-left: 1px solid #eef0f2
+}
+
+.text-number-stepper .text-stepper-buttons button {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+   min-height: 0;
+   flex: 1 1 50%;
+   margin: 0;
+   padding: 0;
+   border: 0;
+   border-radius: 0;
+   background: #fff;
+   color: var(--id-red);
+   font: 700 16px/1 Arial, sans-serif !important;
+   cursor: pointer
+}
+
+.text-number-stepper .text-stepper-buttons button:hover {
+   background: rgba(204, 0, 0, .06);
+   color: var(--id-red)
+}
+
+.text-format-controls {
+   display: flex;
+   width: 100%;
+   align-self: stretch;
+   box-sizing: border-box;
+   align-items: center;
+   justify-content: flex-start;
+   gap: 7px
+}
+
+.shape-label-field {
+   display: flex;
+   flex-direction: column;
+   gap: 8px
+}
+
+.shape-label-heading {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   color: #334155;
+   font: 700 11px Arial, sans-serif
+}
+
+.shape-label-alignments {
+   display: flex;
+   align-items: center;
+   gap: 3px
+}
+
+.properties-form .shape-label-alignments button {
+   display: flex;
+   width: 22px;
+   height: 22px;
+   flex: 0 0 22px;
+   align-items: center;
+   justify-content: center;
+   padding: 0;
+   border: 1px solid transparent;
+   border-radius: 5px;
+   background: #fff;
+   color: #344054;
+   cursor: pointer
+}
+
+.properties-form .shape-label-alignments button.active {
+   border-color: rgba(204, 0, 0, .24);
+   background: rgba(204, 0, 0, .08);
+   color: var(--id-red)
+}
+
+.shape-label-alignments .text-align-icon {
+   width: 14px;
+   gap: 2px
+}
+
+.shape-label-alignments .text-align-icon i {
+   height: 1.5px
+}
+
+.properties-form .text-format-controls input[type="color"] {
+   box-sizing: border-box;
+   width: 30px;
+   height: 30px;
+   min-height: 30px;
+   flex: 0 0 30px;
+   padding: 2px;
+   border: 1px solid #d1d5db;
+   border-radius: 6px
+}
+
+.properties-form .text-format-controls button {
+   width: 30px;
+   height: 30px;
+   flex: 0 0 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 0;
+   border: 1px solid transparent;
+   border-radius: 6px;
+   background: #fff;
+   color: #344054;
+   font: 16px Arial, sans-serif;
+   cursor: pointer
+}
+
+.properties-form .text-format-controls button.active {
+   border-color: rgba(204, 0, 0, .24);
+   background: rgba(204, 0, 0, .08);
+   color: var(--id-red)
+}
+
+.underline-format-icon {
+   text-decoration: underline;
+   text-underline-offset: 3px
+}
+
+.text-format-divider {
+   width: 1px;
+   height: 25px;
+   margin: 0 1px;
+   flex: 0 0 1px;
+   background: #e5e7eb
+}
+
+.text-align-icon {
+   width: 20px;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-start;
+   gap: 3px
+}
+
+.text-align-icon i {
+   width: 100%;
+   height: 2px;
+   border-radius: 2px;
+   background: currentColor
+}
+
+.text-align-icon i:nth-child(2) {
+   width: 72%
+}
+
+.align-center {
+   align-items: center
+}
+
+.align-right {
+   align-items: flex-end
+}
+
+.text-adjustment-control {
+   display: grid !important;
+   grid-template-columns: minmax(0, 1fr) 94px;
+   align-items: center;
+   column-gap: 12px !important;
+   row-gap: 8px !important
+}
+
+.properties-form .text-adjustment-control > span {
+   display: block;
+   color: #334155;
+   font: 700 11px Arial, sans-serif;
+   letter-spacing: 0;
+   text-transform: none
+}
+
+.properties-form .text-adjustment-control .text-number-stepper {
+   grid-column: 2;
+   grid-row: 1
+}
+
+.properties-form .text-adjustment-control input[type="range"] {
+   grid-column: 1 / -1;
+   width: 100%;
+   height: 3px;
+   margin: 3px 0 7px;
+   border: 0;
+   border-radius: 3px;
+   appearance: none;
+   -webkit-appearance: none
+}
+
+.properties-form .text-adjustment-control input[type="range"]::-webkit-slider-thumb {
+   width: 12px;
+   height: 12px;
+   margin-top: -4.5px;
+   border: 1px solid var(--id-red);
+   border-radius: 50%;
+   background: #fff;
+   appearance: none;
+   -webkit-appearance: none
+}
+
+.properties-form .text-adjustment-control input[type="range"]::-moz-range-thumb {
+   width: 10px;
+   height: 10px;
+   border: 1px solid var(--id-red);
+   border-radius: 50%;
+   background: #fff
+}
+
+.properties-form input[type="range"] {
+   height: 3px;
+   border: 0;
+   border-radius: 3px;
+   appearance: none;
+   -webkit-appearance: none;
+   cursor: pointer
+}
+
+.properties-form input[type="range"]::-webkit-slider-runnable-track {
+   height: 3px;
+   border-radius: 3px;
+   background: transparent
+}
+
+.properties-form input[type="range"]::-webkit-slider-thumb {
+   width: 12px;
+   height: 12px;
+   margin-top: -4.5px;
+   border: 1px solid var(--id-red);
+   border-radius: 50%;
+   background: #fff;
+   box-shadow: 0 1px 4px rgba(204, 0, 0, .2);
+   appearance: none;
+   -webkit-appearance: none
+}
+
+.properties-form input[type="range"]::-moz-range-track {
+   height: 3px;
+   border-radius: 3px;
+   background: transparent
+}
+
+.properties-form input[type="range"]::-moz-range-thumb {
+   width: 10px;
+   height: 10px;
+   border: 1px solid var(--id-red);
+   border-radius: 50%;
+   background: #fff;
+   box-shadow: 0 1px 4px rgba(204, 0, 0, .2)
+}
+
+.card-element.element-text .card-text-content {
+   display: block;
+   width: 100%;
+   white-space: pre-wrap;
+   overflow-wrap: anywhere;
+   font-style: inherit;
+   font-weight: inherit;
+   text-decoration: inherit;
+   text-align: inherit
+}
+
+.rk-mini-text .rk-mini-text-content {
+   width: 100%;
+   white-space: pre-wrap;
+   overflow-wrap: anywhere;
+   text-align: inherit
 }
 
 .rk-mini-photo {
@@ -3960,6 +4455,22 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
    .idm-cta-actions .idm-btn {
       flex: 1 1 100%
    }
+}
+
+.id-card-download-loader {
+   z-index: 1000002;
+   flex-direction: column;
+   gap: 18px;
+}
+
+.id-card-download-loader .loader-inner-div {
+   width: auto;
+   height: auto;
+}
+
+.id-card-loader-text {
+   color: #fff;
+   font: 600 15px Arial, sans-serif;
 }
 
 /* Homepage-matched hero typography and controls. */

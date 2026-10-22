@@ -3,6 +3,7 @@ import path from "path";
 import React from "react";
 import { notFound } from "next/navigation";
 import ArticleDetailPageClient from "./ArticleDetailPageClient";
+import JsonLd from "../../components/JsonLd";
 import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
 import { latestFirst } from "../articleSort";
 
@@ -156,11 +157,13 @@ export async function generateMetadata({ params }) {
 
   const title = truncateMeta(rawTitle);
 
-  const description =
+  const description = truncateMeta(
     article?.meta_description ||
-    article?.og_description ||
-    article?.description ||
-    "Read this helpful article from ResumeSathi about resume writing, interviews, career growth, and job search success.";
+      article?.og_description ||
+      article?.description ||
+      "Read this helpful article from ResumeSathi about resume writing, interviews, career growth, and job search success.",
+    160,
+  );
 
   const keywords =
     article?.meta_keywords ||
@@ -187,6 +190,11 @@ export async function generateMetadata({ params }) {
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+      },
     },
     openGraph: {
       title: `${title} | ResumeSathi`,
@@ -224,16 +232,63 @@ export default async function ArticleDetailPage({ params }) {
     .filter((item) => getArticleSlug(item) !== getArticleSlug(slug))
     .slice(0, 5);
 
+  const canonical = `${DEFAULT_SITE_BASE.replace(/\/+$/, "")}${withTrailingSlash(`/blog/${slug}`)}`;
+  const articleTitle =
+    article.meta_title ||
+    article.og_title ||
+    article.article_title ||
+    article.title ||
+    "Blog Article";
+  const articleDescription = truncateMeta(
+    article.meta_description ||
+      article.og_description ||
+      article.description ||
+      "Read this helpful article from ResumeSathi about resume writing, interviews, career growth, and job search success.",
+    160,
+  );
+  const authorName = [article.user?.first_name, article.user?.last_name]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+
   return (
-    <ArticleDetailPageClient
-      article={article}
-      slug={slug}
-      articleIndex={articleIndex}
-      initialLatest={latestArticles}
-      initialCategories={getArticleCategories()}
-    />
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: articleTitle,
+          description: articleDescription,
+          image: [resolveImageUrl(article.og_image || article.meta_image || article.hero_image || article.image)],
+          datePublished: article.created_at,
+          ...(article.updated_at ? { dateModified: article.updated_at } : {}),
+          ...(authorName
+            ? { author: { "@type": "Person", name: authorName } }
+            : {}),
+          ...(article.category?.article_name
+            ? { articleSection: article.category.article_name }
+            : {}),
+          mainEntityOfPage: {
+            "@type": "WebPage",
+            "@id": canonical,
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "ResumeSathi",
+            logo: {
+              "@type": "ImageObject",
+              url: `${DEFAULT_SITE_BASE.replace(/\/+$/, "")}/front-assets/images/logo/logo.svg`,
+            },
+          },
+        }}
+      />
+      <ArticleDetailPageClient
+        article={article}
+        slug={slug}
+        articleIndex={articleIndex}
+        initialLatest={latestArticles}
+        initialCategories={getArticleCategories()}
+      />
+    </>
   );
 }
-
-
-

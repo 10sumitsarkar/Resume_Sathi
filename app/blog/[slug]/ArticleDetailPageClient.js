@@ -693,7 +693,7 @@ export default function ArticleDetailPageClient({
             width={396}
             height={207}
             src={resolveMediaUrl(heroImage)}
-            alt={categoryLabel}
+            alt={article.article_title || article.title || categoryLabel}
             loading="eager"
             decoding="async"
           />

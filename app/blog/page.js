@@ -27,7 +27,15 @@ export const metadata = {
   description: 'Explore expert blog articles on resumes, interviews, career growth, and job search strategies.',
   keywords: 'resume tips, career advice, interview tips, job search, professional growth',
   alternates: { canonical: `${SITE_URL}/blog/` },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+    },
+  },
   openGraph: {
     title: 'Career Blog with Resume and Interview Tips - ResumeSathi',
     description: 'Explore expert blog articles on resumes, interviews, career growth, and job search strategies.',

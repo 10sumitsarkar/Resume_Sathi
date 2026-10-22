@@ -18,7 +18,7 @@ export async function generateMetadata({ params }) {
     };
   }
 
-  const path = withTrailingSlash(`/typing/learn/lesson/${lesson.id}`);
+  const path = withTrailingSlash(`/tools/typing/learn/lesson/${lesson.id}`);
   const title = `${lesson.title} Typing Lesson | ResumeSathi`;
   const description = `${lesson.goal} Practice this free touch typing lesson on ResumeSathi.`;
 
@@ -80,7 +80,7 @@ export default async function LessonDetailPage({ params }) {
             "@type": "LearningResource",
             name: `${lesson.title} Typing Lesson`,
             description: lesson.goal,
-            url: `${SITE_URL}${withTrailingSlash(`/typing/learn/lesson/${lesson.id}`)}`,
+            url: `${SITE_URL}${withTrailingSlash(`/tools/typing/learn/lesson/${lesson.id}`)}`,
             learningResourceType: "Practice",
             educationalUse: "Typing practice",
             provider: {

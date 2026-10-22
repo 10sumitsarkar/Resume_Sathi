@@ -10,7 +10,7 @@
     "build": "next build",
     "seo:audit": "node scripts/seo-audit.js",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@imgly/background-removal": "^1.7.0",
@@ -47,6 +47,6 @@
     "@types/node": "24.0.3",
     "@types/react": "19.1.8",
     "eslint": "^9",
-    "eslint-config-next": "^14.2.35"
+    "eslint-config-next": "^16.2.6"
   }
 }

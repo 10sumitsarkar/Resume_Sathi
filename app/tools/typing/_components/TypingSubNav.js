@@ -5,9 +5,9 @@ import { usePathname, useRouter } from "next/navigation";
 
 const TABS = [
   {
-    href: "/typing",
+    href: "/tools/typing/",
     label: "Home",
-    match: (p) => p === "/typing",
+    match: (p) => p === "/tools/typing" || p === "/tools/typing/",
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 11.5 12 4l9 7.5" />
@@ -16,9 +16,9 @@ const TABS = [
     ),
   },
   {
-    href: "/typing/learn",
+    href: "/tools/typing/learn/",
     label: "Learn",
-    match: (p) => p.startsWith("/typing/learn"),
+    match: (p) => p.startsWith("/tools/typing/learn"),
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
@@ -27,9 +27,9 @@ const TABS = [
     ),
   },
   {
-    href: "/typing/practice",
+    href: "/tools/typing/practice/",
     label: "Practice",
-    match: (p) => p.startsWith("/typing/practice"),
+    match: (p) => p.startsWith("/tools/typing/practice"),
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="3" y="4" width="18" height="16" rx="2" />
@@ -38,9 +38,9 @@ const TABS = [
     ),
   },
   {
-    href: "/typing/stats",
+    href: "/tools/typing/stats/",
     label: "Stats",
-    match: (p) => p.startsWith("/typing/stats"),
+    match: (p) => p.startsWith("/tools/typing/stats"),
     icon: (
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 3v18h18" />
@@ -51,7 +51,7 @@ const TABS = [
 ];
 
 export default function TypingSubNav() {
-  const pathname = usePathname() || "/typing";
+  const pathname = usePathname() || "/tools/typing/";
   const router = useRouter();
 
   return (

@@ -136,7 +136,6 @@ const HIGHLIGHTS = [
   'PDF, Word & TXT Export',
 ];
 
-/*
 const TOOLS = [
   {
     title: 'Resume Builder',
@@ -216,7 +215,6 @@ const TOOLS = [
     bullets: ['Exact age', 'Eligibility checks', 'Total days'],
   },
 ];
-*/
 
 const STEPS = [
   {
@@ -445,7 +443,7 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
             </div>
           </section>
 
-          {/* <div className="ab-features">
+          <div className="ab-features">
             <SectionHeader
               eyebrow="Our Tools"
               title="All ResumeSathi Tools in One Place"
@@ -471,9 +469,9 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
                 </Link>
               ))}
             </div>
-          </div> */}
+          </div>
 
-          {/* <section className="ab-typing-promo" id="typing-practice">
+          <section className="ab-typing-promo" id="typing-practice">
             <div className="ab-typing-promo-card">
               <div className="ab-typing-copy">
                 <div className="ab-typing-label">
@@ -508,7 +506,7 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
                 </div>
               </div>
             </div>
-          </section> */}
+          </section>
 
           <div className="ab-why">
             <p className="ab-kicker ab-kicker--center">Why ResumeSathi</p>

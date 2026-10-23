@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { DEFAULT_SITE_BASE, getApiBase } from './lib/apiConfig';
 import { SEO_TEMPLATES } from './templates/seoTemplates';
+import { LESSONS } from './tools/typing/_lib/lessons';
 
 const siteUrl = DEFAULT_SITE_BASE;
 
@@ -54,6 +55,27 @@ export const revalidate = 60;
 
 export default async function sitemap() {
   const baseUrl = siteUrl.replace(/\/$/, '');
+  const toolPaths = [
+    '/tools/',
+    '/tools/age-calculator/',
+    '/tools/ats-checker/',
+    '/tools/background-remover/',
+    '/tools/css-animations/',
+    '/tools/docx-to-pdf/',
+    '/tools/gradient-generator/',
+    '/tools/id-card-maker/',
+    '/tools/image-to-pdf/',
+    '/tools/merge-pdf/',
+    '/tools/pdf-compressor/',
+    '/tools/pdf-remove/',
+    '/tools/split-pdf/',
+    '/tools/signature-cropper/',
+    '/tools/typing/',
+    '/tools/typing/learn/',
+    '/tools/typing/practice/',
+    '/tools/typing/stats/',
+    ...LESSONS.map((lesson) => `/tools/typing/learn/lesson/${lesson.id}/`),
+  ];
 
   const routes = [
     { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
@@ -74,6 +96,12 @@ export default async function sitemap() {
 { url: `${baseUrl}/privacy-policy/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
 { url: `${baseUrl}/terms-and-conditions/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
 { url: `${baseUrl}/disclaimer/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
+    ...toolPaths.map((path) => ({
+      url: `${baseUrl}${path}`,
+      lastModified: new Date(),
+      changeFrequency: path.includes('/lesson/') ? 'monthly' : 'weekly',
+      priority: path === '/tools/' ? 0.8 : 0.7,
+    })),
 ];
 
   const articles = await fetchLiveItems('/articles?limit=500', 'articles-cache.json');

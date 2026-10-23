@@ -4376,6 +4376,41 @@ body:has(.tools-sidebar.collapsed) .tooltip {
     max-width: 320px;
   }
 
+  .rk-footer-socials {
+    margin-top: 24px;
+  }
+
+  .rk-footer-social-links {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .rk-footer-social-link {
+    display: inline-flex;
+    width: 38px;
+    height: 38px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(100, 116, 139, .25);
+    border-radius: 50%;
+    color: #64748b;
+    transition: color .2s ease, background-color .2s ease, border-color .2s ease;
+  }
+
+  .rk-footer-social-link svg {
+    width: 18px;
+    height: 18px;
+    fill: currentColor;
+  }
+
+  .rk-footer-social-link:hover,
+  .rk-footer-social-link:focus-visible {
+    color: #fff;
+    background: var(--rk-primary);
+    border-color: var(--rk-primary);
+  }
+
   .rk-footer-cols {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

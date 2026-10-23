@@ -80,9 +80,10 @@ export default function RootLayout({ children }) {
             url: SITE_URL,
             logo: `${SITE_URL}/front-assets/images/logo/logo.svg`,
             sameAs: [
-              "https://www.facebook.com",
-              "https://www.linkedin.com",
-              "https://www.instagram.com"
+              "https://www.youtube.com/@Resume_Sathi",
+              "https://www.facebook.com/resumesathi",
+              "https://in.pinterest.com/resumesathi/",
+              "https://www.instagram.com/resume_sathi/"
             ],
             description: "ResumeSathi helps job seekers create ATS-friendly resumes, cover letters, and career documents for free."
           }}

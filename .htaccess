@@ -29,24 +29,24 @@ RewriteRule ^blog/?$ /blog/? [R=301,L]
 
 <IfModule mod_expires.c>
   ExpiresActive On
-  ExpiresDefault "access plus 30 days"
-  ExpiresByType text/css "access plus 30 days"
-  ExpiresByType text/javascript "access plus 30 days"
-  ExpiresByType application/javascript "access plus 30 days"
-  ExpiresByType application/json "access plus 7 days"
-  ExpiresByType image/webp "access plus 30 days"
-  ExpiresByType video/webm "access plus 30 days"
-  ExpiresByType image/svg+xml "access plus 30 days"
-  ExpiresByType image/png "access plus 30 days"
-  ExpiresByType image/jpeg "access plus 30 days"
-  ExpiresByType image/jpg "access plus 30 days"
-  ExpiresByType image/x-icon "access plus 30 days"
-  ExpiresByType font/woff2 "access plus 365 days"
-  ExpiresByType font/woff "access plus 365 days"
-  ExpiresByType font/ttf "access plus 365 days"
-  ExpiresByType application/font-woff2 "access plus 365 days"
-  ExpiresByType application/font-woff "access plus 365 days"
-  ExpiresByType application/font-sfnt "access plus 365 days"
+  ExpiresDefault "access plus 3 hours"
+  ExpiresByType text/css "access plus 3 hours"
+  ExpiresByType text/javascript "access plus 3 hours"
+  ExpiresByType application/javascript "access plus 3 hours"
+  ExpiresByType application/json "access plus 3 hours"
+  ExpiresByType image/webp "access plus 3 hours"
+  ExpiresByType video/webm "access plus 3 hours"
+  ExpiresByType image/svg+xml "access plus 3 hours"
+  ExpiresByType image/png "access plus 3 hours"
+  ExpiresByType image/jpeg "access plus 3 hours"
+  ExpiresByType image/jpg "access plus 3 hours"
+  ExpiresByType image/x-icon "access plus 3 hours"
+  ExpiresByType font/woff2 "access plus 3 hours"
+  ExpiresByType font/woff "access plus 3 hours"
+  ExpiresByType font/ttf "access plus 3 hours"
+  ExpiresByType application/font-woff2 "access plus 3 hours"
+  ExpiresByType application/font-woff "access plus 3 hours"
+  ExpiresByType application/font-sfnt "access plus 3 hours"
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -56,10 +56,11 @@ RewriteRule ^blog/?$ /blog/? [R=301,L]
   SetEnvIf Request_URI "^/api-config\.js$" is_api_config
   SetEnvIf Request_URI "^/templates/?$" is_templates_page
 
-  Header set Cache-Control "public, max-age=31536000, immutable" env=is_next_static
-  Header set Cache-Control "public, max-age=2592000, stale-while-revalidate=604800" env=is_front_assets
+  Header set Cache-Control "no-cache, must-revalidate"
+  Header set Cache-Control "public, max-age=10800" env=is_next_static
+  Header set Cache-Control "public, max-age=10800" env=is_front_assets
   Header set Cache-Control "no-cache, must-revalidate" env=is_jobs_hero
-  Header set Cache-Control "public, max-age=604800, stale-while-revalidate=604800" env=is_api_config
+  Header set Cache-Control "public, max-age=10800" env=is_api_config
   Header unset X-Robots-Tag env=is_templates_page
   Header set X-Robots-Tag "index, follow" env=is_templates_page
 </IfModule>

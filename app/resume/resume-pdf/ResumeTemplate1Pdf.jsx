@@ -24,6 +24,7 @@ import {
   IconGlobe,
   getSocialIcon,
 } from "./PdfCommon";
+import PdfRichText from "./PdfRichText";
 /**
  * ResumeTemplate1Pdf - "Sidebar Timeline"
  * Two-column layout: a full-height colored sidebar (photo/initials,
@@ -287,7 +288,7 @@ const ResumeTemplate1Pdf = ({
   const hobbies = resume.hobbies || [];
   const socialItems = resume.social_medias || [];
 
-  const TimelineEntry = ({ title, subLine, dateLine, description, isLast }) => (
+  const TimelineEntry = ({ title, subLine, dateLine, description, richDescription, isLast }) => (
     <View style={styles.timelineRow}>
       <View style={styles.timelineRail}>
         <View style={{ ...styles.timelineDot, backgroundColor: accentColor }} />
@@ -301,7 +302,9 @@ const ResumeTemplate1Pdf = ({
         <Text style={styles.entryTitle}>{title}</Text>
         {subLine ? <Text style={styles.entrySubLine}>{subLine}</Text> : null}
         {dateLine ? <Text style={styles.entryDate}>{dateLine}</Text> : null}
-        {description ? (
+        {richDescription ? (
+          <PdfRichText html={richDescription} style={styles.entryDescription} />
+        ) : description ? (
           <Text style={styles.entryDescription}>{description}</Text>
         ) : null}
       </View>
@@ -509,9 +512,7 @@ const ResumeTemplate1Pdf = ({
                     work.end_month,
                     work.end_year,
                   )}
-                  description={
-                    work.description ? safeText(work.description) : ""
-                  }
+                  richDescription={work.description}
                 />
               ))}
             </View>
@@ -557,7 +558,6 @@ const ResumeTemplate1Pdf = ({
 };
 
 export default ResumeTemplate1Pdf;
-
 
 
 

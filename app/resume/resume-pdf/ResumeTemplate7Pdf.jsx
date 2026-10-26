@@ -17,6 +17,7 @@ import {
   getSocialIcon,
   IconTick,
 } from "./PdfCommon";
+import PdfRichText from "./PdfRichText";
 
 const styles = StyleSheet.create({
   page: {
@@ -350,7 +351,7 @@ const ResumeTemplate7Pdf = ({
     </View>
   );
 
-  const Entry = ({ title, company, location, dateLabel, description, bullets }) => (
+  const Entry = ({ title, company, location, dateLabel, description, bullets, richDescription }) => (
     <View style={styles.entryBlock}>
       <View style={styles.entryTop}>
         <View style={styles.entryHeading}>
@@ -361,6 +362,13 @@ const ResumeTemplate7Pdf = ({
       </View>
       {location ? <Text style={styles.entryLocation}>{location}</Text> : null}
       {description ? <Text style={styles.entryDescription}>{description}</Text> : null}
+      <PdfRichText
+        html={richDescription}
+        style={styles.bulletText}
+        bulletStyle={{ ...styles.bulletMark, color: accentColor }}
+        itemStyle={styles.bulletRow}
+        plainTextAsBullets
+      />
       {bullets && bullets.length > 0
         ? bullets.map((line, i) => (
             <View key={i} style={styles.bulletRow}>
@@ -436,11 +444,7 @@ const ResumeTemplate7Pdf = ({
                 company={[safeText(work.company_name), safeText(work.employee_type)].filter(Boolean).join(" / ")}
                 location={safeText(work.location)}
                 dateLabel={formatDateRange(work.start_month, work.start_year, work.end_month, work.end_year)}
-                bullets={
-                  work.description
-                    ? safeText(work.description).split(/\r?\n/).filter((line) => line.trim().length > 0)
-                    : null
-                }
+                richDescription={work.description}
               />
             ))}
           </View>
@@ -549,7 +553,6 @@ const ResumeTemplate7Pdf = ({
 };
 
 export default ResumeTemplate7Pdf;
-
 
 
 

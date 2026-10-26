@@ -45,6 +45,13 @@ const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate9', component: ResumeTemplate9 },
 ];
 
+const DEFAULT_CONFIGURATION = {
+    font_style: 'poppins',
+    layout_style: 'all',
+    color_palette: 'color-1',
+    selected_theme: 'ResumeTemplate1',
+};
+
 const normalizeConfiguration = (configuration = {}) => ({
     font_style: configuration.font_style || 'poppins',
     color_palette: configuration.color_palette || 'color-1',
@@ -73,12 +80,7 @@ export default function ShowResume() {
     const [mobTemplateSlider, setMobTemplateSlider] = useState()
     const configuration = useSelector(state => {
         const resumes = Array.isArray(state.resume.resumes) ? state.resume.resumes : [];
-        return resumes.find(resume => resume.id === id)?.configuration || {
-            font_style: 'poppins',
-            layout_style: 'all',
-            color_palette: 'color-1',
-            selected_theme: 'ResumeTemplate1',
-        };
+        return resumes.find(resume => resume.id === id)?.configuration || DEFAULT_CONFIGURATION;
     });
     const resumeName = useSelector(state => {
         const resumes = Array.isArray(state.resume.resumes) ? state.resume.resumes : [];

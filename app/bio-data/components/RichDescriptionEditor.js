@@ -26,6 +26,7 @@ export default function RichDescriptionEditor({
 }) {
   const editorRef = useRef(null);
   const lastHtmlRef = useRef("");
+  const savedSelectionRef = useRef(null);
   const [isEmpty, setIsEmpty] = useState(!value);
 
   useEffect(() => {
@@ -55,11 +56,53 @@ export default function RichDescriptionEditor({
   };
 
   const createLink = () => {
-    editorRef.current?.focus();
-    const url = window.prompt("Enter link URL");
-    if (!url) return;
-    document.execCommand("createLink", false, url);
+    const editor = editorRef.current;
+    if (!editor) return;
+
+    const currentSelection = document.getSelection();
+    const range = savedSelectionRef.current ||
+      (currentSelection?.rangeCount ? currentSelection.getRangeAt(0).cloneRange() : null);
+    const input = window.prompt("Enter link URL");
+    savedSelectionRef.current = null;
+    if (!input) return;
+
+    const url = input.trim();
+    const safeUrl = /^(https?:\/\/|mailto:|tel:)/i.test(url)
+      ? url
+      : /^[a-z][a-z0-9+.-]*:/i.test(url)
+        ? ""
+        : `https://${url}`;
+    let isValidUrl = /^(mailto:|tel:)[^\s]+$/i.test(safeUrl);
+    if (/^https?:\/\//i.test(safeUrl)) {
+      try {
+        isValidUrl = Boolean(new URL(safeUrl).hostname);
+      } catch {
+        isValidUrl = false;
+      }
+    }
+    if (!isValidUrl) {
+      window.alert("Enter a valid web, email, or phone link.");
+      return;
+    }
+
+    editor.focus();
+    if (range && editor.contains(range.commonAncestorContainer)) {
+      const selection = document.getSelection();
+      selection?.removeAllRanges();
+      selection?.addRange(range);
+    }
+    document.execCommand("createLink", false, safeUrl);
     syncValue();
+  };
+
+  const preserveEditorSelection = (event) => {
+    event.preventDefault();
+    const selection = document.getSelection();
+    const range = selection?.rangeCount ? selection.getRangeAt(0) : null;
+    savedSelectionRef.current =
+      range && editorRef.current?.contains(range.commonAncestorContainer)
+        ? range.cloneRange()
+        : null;
   };
 
   const applyColor = (event) => {
@@ -99,7 +142,7 @@ export default function RichDescriptionEditor({
           <i />
         </button>
         <span className="rs-rich-divider" />
-        <button type="button" title="Add link" onClick={createLink} className="rs-rich-btn rs-rich-icon-btn">
+        <button type="button" title="Add link" onMouseDown={preserveEditorSelection} onClick={createLink} className="rs-rich-btn rs-rich-icon-btn">
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M10.6 13.4a1 1 0 0 1 0-1.4l3.4-3.4a3 3 0 0 1 4.2 4.2l-2 2a1 1 0 1 1-1.4-1.4l2-2a1 1 0 0 0-1.4-1.4L12 13.4a1 1 0 0 1-1.4 0Z" />
             <path d="M13.4 10.6a1 1 0 0 1 0 1.4L10 15.4a3 3 0 0 1-4.2-4.2l2-2a1 1 0 1 1 1.4 1.4l-2 2a1 1 0 1 0 1.4 1.4l3.4-3.4a1 1 0 0 1 1.4 0Z" />

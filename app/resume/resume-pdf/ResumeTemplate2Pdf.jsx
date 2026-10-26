@@ -29,6 +29,7 @@ import {
   getSocialIcon,
   IconTick,
 } from "./PdfCommon";
+import PdfRichText from "./PdfRichText";
 
 /**
  * ResumeTemplate2Pdf - "Serene Centered" (Premium)
@@ -320,8 +321,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const BULLET = String.fromCharCode(8226);
-
 const ResumeTemplate2Pdf = ({
   resume,
   palette = "color-1",
@@ -523,18 +522,13 @@ const ResumeTemplate2Pdf = ({
                     </Text>
                   </View>
                 )}
-                {work.description &&
-                  safeText(work.description)
-                    .split(/\r?\n/)
-                    .filter((line) => line.trim().length > 0)
-                    .map((line, lIdx) => (
-                      <View key={lIdx} style={styles.bulletRow}>
-                        <Text style={styles.bulletMark}>{BULLET}</Text>
-                        <Text style={styles.bulletText}>
-                          {line.replace(/^-+\s*/, "")}
-                        </Text>
-                      </View>
-                    ))}
+                <PdfRichText
+                  html={work.description}
+                  style={styles.bulletText}
+                  bulletStyle={styles.bulletMark}
+                  itemStyle={styles.bulletRow}
+                  plainTextAsBullets
+                />
               </View>
             ))}
           </View>
@@ -711,8 +705,6 @@ const ResumeTemplate2Pdf = ({
 };
 
 export default ResumeTemplate2Pdf;
-
-
 
 
 

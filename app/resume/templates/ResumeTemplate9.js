@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../resume-css/resumeTemplate9.css";
+import RichTextView from "../components/RichTextView";
 import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -184,7 +185,7 @@ export default function ResumeTemplate9({ additionalClass, isStatic = false, res
     </div>
   );
 
-  const Entry = ({ title, subLine, dateLabel, description, bullets }) => (
+  const Entry = ({ title, subLine, dateLabel, description, bullets, richDescription }) => (
     <div className="rt9_entry">
       <div className="rt9_entry_top">
         <p className="rt9_entry_title">{title}</p>
@@ -192,6 +193,11 @@ export default function ResumeTemplate9({ additionalClass, isStatic = false, res
       </div>
       {subLine && <p className="rt9_entry_sub">{subLine}</p>}
       {description && <p className="rt9_body_text">{description}</p>}
+      <RichTextView
+        html={richDescription}
+        className="rt9_bullets"
+        plainTextAsBullets
+      />
       {bullets && bullets.length > 0 && (
         <ul className="rt9_bullets">
           {bullets.map((line, i) => (
@@ -366,7 +372,7 @@ export default function ResumeTemplate9({ additionalClass, isStatic = false, res
                       title={work.job_title}
                       subLine={[work.company_name, work.location].filter(Boolean).join(" — ")}
                       dateLabel={workDateLabel(work)}
-                      bullets={work.description ? work.description.split("\n").filter(Boolean) : null}
+                      richDescription={work.description}
                     />
                   ))}
                 </div>

@@ -10,6 +10,7 @@ import {
   formatPhoneDisplay,
 } from "./pdfHelpers";
 import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from "./PdfCommon";
+import PdfRichText from "./PdfRichText";
 
 /**
  * ResumeTemplate9Pdf — "Sidebar Badge" (no photo)
@@ -453,20 +454,27 @@ const ResumeTemplate9Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
     </View>
   );
 
-  const Entry = ({ title, subLine, dateLabel, description, bullets }) => (
+  const Entry = ({ title, subLine, dateLabel, description, bullets, richDescription }) => (
     <View style={styles.entryBlock}>
       <View style={styles.entryTopRow}>
         <Text style={styles.entryTitle}>{title}</Text>
         {dateLabel ? <Text style={{ ...styles.entryDateText, color: accentColor }}>{dateLabel}</Text> : null}
       </View>
       {subLine ? <Text style={styles.entrySubLine}>{subLine}</Text> : null}\n
-      {(description || (bullets && bullets.length > 0)) ? (
+      {(description || richDescription || (bullets && bullets.length > 0)) ? (
         <View style={{ ...styles.quoteBlock, borderLeftColor: accentColor }}>
           <View style={styles.quoteIconWrap}>
             <IconQuote color={accentColor} />
           </View>
           <View style={{ flex: 1 }}>
             {description ? <Text style={styles.quoteText}>{description}</Text> : null}
+            <PdfRichText
+              html={richDescription}
+              style={styles.quoteText}
+              bulletStyle={{ ...styles.bulletMark, color: accentColor }}
+              itemStyle={styles.bulletRow}
+              plainTextAsBullets
+            />
             {bullets && bullets.length > 0
               ? bullets.map((line, i) => (
                   <View key={i} style={{ ...styles.bulletRow, marginBottom: i === bullets.length - 1 ? 0 : 3 }}>
@@ -565,11 +573,7 @@ const ResumeTemplate9Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
                   title={safeText(work.job_title)}
                   subLine={[safeText(work.company_name), safeText(work.location)].filter(Boolean).join(" — ")}
                   dateLabel={formatDateRange(work.start_month, work.start_year, work.end_month, work.end_year)}
-                  bullets={
-                    work.description
-                      ? safeText(work.description).split(/\r?\n/).filter((line) => line.trim().length > 0)
-                      : null
-                  }
+                  richDescription={work.description}
                 />
               ))}
             </View>

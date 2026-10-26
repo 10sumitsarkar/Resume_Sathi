@@ -10,6 +10,7 @@ import {
   formatPhoneDisplay,
 } from "./pdfHelpers";
 import { IconEmail, IconPhone, IconLocation, IconGlobe, getSocialIcon } from "./PdfCommon";
+import PdfRichText from "./PdfRichText";
 
 /**
  * ResumeTemplate8Pdf — "Momentum" (no photo)
@@ -293,7 +294,7 @@ const ResumeTemplate8Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
     </View>
   );
 
-  const TimelineEntry = ({ title, subLine, dateLabel, description, bullets, isLast }) => (
+  const TimelineEntry = ({ title, subLine, dateLabel, description, bullets, richDescription, isLast }) => (
     <View style={styles.timelineRow}>
       <View style={styles.timelineRail}>
         <View style={{ ...styles.timelineDot, backgroundColor: accentColor }} />
@@ -310,6 +311,13 @@ const ResumeTemplate8Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
         </View>
         {subLine ? <Text style={styles.entrySub}>{subLine}</Text> : null}
         {description ? <Text style={styles.bodyText}>{description}</Text> : null}
+        <PdfRichText
+          html={richDescription}
+          style={styles.bulletText}
+          bulletStyle={{ ...styles.bulletMark, color: accentColor }}
+          itemStyle={styles.bulletRow}
+          plainTextAsBullets
+        />
         {bullets && bullets.length > 0
           ? bullets.map((line, i) => (
               <View key={i} style={styles.bulletRow}>
@@ -395,9 +403,7 @@ const ResumeTemplate8Pdf = ({ resume, palette = "color-1", forceFallbackFont = f
               title: safeText(work.job_title),
               subLine: [safeText(work.company_name), safeText(work.location)].filter(Boolean).join(" — "),
               dateLabel: formatDateRange(work.start_month, work.start_year, work.end_month, work.end_year),
-              bullets: work.description
-                ? safeText(work.description).split(/\r?\n/).filter((line) => line.trim().length > 0)
-                : null,
+              richDescription: work.description,
             }))}
 
           {/* EDUCATION */}

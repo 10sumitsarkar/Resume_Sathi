@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../resume-css/resumeTemplate7.css";
+import RichTextView from "../components/RichTextView";
 import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -140,7 +141,7 @@ export default function ResumeTemplate7({ additionalClass, isStatic = false, res
   };
 
   /* ─── Ledger-style entry helper (title/company left, date right) ─── */
-  const Entry = ({ title, company, location, dateLabel, description, bullets }) => (
+  const Entry = ({ title, company, location, dateLabel, description, bullets, richDescription }) => (
     <div className="rt7_entry">
       <div className="rt7_entry_top">
         <div className="rt7_entry_heading">
@@ -151,6 +152,11 @@ export default function ResumeTemplate7({ additionalClass, isStatic = false, res
       </div>
       {location && <p className="rt7_entry_location">{location}</p>}
       {description && <p className="rt7_entry_desc">{description}</p>}
+      <RichTextView
+        html={richDescription}
+        className="rt7_bullets"
+        plainTextAsBullets
+      />
       {bullets && bullets.length > 0 && (
         <ul className="rt7_bullets">
           {bullets.map((line, j) => (
@@ -365,11 +371,7 @@ export default function ResumeTemplate7({ additionalClass, isStatic = false, res
                     dateLabel={`${`${work.start_month || ""} ${work.start_year || ""}`.trim()} – ${
                       !work.end_month || !work.end_year ? "Present" : `${work.end_month} ${work.end_year}`
                     }`}
-                    bullets={
-                      work.description
-                        ? work.description.split("\n").filter(Boolean)
-                        : null
-                    }
+                    richDescription={work.description}
                   />
                 ))}
               </div>

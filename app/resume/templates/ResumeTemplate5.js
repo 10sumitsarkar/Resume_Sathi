@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../resume-css/resumeTemplate5.css";
+import RichTextView from "../components/RichTextView";
 import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -594,9 +595,10 @@ export default function ResumeTemplate5({
                         {work.location}
                         {work.employee_type ? ` • ${work.employee_type}` : ""}
                       </p>
-                      {work.description && (
-                        <p className="rt5_entry_desc">{work.description}</p>
-                      )}
+                      <RichTextView
+                        html={work.description}
+                        className="rt5_entry_desc"
+                      />
                     </div>
                   </div>
                 ))}

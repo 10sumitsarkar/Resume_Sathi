@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../resume-css/resumeTemplate8.css";
+import RichTextView from "../components/RichTextView";
 import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -131,7 +132,7 @@ export default function ResumeTemplate8({ additionalClass, isStatic = false, res
   const eduDateLabel = (edu) => (!edu.date || !edu.year ? "Ongoing" : `${edu.date} ${edu.year}`);
 
   /* ─── Timeline entry (dot + line marker, no text in the marker column) ─── */
-  const TimelineEntry = ({ title, subLine, dateLabel, description, bullets, isLast }) => (
+  const TimelineEntry = ({ title, subLine, dateLabel, description, bullets, richDescription, isLast }) => (
     <div className="rt8_tl_row">
       <div className="rt8_tl_rail">
         <span className="rt8_tl_dot" />
@@ -144,6 +145,11 @@ export default function ResumeTemplate8({ additionalClass, isStatic = false, res
         </div>
         {subLine && <p className="rt8_entry_sub">{subLine}</p>}
         {description && <p className="rt8_body_text">{description}</p>}
+        <RichTextView
+          html={richDescription}
+          className="rt8_bullets"
+          plainTextAsBullets
+        />
         {bullets && bullets.length > 0 && (
           <ul className="rt8_bullets">
             {bullets.map((line, i) => (
@@ -298,7 +304,7 @@ export default function ResumeTemplate8({ additionalClass, isStatic = false, res
                     title: work.job_title,
                     subLine: [work.company_name, work.location].filter(Boolean).join(" — "),
                     dateLabel: workDateLabel(work),
-                    bullets: work.description ? work.description.split("\n").filter(Boolean) : null,
+                    richDescription: work.description,
                   })}
                 />
               )}

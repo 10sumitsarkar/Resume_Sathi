@@ -30,6 +30,7 @@ import {
   IconGlobe,
   getSocialIcon,
 } from "./PdfCommon";
+import PdfRichText from "./PdfRichText";
 
 /**
  * ResumeTemplate5Pdf - "Gradient Rows"
@@ -397,11 +398,10 @@ const ResumeTemplate5Pdf = ({
                         .join(" - ")}
                     </Text>
                   ) : null}
-                  {work.description ? (
-                    <Text style={styles.entryDesc}>
-                      {safeText(work.description)}
-                    </Text>
-                  ) : null}
+                  <PdfRichText
+                    html={work.description}
+                    style={styles.entryDesc}
+                  />
                 </View>
               </View>
             ))}
@@ -620,7 +620,6 @@ const ResumeTemplate5Pdf = ({
 };
 
 export default ResumeTemplate5Pdf;
-
 
 
 

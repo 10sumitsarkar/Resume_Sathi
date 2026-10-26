@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import "../resume-css/biodata.css";
+import RichTextView from "../../resume/components/RichTextView";
 
 const sampleResume = {
   personal_infomation: {
@@ -182,7 +183,15 @@ export default function BiodataTemplate({ additionalClass = "", isStatic = false
                   <li key={work.workEperience_id || index}>
                     {[work.job_title, work.company_name].filter(Boolean).join(" - ")}
                     {[work.start_month, work.start_year].filter(Boolean).length ? ` (${[work.start_month, work.start_year].filter(Boolean).join(" ")}${work.end_year ? ` to ${[work.end_month, work.end_year].filter(Boolean).join(" ")}` : " to Present"})` : ""}
-                    {work.description ? ` - ${work.description}` : ""}
+                    {work.description ? (
+                      <>
+                        {" - "}
+                        <RichTextView
+                          html={work.description}
+                          className="bd_work_description"
+                        />
+                      </>
+                    ) : null}
                   </li>
                 ))}
               </ul>

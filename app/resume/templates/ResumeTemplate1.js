@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../resume-css/resumeTemp.css";
+import RichTextView from "../components/RichTextView";
 import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -270,7 +271,7 @@ const id = searchParams.get('id');
                   <p className="bold">Education</p>
                 </div>
 
-                <ul>
+                <ul className="resume-structure-list">
                   <li>
                     <p className="semi-bold">
                       Master of Science in Software Engineering
@@ -298,7 +299,7 @@ const id = searchParams.get('id');
                   <p className="bold">Certification</p>
                 </div>
 
-                <ul>
+                <ul className="resume-structure-list">
                   <li>
                     <p className="semi-bold">
                       AWS Certified Solutions Architect
@@ -331,7 +332,7 @@ const id = searchParams.get('id');
                   <p className="bold">Work Experience</p>
                 </div>
 
-                <ul>
+                <ul className="resume-structure-list">
                   <li>
                     <p className="semi-bold">
                       Senior Full Stack Developer - InnovateX Technologies
@@ -542,7 +543,7 @@ const id = searchParams.get('id');
                     <p className="bold">Education</p>
                   </div>
                   {educations.map((edu, index) => (
-                    <ul key={index}>
+                    <ul className="resume-structure-list" key={index}>
                       <li>
                         <p className="semi-bold">
                           {edu.degree} in {edu.field_study} (
@@ -567,7 +568,7 @@ const id = searchParams.get('id');
                     <p className="bold">Certification</p>
                   </div>
                   {certificates.map((cert, index) => (
-                    <ul key={index}>
+                    <ul className="resume-structure-list" key={index}>
                       <li>
                         <p className="semi-bold">
                           {cert.certificate_name} from{" "}
@@ -590,7 +591,7 @@ const id = searchParams.get('id');
                     <p className="bold">Internships</p>
                   </div>
                   {any_internships.map((intern, index) => (
-                    <ul key={index}>
+                    <ul className="resume-structure-list" key={index}>
                       <li>
                         <p className="semi-bold">
                           {intern.job_title} in {intern.company_name} (
@@ -616,7 +617,7 @@ const id = searchParams.get('id');
                     <p className="bold">Work Experience</p>
                   </div>
                   {work_experiences.map((work, index) => (
-                    <ul key={index}>
+                    <ul className="resume-structure-list" key={index}>
                       <li>
                         <p className="semi-bold">
                           {work.job_title} in {work.company_name} (
@@ -629,9 +630,10 @@ const id = searchParams.get('id');
                             ? " Present"
                             : ` ${work.end_month} ${work.end_year}`}
                         </p>
-                        {work.description && (
-                          <p className="para-desc">{work.description}</p>
-                        )}
+                        <RichTextView
+                          html={work.description}
+                          className="para-desc"
+                        />
                       </li>
                     </ul>
                   ))}
@@ -644,7 +646,7 @@ const id = searchParams.get('id');
                   <div className="title">
                     <p className="bold">Languages</p>
                   </div>
-                  <ul>
+                  <ul className="resume-structure-list">
                     {languages.map((lang, index) => (
                       <li key={index}>
                         <p>
@@ -662,7 +664,7 @@ const id = searchParams.get('id');
                   <div className="title">
                     <p className="bold">Hobbies</p>
                   </div>
-                  <ul>
+                  <ul className="resume-structure-list">
                     {hobbies.map((hobby, index) => (
                       <li key={index}>
                         <p>{hobby.hobbies}</p>

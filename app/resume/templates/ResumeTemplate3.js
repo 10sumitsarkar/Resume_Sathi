@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../resume-css/resumeTemplate3.css';
+import RichTextView from "../components/RichTextView";
 import { useSelector } from 'react-redux';
 import { usePathname, useSearchParams } from 'next/navigation';
 
@@ -205,7 +206,10 @@ export default function ResumeTemplate3({ additionalClass, isStatic = false, res
                     {dateLine && <span className="rt3_entry_date">{dateLine}</span>}
                 </div>
                 {subLine && <p className="rt3_entry_sub">{subLine}</p>}
-                {description && <p className="rt3_entry_desc">{description}</p>}
+                <RichTextView
+                    html={description}
+                    className="rt3_entry_desc"
+                />
             </div>
         </div>
     );

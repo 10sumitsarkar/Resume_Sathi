@@ -1,5 +1,6 @@
 import React from "react";
 import { Document, Page, View, Text, Image, StyleSheet } from "@react-pdf/renderer";
+import PdfRichText from "../../resume/resume-pdf/PdfRichText";
 
 const PALETTE_COLORS = {
   "color-1": "#9f036d",
@@ -188,7 +189,12 @@ export default function BiodataPdf({ resume, forceFallbackFont = false, fontFami
               {works.map((work, index) => (
                 <View style={styles.bulletRow} key={work.workEperience_id || index}>
                   <Text style={styles.bullet}>•</Text>
-                  <Text style={styles.bulletText}>{[work.job_title, work.company_name].filter(Boolean).join(" - ")}{work.description ? ` - ${work.description}` : ""}</Text>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.bulletText}>
+                      {[work.job_title, work.company_name].filter(Boolean).join(" - ")}
+                    </Text>
+                    <PdfRichText html={work.description} style={styles.bulletText} />
+                  </View>
                 </View>
               ))}
             </View>

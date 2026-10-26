@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../resume-css/resumeTemplate2.css";
+import RichTextView from "../components/RichTextView";
 import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -596,16 +597,11 @@ export default function ResumeTemplate2({
                         work.employee_type,
                       ]}
                     />
-                    {work.description && (
-                      <ul className="rt2_bullets">
-                        {work.description
-                          .split("\n")
-                          .filter(Boolean)
-                          .map((line, j) => (
-                            <li key={j}>{line.replace(/^[-•\s]+/, "")}</li>
-                          ))}
-                      </ul>
-                    )}
+                    <RichTextView
+                      html={work.description}
+                      className="rt2_bullets"
+                      plainTextAsBullets
+                    />
                   </div>
                 ))}
               </div>

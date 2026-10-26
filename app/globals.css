@@ -11,3 +11,141 @@
 .tools-sidebar-ad {
   display: none !important;
 }
+
+.rs-rich-editor {
+  overflow: hidden;
+  border: 1px solid #d9dde3;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.rs-rich-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  padding: 0 12px;
+  border-bottom: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.rs-rich-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 20px;
+  padding: 2px 3px;
+  border: 0;
+  background: transparent;
+  color: #374151;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.rs-rich-btn:hover {
+  color: #111827;
+}
+
+.rs-rich-divider {
+  width: 1px;
+  height: 18px;
+  background: #d9dde3;
+}
+
+.rs-rich-btn-bold {
+  font-weight: 700;
+}
+
+.rs-rich-btn-italic {
+  font-style: italic;
+}
+
+.rs-rich-btn-bullets,
+.rs-rich-link-btn {
+  color: #4b5563;
+}
+
+.rs-rich-bullet-icon {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.rs-rich-link-btn svg {
+  width: 17px;
+  height: 17px;
+  fill: currentColor;
+}
+
+.rs-rich-editor-wrap {
+  position: relative;
+}
+
+.rs-rich-content {
+  min-height: 120px;
+  padding: 12px;
+  outline: none;
+  color: #212529;
+  font: inherit;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.rs-rich-placeholder {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  color: #8a9099;
+  pointer-events: none;
+}
+
+.rs-rich-view {
+  overflow-wrap: anywhere;
+}
+
+.rs-rich-view p {
+  margin: 0 0 0.35em;
+}
+
+.rs-rich-view p:last-child {
+  margin-bottom: 0;
+}
+
+.rs-rich-view ul,
+.rs-rich-view ol {
+  margin: 0.25em 0 0.5em;
+  padding-left: 1.35em !important;
+  list-style-position: outside !important;
+}
+
+.rs-rich-view ul {
+  list-style-type: disc !important;
+}
+
+.rs-rich-view ol {
+  list-style-type: decimal !important;
+}
+
+.rs-rich-view li {
+  display: list-item;
+  margin-bottom: 0.2em;
+}
+
+.rs-rich-view a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+
+.rs-rich-view.rt8_bullets li::before,
+.rs-rich-view.rt9_bullets li::before {
+  content: none !important;
+}
+
+.rs-rich-view.rt2_bullets > ul,
+.rs-rich-view.rt7_bullets > ul,
+.rs-rich-view.rt8_bullets > ul,
+.rs-rich-view.rt9_bullets > ul {
+  margin: 0;
+}

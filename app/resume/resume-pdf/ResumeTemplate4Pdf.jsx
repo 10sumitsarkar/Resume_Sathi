@@ -10,6 +10,7 @@ import {
   formatPhoneDisplay,
 } from "./pdfHelpers";
 import { IconTick, getSocialIcon } from "./PdfCommon";
+import PdfRichText from "./PdfRichText";
 
 /**
  * ResumeTemplate4Pdf - "Classic Divider"
@@ -287,15 +288,10 @@ const ResumeTemplate4Pdf = ({
                     {safeText(work.location)}
                   </Text>
                 )}
-                {work.description &&
-                  safeText(work.description)
-                    .split(/\r?\n/)
-                    .filter((line) => line.trim().length > 0)
-                    .map((line, lIdx) => (
-                      <Text key={lIdx} style={styles.entryDescription}>
-                        {line.replace(/^-+\s*/, "")}
-                      </Text>
-                    ))}
+                <PdfRichText
+                  html={work.description}
+                  style={styles.entryDescription}
+                />
               </View>
             ))}
           </View>
@@ -459,7 +455,6 @@ const ResumeTemplate4Pdf = ({
 };
 
 export default ResumeTemplate4Pdf;
-
 
 
 

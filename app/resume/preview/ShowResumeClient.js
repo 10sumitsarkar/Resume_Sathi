@@ -854,7 +854,7 @@ export default function ShowResume() {
                             <ReviewResume isMainPreview={true} />
                         </div>
                     </div>
-                    <ViewportAd media="(min-width: 992px)">
+                    {/* <ViewportAd media="(min-width: 992px)">
                         <div aria-hidden="true" style={{ height: 68 }} />
                         <div style={{
                             position: "fixed",
@@ -889,7 +889,7 @@ export default function ShowResume() {
                         }}>
                             <Banner320x50 />
                         </div>
-                    </ViewportAd>
+                    </ViewportAd> */}
                 </div>
 
                 <div className='right-download-div'>

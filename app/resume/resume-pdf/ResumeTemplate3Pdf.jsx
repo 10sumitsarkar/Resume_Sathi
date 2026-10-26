@@ -24,6 +24,7 @@ import {
   IconGlobe,
   getSocialIcon,
 } from "./PdfCommon";
+import PdfRichText from "./PdfRichText";
 
 /**
  * ResumeTemplate3Pdf - "Executive Panel"
@@ -437,7 +438,7 @@ const ResumeTemplate3Pdf = ({
   // ONLY — never concatenated with the company/institute/issuer, which is
   // what caused the overflow). subLine = company/institute/issuer + extra
   // context, rendered italic on its own line underneath.
-  const Entry = ({ title, dateLine, subLine, description, isLast }) => (
+  const Entry = ({ title, dateLine, subLine, description, richDescription, isLast }) => (
     <View style={styles.entryBlock}>
       <View style={styles.entryRow}>
         <View style={styles.entryRail}>
@@ -476,7 +477,15 @@ const ResumeTemplate3Pdf = ({
               {subLine}
             </Text>
           ) : null}
-          {description ? (
+          {richDescription ? (
+            <PdfRichText
+              html={richDescription}
+              style={{
+                ...styles.entryDescription,
+                color: theme.entryDescription,
+              }}
+            />
+          ) : description ? (
             <Text
               style={{
                 ...styles.entryDescription,
@@ -672,9 +681,7 @@ const ResumeTemplate3Pdf = ({
                     ]
                       .filter(Boolean)
                       .join(" — ")}
-                    description={
-                      work.description ? safeText(work.description) : ""
-                    }
+                    richDescription={work.description}
                     isLast={idx === resume.work_experiences.length - 1}
                   />
                 ))}

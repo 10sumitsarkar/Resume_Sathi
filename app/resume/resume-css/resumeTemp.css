@@ -270,12 +270,12 @@
 
     .resume_work,
     .resume_education {
-      ul {
+      > ul.resume-structure-list {
         padding-left: 20px;
         margin-bottom: 25px;
         overflow: hidden;
 
-        li {
+        > li {
           position: relative;
           p {
             margin-bottom: 10px;

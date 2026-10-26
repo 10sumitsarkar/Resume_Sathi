@@ -16,6 +16,7 @@ import {
   IconGlobe,
   getSocialIcon,
 } from "./PdfCommon";
+import PdfRichText from "./PdfRichText";
 
 /**
  * ResumeTemplate6Pdf - "Minimal Ledger" (v2)
@@ -468,11 +469,10 @@ const ResumeTemplate6Pdf = ({
                     <Text style={styles.entryTitle}>
                       {safeText(work.job_title)}
                     </Text>
-                    {work.description ? (
-                      <Text style={styles.entryDescription}>
-                        {safeText(work.description)}
-                      </Text>
-                    ) : null}
+                    <PdfRichText
+                      html={work.description}
+                      style={styles.entryDescription}
+                    />
                   </View>
                 ))}
               </View>

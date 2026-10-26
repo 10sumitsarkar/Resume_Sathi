@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import "../resume-css/resumeTemplate6.css";
+import RichTextView from "../components/RichTextView";
 import { useSelector } from "react-redux";
 import { usePathname, useSearchParams } from "next/navigation";
 
@@ -716,9 +717,10 @@ export default function ResumeTemplate6({
                           {workDateLabel(work)}
                         </p>
                         <p className="rt6_entry_title">{work.job_title}</p>
-                        {work.description && (
-                          <p className="rt6_entry_desc">{work.description}</p>
-                        )}
+                        <RichTextView
+                          html={work.description}
+                          className="rt6_entry_desc"
+                        />
                       </div>
                     ))}
                   </div>

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useSearchParams, useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
   setResumeWorkExperiences,
@@ -14,6 +14,7 @@ import {
 import MobProgressArea from "../../components/MobProgressArea";
 import StepHeadingAd from "../../components/StepHeadingAd";
 import CustomInput from '../../../components/CustomInput/CustomInput';
+import RichDescriptionEditor from "../../../resume/components/RichDescriptionEditor";
 
 export default function WorkExperience() {
   const searchParams = useSearchParams();
@@ -42,6 +43,7 @@ const id = searchParams.get('id');
     watch,
     reset,
     setValue,
+    control,
     formState: { errors },
   } = useForm({
     mode: "onChange",
@@ -488,13 +490,19 @@ const id = searchParams.get('id');
               <div className="col-12 mb-4">
                 <div className="each-input-div">
                   <label htmlFor="description">Description (Optional)</label>
-                  <textarea
-                    rows={8}
-                    {...register("description")}
-                    className={``}
-                    id="description"
-                   placeholder="Describe your work, experience, achievements, responsibilities, or any relevant details..."
-                  ></textarea>
+                  <Controller
+                    name="description"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                      <RichDescriptionEditor
+                        id="description"
+                        value={field.value || ""}
+                        onChange={field.onChange}
+                        placeholder="Describe your work, experience, achievements, responsibilities, or any relevant details..."
+                      />
+                    )}
+                  />
                   <button type="button" className="refine-al-btn">
                     <img
                       src="/front-assets/images/icons/refine-ai.svg"

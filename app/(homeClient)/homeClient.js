@@ -836,7 +836,7 @@ function ResumeCoverflow() {
                 width={640}
                 height={480}
                 className="rk-cf-img"
-                loading="lazy"
+                loading={img.src.endsWith("/resume-3.webp") ? "eager" : "lazy"}
                 decoding="async"
               />
             </button>

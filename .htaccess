@@ -3,8 +3,8 @@ ErrorDocument 404 /404.html
 
 RewriteEngine On
 
-# Redirect retired jobs pages and their sub-pages to the WWW homepage.
-RewriteRule ^jobs(?:/.*)?$ https://www.resumesathi.com [R=301,L,NC]
+# Retired jobs pages have no replacement; report them as permanently gone.
+RewriteRule ^jobs(?:/.*)?$ - [G,L,NC]
 
 # Use one canonical host so Google does not see www and non-www as duplicates.
 RewriteCond %{HTTP_HOST} ^resumesathi\.com$ [NC]

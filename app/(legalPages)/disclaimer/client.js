@@ -10,7 +10,7 @@ const SECTIONS = [
   { id: 'no-professional-advice', title: '2. No Professional Advice' },
   { id: 'accuracy-of-content', title: '3. Accuracy of Content & Tools' },
   { id: 'ats-score-disclaimer', title: '4. ATS Score & Job Outcomes' },
-  { id: 'blog-jobs-disclaimer', title: '5. Blog & Job Listings' },
+  { id: 'blog-exam-guides-disclaimer', title: '5. Blog & Exam Guides' },
   { id: 'external-links', title: '6. External Links' },
   { id: 'advertising-disclosure', title: '7. Advertising & Third-Party Ads' },
   { id: 'affiliate-disclosure', title: '8. Affiliate Disclosure' },
@@ -111,17 +111,15 @@ export default function DisclaimerClient() {
                 </p>
               </div>
 
-              <div id="blog-jobs-disclaimer" className="lp-section">
-                <h2><span className="lp-num">5</span>Blog & Job Listings</h2>
+              <div id="blog-exam-guides-disclaimer" className="lp-section">
+                <h2><span className="lp-num">5</span>Blog & Exam Guides</h2>
                 <p>
                   Articles published on our Blog are for general informational purposes and
                   reflect the views of the author at the time of writing; they should not be
-                  taken as professional or legal advice. Job listings displayed on our Jobs
-                  page are aggregated or published for convenience only. We do not guarantee
-                  the accuracy, availability, or legitimacy of any job listing and are not
-                  responsible for the hiring practices of any listed employer. Always verify
-                  details directly with the employer before applying or sharing personal
-                  information.
+                  taken as professional or legal advice. Exam guides are provided for
+                  informational purposes and may not reflect the latest official notification
+                  or exam rules. Always verify eligibility, dates, fees, and other requirements
+                  with the relevant official exam authority before applying.
                 </p>
               </div>
 

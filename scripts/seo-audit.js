@@ -10,7 +10,7 @@ const nonCanonicalHost = canonicalHost.startsWith('www\\.')
   : `www\\.${canonicalHost}`;
 const seoPrefixes = [
   'blog',
-  'jobs',
+  'exam-guides',
   'about',
   'contact',
   'privacy-policy',

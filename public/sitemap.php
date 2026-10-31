@@ -66,6 +66,26 @@ function slug_from($item)
     return trim($value, '-');
 }
 
+function category_slug_from($category)
+{
+    if (!is_array($category)) {
+        return '';
+    }
+
+    $raw = $category['course_url']
+        ?? $category['course_name']
+        ?? $category['name']
+        ?? $category['title']
+        ?? '';
+
+    $value = strtolower(trim((string) $raw));
+    $value = str_replace('&', ' and ', $value);
+    $value = preg_replace('/[^a-z0-9]+/', '-', $value);
+    $value = trim($value, '-');
+
+    return $value === 'railways' ? 'railway' : $value;
+}
+
 function normalize_items($payload)
 {
     if (!is_array($payload)) {
@@ -85,27 +105,6 @@ function normalize_items($payload)
     }
 
     return $payload;
-}
-
-function category_slug_from($category)
-{
-    if (!is_array($category)) {
-        return '';
-    }
-
-    $raw = $category['course_url']
-        ?? $category['course_name']
-        ?? $category['article_name']
-        ?? $category['name']
-        ?? $category['title']
-        ?? '';
-
-    $value = strtolower(trim((string) $raw));
-    $value = str_replace('&', ' and ', $value);
-    $value = preg_replace('/[^a-z0-9]+/', '-', $value);
-    $value = trim($value, '-');
-
-    return $value === 'railways' ? 'railway' : $value;
 }
 
 function iso_date($item)
@@ -140,7 +139,7 @@ $seen = [];
 $staticRoutes = [
     ['/', 'weekly', '1.0'],
     ['/blog/', 'weekly', '0.95'],
-    ['/jobs/', 'daily', '0.95'],
+    ['/exam-guides/', 'weekly', '0.9'],
     ['/resume/', 'weekly', '0.9'],
     ['/resume/resume-type/', 'weekly', '0.85'],
     ['/resume/upload-resume/', 'weekly', '0.8'],
@@ -193,16 +192,16 @@ $categories = normalize_items($categoriesPayload);
 foreach ($categories as $category) {
     $slug = category_slug_from($category);
     if ($slug) {
-        add_url($routes, $seen, $frontendBase . '/jobs/' . rawurlencode($slug) . '/', iso_date($category), 'daily', '0.9');
+        add_url($routes, $seen, $frontendBase . '/exam-guides/' . rawurlencode($slug) . '/', iso_date($category), 'daily', '0.9');
     }
 }
 
-$jobsPayload = fetch_json($backendBase . '/api/courses?limit=500');
-$jobs = normalize_items($jobsPayload);
-foreach ($jobs as $job) {
-    $slug = is_array($job) ? slug_from($job) : '';
+$guidesPayload = fetch_json($backendBase . '/api/courses?limit=500');
+$guides = normalize_items($guidesPayload);
+foreach ($guides as $guide) {
+    $slug = is_array($guide) ? slug_from($guide) : '';
     if ($slug) {
-        add_url($routes, $seen, $frontendBase . '/jobs/' . rawurlencode($slug) . '/', iso_date($job), 'daily', '0.85');
+        add_url($routes, $seen, $frontendBase . '/exam-guides/' . rawurlencode($slug) . '/', iso_date($guide), 'monthly', '0.82');
     }
 }
 

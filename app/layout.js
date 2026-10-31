@@ -13,8 +13,8 @@ export const metadata = {
     default: 'Free Resume Builder, ATS Resume Templates & Career Tools | ResumeSathi',
     template: '%s | ResumeSathi',
   },
-  description: 'Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi. Explore career tools, job updates, and expert advice.',
-  keywords: ['resume builder', 'ATS resume', 'free resume templates', 'career blog', 'job search tools', 'cover letter builder'],
+  description: 'Create ATS-friendly resumes, cover letters, and career documents for free with ResumeSathi. Explore career tools, exam guides, and expert advice.',
+  keywords: ['resume builder', 'ATS resume', 'free resume templates', 'career blog', 'exam guides', 'cover letter builder'],
   robots: {
     index: true,
     follow: true,

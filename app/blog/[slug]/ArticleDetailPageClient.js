@@ -2,6 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useParams, usePathname, useRouter } from "next/navigation";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   getApiBase,
   getBackendBase,
@@ -346,7 +348,6 @@ export default function ArticleDetailPageClient({
   const [loading, setLoading] = useState(!initialArticle);
   const [posting, setPosting] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
 
   useEffect(() => {
     if (initialArticle) {
@@ -421,7 +422,6 @@ export default function ArticleDetailPageClient({
 
     setPosting(true);
     setError("");
-    setSuccess("");
 
     try {
       const response = await fetch(`${getApiBase()}/article-comments`, {
@@ -441,7 +441,7 @@ export default function ArticleDetailPageClient({
       }
 
       setForm({ name: "", email: "", text: "" });
-      setSuccess("Comment submitted successfully.");
+      toast.success("Comment submitted successfully.");
       await fetchComments(article.id);
     } catch (err) {
       setError(err.message || "Something went wrong.");
@@ -807,11 +807,6 @@ export default function ArticleDetailPageClient({
                             <i className="bi bi-exclamation-circle"></i> {error}
                           </p>
                         )}
-                        {success && (
-                          <p className="rk-form-success">
-                            <i className="bi bi-check-circle"></i> {success}
-                          </p>
-                        )}
                       </div>
                     </form>
                   </div>
@@ -1017,6 +1012,7 @@ export default function ArticleDetailPageClient({
       <div className="rk-article-fixed-ad">
         <Banner468x60 />
       </div>
+      <ToastContainer position="top-right" />
     </div>
   );
 }

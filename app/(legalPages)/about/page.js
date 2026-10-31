@@ -42,11 +42,11 @@ const aboutFaqs = [
   },
   {
     q: 'What can I do on ResumeSathi besides building a resume?',
-    a: 'You can check ATS compatibility, manage PDF files, convert DOCX or images to PDF, crop signatures, calculate age, practice typing, read career blogs, and browse latest job updates.',
+    a: 'You can check ATS compatibility, manage PDF files, convert DOCX or images to PDF, crop signatures, calculate age, practice typing, read career blogs, and explore exam guides.',
   },
   {
-    q: 'Does ResumeSathi provide government job updates?',
-    a: 'Yes. ResumeSathi publishes curated job updates with important dates, eligibility details, and apply links so candidates can track openings in one place.',
+    q: 'Does ResumeSathi provide exam guides?',
+    a: 'Yes. ResumeSathi publishes exam guides with details such as eligibility, syllabus, selection stages, important dates, and preparation information.',
   },
   {
     q: 'Can I practice typing for exams on ResumeSathi?',
@@ -58,7 +58,7 @@ const aboutFaqs = [
   },
   {
     q: 'Can freshers use ResumeSathi?',
-    a: 'Yes. Freshers can build ATS-friendly resumes, add education and skills, read career guides, and use job listings to find relevant opportunities.',
+    a: 'Yes. Freshers can build ATS-friendly resumes, add education and skills, read career guides, and explore exam guides for their preparation.',
   },
   {
     q: 'Can experienced professionals use ResumeSathi?',
@@ -69,23 +69,23 @@ const aboutFaqs = [
     a: 'ResumeSathi helps users review resume structure and ATS compatibility, so they can improve formatting, sections, and keyword relevance before applying.',
   },
   {
-    q: 'How often are jobs and blogs updated?',
-    a: 'Jobs and career articles are updated regularly from ResumeSathi content data, so users can discover fresh opportunities and guidance.',
+    q: 'How often are exam guides and blogs updated?',
+    a: 'Exam guides and career articles are updated regularly so users can find current exam information and practical guidance.',
   },
   {
     q: 'Is ResumeSathi useful on mobile?',
-    a: 'Yes. ResumeSathi pages are responsive, so users can browse jobs, read blogs, use tools, and continue resume work from mobile or desktop.',
+    a: 'Yes. ResumeSathi pages are responsive, so users can browse exam guides, read blogs, use tools, and continue resume work from mobile or desktop.',
   },
   {
     q: 'Why should I use ResumeSathi for my career workflow?',
-    a: 'ResumeSathi combines resume creation, ATS checking, document tools, typing practice, job updates, and career guidance in one free platform.',
+    a: 'ResumeSathi combines resume creation, ATS checking, document tools, typing practice, exam guides, and career guidance in one free platform.',
   },
 ];
 
 export const metadata = {
-  title: 'About ResumeSathi: Resume Builder, Tools & Jobs',
+  title: 'About ResumeSathi: Resume Builder, Tools & Exam Guides',
   description:
-    'Learn about ResumeSathi, a free career platform with resume builder, bio-data maker, PDF tools, typing practice, job updates, and career blogs.',
+    'Learn about ResumeSathi, a free career platform with resume builder, bio-data maker, PDF tools, typing practice, exam guides, and career blogs.',
   keywords: [
     'about ResumeSathi',
     'ResumeSathi mission',
@@ -95,8 +95,8 @@ export const metadata = {
     'bio data format online',
     'ATS resume builder',
     'career tools for job seekers',
-    'typing practice for jobs',
-    'latest job updates',
+    'typing practice for exams',
+    'exam guides',
     'career blog India',
   ],
   alternates: {
@@ -107,9 +107,9 @@ export const metadata = {
     follow: true,
   },
   openGraph: {
-    title: 'About ResumeSathi | Free Resume & Bio-Data Maker, Tools, Jobs',
+    title: 'About ResumeSathi | Free Resume & Bio-Data Maker, Tools, Exam Guides',
     description:
-      'ResumeSathi helps job seekers build resumes and bio-data, check ATS readiness, use free tools, practice typing, read career blogs, and find jobs.',
+      'ResumeSathi helps candidates build resumes and bio-data, check ATS readiness, use free tools, practice typing, and explore exam guides and career blogs.',
     url: `${siteUrl}/about/`,
     siteName: 'ResumeSathi',
     type: 'website',
@@ -119,7 +119,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'About ResumeSathi | Free Resume & Bio-Data Maker',
     description:
-      'Build resumes and bio-data, use free tools, practice typing, read career blogs, and find job updates on ResumeSathi.',
+      'Build resumes and bio-data, use free tools, practice typing, and explore exam guides and career blogs on ResumeSathi.',
     images: ['/front-assets/images/og/home-og.png'],
   },
 };

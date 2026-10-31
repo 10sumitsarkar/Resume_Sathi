@@ -9,7 +9,7 @@ const SECTIONS = [
   { id: 'information-we-collect', title: '1. Information We Collect' },
   { id: 'how-we-use-information', title: '2. How We Use Your Information' },
   { id: 'local-storage', title: '3. Resume & Bio-Data Local Storage' },
-  { id: 'blog-jobs-data', title: '4. Blog & Job Listings Data' },
+  { id: 'blog-exam-guides-data', title: '4. Blog & Exam Guide Data' },
   { id: 'cookies', title: '5. Cookies & Tracking' },
   { id: 'third-party-services', title: '6. Third-Party Services' },
   { id: 'data-security', title: '7. Data Security' },
@@ -117,10 +117,10 @@ export default function PrivacyPolicyClient() {
                 </p>
               </div>
 
-              <div id="blog-jobs-data" className="lp-section">
-                <h2><span className="lp-num">4</span>Blog & Job Listings Data</h2>
+              <div id="blog-exam-guides-data" className="lp-section">
+                <h2><span className="lp-num">4</span>Blog & Exam Guide Data</h2>
                 <p>
-                  Our Blog and Jobs pages display content (such as articles and job listings)
+                  Our Blog and Exam Guides pages display published content (such as articles and exam information)
                   that is fetched dynamically from our database. This content is not personal
                   information about you&mdash;it is published content that we maintain to
                   provide useful information to visitors. Simply viewing these pages does not
@@ -155,7 +155,7 @@ export default function PrivacyPolicyClient() {
                 <h2><span className="lp-num">7</span>Data Security</h2>
                 <p>
                   We apply reasonable technical and organizational measures to protect the
-                  information we do handle (such as contact form submissions and our blog/job
+                  information we do handle (such as contact form submissions and our blog/exam guide
                   database) from unauthorized access, alteration, or disclosure. However, no
                   method of transmission or storage over the internet is completely secure,
                   and we cannot guarantee absolute security.

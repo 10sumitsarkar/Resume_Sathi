@@ -5,6 +5,7 @@ import { SEO_TEMPLATES } from './templates/seoTemplates';
 import { LESSONS } from './tools/typing/_lib/lessons';
 
 const siteUrl = DEFAULT_SITE_BASE;
+const examGuidesCachePath = path.join(process.cwd(), 'data', 'exam-guides-cache.json');
 
 function getSlug(item) {
   const raw = item?.slug || item?.url_name || item?.canonical_tag || item?.id?.toString() || '';
@@ -31,6 +32,18 @@ function readCache(filename) {
     const raw = fs.readFileSync(path.join(process.cwd(), 'data', filename), 'utf-8');
     return normalizeItems(JSON.parse(raw));
   } catch (error) {
+    return [];
+  }
+}
+
+function readExamGuides() {
+  try {
+    const guides = JSON.parse(fs.readFileSync(examGuidesCachePath, 'utf-8'));
+    return Array.isArray(guides)
+      ? guides.filter((guide) => guide && guide.is_active !== 0 && !guide.deleted_at)
+      : [];
+  } catch (error) {
+    console.error('FATAL: could not read data/exam-guides-cache.json for sitemap.');
     return [];
   }
 }
@@ -80,6 +93,7 @@ export default async function sitemap() {
   const routes = [
     { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
     { url: `${baseUrl}/blog/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
+    { url: `${baseUrl}/exam-guides/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${baseUrl}/resume/resume-type/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
     { url: `${baseUrl}/resume/upload-resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
@@ -105,13 +119,13 @@ export default async function sitemap() {
 ];
 
   const articles = await fetchLiveItems('/articles?limit=500', 'articles-cache.json');
-  const seenBlogUrls = new Set(routes.map((route) => route.url));
+  const seenUrls = new Set(routes.map((route) => route.url));
   articles.forEach((article) => {
     const slug = getSlug(article);
     if (slug) {
       const url = `${baseUrl}/blog/${encodeURIComponent(slug)}/`;
-      if (!seenBlogUrls.has(url)) {
-        seenBlogUrls.add(url);
+      if (!seenUrls.has(url)) {
+        seenUrls.add(url);
         routes.push({
           url,
           lastModified: new Date(article.updated_at || article.created_at || Date.now()),
@@ -120,6 +134,49 @@ export default async function sitemap() {
         });
       }
     }
+  });
+
+  readCache('categories-cache.json').forEach((category) => {
+    const raw = category.course_url || category.course_name || category.name || category.title || '';
+    const categorySlug = String(raw)
+      .toLowerCase()
+      .replace(/&/g, ' and ')
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '')
+      .replace(/^railways$/, 'railway');
+    if (!categorySlug) return;
+
+    const url = `${baseUrl}/exam-guides/${encodeURIComponent(categorySlug)}/`;
+    if (seenUrls.has(url)) return;
+    seenUrls.add(url);
+    routes.push({
+      url,
+      lastModified: new Date(category.updated_at || category.created_at || Date.now()),
+      changeFrequency: 'daily',
+      priority: 0.9,
+    });
+  });
+
+  readExamGuides().forEach((guide) => {
+    const rawSlug = guide.slug || guide.url_name || guide.canonical_tag || '';
+    const slug = String(rawSlug)
+      .split('/')
+      .filter(Boolean)
+      .pop()
+      ?.toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+    if (!slug) return;
+
+    const url = `${baseUrl}/exam-guides/${encodeURIComponent(slug)}/`;
+    if (seenUrls.has(url)) return;
+    seenUrls.add(url);
+    routes.push({
+      url,
+      lastModified: new Date(guide.updated_at || guide.created_at || Date.now()),
+      changeFrequency: 'monthly',
+      priority: 0.82,
+    });
   });
 
   return routes;

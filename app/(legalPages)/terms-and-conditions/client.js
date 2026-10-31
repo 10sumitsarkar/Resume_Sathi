@@ -78,7 +78,7 @@ export default function TermsClient() {
                 <p>
                   ResumeSathi is an education and career-focused platform, and its content is
                   general-audience in nature. There is no minimum age requirement to use our
-                  resume builder, bio-data maker, ATS checker, PDF merge tool, blog, or job listings. If you
+                  resume builder, bio-data maker, ATS checker, PDF merge tool, blog, or exam guides. If you
                   are under the age of 18, we recommend using the Service with the awareness
                   or involvement of a parent or guardian, particularly before sharing your
                   resume or bio-data with third parties.
@@ -91,7 +91,7 @@ export default function TermsClient() {
                   ResumeSathi is a free online resume and bio-data building platform that allows users to
                   create, customize, preview, and export resumes and bio-data documents in PDF, Word, and text
                   formats. We also offer supporting tools such as an ATS compatibility
-                  checker and a PDF merge tool, along with a blog and job listings page whose
+                  checker and a PDF merge tool, along with a blog and exam guides page whose
                   content is served dynamically from our database.
                 </p>
               </div>

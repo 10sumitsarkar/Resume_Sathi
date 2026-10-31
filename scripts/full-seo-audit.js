@@ -9,8 +9,8 @@ const excludedPathPatterns = [
   /^\/resume\/(personal-info|summary|education|work-experience|internship|skill|language|certificate|hobbie|social-media|select-theme|preview)(\/|$)/,
   /^\/bio-data\/(personal-info|summary|education|work-experience|internship|skill|language|hobbie|social-media|select-theme|preview)(\/|$)/,
   /^\/blog\/live(\/|$)/,
-  /^\/jobs\/live(\/|$)/,
-  /^\/jobs\/(%5Bslug%5D|\[slug\]|[^/]+-jobs)(\/|$)/,
+  /^\/exam-guides\/live(\/|$)/,
+  /^\/exam-guides\/(%5Bslug%5D|\[slug\])(\/|$)/,
   /^\/blog\/(%5Bslug%5D|\[slug\])(\/|$)/,
   /^\/404(\/|$)/,
   /^\/_not-found(\/|$)/,
@@ -104,8 +104,7 @@ for (const file of walk(outDir)) {
   for (const match of content.matchAll(/\shref="([^"]+)"/g)) {
     const href = match[1];
     if (/^(https?:|mailto:|tel:|#|javascript:)/i.test(href)) continue;
-    if (href.includes('/jobs/[slug]') || href.includes('/blog/[slug]')) issues.push(`${route} placeholder href: ${href}`);
-    if (href.startsWith('/jobs/') && href.includes('-jobs/')) issues.push(`${route} legacy job category href: ${href}`);
+    if (href.includes('/exam-guides/[slug]') || href.includes('/blog/[slug]')) issues.push(`${route} placeholder href: ${href}`);
     if (!exportedHrefExists(href)) warnings.push(`${route} href may not exist: ${href}`);
   }
 }

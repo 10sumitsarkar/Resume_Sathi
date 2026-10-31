@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "predev": "node scripts/fetch-jobs.js && node scripts/fetch-articles.js",
+    "predev": "node scripts/fetch-exam-guides.js && node scripts/fetch-articles.js",
     "dev": "next dev",
     "regen": "node scripts/fetch-articles.js && npm run build",
-    "prebuild": "node scripts/fetch-jobs.js && node scripts/fetch-articles.js",
+    "prebuild": "node scripts/fetch-exam-guides.js && node scripts/fetch-articles.js",
     "build": "next build",
     "seo:audit": "node scripts/seo-audit.js",
     "start": "next start",

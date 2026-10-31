@@ -131,7 +131,7 @@ const HIGHLIGHTS = [
   'ATS-Friendly Templates',
   'Printable Bio-Data',
   'Instant ATS Score',
-  'Latest Jobs',
+  'Exam Guides',
   'Typing Practice',
   'PDF, Word & TXT Export',
 ];
@@ -227,18 +227,18 @@ const STEPS = [
   },
   {
     title: 'Apply and Prepare',
-    desc: 'Browse job updates, read career blogs, and practice typing for exam workflows.',
+    desc: 'Explore exam guides, read career blogs, and practice typing for exam preparation.',
   },
 ];
 
 const VALUES = [
   {
     title: 'Free Access',
-    desc: 'ResumeSathi keeps core resume, job, typing, and document tools free for job seekers.',
+    desc: 'ResumeSathi keeps core resume, exam guide, typing, and document resources free for candidates.',
     icon: <Icon.Spark />,
   },
   {
-    title: 'Built for Job Seekers',
+    title: 'Built for Exam Candidates',
     desc: 'Every section is designed around practical application needs, not just design.',
     icon: <Icon.Users />,
   },
@@ -263,7 +263,7 @@ const TESTIMONIALS = [
   {
     name: 'Rahul Verma',
     role: 'SSC CGL Aspirant',
-    text: 'I used resume builder, job updates, and typing practice together. It saved time during exam preparation.',
+    text: 'I used the resume builder, exam guides, and typing practice together. It saved time during exam preparation.',
   },
   {
     name: 'Ananya Singh',
@@ -330,10 +330,10 @@ function SectionHeader({ eyebrow, title, desc, href, cta }) {
 }
 
 const compareRows = [
-  { feature: 'Career workflow', us: 'Resume, tools, jobs, blogs, and typing practice together', others: 'Separate websites for every task' },
+  { feature: 'Career workflow', us: 'Resume, tools, exam guides, blogs, and typing practice together', others: 'Separate websites for every task' },
   { feature: 'Cost', us: 'Free tools for everyday job preparation', others: 'Many tools lock export or advanced actions' },
-  { feature: 'Candidate focus', us: 'Built around forms, deadlines, ATS, and application files', others: 'Generic utilities without job-search context' },
-  { feature: 'Speed', us: 'Move from resume to documents to jobs quickly', others: 'Repeated uploads and manual switching' },
+  { feature: 'Candidate focus', us: 'Built around exam details, deadlines, ATS, and application files', others: 'Generic utilities without exam-preparation context' },
+  { feature: 'Speed', us: 'Move from exam guides to documents and resume tools quickly', others: 'Repeated uploads and manual switching' },
 ];
 
 export default function AboutClient({ initialBlogs = [], faqs = [] }) {
@@ -355,7 +355,7 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
           <h1>Free ATS-Friendly Resume Builder</h1>
           <p>
             Create a professional resume or printable bio-data for free, with helpful tools,
-            job updates, blogs, and typing practice when you need them.
+            exam guides, blogs, and typing practice when you need them.
           </p>
         </div>
       </section>
@@ -376,13 +376,13 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
               <p className="ab-kicker">Our Story</p>
               <h2>Why We Built ResumeSathi</h2>
               <p>
-                Job preparation often means switching between resume builders, bio-data makers, PDF utilities, job portals,
+                Exam preparation often means switching between resume builders, bio-data makers, PDF utilities,
                 typing practice websites, and career advice pages. ResumeSathi brings these essentials into
                 one free platform so candidates can move from preparation to application faster.
               </p>
               <p>
                 The goal is simple: help every fresher, experienced professional, student, and exam candidate
-                create better resumes, bio-data documents, track opportunities, and build skills without confusing paid
+                create better resumes, bio-data documents, understand exam requirements, and build skills without confusing paid
                 barriers.
               </p>
             </div>
@@ -390,12 +390,12 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
               <div className="ab-mv-card">
                 <span className="ab-mv-icon"><Icon.Spark /></span>
                 <h3>Our Mission</h3>
-                <p>Make resume creation, bio-data creation, ATS checks, document tools, jobs, typing practice, and career learning accessible to everyone.</p>
+                <p>Make resume creation, bio-data creation, ATS checks, document tools, exam guides, typing practice, and career learning accessible to everyone.</p>
               </div>
               <div className="ab-mv-card">
                 <span className="ab-mv-icon"><Icon.Search /></span>
                 <h3>Our Vision</h3>
-                <p>A job-search workflow where candidates do not lose opportunities because of weak resumes, missed deadlines, or unprepared files.</p>
+                <p>An exam-preparation workflow where candidates can understand requirements, plan around deadlines, and prepare clear application files.</p>
               </div>
             </div>
           </div>
@@ -605,7 +605,7 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
             <div className="ab-faq-left">
               <p className="ab-kicker">FAQ</p>
               <h2>About ResumeSathi Questions</h2>
-              <p>Clear answers about ResumeSathi tools, jobs, blogs, typing practice, and career preparation workflow.</p>
+              <p>Clear answers about ResumeSathi tools, exam guides, blogs, typing practice, and career preparation workflow.</p>
               <Link prefetch={false} href="/contact/" className="ab-typing-button">
                 Contact us <ArrowIcon />
               </Link>
@@ -643,7 +643,7 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
             <div className="ab-cta-content">
               <div className="ab-cta-badge"><Icon.Spark /> Free career toolkit</div>
               <h2>Build your resume, prepare your files, and apply smarter.</h2>
-              <p>Start with an ATS-friendly resume or printable bio-data, then use ResumeSathi tools, typing practice, jobs, and blogs to keep your next application ready.</p>
+              <p>Start with an ATS-friendly resume or printable bio-data, then use ResumeSathi tools, typing practice, exam guides, and blogs to prepare your next application.</p>
               <div className="ab-cta-actions">
                 <Link prefetch={false} className="ab-cta-btn-primary" href="/resume/resume-type/">
                   Create Your Resume <ArrowIcon />

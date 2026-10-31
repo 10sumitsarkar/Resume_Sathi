@@ -423,7 +423,6 @@ const Icon = {
   ),
 };
 
-const DEFAULT_JOB_IMAGE = "/front-assets/images/job-hero.webp";
 const DEFAULT_BLOG_IMAGE = "/front-assets/images/blog-hero.webp";
 
 function resolveMediaUrl(url, fallback = "") {
@@ -475,89 +474,6 @@ function getArticleCategory(item) {
   );
 }
 
-function getJobTitle(item) {
-  return (
-    item?.title ||
-    item?.topic_name ||
-    item?.meta_title ||
-    "Latest Job Opportunity"
-  );
-}
-
-function getJobDescription(item) {
-  return (
-    item?.description ||
-    item?.meta_description ||
-    item?.short_description ||
-    "Explore this opportunity and apply before the deadline."
-  );
-}
-
-function getCompanyName(item) {
-  return item?.company || item?.company_name || item?.organization || "";
-}
-
-function getLocation(item) {
-  return item?.location || item?.city || item?.place || "India";
-}
-
-function getApplicationStart(item) {
-  return (
-    item?.application_begin ||
-    item?.applicationStart ||
-    item?.start_date ||
-    item?.startDate ||
-    item?.begin_date ||
-    item?.date_start ||
-    ""
-  );
-}
-
-function getApplicationEnd(item) {
-  return (
-    item?.last_date_for_apply ||
-    item?.lastDateForApply ||
-    item?.deadline ||
-    item?.apply_until ||
-    item?.end_date ||
-    item?.date_end ||
-    item?.last_date ||
-    ""
-  );
-}
-
-// 👇 NAYA: expiry timestamp nikalne ke liye
-function getJobExpiryTimestamp(item) {
-  const endDate = getApplicationEnd(item);
-  if (!endDate) return null;
-  const d = new Date(endDate);
-  return Number.isNaN(d.getTime()) ? null : d.getTime();
-}
-
-// 👇 NAYA: jaldi expire hone wali jobs pehle, already-expired jobs sabse last me
-function sortJobsByExpiry(items) {
-  const now = Date.now();
-  return items.slice().sort((a, b) => {
-    const aTime = getJobExpiryTimestamp(a);
-    const bTime = getJobExpiryTimestamp(b);
-    const aExpired = aTime !== null && aTime < now;
-    const bExpired = bTime !== null && bTime < now;
-
-    if (aExpired !== bExpired) return aExpired ? 1 : -1;
-
-    if (aExpired && bExpired) {
-      if (aTime === null) return 1;
-      if (bTime === null) return -1;
-      return bTime - aTime;
-    }
-
-    if (aTime === null && bTime === null) return 0;
-    if (aTime === null) return 1;
-    if (bTime === null) return -1;
-    return aTime - bTime;
-  });
-}
-
 function formatDate(value) {
   if (!value) return "";
   const date = new Date(value);
@@ -567,13 +483,6 @@ function formatDate(value) {
     month: "short",
     year: "numeric",
   });
-}
-
-function formatDay(value) {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return "";
-  return date.toLocaleDateString("en-IN", { weekday: "long" });
 }
 
 // ── Owl Carousel loader + hook ────────────────────────────────────────────
@@ -701,7 +610,7 @@ function useOwlCarousel(ref, sourceRef, options, deps = []) {
   }, deps);
 }
 
-// ── OwlSlider (used for Tools, Jobs, Blog, Testimonials) ──────────────────
+// ── OwlSlider (used for Tools, Blog, Testimonials) ─────────────────────────
 function OwlSlider({
   children,
   options = {},
@@ -1265,7 +1174,6 @@ function BioDataPromo() {
   );
 }
 
-// ── Jobs ─────────────────────────────────────────────────────────────────
 function TypingPromo() {
   return (
     <section className="rk-typing-promo" id="typing-practice">
@@ -1332,95 +1240,15 @@ function TypingPromo() {
   );
 }
 
-function JobCard({ job, href }) {
-  const startDate = getApplicationStart(job);
-  const endDate = getApplicationEnd(job);
-  const companyName = getCompanyName(job);
-  const imageUrl = resolveMediaUrl(
-    job.hero_image || job.image,
-    DEFAULT_JOB_IMAGE,
-  );
-  const today = new Date();
-  const start = startDate ? new Date(startDate) : null;
-  const end = endDate ? new Date(endDate) : null;
-  const status =
-    !start && !end
-      ? "Awaited"
-      : start && end && today < start
-        ? "Upcoming"
-        : end && today > end
-          ? "Closed"
-          : "Open";
-  return (
-    <div className="rk-jc h-100">
-      <div className="rk-jc-thumb">
-        {companyName ? <span className="rk-jc-org">{companyName}</span> : null}
-        <Image
-          src={imageUrl}
-          alt={getJobTitle(job)}
-          width={640}
-          height={380}
-          className="rk-bc-img"
-          loading="lazy"
-          decoding="async"
-          onError={(e) => {
-            e.currentTarget.src = DEFAULT_JOB_IMAGE;
-          }}
-        />
-        <span className={`rk-jc-badge rk-jc-badge--${status.toLowerCase()}`}>
-          {status}
-        </span>
-      </div>
-      <div className="rk-jc-title">{getJobTitle(job)}</div>
-      <p className="rk-jc-desc">{getJobDescription(job)}</p>
-      <div className="rk-jc-meta rk-jc-meta-split">
-        {startDate ? (
-          <div className="rk-jc-meta-block rk-jc-meta-block-left">
-            <span className="rk-jc-meta-label">Start date</span>
-            <span className="rk-jc-meta-date">{formatDate(startDate)}</span>
-            <span className="rk-jc-meta-day">{formatDay(startDate)}</span>
-          </div>
-        ) : (
-          <div className="rk-jc-meta-block rk-jc-meta-block-left">
-            <span className="rk-jc-meta-label">Start date</span>
-            <span className="rk-jc-meta-date">TBA</span>
-          </div>
-        )}
-        {endDate ? (
-          <div className="rk-jc-meta-block rk-jc-meta-block-right">
-            <span className="rk-jc-meta-label">End date</span>
-            <span className="rk-jc-meta-date">{formatDate(endDate)}</span>
-            <span className="rk-jc-meta-day">{formatDay(endDate)}</span>
-          </div>
-        ) : (
-          <div className="rk-jc-meta-block rk-jc-meta-block-right">
-            <span className="rk-jc-meta-label">End date</span>
-            <span className="rk-jc-meta-date">TBA</span>
-          </div>
-        )}
-      </div>
-      <div className="rk-jc-actions">
-        <Link
-          prefetch={false}
-          href={href}
-          className="rk-jc-apply rk-btn rk-btn--primary rk-btn--sm"
-        >
-          Apply now <Icon.ChevRight />
-        </Link>
-      </div>
-    </div>
-  );
-}
-
 // ── Blog ──────────────────────────────────────────────────────────────────
-function BlogCard({ blog, href }) {
+function BlogCard({ blog, href, category: categoryOverride }) {
   const imageUrl = resolveMediaUrl(
     blog.hero_image || blog.image || blog.img,
     DEFAULT_BLOG_IMAGE,
   );
   const title = getArticleTitle(blog);
   const description = getArticleDescription(blog);
-  const category = getArticleCategory(blog);
+  const category = categoryOverride || getArticleCategory(blog);
   const publishedDate = blog.created_at || blog.date || "";
 
   return (
@@ -1496,7 +1324,7 @@ const testimonials = [
     name: "Deepika Nair",
     role: "Bank PO, SBI",
     avatar: "DN",
-    text: "Found this site while preparing for IBPS PO. Built my resume and checked job vacancies all in one place — incredibly convenient.",
+    text: "Found this site while preparing for IBPS PO. The exam guides and typing practice helped me organize my preparation.",
     rating: 5,
   },
   {
@@ -1618,6 +1446,7 @@ const HOME_BLOG_LIMIT = 6;
 
 export default function ResumeListClient({
   initialBlogs = [],
+  initialExamGuides = [],
 }) {
   const [blogs, setBlogs] = useState(() => Array.isArray(initialBlogs) ? initialBlogs.slice(0, HOME_BLOG_LIMIT) : []);
 
@@ -1967,6 +1796,52 @@ export default function ResumeListClient({
       <AdTestPlacement name="Banner 320x50">
         <Banner320x50 />
       </AdTestPlacement>
+
+      <section className="rk-section rk-section--white" id="exam-guides">
+        <div className="container-fluid custom-container">
+          <div className="rk-sec-head-row">
+            <div>
+              <div className="rk-eyebrow">Exam Guides</div>
+              <h2 className="rk-sec-title fs-mob-24">
+                Exam preparation guides
+              </h2>
+            </div>
+            <Link
+              prefetch={false}
+              href="/exam-guides/"
+              className="rk-btn rk-btn--outline rk-btn--sm"
+            >
+              All exam guides <Icon.ArrowRight />
+            </Link>
+          </div>
+          {initialExamGuides.length > 0 ? (
+            <OwlSlider
+              ariaLabel="Exam guide articles"
+              options={{
+                responsive: {
+                  0: { items: 1 },
+                  480: { items: 2 },
+                  768: { items: 2 },
+                  1024: { items: 3 },
+                  1400: { items: 4 },
+                },
+              }}
+            >
+              {initialExamGuides.slice(0, 6).map((guide) => (
+                <div key={guide.id || getSlug(guide)} className="item">
+                  <BlogCard
+                    blog={guide}
+                    href={withTrailingSlash(`/exam-guides/${getSlug(guide)}`)}
+                    category="Exam Guide"
+                  />
+                </div>
+              ))}
+            </OwlSlider>
+          ) : (
+            <p className="rk-sec-sub">New exam guides are coming soon.</p>
+          )}
+        </div>
+      </section>
 
       <section className="rk-section rk-section--gray" id="testimonials">
         <div className="container-fluid custom-container">

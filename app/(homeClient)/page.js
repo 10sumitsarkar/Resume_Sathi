@@ -2,10 +2,9 @@
 import path from 'path';
 import ResumeListClient from "./homeClient";
 import { DEFAULT_SITE_BASE } from "../lib/apiConfig";
+import { isExamGuide } from "../exam-guides/examGuideData";
 
-// Ab network fetch nahi — jobs/blogs preview sections ke liye
-// build-time cached data use karte hain (jobs/[slug] aur blog/[slug] ke
-// liye already ban chuki data/jobs-cache.json aur data/articles-cache.json).
+// Blog preview content build-time cache se aata hai.
 function readCache(filename) {
   const filePath = path.join(process.cwd(), 'data', filename);
   try {
@@ -57,6 +56,10 @@ const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
 const HOME_BLOG_LIMIT = 6;
 const initialBlogs = readCache('articles-cache.json').slice(0, HOME_BLOG_LIMIT);
+const HOME_EXAM_GUIDE_LIMIT = 6;
+const initialExamGuides = readCache('exam-guides-cache.json')
+  .filter(isExamGuide)
+  .slice(0, HOME_EXAM_GUIDE_LIMIT);
 
 const jsonLd = [
   {
@@ -149,7 +152,10 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ResumeListClient initialBlogs={initialBlogs} />
+      <ResumeListClient
+        initialBlogs={initialBlogs}
+        initialExamGuides={initialExamGuides}
+      />
     </>
   );
 }

@@ -57,8 +57,8 @@ a {
   height: 64px;
 
   .nav-logo {
-    max-width: 235px;
-    width: 250px;
+    max-width: 200px;
+    width: 200px;
     aspect-ratio: 250 / 52;
     height: auto;
   }

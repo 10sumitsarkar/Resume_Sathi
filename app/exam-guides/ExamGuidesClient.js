@@ -333,13 +333,12 @@ function ExamGuidesPageContent({ initialArticles = [], pageTitle = 'Explore exam
   const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
-    const controller = new AbortController();
+    let active = true;
 
     async function fetchLatestGuides() {
       try {
         const response = await fetch(`${getExamGuideApiBase()}/exam-guides?limit=500`, {
           cache: 'no-store',
-          signal: controller.signal,
         });
         if (!response.ok) {
           throw new Error(`Exam guides request failed with status ${response.status}`);
@@ -350,18 +349,20 @@ function ExamGuidesPageContent({ initialArticles = [], pageTitle = 'Explore exam
         if (!Array.isArray(guides)) {
           throw new Error('Exam guides response did not contain a guide list.');
         }
-        if (!controller.signal.aborted) {
+        if (active) {
           setAllGuides(guides.filter(isExamGuide));
         }
       } catch (error) {
-        if (!controller.signal.aborted) {
+        if (active) {
           console.error(error);
         }
       }
     }
 
     fetchLatestGuides();
-    return () => controller.abort();
+    return () => {
+      active = false;
+    };
   }, []);
 
   useEffect(() => {

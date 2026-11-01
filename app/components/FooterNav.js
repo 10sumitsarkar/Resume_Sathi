@@ -30,7 +30,7 @@ export default function FooterNav() {
     const visibleToolsBtn = activePath.startsWith('/tools/');
     const visibleCreateBtn = !activePath.startsWith('/tools') && !activePath.startsWith('/blog');
     const visibleBlogsBtn = activePath.startsWith('/blog');
-    const isblogActive = activePath.startsWith('/blog');
+    const isExamGuidesActive = activePath.startsWith('/exam-guides');
 
     return (
         <>
@@ -113,8 +113,8 @@ export default function FooterNav() {
                                 </div>
                             </div>
                         </Link>
-                        <Link prefetch={false} href="/blog/">
-                            <div className={getNavClassName(isblogActive)}>
+                        <Link prefetch={false} href="/exam-guides/">
+                            <div className={getNavClassName(isExamGuidesActive)}>
                                 <div>
 
                                   <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -124,7 +124,7 @@ export default function FooterNav() {
                                         <path d="M13.6517 17.6627C13.6517 17.9217 13.4417 18.1317 13.1826 18.1317H8.49787C8.23881 18.1317 8.02881 17.9217 8.02881 17.6627V15.7894C8.02881 15.5303 8.23881 15.3203 8.49787 15.3203H13.1826C13.4417 15.3203 13.6517 15.5303 13.6517 15.7894V17.6627ZM23.9717 17.6627C23.9717 17.9217 23.7617 18.1317 23.5026 18.1317H18.8179C18.5588 18.1317 18.3488 17.9217 18.3488 17.6627V15.7894C18.3488 15.5303 18.5588 15.3203 18.8179 15.3203H23.5026C23.7617 15.3203 23.9717 15.5303 23.9717 15.7894V17.6627Z" fill="#E0E0E0" />
                                     </svg>
 
-                                    <p>Blog</p>
+                                    <p>Exam Guides</p>
                                 </div>
                             </div>
                         </Link>

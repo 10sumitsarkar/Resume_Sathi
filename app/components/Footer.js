@@ -1,9 +1,12 @@
 // components/Footer.jsx
 
 import Link from "next/link";
+import NewsletterSignup from "./NewsletterSignup";
 
 export default function Footer() {
   return (
+    <>
+    <NewsletterSignup />
     <footer className="rk-footer">
       <div className="container-fluid custom-container rk-footer-inner">
         <div className="rk-footer-brand">
@@ -109,5 +112,6 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+    </>
   );
 }

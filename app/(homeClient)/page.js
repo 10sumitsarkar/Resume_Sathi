@@ -91,11 +91,6 @@ const jsonLd = [
     },
     description:
       "Build ATS-friendly resumes and cover letters for free. No signup required — all data is stored locally in your browser.",
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.9",
-      ratingCount: "1200",
-    },
   },
   {
     "@context": "https://schema.org",

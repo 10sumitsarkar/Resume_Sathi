@@ -131,23 +131,26 @@ export default function PrivacyPolicyClient() {
               <div id="cookies" className="lp-section">
                 <h2><span className="lp-num">5</span>Cookies & Tracking</h2>
                 <p>
-                  ResumeSathi uses essential cookies and similar technologies to keep the
-                  platform functional (for example, remembering your selected template or
-                  theme). We may also use analytics cookies to understand how visitors use
-                  the site so we can improve it. You can control or disable cookies through
-                  your browser settings at any time.
+                  ResumeSathi uses Google Analytics to measure website usage and improve
+                  the site. Google Analytics may use cookies and collect information such
+                  as pages visited, browser and device details, and approximate location.
+                  You can block cookies through your browser settings, though this may
+                  affect some website features.
                 </p>
               </div>
 
               <div id="third-party-services" className="lp-section">
                 <h2><span className="lp-num">6</span>Third-Party Services</h2>
                 <p>
-                  We may use trusted third-party service providers for functions such as
-                  analytics, hosting, and error monitoring. These providers only access the
-                  minimum data required to perform their function (such as basic technical or
-                  usage data) and are not permitted to use it for any other purpose. Since
-                  resume and bio-data data is stored locally in your browser, it is not shared with these
-                  providers.
+                  We use Google Analytics, a service provided by Google, for website
+                  analytics. Google may process usage and device information under its own
+                  privacy practices. Read the{" "}
+                  <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">
+                    Google Privacy Policy
+                  </a>{" "}
+                  for details. Resume and bio-data content created with our tools is stored
+                  in your browser and is not sent to Google Analytics. We do not currently
+                  serve ads through Google AdSense.
                 </p>
               </div>
 

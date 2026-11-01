@@ -3,6 +3,7 @@ import path from 'path';
 import { DEFAULT_SITE_BASE, getApiBase } from './lib/apiConfig';
 import { SEO_TEMPLATES } from './templates/seoTemplates';
 import { LESSONS } from './tools/typing/_lib/lessons';
+import { isExamGuide } from './exam-guides/examGuideData';
 
 const siteUrl = DEFAULT_SITE_BASE;
 const examGuidesCachePath = path.join(process.cwd(), 'data', 'exam-guides-cache.json');
@@ -40,7 +41,7 @@ function readExamGuides() {
   try {
     const guides = JSON.parse(fs.readFileSync(examGuidesCachePath, 'utf-8'));
     return Array.isArray(guides)
-      ? guides.filter((guide) => guide && guide.is_active !== 0 && !guide.deleted_at)
+      ? guides.filter(isExamGuide)
       : [];
   } catch (error) {
     console.error('FATAL: could not read data/exam-guides-cache.json for sitemap.');
@@ -134,27 +135,6 @@ export default async function sitemap() {
         });
       }
     }
-  });
-
-  readCache('categories-cache.json').forEach((category) => {
-    const raw = category.course_url || category.course_name || category.name || category.title || '';
-    const categorySlug = String(raw)
-      .toLowerCase()
-      .replace(/&/g, ' and ')
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '')
-      .replace(/^railways$/, 'railway');
-    if (!categorySlug) return;
-
-    const url = `${baseUrl}/exam-guides/${encodeURIComponent(categorySlug)}/`;
-    if (seenUrls.has(url)) return;
-    seenUrls.add(url);
-    routes.push({
-      url,
-      lastModified: new Date(category.updated_at || category.created_at || Date.now()),
-      changeFrequency: 'daily',
-      priority: 0.9,
-    });
   });
 
   readExamGuides().forEach((guide) => {

@@ -9,7 +9,12 @@ export function isExamGuide(item) {
     typeof item.slug === 'string' &&
     item.slug.trim() &&
     typeof item.canonical_tag === 'string' &&
-    /^exam-guides\//i.test(item.canonical_tag.trim()),
+    /^exam-guides\//i.test(item.canonical_tag.trim()) &&
+    (item.is_active === true || item.is_active === 1 || item.is_active === '1') &&
+    item.status !== false &&
+    item.status !== 0 &&
+    item.status !== '0' &&
+    !item.deleted_at,
   );
 }
 

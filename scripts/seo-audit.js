@@ -42,6 +42,45 @@ function assertNoMatch(issues, label, file, content, regex) {
   }
 }
 
+function auditSitemapPages(issues) {
+  const sitemapPath = path.join(outDir, 'sitemap.xml');
+  if (!fs.existsSync(sitemapPath)) {
+    issues.push('Missing generated sitemap: sitemap.xml');
+    return;
+  }
+
+  const sitemap = fs.readFileSync(sitemapPath, 'utf8');
+  const locations = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/gi)];
+  if (locations.length === 0) {
+    issues.push('Generated sitemap contains no URLs.');
+    return;
+  }
+
+  const expectedOrigin = new URL(canonicalBase).origin;
+  locations.forEach(([, location]) => {
+    try {
+      const url = new URL(location);
+      if (url.origin !== expectedOrigin) {
+        issues.push(`Sitemap URL uses a non-canonical origin: ${location}`);
+        return;
+      }
+
+      const relativePath = decodeURIComponent(url.pathname).replace(/^\/+|\/+$/g, '');
+      if (relativePath.split(/[\\/]/).includes('..')) {
+        issues.push(`Sitemap URL contains an invalid path: ${location}`);
+        return;
+      }
+
+      const pagePath = path.join(outDir, relativePath, 'index.html');
+      if (!fs.existsSync(pagePath)) {
+        issues.push(`Sitemap URL has no exported page: ${location}`);
+      }
+    } catch (error) {
+      issues.push(`Invalid sitemap URL: ${location}`);
+    }
+  });
+}
+
 const prefixPattern = seoPrefixes.join('|');
 const issues = [];
 
@@ -96,6 +135,8 @@ for (const file of walk(outDir)) {
     /RewriteRule\s+\^blog\/\(\.\+\).*\/blog\/live\//i
   );
 }
+
+auditSitemapPages(issues);
 
 if (issues.length) {
   console.error('[seo-audit] Failed');

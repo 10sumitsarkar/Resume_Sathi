@@ -73,7 +73,7 @@ export default function Footer() {
               </a>
               <a
                 className="rk-footer-social-link"
-                href="https://chat.whatsapp.com/GR0WvVRAYL7CB9shgfdn3R?s=sw&p=a&mlu=4&ilr=4&iam=2"
+                href="https://chat.whatsapp.com/GYvFjN782zj1QJ82w2cHIO?s=cl&p=a&mlu=4&ilr=4&iam=2"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp community"

@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { withTrailingSlash } from '../lib/apiConfig';
-import { isExamGuide, resolveExamGuideMediaUrl } from './examGuideData';
+import { getExamGuideApiBase, isExamGuide, resolveExamGuideMediaUrl } from './examGuideData';
 import './exam-guides.css';
 
 const IconBlog = () => (
@@ -322,7 +322,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
 }
 
 function ExamGuidesPageContent({ initialArticles = [], pageTitle = 'Explore exam guides', pageDescription = 'Browse exam patterns, eligibility details, important dates, and preparation guidance.' }) {
-  const [allGuides] = useState(() => initialArticles.filter(isExamGuide));
+  const [allGuides, setAllGuides] = useState(() => initialArticles.filter(isExamGuide));
   const latest = allGuides.slice(0, 5);
   // ðŸ‘‡ NAYA: static export (no Node server) me useSearchParams() use nahi karte â€”
   // wo hook Suspense boundary maangta hai aur build ke time uska fallback hi
@@ -331,6 +331,38 @@ function ExamGuidesPageContent({ initialArticles = [], pageTitle = 'Explore exam
   // jisse main content kabhi kisi fallback ke peeche block nahi hota.
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
+
+  useEffect(() => {
+    const controller = new AbortController();
+
+    async function fetchLatestGuides() {
+      try {
+        const response = await fetch(`${getExamGuideApiBase()}/exam-guides?limit=500`, {
+          cache: 'no-store',
+          signal: controller.signal,
+        });
+        if (!response.ok) {
+          throw new Error(`Exam guides request failed with status ${response.status}`);
+        }
+
+        const data = await response.json();
+        const guides = Array.isArray(data) ? data : (data.items || data.results || []);
+        if (!Array.isArray(guides)) {
+          throw new Error('Exam guides response did not contain a guide list.');
+        }
+        if (!controller.signal.aborted) {
+          setAllGuides(guides.filter(isExamGuide));
+        }
+      } catch (error) {
+        if (!controller.signal.aborted) {
+          console.error(error);
+        }
+      }
+    }
+
+    fetchLatestGuides();
+    return () => controller.abort();
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;

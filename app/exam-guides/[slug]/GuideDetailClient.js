@@ -276,7 +276,9 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
       }
       const data = await response.json();
       const guides = Array.isArray(data) ? data : (data.items || data.results || []);
-      setLatest(guides.filter((item) => isExamGuide(item) && getSlug(item) !== getSlug(slug)).slice(0, 5));
+      const publishedGuides = guides.filter(isExamGuide);
+      const otherGuides = publishedGuides.filter((item) => getSlug(item) !== getSlug(slug));
+      setLatest((otherGuides.length ? otherGuides : publishedGuides).slice(0, 5));
     } catch (err) {
       console.error(err);
       setLatest([]);

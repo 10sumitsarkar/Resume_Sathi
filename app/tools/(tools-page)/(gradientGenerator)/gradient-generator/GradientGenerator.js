@@ -387,7 +387,7 @@ export default function GradientGenerator() {
             <p>Use this tool to create vibrant, responsive CSS gradients which bring your web designs to life, spark creativity, and save you time.</p>
             <p>With just a few clicks, you can create your next amazing background.</p>
           </div>
-          <div className="newsletter-footer container-fluid">
+          <div id="newsletter-footer" className="newsletter-footer container-fluid">
             <div className="row justify-content-center text-center">
               <div className="col-lg-8">
                 <div className="heading fs-mob-22">

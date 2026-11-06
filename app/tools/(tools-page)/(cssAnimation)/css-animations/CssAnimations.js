@@ -115,7 +115,7 @@ export default function AnimationPreview() {
           </blockquote>
 
         </div>
-        <div className="newsletter-footer container-fluid">
+        <div id="newsletter-footer" className="newsletter-footer container-fluid">
           <div className="row justify-content-center text-center">
             <div className="col-lg-8">
               <div className="heading fs-mob-22">

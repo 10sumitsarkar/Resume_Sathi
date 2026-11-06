@@ -73,7 +73,7 @@ export default function NewsletterSignup() {
   return (
     <>
       <ToastContainer position="bottom-center" />
-      <section className="newsletter-footer container-fluid rk-footer-newsletter" aria-labelledby="rk-newsletter-heading">
+      <section id="newsletter-footer" className="newsletter-footer container-fluid rk-footer-newsletter" aria-labelledby="rk-newsletter-heading">
         <div className="rk-newsletter-content">
           <span className="rk-newsletter-eyebrow">A little career boost</span>
           <h2 className="heading fs-mob-22" id="rk-newsletter-heading">

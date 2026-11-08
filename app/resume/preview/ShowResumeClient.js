@@ -20,6 +20,7 @@ import { Document, Packer, Paragraph, TextRun } from 'docx';
 import { saveAs } from 'file-saver';
 import { createResumePdf } from '../resume-pdf/createResumePdf';
 import { getResumeCustomizationClasses } from '../utils/fontSize';
+import { getApiBase } from '../../lib/apiConfig';
 import {
     Banner160x300,
     Banner160x600,
@@ -31,6 +32,7 @@ import {
 } from '../../components/ads';
 import { ADS_ENABLED, AD_UNITS_ENABLED } from '../../components/ads/adsConfig';
 import ViewportAd from '../../components/ads/ViewportAd';
+import './resume-feedback.css';
 
 const AVAILABLE_TEMPLATES = [
     { id: 'ResumeTemplate1', component: ResumeTemplate1 },
@@ -52,6 +54,12 @@ export default function ShowResume() {
     const id = searchParams.get('id');
     const [loading, setLoading] = useState(false);
     const [isDownloadAdModalOpen, setIsDownloadAdModalOpen] = useState(false);
+    const [isFeedbackModalOpen, setIsFeedbackModalOpen] = useState(false);
+    const [feedbackEmail, setFeedbackEmail] = useState('');
+    const [feedbackRating, setFeedbackRating] = useState('');
+    const [feedbackMessage, setFeedbackMessage] = useState('');
+    const pendingDownloadActionRef = useRef(null);
+    const isFeedbackSubmittingRef = useRef(false);
     const componentRef = useRef(null);
     const [activeIndexes, setActiveIndexes] = useState([0, 1, 2])
     const [mobCustomizeSlider, setMobCustomizeSlider] = useState()
@@ -73,6 +81,10 @@ export default function ShowResume() {
         const resumes = Array.isArray(state.resume.resumes) ? state.resume.resumes : [];
         return resumes.find(resume => resume.id === id) || null;
     });
+    const personalInformation = selectedResume?.personal_infomation || {};
+    const feedbackName = [personalInformation.firstName, personalInformation.lastName].filter(Boolean).join(' ') ||
+        resumeName.trim() ||
+        'Resume User';
 
     const [customizeData, setCustomizeData] = useState({
         ...configuration,
@@ -168,6 +180,15 @@ export default function ShowResume() {
     useEffect(() => {
         dispatch(setPreviewResumeSize(zoomValue))
     }, [zoomValue])
+
+    useEffect(() => {
+        if (!isFeedbackModalOpen) return undefined;
+        const previousOverflow = document.body.style.overflow;
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.body.style.overflow = previousOverflow;
+        };
+    }, [isFeedbackModalOpen]);
 
     const zoomIntervalRef = useRef(null);
 
@@ -601,12 +622,91 @@ export default function ShowResume() {
     };
     // ────────────────────────────────────────────────────────────────────────────
 
-    const runDownloadWithAdModal = (downloadAction) => {
+    const runDownloadAfterFeedback = (downloadAction) => {
         const hasEnabledAd = ADS_ENABLED && Object.entries(AD_UNITS_ENABLED)
             .some(([name, enabled]) => name !== 'socialBar' && enabled);
 
         if (hasEnabledAd) setIsDownloadAdModalOpen(true);
         downloadAction();
+    };
+
+    const runDownloadWithAdModal = (downloadAction) => {
+        if (isFeedbackModalOpen || pendingDownloadActionRef.current) return;
+        pendingDownloadActionRef.current = downloadAction;
+        setFeedbackEmail(personalInformation.email || '');
+        setFeedbackRating('');
+        setFeedbackMessage('');
+        setIsFeedbackModalOpen(true);
+    };
+
+    const continuePendingDownload = () => {
+        const downloadAction = pendingDownloadActionRef.current;
+        pendingDownloadActionRef.current = null;
+        setIsFeedbackModalOpen(false);
+        if (downloadAction) runDownloadAfterFeedback(downloadAction);
+    };
+
+    const handleFeedbackSkip = () => {
+        continuePendingDownload();
+    };
+
+    const handleFeedbackSubmit = async (event) => {
+        event.preventDefault();
+        if (isFeedbackSubmittingRef.current || !pendingDownloadActionRef.current) return;
+
+        const email = feedbackEmail.trim();
+        const message = `Resume builder feedback (${feedbackRating}/5):\n\n${feedbackMessage.trim()}`;
+        const downloadAction = pendingDownloadActionRef.current;
+        pendingDownloadActionRef.current = null;
+        isFeedbackSubmittingRef.current = true;
+        setIsFeedbackModalOpen(false);
+        runDownloadAfterFeedback(downloadAction);
+
+        try {
+            const response = await fetch(`${getApiBase()}/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: JSON.stringify({
+                    name: feedbackName,
+                    email,
+                    phone: personalInformation.phone || null,
+                    message,
+                }),
+            });
+            const result = await response.json().catch(() => null);
+
+            if (!response.ok) {
+                throw new Error(
+                    result?.errors?.email?.[0] ||
+                    result?.errors?.message?.[0] ||
+                    result?.message ||
+                    `Feedback could not be submitted (HTTP ${response.status}).`,
+                );
+            }
+
+            toast.success('Thanks for your feedback. Your download has started.', {
+                position: 'top-right',
+                autoClose: 4000,
+                closeOnClick: false,
+                theme: 'light',
+            });
+        } catch (error) {
+            console.error('Resume feedback submission failed:', error);
+            toast.error(
+                `Your download has started, but feedback could not be submitted. ${error.message}`,
+                {
+                    position: 'top-right',
+                    autoClose: 6000,
+                    closeOnClick: false,
+                    theme: 'light',
+                },
+            );
+        } finally {
+            isFeedbackSubmittingRef.current = false;
+        }
     };
 
     const filterLayout = (key, value) => {
@@ -1008,6 +1108,85 @@ export default function ShowResume() {
                 <div className='loader-div flex-column'>
                     <img src='/front-assets/images/pleasewait.gif' width={250} alt='Please wait' />
                     <p className='text-white m-0'>Generating...</p>
+                </div>
+            )}
+
+            {isFeedbackModalOpen && (
+                <div className="resume-feedback-backdrop">
+                    <section
+                        className="resume-feedback-modal"
+                        role="dialog"
+                        aria-modal="true"
+                        aria-labelledby="resume-feedback-title"
+                        aria-describedby="resume-feedback-description"
+                    >
+                        <div className="resume-feedback-header">
+                            <span className="resume-feedback-icon" aria-hidden="true">?</span>
+                            <div>
+                                <h2 id="resume-feedback-title">Before you download</h2>
+                                <p id="resume-feedback-description">
+                                    Your feedback helps us improve the resume builder.
+                                </p>
+                            </div>
+                        </div>
+                        <form onSubmit={handleFeedbackSubmit}>
+                            <div className="resume-feedback-fields">
+                                <label>
+                                    Name
+                                    <input type="text" value={feedbackName} readOnly />
+                                </label>
+                                <label>
+                                    Email
+                                    <input
+                                        type="email"
+                                        autoComplete="email"
+                                        value={feedbackEmail}
+                                        onChange={(event) => setFeedbackEmail(event.target.value)}
+                                        placeholder="Enter your email"
+                                        required
+                                    />
+                                </label>
+                                <fieldset className="resume-feedback-rating">
+                                    <legend>How was your experience?</legend>
+                                    <div role="radiogroup" aria-label="Rate your experience">
+                                        {[1, 2, 3, 4, 5].map((rating) => (
+                                            <label key={rating}>
+                                                <input
+                                                    type="radio"
+                                                    name="resume-feedback-rating"
+                                                    value={rating}
+                                                    checked={feedbackRating === String(rating)}
+                                                    onChange={() => setFeedbackRating(String(rating))}
+                                                    required
+                                                />
+                                                <span aria-hidden="true">★</span>
+                                                <span className="resume-feedback-sr-only">{rating} stars</span>
+                                            </label>
+                                        ))}
+                                    </div>
+                                </fieldset>
+                                <label>
+                                    Suggestions or issues
+                                    <textarea
+                                        value={feedbackMessage}
+                                        onChange={(event) => setFeedbackMessage(event.target.value)}
+                                        placeholder="Did you face any issues, or have a suggestion to help us improve? Please tell us."
+                                        rows={4}
+                                        maxLength={2000}
+                                        required
+                                    />
+                                </label>
+                            </div>
+                            <div className="resume-feedback-actions">
+                                <button type="button" className="resume-feedback-skip" onClick={handleFeedbackSkip}>
+                                    Skip &amp; Download
+                                </button>
+                                <button type="submit" className="resume-feedback-submit">
+                                    Submit &amp; Download
+                                </button>
+                            </div>
+                        </form>
+                    </section>
                 </div>
             )}
 

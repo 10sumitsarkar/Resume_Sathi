@@ -1,0 +1,227 @@
+.resume-feedback-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000002;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 20px;
+  background: rgba(17, 24, 39, 0.62);
+}
+
+.resume-feedback-modal {
+  width: min(100%, 520px);
+  max-height: calc(100dvh - 40px);
+  overflow-y: auto;
+  padding: 28px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+  color: #202124;
+}
+
+.resume-feedback-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 22px;
+}
+
+.resume-feedback-icon {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fce8ef;
+  color: #9f036d;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.resume-feedback-header h2 {
+  margin: 0 0 5px;
+  color: #202124;
+  font-size: 21px;
+  font-weight: 700;
+}
+
+.resume-feedback-header p {
+  margin: 0;
+  color: #667085;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.resume-feedback-fields {
+  display: grid;
+  gap: 16px;
+}
+
+.resume-feedback-fields > label {
+  display: grid;
+  gap: 7px;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.resume-feedback-fields input[type="text"],
+.resume-feedback-fields input[type="email"],
+.resume-feedback-fields textarea {
+  width: 100%;
+  border: 1px solid #d0d5dd;
+  border-radius: 8px;
+  padding: 11px 12px;
+  background: #fff;
+  color: #202124;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.resume-feedback-fields input[readonly] {
+  background: #f9fafb;
+  color: #667085;
+}
+
+.resume-feedback-fields input:focus,
+.resume-feedback-fields textarea:focus {
+  border-color: #9f036d;
+  box-shadow: 0 0 0 3px rgba(159, 3, 109, 0.12);
+}
+
+.resume-feedback-fields textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.resume-feedback-rating {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.resume-feedback-rating legend {
+  margin-bottom: 7px;
+  color: #344054;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.resume-feedback-rating > div {
+  display: flex;
+  gap: 6px;
+}
+
+.resume-feedback-rating label {
+  position: relative;
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.resume-feedback-rating input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.resume-feedback-rating label > span:first-of-type {
+  color: #cbd0d8;
+  font-size: 32px;
+  line-height: 1;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.resume-feedback-rating label:hover > span:first-of-type,
+.resume-feedback-rating label:has(input:checked) > span:first-of-type {
+  color: #f5a623;
+}
+
+.resume-feedback-rating label:has(input:focus-visible) {
+  outline: 2px solid #9f036d;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+.resume-feedback-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.resume-feedback-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.resume-feedback-actions button {
+  min-height: 42px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.resume-feedback-skip {
+  border-color: #d0d5dd !important;
+  background: #fff;
+  color: #344054;
+}
+
+.resume-feedback-skip:hover {
+  background: #f9fafb;
+}
+
+.resume-feedback-submit {
+  background: #9f036d;
+  color: #fff;
+}
+
+.resume-feedback-submit:hover {
+  background: #7e0256;
+}
+
+.resume-feedback-actions button:focus-visible {
+  outline: 3px solid rgba(159, 3, 109, 0.3);
+  outline-offset: 2px;
+}
+
+@media (max-width: 575px) {
+  .resume-feedback-backdrop {
+    align-items: flex-end;
+    padding: 10px;
+  }
+
+  .resume-feedback-modal {
+    max-height: calc(100dvh - 20px);
+    padding: 22px 18px;
+    border-radius: 16px 16px 12px 12px;
+  }
+
+  .resume-feedback-actions {
+    flex-direction: column-reverse;
+  }
+
+  .resume-feedback-actions button {
+    width: 100%;
+  }
+}

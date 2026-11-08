@@ -4,6 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { getApiBase, resolveApiMediaUrl, withTrailingSlash } from '../lib/apiConfig';
 import { latestFirst } from './articleSort';
+import {
+  getArticleAuthorName,
+  getArticleAuthorProfile,
+  getArticleLastUpdatedAt,
+} from './articleMetadata';
 import './blog.css';
 
 const IconBlog = () => (
@@ -170,6 +175,7 @@ function CategorySlider({ categories, selectedCategory, onSelectCategory }) {
 function BlogCard({ article }) {
   const articleSlug = getSlug(article);
   const articleHref = withTrailingSlash(`/blog/${articleSlug}`);
+  const authorProfile = getArticleAuthorProfile(article);
   return (
     <div className="col-sm-6 col-lg-4">
       <article className="rk-blog-card">
@@ -189,12 +195,31 @@ function BlogCard({ article }) {
                 </clipPath>
               </defs>
             </svg>
-            {formatDate(article.created_at)}
+            Published: {formatDate(article.created_at)}
+          </span>
+          <span className="rk-blog-updated">
+            Last updated: {formatDate(getArticleLastUpdatedAt(article))}
           </span>
           <h3>
             <Link prefetch={false} href={articleHref}>{getTitle(article)}</Link>
           </h3>
           <p>{article.description || article.meta_description || ''}</p>
+          {authorProfile && (
+            <div className="rk-blog-card-author" aria-label="About the author">
+              <img
+                src={authorProfile.image}
+                alt=""
+                width={36}
+                height={36}
+                loading="lazy"
+                decoding="async"
+              />
+              <div>
+                <span>{getArticleAuthorName(article)}</span>
+                <small>{authorProfile.title}</small>
+              </div>
+            </div>
+          )}
           <Link
             prefetch={false}
             href={articleHref}

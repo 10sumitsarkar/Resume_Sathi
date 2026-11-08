@@ -18,6 +18,20 @@ export function isExamGuide(item) {
   );
 }
 
+export function getExamGuideLastUpdated(item) {
+  const timestamps = [
+    item?.created_at,
+    item?.updated_at,
+    ...(Array.isArray(item?.contents)
+      ? item.contents.flatMap((content) => [content?.created_at, content?.updated_at])
+      : []),
+  ].filter((value) => value && !Number.isNaN(Date.parse(value)));
+
+  return timestamps.reduce((latest, value) =>
+    !latest || Date.parse(value) > Date.parse(latest) ? value : latest,
+  '');
+}
+
 export function getExamGuideBackendBase() {
   return EXAM_GUIDE_BACKEND_BASE.replace(/\/+$/, '');
 }

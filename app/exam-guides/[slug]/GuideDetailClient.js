@@ -5,7 +5,7 @@ import { useParams, usePathname, useRouter } from 'next/navigation';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getSiteBase, withTrailingSlash } from '../../lib/apiConfig';
-import { getExamGuideApiBase, getExamGuideBackendBase, isExamGuide, resolveExamGuideMediaUrl } from '../examGuideData';
+import { getExamGuideApiBase, getExamGuideBackendBase, getExamGuideLastUpdated, isExamGuide, resolveExamGuideMediaUrl } from '../examGuideData';
 import { Banner160x600, Banner300x250, Banner468x60, Banner728x90, NativeBanner } from '../../components/ads';
 import '../exam-guides.css';
 
@@ -467,6 +467,31 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
   const location = getLocation(article);
   const { begin, lastDate } = getApplicationDates(article);
   const heroImage = article.hero_image || article.image || article.meta_image || article.og_image;
+  const authorName =
+    [article.user?.first_name, article.user?.last_name]
+      .filter(Boolean)
+      .join(' ')
+      .trim() ||
+    article.user?.name ||
+    'ResumeSathi Editorial Team';
+  const authorDetails = {
+    nitu: {
+      title: 'CEO & Career Guidance Expert',
+      bio: 'Nitu Dey is the CEO of ResumeSathi and a career guidance expert. She helps job seekers build strong resumes, prepare for interviews, and make confident career decisions.',
+      image: 'https://api.resumesathi.com/front-assets/images/nitu-dey.webp',
+    },
+    sumit: {
+      title: 'Content Writer & Full-Stack Web Developer',
+      bio: 'Sumit Sarkar is a content writer and full-stack web developer at ResumeSathi. He creates practical career resources and builds user-friendly web experiences for job seekers.',
+      image: 'https://api.resumesathi.com/front-assets/images/sumit-sarkar.webp',
+    },
+  }[article.user?.first_name?.trim().toLowerCase()] || {
+    title: article.user?.title || 'Exam Guide Author',
+    bio: article.user?.bio || '',
+    image: article.user?.profile_image
+      ? resolveMediaUrl(article.user.profile_image)
+      : '',
+  };
 
 
   return (
@@ -484,20 +509,21 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
             </label>
             <h1 className="fs-mob-20">{getTitle(article)}</h1>
           </div>
-          <div className="rk-article-meta d-none">
+          <div className="rk-article-meta">
             <span>
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M19 4H17V3C17 2.73478 16.8946 2.48043 16.7071 2.29289C16.5196 2.10536 16.2652 2 16 2C15.7348 2 15.4804 2.10536 15.2929 2.29289C15.1054 2.48043 15 2.73478 15 3V4H9V3C9 2.73478 8.89464 2.48043 8.70711 2.29289C8.51957 2.10536 8.26522 2 8 2C7.73478 2 7.48043 2.10536 7.29289 2.29289C7.10536 2.48043 7 2.73478 7 3V4H5C4.20435 4 3.44129 4.31607 2.87868 4.87868C2.31607 5.44129 2 6.20435 2 7V19C2 19.7956 2.31607 20.5587 2.87868 21.1213C3.44129 21.6839 4.20435 22 5 22H19C19.7956 22 20.5587 21.6839 21.1213 21.1213C21.6839 20.5587 22 19.7956 22 19V7C22 6.20435 21.6839 5.44129 21.1213 4.87868C20.5587 4.31607 19.7956 4 19 4ZM20 19C20 19.2652 19.8946 19.5196 19.7071 19.7071C19.5196 19.8946 19.2652 20 19 20H5C4.73478 20 4.48043 19.8946 4.29289 19.7071C4.10536 19.5196 4 19.2652 4 19V12H20V19ZM20 10H4V7C4 6.73478 4.10536 6.48043 4.29289 6.29289C4.48043 6.10536 4.73478 6 5 6H7V7C7 7.26522 7.10536 7.51957 7.29289 7.70711C7.48043 7.89464 7.73478 8 8 8C8.26522 8 8.51957 7.89464 8.70711 7.70711C8.89464 7.51957 9 7.26522 9 7V6H15V7C15 7.26522 15.1054 7.51957 15.2929 7.70711C15.4804 7.89464 15.7348 8 16 8C16.2652 8 16.5196 7.89464 16.7071 7.70711C16.8946 7.51957 17 7.26522 17 7V6H19C19.2652 6 19.5196 6.10536 19.7071 6.29289C19.8946 6.48043 20 6.73478 20 7V10Z" fill="black" />
               </svg>
-              <span>{formatDate(article.created_at)}</span>
+              <span>Last updated: {formatDate(getExamGuideLastUpdated(article))}</span>
             </span>
             <span>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M12 2C17.523 2 22 6.477 22 12C22.0034 14.3079 21.2053 16.5453 19.742 18.33L19.762 18.352L19.63 18.464C18.6921 19.5731 17.5235 20.4642 16.2056 21.0749C14.8878 21.6856 13.4525 22.0014 12 22C9.05 22 6.4 20.723 4.57 18.693L4.37 18.463L4.238 18.353L4.258 18.329C2.7949 16.5446 1.99679 14.3075 2 12C2 6.477 6.477 2 12 2ZM12 17C10.14 17 8.459 17.592 7.207 18.406C8.58958 19.4429 10.2718 20.0024 12 20C13.7282 20.0024 15.4104 19.4429 16.793 18.406C15.3623 17.4894 13.6991 17.0015 12 17ZM12 4C10.4945 3.99996 9.01959 4.42471 7.74472 5.22545C6.46985 6.02619 5.4468 7.1704 4.79316 8.52657C4.13951 9.88274 3.8818 11.3958 4.04965 12.8919C4.2175 14.388 4.80409 15.8064 5.742 16.984C7.363 15.821 9.575 15 12 15C14.425 15 16.637 15.821 18.258 16.984C19.1959 15.8064 19.7825 14.388 19.9503 12.8919C20.1182 11.3958 19.8605 9.88274 19.2068 8.52657C18.5532 7.1704 17.5301 6.02619 16.2553 5.22545C14.9804 4.42471 13.5055 3.99996 12 4ZM12 6C13.0609 6 14.0783 6.42143 14.8284 7.17157C15.5786 7.92172 16 8.93913 16 10C16 11.0609 15.5786 12.0783 14.8284 12.8284C14.0783 13.5786 13.0609 14 12 14C10.9391 14 9.92172 13.5786 9.17157 12.8284C8.42143 12.0783 8 11.0609 8 10C8 8.93913 8.42143 7.92172 9.17157 7.17157C9.92172 6.42143 10.9391 6 12 6ZM12 8C11.4696 8 10.9609 8.21071 10.5858 8.58579C10.2107 8.96086 10 9.46957 10 10C10 10.5304 10.2107 11.0391 10.5858 11.4142C10.9609 11.7893 11.4696 12 12 12C12.5304 12 13.0391 11.7893 13.4142 11.4142C13.7893 11.0391 14 10.5304 14 10C14 9.46957 13.7893 8.96086 13.4142 8.58579C13.0391 8.21071 12.5304 8 12 8Z" fill="#6B7280" />
               </svg>
-              <span>{examAuthority || 'Exam details'}</span>
+              {examAuthority ? <span>{examAuthority}</span> : null}
             </span>
             {location ? <span>{location}</span> : null}
+            <span>Author: {authorName}</span>
           </div>
           {(begin || lastDate) ? (
   <div className="job-dates mt-2">
@@ -546,6 +572,38 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
                     />
                   ))}
                 </div>
+                {article.user && (
+                  <section
+                    className="rk-article-author"
+                    aria-label="About the author"
+                  >
+                    {authorDetails.image && (
+                      <img
+                        className="rk-article-author-image"
+                        src={authorDetails.image}
+                        alt={authorName}
+                        width={88}
+                        height={88}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
+                    <div className="rk-article-author-info">
+                      <span className="rk-article-author-eyebrow">
+                        About the author
+                      </span>
+                      <h2>{authorName}</h2>
+                      <p className="rk-article-author-title">
+                        {authorDetails.title}
+                      </p>
+                      {authorDetails.bio && (
+                        <p className="rk-article-author-bio">
+                          {authorDetails.bio}
+                        </p>
+                      )}
+                    </div>
+                  </section>
+                )}
                 <div className="rk-article-comments">
                   <h2>
                     <i className="bi bi-chat-left-text"></i> Comments{' '}

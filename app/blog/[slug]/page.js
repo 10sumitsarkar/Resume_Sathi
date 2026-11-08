@@ -73,6 +73,22 @@ async function getArticleData(slug) {
   );
 }
 
+function getArticleLastUpdatedAt(article) {
+  const timestamps = [
+    article?.created_at,
+    article?.updated_at,
+    ...(Array.isArray(article?.contents)
+      ? article.contents.flatMap((item) => [item?.created_at, item?.updated_at])
+      : []),
+  ].filter((value) => value && !Number.isNaN(Date.parse(value)));
+
+  return timestamps.reduce(
+    (latest, value) =>
+      !latest || Date.parse(value) > Date.parse(latest) ? value : latest,
+    "",
+  );
+}
+
 function getArticleIndex(items) {
   return items.map((item) => ({
     id: item.id,
@@ -261,7 +277,9 @@ export default async function ArticleDetailPage({ params }) {
           description: articleDescription,
           image: [resolveImageUrl(article.og_image || article.meta_image || article.hero_image || article.image)],
           datePublished: article.created_at,
-          ...(article.updated_at ? { dateModified: article.updated_at } : {}),
+          ...(getArticleLastUpdatedAt(article)
+            ? { dateModified: getArticleLastUpdatedAt(article) }
+            : {}),
           ...(authorName
             ? { author: { "@type": "Person", name: authorName } }
             : {}),

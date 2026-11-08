@@ -4,7 +4,7 @@ import path from "path";
 import { notFound } from "next/navigation";
 import GuideDetailClient from "./GuideDetailClient";
 import { DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
-import { getExamGuideBackendBase, isExamGuide } from "../examGuideData";
+import { getExamGuideBackendBase, getExamGuideLastUpdated, isExamGuide } from "../examGuideData";
 export const dynamicParams = false;
 
 // Kuch fields (jaise og_image) DB me already percent-encoded save hote hain,
@@ -194,7 +194,9 @@ function buildExamGuideJsonLd(article, slug) {
     description,
     image: resolveImageUrl(getHeroImage(article)),
     datePublished: article.created_at,
-    ...(article.updated_at ? { dateModified: article.updated_at } : {}),
+    ...(getExamGuideLastUpdated(article)
+      ? { dateModified: getExamGuideLastUpdated(article) }
+      : {}),
     articleSection: "Exam Guides",
     mainEntityOfPage: { "@type": "WebPage", "@id": canonical },
     publisher: {

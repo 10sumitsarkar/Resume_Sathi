@@ -94,6 +94,22 @@ function formatDate(dateString) {
   });
 }
 
+function getLastUpdatedAt(article) {
+  const timestamps = [
+    article?.created_at,
+    article?.updated_at,
+    ...(Array.isArray(article?.contents)
+      ? article.contents.flatMap((item) => [item?.created_at, item?.updated_at])
+      : []),
+  ].filter((value) => value && !Number.isNaN(Date.parse(value)));
+
+  return timestamps.reduce(
+    (latest, value) =>
+      !latest || Date.parse(value) > Date.parse(latest) ? value : latest,
+    "",
+  );
+}
+
 function getSlug(item) {
   if (!item) return "";
   const raw =
@@ -683,7 +699,10 @@ export default function ArticleDetailPageClient({
                   fill="#6B7280"
                 />
               </svg>
-              <span>{authorName}</span>
+              <span>Author: {authorName}</span>
+            </span>
+            <span>
+              <span>Last updated: {formatDate(getLastUpdatedAt(article))}</span>
             </span>
           </div>
         </div>

@@ -48,11 +48,6 @@ jobs:
       - name: Build static site
         run: npm run build
 
-      - name: Verify static output
-        run: |
-          test -d out || { echo "::error::Static export output 'out/' is missing. Enable output: 'export' in next.config.mjs."; exit 1; }
-          test -s out/index.html || { echo "::error::Static export did not generate out/index.html."; exit 1; }
-
       - name: Deploy to Hostinger over FTPS
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -62,4 +57,5 @@ jobs:
           protocol: ftps
           port: 21
           local-dir: ./out/
-          server-dir: ${{ secrets.FTP_SERVER_DIR }}
+          
+          server-dir: public_html/

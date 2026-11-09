@@ -46,10 +46,9 @@ npm run build
 ## Automatic Hostinger deployment
 
 The GitHub Actions workflow at `.github/workflows/deploy-hostinger.yml` builds
-the static site hourly, can be started manually from the Actions tab, and also
-deploys after changes are pushed to `main`. The build fetches the latest
-articles and exam guides before exporting the site. Scheduled runs are best
-effort and may be delayed by GitHub.
+the static site after changes are pushed to `main`, can be started manually
+from the Actions tab, and has an hourly best-effort fallback. The build fetches
+the latest articles and exam guides before exporting the site.
 
 Before enabling it, add these repository secrets under
 **Settings > Secrets and variables > Actions**:
@@ -66,6 +65,22 @@ configured for Next.js static export and generate `out/index.html`; the
 workflow checks this before uploading so a server-rendered build cannot be
 mistaken for a successful deployment. Start a test deployment using
 **Actions > Build and deploy to Hostinger > Run workflow**.
+
+### Trigger deployment when an article is published
+
+To queue a deployment immediately after an article is saved as published, set
+these variables in the API server's `.env` file:
+
+- `GITHUB_DEPLOYMENT_REPOSITORY=10sumitsarkar/Resume_Sathi`
+- `GITHUB_DEPLOYMENT_TOKEN`: a fine-grained GitHub token limited to this
+  repository with **Contents: read and write** permission.
+
+Keep the token only in the API server's private `.env`; never commit it or put
+it in frontend code. After updating the API code and `.env`, clear Laravel's
+cached configuration (`php artisan config:clear`). A successful publish then
+queues the frontend workflow; the article becomes live after its build and
+Hostinger upload finish. If queuing fails, the article is still saved and the
+admin page shows a warning; check the API log and the GitHub token settings.
 
 Notes
 - `npm run regen` runs the fetch script and then `npm run build`.

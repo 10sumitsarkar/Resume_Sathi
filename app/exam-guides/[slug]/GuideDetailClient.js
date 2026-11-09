@@ -691,7 +691,7 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
 
                 <div className="rk-widget rk-widget-cta">
                   <h4>Build Your Resume</h4>
-                  <p>Create an ATS-optimized resume in minutes, 100% free.</p>
+                  <p>Create an ATS-optimized resume with our currently free-to-use builder.</p>
                   <Link prefetch={false} href="/resume/" className="rk-cta-btn">
                     <i className="bi bi-plus-lg"></i> Create Resume
                   </Link>

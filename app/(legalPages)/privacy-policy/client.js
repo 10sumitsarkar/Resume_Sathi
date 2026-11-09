@@ -21,7 +21,7 @@ const SECTIONS = [
 ];
 
 export default function PrivacyPolicyClient() {
-  const lastUpdated = 'July 14, 2026';
+  const lastUpdated = 'November 9, 2026';
 
   return (
     <>
@@ -150,7 +150,10 @@ export default function PrivacyPolicyClient() {
                   </a>{" "}
                   for details. Resume and bio-data content created with our tools is stored
                   in your browser and is not sent to Google Analytics. We do not currently
-                  serve ads through Google AdSense.
+                  display Google AdSense ads. If advertising is enabled in the future,
+                  Google may use cookies or similar technologies to serve and measure ads.
+                  We will update this policy and provide any required consent choices before
+                  enabling advertising for visitors in regions where consent is required.
                 </p>
               </div>
 

@@ -17,27 +17,22 @@ function readCache(filename) {
   return [];
 }
 export const metadata = {
-  title: "100% Free Resume Builder | Create a Resume Online, No Signup",
+  title: "Free Resume Builder and Career Tools | ResumeSathi",
   description:
-    "Build a professional, ATS-friendly resume for free — no signup, no login, no payment. Anyone can create a job-ready resume online in minutes, 100% free forever.",
+    "Create a resume with guided sections and role-based templates, then prepare application files with free browser-based career tools.",
   keywords: [
     "resume builder",
     "free resume builder",
-    "100% free resume builder",
-    "resume maker online free",
-    "create resume online free",
     "ats friendly resume builder",
     "resume builder no signup",
     "free resume templates",
-    "cv maker online free",
-    "cover letter builder free",
-    "resume builder for freshers",
+    "career tools",
   ],
   alternates: { canonical: "/" }, 
   openGraph: {
-    title: "100% Free Resume Builder | Create a Resume Online, No Signup",
+    title: "Free Resume Builder and Career Tools | ResumeSathi",
     description:
-      "Anyone can create a professional, ATS-friendly resume for free — no signup, no login, no hidden cost. 100% free, always.",
+      "Create a resume with guided sections and role-based templates, then prepare application files with free browser-based career tools.",
     url: "/",
     type: "website",
     siteName: "ResumeSathi",
@@ -45,9 +40,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "100% Free Resume Builder | Create a Resume Online, No Signup",
+    title: "Free Resume Builder and Career Tools | ResumeSathi",
     description:
-      "Anyone can create a professional, ATS-friendly resume for free — no signup, no login, no hidden cost. 100% free, always.",
+      "Create a resume with guided sections and role-based templates, then prepare application files with free browser-based career tools.",
     images: ["/front-assets/images/og/home-og.png"],
   },
 };
@@ -69,7 +64,7 @@ const jsonLd = [
     url: SITE_URL,
     logo: `${SITE_URL}/front-assets/images/logo/logo.svg`,
     description:
-      "ResumeSathi is a 100% free, ATS-friendly resume builder. All data stays in your browser — nothing is ever uploaded to a server.",
+      "ResumeSathi provides a browser-based resume builder, role-based templates, career articles, exam guides, and application tools.",
   },
   {
     "@context": "https://schema.org",
@@ -90,7 +85,7 @@ const jsonLd = [
       priceCurrency: "INR",
     },
     description:
-      "Build ATS-friendly resumes and cover letters for free. No signup required — all data is stored locally in your browser.",
+      "Build and export a resume with guided sections. Resume details are stored locally in your browser.",
   },
   {
     "@context": "https://schema.org",
@@ -101,7 +96,7 @@ const jsonLd = [
         name: "Is ResumeSathi completely free?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes, ResumeSathi is 100% free and always will be. No hidden charges, no premium plans. All templates and all tools are completely free.",
+          text: "The resume builder is currently free to use, with no payment required to create or download a resume.",
         },
       },
       {

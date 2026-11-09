@@ -794,12 +794,12 @@ function HeroVideo() {
         </div>
         <div>
           <div className="rk-fb-title">Data stays local</div>
-          <div className="rk-fb-sub">No server. Ever.</div>
+          <div className="rk-fb-sub">Resume details stay in this browser.</div>
         </div>
       </div>
       <div className="rk-float-badge rk-float-badge--br">
         <Icon.Sparkle />
-        <span>100% Free forever</span>
+        <span>Free to use</span>
       </div>
     </div>
   );
@@ -933,43 +933,35 @@ const tools = [
 function ResumeFocusSection() {
   const resumeBenefits = [
     {
-      title: "ATS-friendly resume templates",
+      title: "Templates for different roles",
       points: [
-        "Modern resume templates for job seekers",
-        "ATS resume format for better screening results",
-        "Clean resume layout for recruiters and hiring teams",
-        "Professional resume design that feels polished",
-        "Simple resume builder for freshers and professionals",
+        "Choose a layout based on your experience and target role",
+        "Keep headings and sections easy to scan",
+        "Preview the document before exporting",
       ],
     },
     {
-      title: "Built for every career stage",
+      title: "Guided resume sections",
       points: [
-        "Resume maker for freshers and experienced candidates",
-        "Career resume builder for students and job seekers",
-        "Customize sections for skills, education, and work history",
-        "Create a professional CV for any industry",
-        "Easy resume editing for rapid job applications",
+        "Add education, work history, projects, and skills",
+        "Start fresh or review an existing resume",
+        "Use examples as guidance and write in your own words",
       ],
     },
     {
-      title: "No signup, no friction",
+      title: "Browser-based editing",
       points: [
-        "Free resume builder with no signup required",
-        "Create a resume online in minutes without hassle",
-        "Instant resume editing in your browser",
-        "No account needed for quick online resume creation",
-        "Fast workflow for job applications and interviews",
+        "Create and edit without creating an account",
+        "Resume entries are saved in this browser",
+        "Keep a separate backup if you change devices",
       ],
     },
     {
-      title: "Download in professional formats",
+      title: "Review and export",
       points: [
-        "Download resume as PDF for jobs and portals",
-        "Print-ready resume format for interviews",
-        "Professional CV export with clean final layout",
-        "Free resume download without watermark or signup",
-        "Share a polished resume for hiring managers and recruiters",
+        "Check names, dates, links, and formatting",
+        "Export in the formats supported by the selected flow",
+        "Review the downloaded file before applying",
       ],
     },
   ];
@@ -980,7 +972,7 @@ function ResumeFocusSection() {
         <div className="rk-sec-head rk-resume-feature-head">
           <div className="rk-eyebrow">Resume Builder</div>
           <h2 className="rk-sec-title fs-mob-24 mb-3">
-            Create a professional resume that helps you get shortlisted.
+            Create a clear resume for your next application.
           </h2>
           <p className="rk-sec-sub fs-mob-14 mb-4">
             ResumeSathi helps job seekers create clean, ATS-friendly resumes with modern layouts,
@@ -1028,34 +1020,29 @@ function ResumeFocusSection() {
 // ── Why Free Comparison ────────────────────────────────────────────────
 const comparisonRows = [
   {
-    feature: "Price",
-    us: "Always free, forever",
-    others: "Free trial, then paid plans",
+    feature: "Current cost",
+    us: "Free to use",
+    others: "No payment is required to create a resume.",
   },
   {
-    feature: "Account / Signup",
+    feature: "Account",
     us: "Not required",
-    others: "Signup usually required",
+    others: "Start building without registering.",
   },
   {
-    feature: "PDF Download",
-    us: "Unlimited, no watermark",
-    others: "Often locked or watermarked",
+    feature: "Resume details",
+    us: "Saved in this browser",
+    others: "Clear browser site data to remove locally saved entries.",
   },
   {
-    feature: "Your Data",
-    us: "Stays only in your browser",
-    others: "Uploaded to their server",
+    feature: "Templates",
+    us: "Role-based layouts",
+    others: "Choose a layout, then review the finished document.",
   },
   {
-    feature: "Premium Templates",
-    us: "Every template is free",
-    others: "Best templates are paid",
-  },
-  {
-    feature: "Hidden Charges",
-    us: "None, ever",
-    others: "Common at checkout/export",
+    feature: "Export",
+    us: "Available in the builder",
+    others: "Supported formats depend on the selected resume flow.",
   },
 ];
 
@@ -1065,11 +1052,10 @@ function WhyFreeSection() {
       <div className="container-fluid custom-container">
         <div className="rk-sec-head">
           <div className="rk-eyebrow">Why ResumeSathi</div>
-          <h2 className="rk-sec-title fs-mob-24">Free means free. No catch.</h2>
+          <h2 className="rk-sec-title fs-mob-24">A clear, browser-based resume workflow</h2>
           <p className="rk-sec-sub mx-auto fs-mob-14">
-            A lot of "free" resume builders ask you to pay right when you hit
-            download. We don't do that — every template and every download stays
-            free, always.
+            Create a resume without an account, keep your entries in this
+            browser, and review the exported file before using it.
           </p>
         </div>
 
@@ -1087,9 +1073,9 @@ function WhyFreeSection() {
                 </div>
               </div>
               <div className="rk-compare-side rk-compare-side--them">
-                <span className="rk-compare-icon rk-compare-icon--no">✕</span>
+                <span className="rk-compare-icon rk-compare-icon--no" aria-hidden="true">i</span>
                 <div>
-                  <div className="rk-compare-tag">Most Others</div>
+                  <div className="rk-compare-tag">Details</div>
                   <div className="rk-compare-value">{row.others}</div>
                 </div>
               </div>
@@ -1290,110 +1276,15 @@ function BlogCard({ blog, href, category: categoryOverride }) {
   );
 }
 
-// ── Testimonials — 2 per screen ───────────────────────────────────────────
-const testimonials = [
-  {
-    name: "Priya Sharma",
-    role: "Software Engineer, MNC",
-    avatar: "PS",
-    text: "ResumeSathi completely transformed my resume. I used Template 2 and got an interview call within three days. Knowing my data stays local made me feel completely safe.",
-    rating: 5,
-  },
-  {
-    name: "Rahul Verma",
-    role: "SSC CGL Qualifier, Delhi",
-    avatar: "RV",
-    text: "I used the Classic template for SSC CGL. It was incredibly clean and professional. The examiner even complimented my resume. Highly recommend!",
-    rating: 5,
-  },
-  {
-    name: "Ananya Singh",
-    role: "UX Designer, Bengaluru",
-    avatar: "AS",
-    text: "Bold Accent template was perfect for my field. No signup, no data upload — that's what I loved most. Free and premium quality at the same time.",
-    rating: 5,
-  },
-  {
-    name: "Karan Mehta",
-    role: "Product Manager, Pune",
-    avatar: "KM",
-    text: "I tried three different templates before finding the perfect match. The ATS Checker helped me fine-tune it further. My resume finally feels complete.",
-    rating: 5,
-  },
-  {
-    name: "Deepika Nair",
-    role: "Bank PO, SBI",
-    avatar: "DN",
-    text: "Found this site while preparing for IBPS PO. The exam guides and typing practice helped me organize my preparation.",
-    rating: 5,
-  },
-  {
-    name: "Arjun Patel",
-    role: "Civil Engineer, Ahmedabad",
-    avatar: "AP",
-    text: "Created my resume with the Executive template. The output was so polished that the interviewer asked if I had it professionally made. Amazing quality for free!",
-    rating: 5,
-  },
-];
-
-function TestimonialCarousel() {
-  return (
-    <OwlSlider
-      ariaLabel="Customer testimonials"
-      options={{
-        margin: 24,
-        responsive: {
-          0: { items: 1 },
-          768: { items: 2 },
-        },
-      }}
-    >
-      {testimonials.map((t, i) => (
-        <div key={i} className="item">
-          <div className="rk-tcard">
-            <div className="rk-tcard-quote">
-              <Icon.QuoteIcon />
-            </div>
-            <p className="rk-tcard-text">&quot;{t.text}&quot;</p>
-            <div className="rk-tcard-stars">
-              {Array(t.rating)
-                .fill(0)
-                .map((_, s) => (
-                  <Icon.Star key={s} />
-                ))}
-            </div>
-            <div className="rk-tcard-author">
-              <div className="rk-tcard-av">{t.avatar}</div>
-              <div>
-                <div className="rk-tcard-name">{t.name}</div>
-                <div className="rk-tcard-role">{t.role}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ))}
-    </OwlSlider>
-  );
-}
-
-// ── Companies ─────────────────────────────────────────────────────────────
-const companies = [
-  { name: "Infosys", logo: "/front-assets/images/companies/infosys.svg" },
-  { name: "TCS", logo: "/front-assets/images/companies/tcs.svg" },
-  { name: "Wipro", logo: "/front-assets/images/companies/wipro.svg" },
-  { name: "HDFC Bank", logo: "/front-assets/images/companies/hdfc-bank.svg" },
-  { name: "Zomato", logo: "/front-assets/images/companies/zomato.svg" },
-];
-
 // ── FAQ ───────────────────────────────────────────────────────────────────
 const faqs = [
   {
     q: "Is ResumeSathi completely free?",
-    a: "Yes, ResumeSathi is 100% free and always will be. No hidden charges, no premium plans. All templates and all tools are completely free.",
+    a: "The resume builder is currently free to use. There is no payment required to create or download a resume.",
   },
   {
     q: "Where is my data saved?",
-    a: "Your data is saved only in your browser's localStorage. No server, no database, no account required. Your data stays safe on your device until you choose to clear it.",
+    a: "Resume and bio-data entries are saved in this browser's storage. They are not uploaded to our server for the builder. Clearing browser site data removes the saved entries.",
   },
   {
     q: "Do I need to create an account to build a resume?",
@@ -1405,7 +1296,7 @@ const faqs = [
   },
   {
     q: "Can I use more than one template at the same time?",
-    a: "Yes. Each template works independently. You can create separate resumes in multiple templates and all data is stored under different localStorage keys.",
+    a: "Yes. You can create separate resumes in multiple templates. Your entries are stored in browser storage and remain available on this device.",
   },
 ];
 
@@ -1498,7 +1389,7 @@ export default function ResumeListClient({
             <div className="col-lg-6 col-md-10 mx-auto hero-left-part">
               <div className="rk-hero-badge">
                 <span className="rk-hero-badge-dot" />
-                No signup · Always free · 100% local
+                No signup · Free to use · Resume data stays in browser
               </div>
               <h1 className="rk-hero-title fs-mob-32">
                 Build your{" "}
@@ -1544,8 +1435,8 @@ export default function ResumeListClient({
 
               <div className="rk-trust-row">
                 {[
-                  { i: <Icon.Shield />, t: "100% Private" },
-                  { i: <Icon.Zap />, t: "Ready in 5 min" },
+                  { i: <Icon.Shield />, t: "Resume data stays in browser" },
+                  { i: <Icon.Zap />, t: "Guided resume steps" },
                   { i: <Icon.Download />, t: "PDF Download" },
                 ].map(({ i, t }) => (
                   <div key={t} className="rk-trust-chip">
@@ -1568,11 +1459,9 @@ export default function ResumeListClient({
           <div className="rk-stats-flex">
             <div className="rk-live-highlight">
               <span className="rk-live-highlight-dot" />
-              <span className="rk-live-highlight-num">
-                1M+
-              </span>
+              <span className="rk-live-highlight-num">Local</span>
               <span className="rk-live-highlight-label">
-                students have created resumes
+                resume details stay in this browser
               </span>
             </div>
 
@@ -1580,9 +1469,9 @@ export default function ResumeListClient({
 
             <div className="rk-stats-simple">
               {[
-                { icon: <Icon.FileText />, n: "ATS", l: "Ready Templates" },
-                { icon: <Icon.Lock />, n: "₹0", l: "Forever Free" },
-                { icon: <Icon.Shield />, n: "100%", l: "Privacy Guaranteed" },
+                { icon: <Icon.FileText />, n: "Role-based", l: "Resume templates" },
+                { icon: <Icon.Lock />, n: "Free", l: "Currently available" },
+                { icon: <Icon.Shield />, n: "Local", l: "Resume data storage" },
               ].map(({ icon, n, l }) => (
                 <div key={l} className="rk-stat-simple">
                   <span className="rk-stat-simple-icon">{icon}</span>
@@ -1755,36 +1644,19 @@ export default function ResumeListClient({
       
       
 
-      <section className="rk-hired-at">
+      <section className="rk-section rk-section--white">
         <div className="container-fluid custom-container">
-          <div className="rk-hired-label">
-            Our candidates have been hired at
-          </div>
-          <div className="rk-hired-logos">
-            {companies.map((c) => (
-              <div key={c.name} className="rk-hired-logo">
-                <img
-                  src={c.logo}
-                  alt={`${c.name} logo`}
-                  width={120}
-                  height={34}
-                  className="rk-hired-logo-img img-fluid w-auto h-auto"
-                  loading="lazy"
-                  decoding="async"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                    if (e.currentTarget.nextSibling)
-                      e.currentTarget.nextSibling.style.display = "inline-block";
-                  }}
-                />
-                <span
-                  className="rk-hired-logo-fallback"
-                  style={{ display: "none" }}
-                >
-                  {c.name}
-                </span>
-              </div>
-            ))}
+          <div className="rk-sec-head">
+            <div className="rk-eyebrow">Independent career resource</div>
+            <h2 className="rk-sec-title fs-mob-24">
+              Tools to prepare your next application
+            </h2>
+            <p className="rk-sec-sub mx-auto fs-mob-14">
+              ResumeSathi is an independent platform and is not affiliated with
+              the employers shown in job listings or application materials.
+              Use the resume builder, document tools, and career resources to
+              prepare your own application.
+            </p>
           </div>
         </div>
       </section>
@@ -1843,19 +1715,77 @@ export default function ResumeListClient({
         </div>
       </section>
 
-      <section className="rk-section rk-section--gray" id="testimonials">
+      <section className="rk-section rk-section--gray" id="career-resources">
         <div className="container-fluid custom-container">
           <div className="rk-sec-head">
-            <div className="rk-eyebrow">Testimonials</div>
+            <div className="rk-eyebrow">Career resources</div>
             <h2 className="rk-sec-title fs-mob-24">
-              Trusted by thousands of job seekers
+              Your next career step, made simpler
             </h2>
             <p className="rk-sec-sub mx-auto fs-mob-14">
-              Real stories from people who built their resumes on ResumeSathi
-              and landed their dream jobs.
+              Start with the task you need help with. Explore guided resume
+              creation, practical checks, and tools for preparing application
+              files.
             </p>
           </div>
-          <TestimonialCarousel />
+          <div className="rk-career-grid">
+            {[
+              {
+                step: "01",
+                category: "Build",
+                title: "Create your resume",
+                description: "Organize your experience with guided sections, then choose a layout that fits your role.",
+                detail: "Resume builder · Role-based templates",
+                href: "/resume/resume-type/",
+                label: "Start building",
+                icon: <Icon.FileText />,
+                variant: "resume",
+              },
+              {
+                step: "02",
+                category: "Review",
+                title: "Check your resume",
+                description: "Review resume structure and compare its keywords with the role you want to apply for.",
+                detail: "ATS checker · Actionable suggestions",
+                href: "/tools/ats-checker/",
+                label: "Check resume",
+                icon: <Icon.ClipboardCheck />,
+                variant: "check",
+              },
+              {
+                step: "03",
+                category: "Prepare",
+                title: "Get application-ready",
+                description: "Explore document tools for common file tasks before sharing your application.",
+                detail: "PDF tools · Image and document utilities",
+                href: "/tools/",
+                label: "Explore tools",
+                icon: <Icon.Files />,
+                variant: "tools",
+              },
+            ].map((resource) => (
+              <Link
+                prefetch={false}
+                href={resource.href}
+                className={`rk-career-card rk-career-card--${resource.variant}`}
+                key={resource.title}
+              >
+                <span className="rk-career-card-top">
+                  <span className="rk-career-icon" aria-hidden="true">
+                    {resource.icon}
+                  </span>
+                  <span className="rk-career-step">{resource.step}</span>
+                </span>
+                <span className="rk-career-category">{resource.category}</span>
+                <span className="rk-career-title">{resource.title}</span>
+                <span className="rk-career-description">{resource.description}</span>
+                <span className="rk-career-detail">{resource.detail}</span>
+                <span className="rk-career-link">
+                  {resource.label} <Icon.ArrowRight />
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -1953,18 +1883,18 @@ export default function ResumeListClient({
         <div className="container-fluid custom-container rk-cta-inner">
           <div className="rk-cta-content">
             <div className="rk-cta-badge">
-              <Icon.Sparkle /> No signup required · Always free
+              <Icon.Sparkle /> No signup required · Free to use
             </div>
 
             <h2 className="rk-cta-title fs-mob-28">
               Build your resume today.
               <br />
-              It&apos;s 100% free.
+              No account is needed to start.
             </h2>
 
             <p className="rk-cta-sub fs-mob-14">
-              Join thousands of job seekers who built professional resumes on
-              ResumeSathi (Resume Maker). No account, no fee, no compromise on quality.
+              Create and review a resume with guided sections, then explore
+              practical tools and career resources for your applications.
             </p>
 
             <div className="rk-cta-actions">
@@ -1981,8 +1911,8 @@ export default function ResumeListClient({
             </div>
 
             <p className="rk-cta-footnote">
-              <Icon.Lock /> No data leaves your device · 100% local ·
-              ATS-optimized templates
+              <Icon.Lock /> Resume details stay in this browser · Review your
+              document before applying
             </p>
           </div>
         </div>

@@ -380,7 +380,7 @@ export default function ResumeLists() {
                 <polyline points="15 2 15 8 21 8" />
                 <path d="M9 18V12M9 12l-2 2M9 12l2 2" />
               </svg>
-              100% Free • Printable Bio-Data
+              Currently free to use • Printable Bio-Data
             </label>
             <h1 className="fs-mob-22">Free Bio-Data Maker</h1>
           </div>

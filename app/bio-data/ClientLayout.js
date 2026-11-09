@@ -5,6 +5,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import ReduxProvider from "./store/reduxProvider";
 import NavBar from "../components/NavBar";
+import Link from "next/link";
 import {
   canOpenStep,
   getFirstIncompleteStepIndex,
@@ -42,11 +43,34 @@ function StepAccessGuard({ children }) {
   return children;
 }
 
+function getPersistenceFallback(pathname) {
+  const route = pathname.replace(/\/+$/, "") || "/";
+  if (route !== "/bio-data") return null;
+
+  return (
+    <main className="container-fluid custom-container py-5">
+      <h1>Free Printable Bio-Data Maker</h1>
+      <p>
+        Create a clear, printable bio-data with sections for personal details,
+        education, work, languages, and other information required for its
+        purpose. Choose a layout, review every detail, and export or print the
+        finished document.
+      </p>
+      <p>
+        Include only information relevant to the application or recipient.
+        Check names, dates, and contact details before sharing your bio-data.
+        Your working document is saved in this browser.
+      </p>
+      <Link href="/bio-data/resume-type/">Start a bio-data</Link>
+    </main>
+  );
+}
+
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
 
   return (
-    <ReduxProvider>
+    <ReduxProvider loading={getPersistenceFallback(pathname)}>
       {pathname !== "/bio-data" && <NavBar />}
       <StepAccessGuard>{children}</StepAccessGuard>
     </ReduxProvider>

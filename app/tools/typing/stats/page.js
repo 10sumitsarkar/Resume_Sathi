@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { readHistory, aggregate, clearHistory } from "../_lib/stats";
 import TypingContentAd from "../_components/TypingAd";
+
 function WpmTrend({ history }) {
   const points = history.slice(-30);
   if (points.length < 2) {

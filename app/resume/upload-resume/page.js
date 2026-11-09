@@ -38,6 +38,14 @@ export const metadata = {
     "resume builder",
   ],
   alternates: { canonical: `${siteUrl}/resume/upload-resume/` },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
   openGraph: {
     title: "Upload Resume | ResumeSathi",
     description:

@@ -530,7 +530,40 @@ function ResumeTemplateContentInner() {
 
 export default function ResumeTemplateContentClient() {
   return (
-    <ReduxProvider>
+    <ReduxProvider
+      loading={
+        <>
+          <NavBar />
+          <main className="container-fluid custom-container py-5">
+            <h1>Free Resume Templates by Job Role</h1>
+            <p>
+              Compare layouts for different career stages and roles. A template
+              can organize your information, but use your own accurate
+              experience, skills, and achievements rather than copying sample
+              wording.
+            </p>
+            <div className="row g-3">
+              {TEMPLATE_CONTENT.map((template) => (
+                <article className="col-md-6" key={template.slug}>
+                  <h2>{template.title}</h2>
+                  <p>{template.note}</p>
+                  <Link href={`/templates/${template.slug}/`}>
+                    Read the {template.role} template guide
+                  </Link>
+                </article>
+              ))}
+            </div>
+            <p>
+              Check whether the layout suits your experience and the
+              application. Review the final PDF for readable headings,
+              accurate details, and a sensible page length.
+            </p>
+          </main>
+          <Footer />
+          <FooterNav />
+        </>
+      }
+    >
       <ResumeTemplateContentInner />
     </ReduxProvider>
   );

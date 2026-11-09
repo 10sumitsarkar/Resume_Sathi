@@ -11,11 +11,11 @@ import {
   persistor
 } from './store';
 
-export default function ReduxProvider({ children }) {
+export default function ReduxProvider({ children, loading = null }) {
   return (
     <Provider store={store}>
       <PersistGate
-        loading={null}
+        loading={loading}
         persistor={persistor}
       >
         {children}

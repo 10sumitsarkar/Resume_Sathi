@@ -1305,7 +1305,7 @@ export default function IdCardMaker() {
             <div className="row align-items-center g-4 g-lg-5">
               <div className="col-lg-6">
                 <span className="idm-pill">
-                  <i className="idm-dot" /> No signup &middot; Always free &middot; 100% local
+                  <i className="idm-dot" /> No signup &middot; Free to use
                 </span>
                 <h1 className="idm-h1">
                   Make a printable <span>ID card</span> in minutes
@@ -1376,7 +1376,7 @@ export default function IdCardMaker() {
                 <Icon name="download" size={17} /> <strong>4K PNG</strong> Print Ready
               </li>
               <li>
-                <Icon name="shield" size={17} /> <strong>100%</strong> Privacy Guaranteed
+                <Icon name="shield" size={17} /> Browser-based Photo Processing
               </li>
             </ul>
           </div>
@@ -1616,21 +1616,21 @@ export default function IdCardMaker() {
           <div className="container">
             <div className="text-center">
               <span className="idm-kicker">WHY RESUMESATHI</span>
-              <h2 className="idm-h2 idm-h2-center">Free means free. No catch.</h2>
+              <h2 className="idm-h2 idm-h2-center">ID card tools and export options</h2>
               <p className="idm-sub idm-sub-center">
-                Most ID card makers let you design for free and then ask for money
-                at download. We don&apos;t do that &mdash; every template and every
-                download stays free.
+                Use the editor to customize a card, review both sides, and export
+                the finished design. Check your file and print dimensions before
+                sending it to a card printer.
               </p>
             </div>
             <div className="idm-compare">
               {[
-                ["Price", "Always free, forever", "Free trial, then paid plans"],
-                ["Account / Signup", "Not required", "Signup usually required"],
-                ["PNG Download", "Unlimited, no watermark", "Often locked or watermarked"],
-                ["Your Photos", "Stay only in your browser", "Uploaded to their server"],
-                ["Back Side Design", "Included in every template", "Front only or premium"],
-                ["Hidden Charges", "None, ever", "Common at checkout or export"],
+                ["Cost", "Free to use currently", "No payment is required to use the current editor."],
+                ["Account", "Not required", "Start designing without registering."],
+                ["PNG export", "Download a PNG", "Review the exported file before printing."],
+                ["Photos", "Processed in your browser", "Selected photos are used to render your card design."],
+                ["Card sides", "Front and back editor", "Review both sides before exporting."],
+                ["Print dimensions", "CR80 and custom sizes", "Confirm the size and print settings with your printer."],
               ].map(([label, us, them]) => (
                 <div className="idm-compare-row" key={label}>
                   <span className="idm-compare-label">{label}</span>
@@ -1643,7 +1643,7 @@ export default function IdCardMaker() {
                   </span>
                   <span className="idm-compare-them">
                     <span>
-                      <b>MOST OTHERS</b>
+                      <b>Details</b>
                       {them}
                     </span>
                   </span>
@@ -1769,8 +1769,8 @@ export default function IdCardMaker() {
                 <div className="idm-faq">
                   {[
                     [
-                      "Is the ID card maker completely free?",
-                      "Yes. You can design and download both sides at 4K without an account and without a watermark. There is no paid tier and no export charge.",
+                      "Is the ID card maker free to use?",
+                      "The current editor is free to use and does not require an account. Export options and supported formats are described in the editor.",
                     ],
                     [
                       "What size are the ID cards?",
@@ -1816,15 +1816,15 @@ export default function IdCardMaker() {
           <div className="idm-cta-bg-text" aria-hidden="true">FREE</div>
           <div className="container text-center">
             <div className="idm-cta-content">
-              <span className="idm-cta-pill">No signup required &middot; Always free</span>
+              <span className="idm-cta-pill">No signup required &middot; Free to use</span>
               <h2>
                 Make your ID card today.
                 <br />
-                It&apos;s 100% free.
+                Start without an account.
               </h2>
               <p>
-                Join the teams who design school, office and event ID cards on
-                ResumeSathi. No account, no fee, no compromise on quality.
+                Create a design for a school, workplace, event, or organization,
+                then review the exported image before printing.
               </p>
               <div className="idm-cta-actions">
                 <button
@@ -1843,8 +1843,8 @@ export default function IdCardMaker() {
                 </button>
               </div>
               <span className="idm-cta-foot"> 
-                <Icon name="shield" size={13} /> No data leaves your device &middot;
-                100% local &middot; Print-ready output
+                <Icon name="shield" size={13} /> Photo editing happens in your browser
+                &middot; Review output before printing
               </span>
             </div>
           </div>

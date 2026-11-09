@@ -114,20 +114,10 @@ const Icon = {
       <path d="M21 12a9 9 0 0 1-15 6.7L3 16" />
     </svg>
   ),
-  Quote: () => (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M7.2 6C4.9 7.3 3.5 9.4 3.5 12.2V18h6v-6H6.8c.1-1.5.8-2.7 2.2-3.6L7.2 6Zm10 0c-2.3 1.3-3.7 3.4-3.7 6.2V18h6v-6h-2.7c.1-1.5.8-2.7 2.2-3.6L17.2 6Z" />
-    </svg>
-  ),
-  Star: () => (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2L5.8 21 7 14.2 2 9.3l6.9-1L12 2Z" />
-    </svg>
-  ),
 };
 
 const HIGHLIGHTS = [
-  '100% Free',
+  'Currently free to use',
   'ATS-Friendly Templates',
   'Printable Bio-Data',
   'Instant ATS Score',
@@ -248,27 +238,9 @@ const VALUES = [
     icon: <Icon.Lock />,
   },
   {
-    title: 'Always Improving',
-    desc: 'New tools, articles, templates, and refinements are added as user needs grow.',
+    title: 'Career Resources',
+    desc: 'Explore resume tools, career articles, exam guides, and typing practice.',
     icon: <Icon.Refresh />,
-  },
-];
-
-const TESTIMONIALS = [
-  {
-    name: 'Priya Sharma',
-    role: 'Software Engineer',
-    text: 'ResumeSathi helped me create a clean ATS resume quickly, and the tools made my application files ready without extra software.',
-  },
-  {
-    name: 'Rahul Verma',
-    role: 'SSC CGL Aspirant',
-    text: 'I used the resume builder, exam guides, and typing practice together. It saved time during exam preparation.',
-  },
-  {
-    name: 'Ananya Singh',
-    role: 'UX Designer',
-    text: 'The resume templates and career blogs made my profile stronger. Everything felt simple and practical.',
   },
 ];
 
@@ -330,10 +302,10 @@ function SectionHeader({ eyebrow, title, desc, href, cta }) {
 }
 
 const compareRows = [
-  { feature: 'Career workflow', us: 'Resume, tools, exam guides, blogs, and typing practice together', others: 'Separate websites for every task' },
-  { feature: 'Cost', us: 'Free tools for everyday job preparation', others: 'Many tools lock export or advanced actions' },
-  { feature: 'Candidate focus', us: 'Built around exam details, deadlines, ATS, and application files', others: 'Generic utilities without exam-preparation context' },
-  { feature: 'Speed', us: 'Move from exam guides to documents and resume tools quickly', others: 'Repeated uploads and manual switching' },
+  { feature: 'Career resources', us: 'Resume tools, career articles, exam guides, and typing practice', others: 'Open the section that matches the task you need.' },
+  { feature: 'Resume workflow', us: 'Guided sections and role-based layouts', others: 'Review and edit your details before exporting.' },
+  { feature: 'Document tools', us: 'PDF, DOCX, image, and signature utilities', others: 'Check each tool for supported formats and limits.' },
+  { feature: 'Privacy', us: 'Resume entries are saved in browser storage', others: 'See the privacy policy for contact and analytics details.' },
 ];
 
 export default function AboutClient({ initialBlogs = [], faqs = [] }) {
@@ -352,10 +324,11 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
             </svg>
             About ResumeSathi
           </span>
-          <h1>Free ATS-Friendly Resume Builder</h1>
+          <h1>ATS-Friendly Resume Builder &amp; Career Resources</h1>
           <p>
-            Create a professional resume or printable bio-data for free, with helpful tools,
-            exam guides, blogs, and typing practice when you need them.
+            Create a professional resume or printable bio-data with the
+            currently free-to-use builder, and explore tools, exam guides,
+            career articles, and typing practice.
           </p>
         </div>
       </section>
@@ -526,7 +499,7 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
                   <div className="ab-compare-side ab-compare-side--them">
                     <span className="ab-compare-icon ab-compare-icon--no">x</span>
                     <div>
-                      <div className="ab-compare-tag">Most others</div>
+                      <div className="ab-compare-tag">Details</div>
                       <div className="ab-compare-value">{row.others}</div>
                     </div>
                   </div>
@@ -550,26 +523,14 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
           </div>
 
           <div className="ab-testimonials">
-            <p className="ab-kicker ab-kicker--center">Testimonials</p>
-            <h2 className="ab-values-title">Trusted by Job Seekers</h2>
-            <div className="ab-testimonial-grid">
-              {TESTIMONIALS.map((item) => (
-                <div className="ab-tcard" key={item.name}>
-                  <div className="ab-tcard-quote"><Icon.Quote /></div>
-                  <p className="ab-tcard-text">&quot;{item.text}&quot;</p>
-                  <div className="ab-tcard-stars">
-                    {[1, 2, 3, 4, 5].map((star) => <Icon.Star key={star} />)}
-                  </div>
-                  <div className="ab-tcard-author">
-                    <div className="ab-tcard-av">{item.name.split(' ').map((part) => part[0]).join('').slice(0, 2)}</div>
-                    <div>
-                      <div className="ab-tcard-name">{item.name}</div>
-                      <div className="ab-tcard-role">{item.role}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <p className="ab-kicker ab-kicker--center">Getting started</p>
+            <h2 className="ab-values-title">Choose a resource for the task at hand</h2>
+            <p className="ab-why-sub">
+              Start with a resume or bio-data, prepare application files with
+              document tools, or use the guides and typing practice for exam
+              preparation. Review all generated documents before you share
+              them.
+            </p>
           </div>
 
           <div className="ab-preview-section">

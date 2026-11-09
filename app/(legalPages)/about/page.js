@@ -70,7 +70,7 @@ const aboutFaqs = [
   },
   {
     q: 'How often are exam guides and blogs updated?',
-    a: 'Exam guides and career articles are updated regularly so users can find current exam information and practical guidance.',
+    a: 'Guides and articles may be revised as information becomes available. Always verify exam dates, eligibility, and application details against the relevant official notice.',
   },
   {
     q: 'Is ResumeSathi useful on mobile?',
@@ -78,7 +78,7 @@ const aboutFaqs = [
   },
   {
     q: 'Why should I use ResumeSathi for my career workflow?',
-    a: 'ResumeSathi combines resume creation, ATS checking, document tools, typing practice, exam guides, and career guidance in one free platform.',
+    a: 'ResumeSathi brings resume creation, ATS checking, document tools, typing practice, exam guides, and career articles together in one place. The resume builder is currently free to use.',
   },
 ];
 

@@ -74,6 +74,12 @@ function auditSitemapPages(issues) {
       const pagePath = path.join(outDir, relativePath, 'index.html');
       if (!fs.existsSync(pagePath)) {
         issues.push(`Sitemap URL has no exported page: ${location}`);
+        return;
+      }
+
+      const pageContent = fs.readFileSync(pagePath, 'utf8');
+      if (/<meta\s+name=["']robots["'][^>]*content=["'][^"']*\bnoindex\b/i.test(pageContent)) {
+        issues.push(`Sitemap URL is marked noindex: ${location}`);
       }
     } catch (error) {
       issues.push(`Invalid sitemap URL: ${location}`);

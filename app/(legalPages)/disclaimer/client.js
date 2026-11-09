@@ -20,7 +20,7 @@ const SECTIONS = [
 ];
 
 export default function DisclaimerClient() {
-  const lastUpdated = 'July 17, 2026';
+  const lastUpdated = 'November 9, 2026';
 
   return (
     <>
@@ -137,12 +137,10 @@ export default function DisclaimerClient() {
               <div id="advertising-disclosure" className="lp-section">
                 <h2><span className="lp-num">7</span>Advertising & Third-Party Ads</h2>
                 <p>
-                  ResumeSathi may display advertisements served by third-party advertising
-                  companies, including Google AdSense. These companies may use cookies, web
-                  beacons, or similar technologies to serve ads based on your prior visits to
-                  this or other websites. Google&rsquo;s use of advertising cookies enables it
-                  and its partners to serve ads to you based on your visit to this site and/or
-                  other sites on the Internet.
+                  ResumeSathi does not currently display advertisements. If third-party
+                  advertising, including Google AdSense, is enabled in the future, providers
+                  may use cookies or similar technologies to serve and measure ads, subject
+                  to the applicable privacy disclosures and consent choices.
                 </p>
                 <p>
                   You may opt out of personalized advertising by visiting{' '}

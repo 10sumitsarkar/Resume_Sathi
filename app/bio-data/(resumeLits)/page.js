@@ -29,6 +29,14 @@ export const metadata = {
   description: 'Create a clean printable bio-data with personal details, education, extra qualification, and work details.',
   keywords: ['bio data maker', 'bioData format', 'free bioData builder', 'printable bio data'],
   alternates: { canonical: '/bio-data/' },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: {
+      index: false,
+      follow: true,
+    },
+  },
   openGraph: {
     title: 'Free Bio-Data Maker | ResumeSathi',
     description: 'Create a clean printable bio-data with personal details, education, extra qualification, and work details.',

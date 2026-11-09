@@ -670,7 +670,7 @@ export default function ShowResume() {
                     Accept: 'application/json',
                 },
                 body: JSON.stringify({
-                    name: feedbackName,
+                    name: `${feedbackName} (Resume feedback)`,
                     email,
                     phone: personalInformation.phone || null,
                     message,

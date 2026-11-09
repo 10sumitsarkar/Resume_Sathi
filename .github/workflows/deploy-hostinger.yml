@@ -57,7 +57,7 @@ jobs:
           test -s out/index.html || { echo "::error::Static export did not generate out/index.html."; exit 1; }
 
       - name: Deploy to Hostinger over FTPS
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}

@@ -43,6 +43,30 @@ npm run build
 
 4) If you use a CDN, purge the cache for `/public/content-cache/*` and your site assets.
 
+## Automatic Hostinger deployment
+
+The GitHub Actions workflow at `.github/workflows/deploy-hostinger.yml` builds
+the static site hourly, can be started manually from the Actions tab, and also
+deploys after changes are pushed to `main`. The build fetches the latest
+articles and exam guides before exporting the site. Scheduled runs are best
+effort and may be delayed by GitHub.
+
+Before enabling it, add these repository secrets under
+**Settings > Secrets and variables > Actions**:
+
+- `FTP_SERVER`: the FTP/FTPS hostname shown in Hostinger hPanel.
+- `FTP_USERNAME`: the FTP account username.
+- `FTP_PASSWORD`: the FTP account password.
+- `FTP_SERVER_DIR`: the site's exact FTP directory, commonly `public_html/`.
+
+The workflow uses explicit FTPS on port 21 and uploads only the generated
+`out/` files. It does not wipe the remote directory, so verify the target
+directory in Hostinger before the first run. The `main` branch must be
+configured for Next.js static export and generate `out/index.html`; the
+workflow checks this before uploading so a server-rendered build cannot be
+mistaken for a successful deployment. Start a test deployment using
+**Actions > Build and deploy to Hostinger > Run workflow**.
+
 Notes
 - `npm run regen` runs the fetch script and then `npm run build`.
 - If you prefer server-side dynamic updates (no rebuild), deploy the frontend with a Node server and remove static-export; then the client can fetch live JSON at runtime.

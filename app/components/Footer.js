@@ -108,6 +108,7 @@ export default function Footer() {
             <div className="rk-footer-col-title">Company</div>
 
             <Link prefetch={false} href="/about/">About</Link>
+            <Link prefetch={false} href="/editorial-policy/">Editorial Policy</Link>
             <Link prefetch={false} href="/terms-and-conditions/">Terms & Conditions</Link>
             <Link prefetch={false} href="/privacy-policy/">Privacy Policy</Link>
             <Link prefetch={false} href="/disclaimer/">Disclaimer</Link>
@@ -118,7 +119,7 @@ export default function Footer() {
 
       <div className="rk-footer-bottom">
         <div className="container-fluid custom-container rk-footer-bottom-inner">
-          <span>© {new Date().getFullYear()} ResumeSathi · Your data never leaves your device</span>
+          <span>© {new Date().getFullYear()} ResumeSathi · Resume details stay in your browser</span>
           <span>Made with ♥ for every career</span>
         </div>
       </div>

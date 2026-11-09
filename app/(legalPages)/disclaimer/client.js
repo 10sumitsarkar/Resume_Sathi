@@ -137,10 +137,11 @@ export default function DisclaimerClient() {
               <div id="advertising-disclosure" className="lp-section">
                 <h2><span className="lp-num">7</span>Advertising & Third-Party Ads</h2>
                 <p>
-                  ResumeSathi does not currently display advertisements. If third-party
-                  advertising, including Google AdSense, is enabled in the future, providers
-                  may use cookies or similar technologies to serve and measure ads, subject
-                  to the applicable privacy disclosures and consent choices.
+                  ResumeSathi loads the Google AdSense script for publisher review. Ad
+                  delivery depends on Google approval and our ad settings. If ads are served,
+                  Google or other advertising partners may use cookies or similar
+                  technologies to deliver, measure, and personalize ads, subject to the
+                  applicable privacy disclosures and consent choices.
                 </p>
                 <p>
                   You may opt out of personalized advertising by visiting{' '}

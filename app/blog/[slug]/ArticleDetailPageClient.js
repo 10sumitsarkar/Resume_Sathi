@@ -714,6 +714,17 @@ export default function ArticleDetailPageClient({
                   )}
                 </div>
 
+                <aside className="rk-editorial-note">
+                  <strong>Editorial note</strong>
+                  <p>
+                    Career guidance is general information, not a promise of employment
+                    outcomes. For factual or time-sensitive claims, check the relevant
+                    primary source. See our{" "}
+                    <Link href="/editorial-policy/">editorial policy</Link> or{" "}
+                    <Link href="/contact/">contact us</Link> to suggest a correction.
+                  </p>
+                </aside>
+
                 {authorProfile && (
                   <section
                     className="rk-article-author"

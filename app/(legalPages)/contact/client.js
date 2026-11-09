@@ -10,7 +10,6 @@ import { getApiBase } from '../../lib/apiConfig';
 import '../legal-pages.css';
 
 const CONTACT_EMAIL = 'support@resumesathi.com';
-const CONTACT_PHONE = '+91 00000 00000';
 
 const CONTACT_API_ENDPOINT = `${getApiBase()}/contact`;
 
@@ -341,20 +340,6 @@ const [captcha, setCaptcha] = useState({ a: 0, b: 0, answer: 0 });
                   <p className="ct-info-label">Email</p>
                   <p className="ct-info-value">
                     <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-                  </p>
-                </div>
-              </div>
-
-              <div className="ct-info-row d-none">
-                <div className="ct-info-icon">
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.15 9.81a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.06 0h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 7.91a16 16 0 0 0 5.45 5.45l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 14.92z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="ct-info-label">Phone</p>
-                  <p className="ct-info-value">
-                    <a href={`tel:${CONTACT_PHONE.replace(/\s+/g, '')}`}>{CONTACT_PHONE}</a>
                   </p>
                 </div>
               </div>

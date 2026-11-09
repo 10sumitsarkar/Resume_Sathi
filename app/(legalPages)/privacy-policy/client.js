@@ -134,8 +134,10 @@ export default function PrivacyPolicyClient() {
                   ResumeSathi uses Google Analytics to measure website usage and improve
                   the site. Google Analytics may use cookies and collect information such
                   as pages visited, browser and device details, and approximate location.
-                  You can block cookies through your browser settings, though this may
-                  affect some website features.
+                  The Google AdSense script is also loaded for publisher review and may
+                  use cookies or similar technologies if ads are served. You can manage
+                  browser cookies in your browser settings; disabling them may affect
+                  some website features.
                 </p>
               </div>
 
@@ -144,16 +146,22 @@ export default function PrivacyPolicyClient() {
                 <p>
                   We use Google Analytics, a service provided by Google, for website
                   analytics. Google may process usage and device information under its own
-                  privacy practices. Read the{" "}
+                  privacy practices. The site also loads the Google AdSense script for
+                  publisher review. Ad delivery depends on Google approval and our ad
+                  settings; if ads are served, Google and its partners may use cookies or
+                  similar technologies to deliver, measure, and personalize ads, subject to
+                  your choices and applicable consent requirements. Read the{" "}
                   <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">
                     Google Privacy Policy
                   </a>{" "}
                   for details. Resume and bio-data content created with our tools is stored
-                  in your browser and is not sent to Google Analytics. We do not currently
-                  display Google AdSense ads. If advertising is enabled in the future,
-                  Google may use cookies or similar technologies to serve and measure ads.
-                  We will update this policy and provide any required consent choices before
-                  enabling advertising for visitors in regions where consent is required.
+                  in your browser and is not sent to Google Analytics or AdSense. You can
+                  manage Google ad personalization through{" "}
+                  <a href="https://adssettings.google.com" target="_blank" rel="noreferrer">
+                    Google Ads Settings
+                  </a>
+                  . Where required, we will provide an appropriate consent mechanism before
+                  serving ads.
                 </p>
               </div>
 

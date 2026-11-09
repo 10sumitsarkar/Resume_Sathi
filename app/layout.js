@@ -3,6 +3,7 @@ import FloatingTypingLink from "./components/FloatingTypingLink";
 import ClientScripts from "./components/ClientScripts";
 import SocialBar from "./components/ads/SocialBar";
 import { DEFAULT_SITE_BASE } from "./lib/apiConfig";
+import Script from "next/script";
 import "./globals.css";
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
@@ -51,6 +52,12 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <meta charSet="utf-8" />
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2548560318125222"
+          crossOrigin="anonymous"
+          strategy="beforeInteractive"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/front-assets/css/bootstrap.min.css" as="style" />

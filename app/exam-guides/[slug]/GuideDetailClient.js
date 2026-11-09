@@ -572,6 +572,14 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
                     />
                   ))}
                 </div>
+                <aside className="rk-editorial-note">
+                  <strong>Editorial note</strong>
+                  <p>
+                    This guide is informational and does not replace an official notice.
+                    See our <Link href="/editorial-policy/">editorial policy</Link> or{" "}
+                    <Link href="/contact/">contact us</Link> to suggest a correction.
+                  </p>
+                </aside>
                 {article.user && (
                   <section
                     className="rk-article-author"

@@ -42,16 +42,49 @@ function StepAccessGuard({ children }) {
 
 function getPersistenceFallback(pathname) {
   const route = pathname.replace(/\/+$/, "") || "/";
+  if (route === "/resume") {
+    return (
+      <>
+        <section className="container-fluid custom-container small-hero-area">
+          <div className="left-part">
+            <div>
+              <label className="tl-eyebrow fs-mob-12">
+                Currently free to use • ATS-friendly
+              </label>
+              <h1 className="fs-mob-22">Free Resume Builder</h1>
+            </div>
+            <p className="fs-mob-16">
+              Create a free ATS-friendly resume online, manage your resumes, and
+              export them in PDF, Word, or text format.
+            </p>
+            <Link
+              prefetch={false}
+              className="rl-create-btn"
+              href="/resume/resume-type/"
+            >
+              Create New Resume
+            </Link>
+          </div>
+          <div className="right-part d-none d-md-block">
+            <img
+              src="/front-assets/images/resume-hero.webp"
+              className="img-fluid"
+              width={500}
+              height={360}
+              alt=""
+            />
+          </div>
+        </section>
+        <section className="resumelist-section py-custom" aria-busy="true">
+          <div className="container-fluid custom-container" role="status">
+            Loading your saved resumes...
+          </div>
+        </section>
+      </>
+    );
+  }
+
   const pages = {
-    "/resume": {
-      title: "Free Resume Builder",
-      paragraphs: [
-        "Create a resume with guided sections for your profile, education, work experience, skills, and projects. Choose a layout, review the preview, and export a copy when it is ready.",
-        "Your resume details are saved in this browser so you can continue editing on the same device. Keep your own backup if you clear browser data or move to another device.",
-      ],
-      href: "/templates/",
-      linkText: "Browse resume templates",
-    },
     "/resume/resume-type": {
       title: "Build a Resume Step by Step",
       paragraphs: [

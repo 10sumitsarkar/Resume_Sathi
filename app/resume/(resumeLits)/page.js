@@ -17,11 +17,12 @@ export const metadata = {
   keywords: ['resume builder', 'free resume maker', 'ATS resume templates', 'professional resume'],
   alternates: { canonical: '/resume/' },
   robots: {
-    index: false,
+    index: true,
     follow: true,
     googleBot: {
-      index: false,
+      index: true,
       follow: true,
+      'max-image-preview': 'large',
     },
   },
   openGraph: {

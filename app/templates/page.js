@@ -1,5 +1,6 @@
 import ResumeTemplateContentClient from "./ResumeTemplateContentClient";
 import { SEO_TEMPLATES, buildTemplatesCollectionJsonLd } from "./seoTemplates";
+import "../blog/blog.css";
 
 export const metadata = {
   title: "Free Resume Templates for Freshers, Developers, Teachers & More",
@@ -40,7 +41,6 @@ export default function ResumeTemplateContentPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplatesCollectionJsonLd()) }}
       />
-      <h1 className="visually-hidden">Free Resume Templates by Job Role</h1>
       <ResumeTemplateContentClient />
 
     </>

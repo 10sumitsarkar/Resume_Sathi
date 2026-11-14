@@ -16,15 +16,6 @@ export const metadata = {
   },
   description: 'Create ATS-friendly resumes, cover letters, and career documents for free with ResumeSathi. Explore career tools, exam guides, and expert advice.',
   keywords: ['resume builder', 'ATS resume', 'free resume templates', 'career blog', 'exam guides', 'cover letter builder'],
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-    },
-  },
   openGraph: {
     title: 'Free Resume Builder, ATS Resume Templates & Career Tools',
     description: 'Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.',
@@ -52,12 +43,6 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <meta charSet="utf-8" />
-        <Script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2548560318125222"
-          crossOrigin="anonymous"
-          strategy="beforeInteractive"
-        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/front-assets/css/bootstrap.min.css" as="style" />

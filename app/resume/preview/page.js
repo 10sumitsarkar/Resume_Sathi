@@ -8,10 +8,10 @@ export const metadata = {
   alternates: { canonical: '/resume/preview/' },
   robots: {
     index: false,
-    follow: true,
+    follow: false,
     googleBot: {
       index: false,
-      follow: true,
+      follow: false,
     },
   },
   openGraph: {

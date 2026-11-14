@@ -119,15 +119,8 @@ function HrCoordinatorResumeTemplateContent() {
 
 export default function HrCoordinatorResumeTemplateClient() {
   return (
-    <>
-      <noscript>
-        <section className="template-noscript-article">
-          <HrCoordinatorResumeTemplateContent />
-        </section>
-      </noscript>
-      <TemplateDetailClient slug="hr-coordinator-resume-template">
-        <HrCoordinatorResumeTemplateContent />
-      </TemplateDetailClient>
-    </>
+    <TemplateDetailClient slug="hr-coordinator-resume-template">
+      <HrCoordinatorResumeTemplateContent />
+    </TemplateDetailClient>
   );
 }

@@ -49,8 +49,9 @@ export default function LearnPage() {
       <section className="container-fluid custom-container mt-5">
         <div className="tf-card p-4 p-sm-5">
           <h2 className="tf-font-display tf-display-3">Learn touch typing one row at a time</h2>
-          <p className="tf-text-muted tf-leading-relaxed mt-3">The lesson path starts with the home row and gradually adds top row, bottom row, numbers, punctuation, capitals, common words, and mixed practice. Each unit focuses on a small group of keys so you can build muscle memory without rushing.</p>
-          <p className="tf-text-muted tf-leading-relaxed">Work through the lessons in order if you are new to typing practice. Repeat any lesson where your accuracy drops, then move into practice mode when the key positions feel familiar.</p>
+          <p className="tf-text-muted tf-leading-relaxed mt-3">The lesson path starts with the home row and gradually adds the top row, bottom row, numbers, punctuation, capitals, common words, and mixed practice. Each unit focuses on a small group of keys so you can build muscle memory without rushing.</p>
+          <p className="tf-text-muted tf-leading-relaxed">Each lesson gives you short drills for its key group. Keep your fingers near the home row, look at the screen instead of your hands, and aim for accurate keystrokes before increasing your pace.</p>
+          <p className="tf-text-muted tf-leading-relaxed">Work through the lessons in order if you are new to typing practice. Repeat any lesson where your accuracy drops, then move into practice mode when the key positions feel familiar. You can revisit a unit whenever a particular reach still feels awkward.</p>
         </div>
       </section>
     </main>

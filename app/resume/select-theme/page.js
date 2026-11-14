@@ -7,10 +7,10 @@ export const metadata = {
   description: 'Pick from professional templates to create your resume.',
   robots: {
     index: false,
-    follow: true,
+    follow: false,
     googleBot: {
       index: false,
-      follow: true,
+      follow: false,
     },
   },
 };

@@ -8,7 +8,6 @@ import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../.
 import { latestFirst } from "../articleSort";
 
 export const dynamicParams = false;
-const STATIC_404_SLUGS = ["[slug]", "%5Bslug%5D"];
 
 function resolveImageUrl(url) {
   const backendBase = DEFAULT_BACKEND_BASE.replace(/\/+$/, "");
@@ -131,7 +130,10 @@ function getArticleCategories() {
 function truncateMeta(value = "", max = 50) {
   const normalized = String(value || "").replace(/\s+/g, " ").trim();
   if (normalized.length <= max) return normalized;
-  return `${normalized.slice(0, max - 1).replace(/\s+\S*$/, "")}.`;
+  const truncated = normalized.slice(0, max);
+  const wordBoundary = truncated.lastIndexOf(" ");
+  if (wordBoundary < 1) return normalized;
+  return truncated.slice(0, wordBoundary).replace(/[.,\s]+$/, "");
 }
 
 export async function generateStaticParams() {
@@ -141,10 +143,7 @@ export async function generateStaticParams() {
     .filter(Boolean)
     .map((slug) => ({ slug }));
 
-  return [
-    ...staticSlugs,
-    ...STATIC_404_SLUGS.map((slug) => ({ slug })),
-  ];
+  return staticSlugs;
 }
 
 export async function generateMetadata({ params }) {
@@ -171,7 +170,7 @@ export async function generateMetadata({ params }) {
     article?.title ||
     "Blog Article";
 
-  const title = truncateMeta(rawTitle);
+  const title = String(rawTitle).replace(/\s*\|\s*ResumeSathi\s*$/i, "").trim();
 
   const description = truncateMeta(
     article?.meta_description ||

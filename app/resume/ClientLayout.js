@@ -85,11 +85,62 @@ function getPersistenceFallback(pathname) {
   }
 
   const pages = {
+    "/resume/personal-info": {
+      title: "Add Your Personal Information",
+      paragraphs: ["Enter your name and current contact details. Use an email address and phone number you check regularly."],
+    },
+    "/resume/summary": {
+      title: "Write Your Professional Summary",
+      paragraphs: ["Briefly describe your experience, strengths, and the kind of role you want. Keep it specific and easy to verify."],
+    },
+    "/resume/education": {
+      title: "Add Your Education",
+      paragraphs: ["Add your latest degree first. College name, course, and year are enough to get started."],
+    },
+    "/resume/work-experience": {
+      title: "Add Your Work Experience",
+      paragraphs: ["For each role, write what you did and what result came out of it. Add dates and employer details you can verify."],
+    },
+    "/resume/internship": {
+      title: "Add Your Internships",
+      paragraphs: ["Include relevant internships with the organization, role, dates, and a few tasks or outcomes."],
+    },
+    "/resume/skill": {
+      title: "List Your Skills",
+      paragraphs: ["List only skills you could discuss in an interview for two minutes. Prioritize those relevant to the job."],
+    },
+    "/resume/language": {
+      title: "Add Your Languages",
+      paragraphs: ["List languages you can use and choose an honest proficiency level for each one."],
+    },
+    "/resume/hobbie": {
+      title: "Add Your Interests",
+      paragraphs: ["Include a few genuine interests that help describe you. Keep them brief and relevant to your application."],
+    },
+    "/resume/social-media": {
+      title: "Add Professional Links",
+      paragraphs: ["Add portfolio or professional profile links that support your application. Check that each link opens correctly."],
+    },
+    "/resume/certificate": {
+      title: "Add Your Certificates",
+      paragraphs: ["Include relevant certificates with their names, issuing organizations, and completion dates."],
+    },
+    "/resume/select-theme": {
+      title: "Choose a Resume Template",
+      paragraphs: ["Choose a layout that is easy to read and suits your experience. You can review your details before exporting."],
+    },
+    "/resume/upload-resume": {
+      title: "Upload an Existing Resume",
+      paragraphs: ["Upload a PDF or Word file, then check and update the extracted details before using them."],
+    },
+    "/resume/preview": {
+      title: "Review Your Resume",
+      paragraphs: ["Check your details, spelling, and layout before downloading. Make sure the final resume is ready for the role."],
+    },
     "/resume/resume-type": {
       title: "Build a Resume Step by Step",
       paragraphs: [
-        "Start with a blank resume or import an existing file, then review each section before choosing a template. The builder supports personal details, a profile summary, education, experience, internships, skills, languages, certificates, and social links.",
-        "Use specific, accurate examples that match the role you are applying for. Review the finished document carefully before sending it to an employer.",
+        "Start with a blank resume or upload an existing file, then add accurate details for each section. Choose a readable template and review your resume before sharing.",
       ],
       href: "/templates/",
       linkText: "Compare resume templates",
@@ -102,7 +153,7 @@ function getPersistenceFallback(pathname) {
     <main className="container-fluid custom-container py-5">
       <h1>{page.title}</h1>
       {page.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-      <Link href={page.href}>{page.linkText}</Link>
+      {page.href && <Link href={page.href}>{page.linkText}</Link>}
     </main>
   );
 }

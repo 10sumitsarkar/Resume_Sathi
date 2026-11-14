@@ -145,7 +145,6 @@ export function TemplateSeoScript({ slug }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h1 className="visually-hidden">{jsonLd.headline}</h1>
     </>
   );
 }

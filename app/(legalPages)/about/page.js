@@ -83,7 +83,7 @@ const aboutFaqs = [
 ];
 
 export const metadata = {
-  title: 'About ResumeSathi: Resume Builder, Tools & Exam Guides',
+  title: 'About: Resume Builder, Tools & Exam Guides',
   description:
     'Learn about ResumeSathi, a free career platform with resume builder, bio-data maker, PDF tools, typing practice, exam guides, and career blogs.',
   keywords: [

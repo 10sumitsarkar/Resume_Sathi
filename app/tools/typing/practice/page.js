@@ -79,7 +79,8 @@ export default function PracticePage() {
         <section className="tf-card p-4 p-sm-5 mt-5">
           <h2 className="tf-font-display tf-display-3">Typing practice modes</h2>
           <p className="tf-text-muted tf-leading-relaxed mt-3">Use practice mode when you want flexible typing exercises instead of a guided lesson. Time attack is useful for measuring speed, word rush helps with rhythm, quote typing builds sentence flow, and code typing is helpful for developers who want to practice symbols and indentation.</p>
-          <p className="tf-text-muted tf-leading-relaxed">After each completed round, check your WPM and accuracy together. Speed is useful, but accuracy is what makes typing feel controlled and reliable during real work.</p>
+          <p className="tf-text-muted tf-leading-relaxed">Custom text lets you work with your own paragraph or other writing. Choose a short time limit or word count when you want a quick round, then repeat the same mode later to compare how consistent your typing feels.</p>
+          <p className="tf-text-muted tf-leading-relaxed">After each completed round, check your WPM and accuracy together. Speed is useful, but accuracy is what makes typing feel controlled and reliable during real work. If errors increase, slow down and focus on clean keystrokes before trying to beat your previous score.</p>
         </section>
       </div>
     </main>

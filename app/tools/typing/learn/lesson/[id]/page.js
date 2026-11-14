@@ -56,6 +56,14 @@ export async function generateMetadata({ params }) {
       description,
       images: [`${SITE_URL}/front-assets/images/og/home-og.png`],
     },
+    robots: {
+      index: false,
+      follow: true,
+      googleBot: {
+        index: false,
+        follow: true,
+      },
+    },
   };
 }
 

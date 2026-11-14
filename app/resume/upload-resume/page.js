@@ -40,10 +40,10 @@ export const metadata = {
   alternates: { canonical: `${siteUrl}/resume/upload-resume/` },
   robots: {
     index: false,
-    follow: true,
+    follow: false,
     googleBot: {
       index: false,
-      follow: true,
+      follow: false,
     },
   },
   openGraph: {

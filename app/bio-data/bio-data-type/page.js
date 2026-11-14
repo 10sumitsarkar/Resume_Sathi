@@ -6,10 +6,10 @@ export const metadata = {
   alternates: { canonical: "/bio-data/resume-type/" },
   robots: {
     index: false,
-    follow: true,
+    follow: false,
     googleBot: {
       index: false,
-      follow: true,
+      follow: false,
     },
   },
 };

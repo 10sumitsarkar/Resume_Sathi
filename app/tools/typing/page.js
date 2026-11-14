@@ -1,6 +1,7 @@
 import Link from "next/link";
 import HeroDemo from "./_components/HeroDemo";
 import TypingContentAd, { TypingTopAd } from "./_components/TypingAd";
+import TypingHomeArticle from "./_components/TypingHomeArticle";
 import { typingMetadata } from "./_lib/seo";
 
 export const metadata = typingMetadata({
@@ -36,8 +37,9 @@ const FEATURES = [
 
 export default function TypingHome() {
   return (
-    <div className="tf-scope tf-typing-home">
-      <div className="tf-animate-rise">
+    <>
+      <div className="tf-scope tf-typing-home">
+        <div className="tf-animate-rise">
         <div className="container-fluid custom-container">
           <div className="row g-4 align-items-center tf-home-hero">
             <div className="col-12 col-lg-7">
@@ -48,7 +50,7 @@ export default function TypingHome() {
                 <span>a craft</span>, not a chore.
               </h1>
               <p className="tf-home-sub">
-                TypeForge isn't just a speed test. It's a complete system of
+                TypeForge isn&apos;t just a speed test. It&apos;s a complete system of
                 finger-by-finger lessons, multiple practice modes, and mistake
                 tracking — all at your own pace.
               </p>
@@ -112,7 +114,9 @@ export default function TypingHome() {
             </p>
           </div>
         </section>
+        </div>
       </div>
-    </div>
+      <TypingHomeArticle />
+    </>
   );
 }

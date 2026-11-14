@@ -17,7 +17,7 @@ function readCache(filename) {
   return [];
 }
 export const metadata = {
-  title: "Free Resume Builder and Career Tools | ResumeSathi",
+  title: "Free Resume Builder and Career Tools",
   description:
     "Create a resume with guided sections and role-based templates, then prepare application files with free browser-based career tools.",
   keywords: [

@@ -85,7 +85,7 @@ function getSlug(item) {
 
 function getTitle(item) {
   if (!item) return '';
-  return item.title || item.article_title || item.meta_title || item.topic_name || item.name || 'Untitled exam guide';
+  return item.article_title || item.title || item.meta_title || item.topic_name || item.name || 'Untitled exam guide';
 }
 
 function getDescription(item) {

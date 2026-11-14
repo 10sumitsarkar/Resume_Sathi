@@ -6,10 +6,10 @@ export const metadata = {
   description: 'Create a professional resume in minutes with Logichook resume builder.',
  robots: {
     index: false,
-    follow: true,
+    follow: false,
     googleBot: {
       index: false,
-      follow: true,
+      follow: false,
     },
   },
 };

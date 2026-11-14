@@ -115,15 +115,8 @@ function FreshGraduateResumeTemplateContent() {
 
 export default function FreshGraduateResumeTemplateClient() {
   return (
-    <>
-      <noscript>
-        <section className="template-noscript-article">
-          <FreshGraduateResumeTemplateContent />
-        </section>
-      </noscript>
-      <TemplateDetailClient slug="fresh-graduate-resume-template">
-        <FreshGraduateResumeTemplateContent />
-      </TemplateDetailClient>
-    </>
+    <TemplateDetailClient slug="fresh-graduate-resume-template">
+      <FreshGraduateResumeTemplateContent />
+    </TemplateDetailClient>
   );
 }

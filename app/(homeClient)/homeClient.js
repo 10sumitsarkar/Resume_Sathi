@@ -1653,9 +1653,11 @@ export default function ResumeListClient({
             </h2>
             <p className="rk-sec-sub mx-auto fs-mob-14">
               ResumeSathi is an independent platform and is not affiliated with
-              the employers shown in job listings or application materials.
-              Use the resume builder, document tools, and career resources to
-              prepare your own application.
+              any employer or government recruiting body. Recruitment details in
+              our exam guides are for general information; always verify them
+              against the official notification before applying. Use the resume
+              builder, document tools, and career resources to prepare your own
+              application.
             </p>
           </div>
         </div>

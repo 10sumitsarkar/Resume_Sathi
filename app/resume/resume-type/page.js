@@ -39,10 +39,10 @@ export const metadata = {
   alternates: { canonical: "/resume/resume-type/" },
   robots: {
     index: false,
-    follow: true,
+    follow: false,
     googleBot: {
       index: false,
-      follow: true,
+      follow: false,
     },
   },
   openGraph: {

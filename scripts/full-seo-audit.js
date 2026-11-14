@@ -8,8 +8,6 @@ const canonicalBase = (process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXT_PUBL
 const excludedPathPatterns = [
   /^\/resume\/(personal-info|summary|education|work-experience|internship|skill|language|certificate|hobbie|social-media|select-theme|preview)(\/|$)/,
   /^\/bio-data\/(personal-info|summary|education|work-experience|internship|skill|language|hobbie|social-media|select-theme|preview)(\/|$)/,
-  /^\/blog\/live(\/|$)/,
-  /^\/exam-guides\/live(\/|$)/,
   /^\/exam-guides\/(%5Bslug%5D|\[slug\])(\/|$)/,
   /^\/blog\/(%5Bslug%5D|\[slug\])(\/|$)/,
   /^\/404(\/|$)/,

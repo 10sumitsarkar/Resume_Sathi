@@ -6,10 +6,10 @@ export const metadata = {
   description: 'Create a printable bio-data in minutes with Logichook bio-data maker.',
  robots: {
     index: false,
-    follow: true,
+    follow: false,
     googleBot: {
       index: false,
-      follow: true,
+      follow: false,
     },
   },
 };

@@ -190,6 +190,10 @@ const [captcha, setCaptcha] = useState({ a: 0, b: 0, answer: 0 });
             Questions, feedback, or partnership ideas — send us a message and our team will
             get back to you as soon as possible.
           </p>
+          <p>
+            You can also email us at{" "}
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
+          </p>
         </div>
       </section>
 
@@ -353,7 +357,7 @@ const [captcha, setCaptcha] = useState({ a: 0, b: 0, answer: 0 });
                 </div>
                 <div>
                   <p className="ct-info-label">Location</p>
-                  <p className="ct-info-value">India</p>
+                  <p className="ct-info-value">Dwarka, New Delhi, Delhi 110043, India</p>
                 </div>
               </div>
 

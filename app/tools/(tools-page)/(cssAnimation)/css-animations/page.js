@@ -1,10 +1,11 @@
 import CssAnimations from "./CssAnimations";
 
 export const metadata = {
-  title: 'CSS Animation Generator | ResumeSathi',
+  title: 'CSS Animation Generator',
   description: 'Create beautiful CSS animations for your website, landing page, or resume project with ResumeSathi’s free animation tool.',
   keywords: ['CSS animation generator', 'animation css', 'web animation tool', 'CSS effects'],
   alternates: { canonical: '/tools/css-animations/' },
+  robots: { index: false, follow: true, googleBot: { index: false, follow: true } },
   openGraph: {
     title: 'CSS Animation Generator | ResumeSathi',
     description: 'Create beautiful CSS animations for your website, landing page, or resume project with ResumeSathi’s free animation tool.',

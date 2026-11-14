@@ -20,7 +20,7 @@ const SECTIONS = [
 ];
 
 export default function DisclaimerClient() {
-  const lastUpdated = 'November 9, 2026';
+  const lastUpdated = 'November 14, 2026';
 
   return (
     <>
@@ -137,7 +137,7 @@ export default function DisclaimerClient() {
               <div id="advertising-disclosure" className="lp-section">
                 <h2><span className="lp-num">7</span>Advertising & Third-Party Ads</h2>
                 <p>
-                  ResumeSathi loads the Google AdSense script for publisher review. Ad
+                  ResumeSathi may display ads from Google AdSense in the future. Ad
                   delivery depends on Google approval and our ad settings. If ads are served,
                   Google or other advertising partners may use cookies or similar
                   technologies to deliver, measure, and personalize ads, subject to the

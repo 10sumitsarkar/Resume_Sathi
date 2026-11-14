@@ -10,9 +10,15 @@ RewriteRule ^ https://www.resumesathi.com%{REQUEST_URI} [R=301,L]
 # Redirect retired jobs pages and their sub-pages to the WWW homepage.
 RewriteRule ^jobs(?:/.*)?$ https://www.resumesathi.com [R=301,L,NC]
 
+# Return 410 for obsolete placeholder live routes.
+RewriteRule ^(blog|exam-guides)/live/?$ - [G,L,NC]
+
 # Use one canonical host so Google does not see www and non-www as duplicates.
 RewriteCond %{HTTP_HOST} ^resumesathi\.com$ [NC]
 RewriteRule ^ https://www.resumesathi.com%{REQUEST_URI} [R=301,L]
+
+# Redirect the empty typing lesson index to the lessons overview.
+RewriteRule ^tools/typing/learn/lesson/?$ /tools/typing/learn/ [R=301,L]
 
 # Canonicalize page URLs to slash format: /about/ not /about.
 RewriteCond %{REQUEST_URI} !^/$

@@ -2,7 +2,6 @@ import fs from 'fs';
 import path from 'path';
 import { DEFAULT_SITE_BASE, getApiBase } from './lib/apiConfig';
 import { SEO_TEMPLATES } from './templates/seoTemplates';
-import { LESSONS } from './tools/typing/_lib/lessons';
 import { isExamGuide } from './exam-guides/examGuideData';
 
 const siteUrl = DEFAULT_SITE_BASE;
@@ -74,9 +73,7 @@ export default async function sitemap() {
     '/tools/age-calculator/',
     '/tools/ats-checker/',
     '/tools/background-remover/',
-    '/tools/css-animations/',
     '/tools/docx-to-pdf/',
-    '/tools/gradient-generator/',
     '/tools/id-card-maker/',
     '/tools/image-to-pdf/',
     '/tools/merge-pdf/',
@@ -87,14 +84,14 @@ export default async function sitemap() {
     '/tools/typing/',
     '/tools/typing/learn/',
     '/tools/typing/practice/',
-    ...LESSONS.map((lesson) => `/tools/typing/learn/lesson/${lesson.id}/`),
   ];
 
   const routes = [
     { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
     { url: `${baseUrl}/blog/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
     { url: `${baseUrl}/exam-guides/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/resume/resume-type/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${baseUrl}/resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
+    { url: `${baseUrl}/bio-data/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${baseUrl}/templates/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     ...SEO_TEMPLATES.map((template) => ({
       url: `${baseUrl}/templates/${encodeURIComponent(template.slug)}/`,

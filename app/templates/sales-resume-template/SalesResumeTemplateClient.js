@@ -118,15 +118,8 @@ function SalesResumeTemplateContent() {
 
 export default function SalesResumeTemplateClient() {
   return (
-    <>
-      <noscript>
-        <section className="template-noscript-article">
-          <SalesResumeTemplateContent />
-        </section>
-      </noscript>
-      <TemplateDetailClient slug="sales-resume-template">
-        <SalesResumeTemplateContent />
-      </TemplateDetailClient>
-    </>
+    <TemplateDetailClient slug="sales-resume-template">
+      <SalesResumeTemplateContent />
+    </TemplateDetailClient>
   );
 }

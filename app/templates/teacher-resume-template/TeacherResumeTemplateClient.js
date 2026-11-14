@@ -119,15 +119,8 @@ function TeacherResumeTemplateContent() {
 
 export default function TeacherResumeTemplateClient() {
   return (
-    <>
-      <noscript>
-        <section className="template-noscript-article">
-          <TeacherResumeTemplateContent />
-        </section>
-      </noscript>
-      <TemplateDetailClient slug="teacher-resume-template">
-        <TeacherResumeTemplateContent />
-      </TemplateDetailClient>
-    </>
+    <TemplateDetailClient slug="teacher-resume-template">
+      <TeacherResumeTemplateContent />
+    </TemplateDetailClient>
   );
 }

@@ -128,8 +128,8 @@
 }
 
 .template-card-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
@@ -140,7 +140,7 @@
   border-radius: 6px;
   background: var(--rk-brand);
   color: #ffffff;
-  padding: 0 14px;
+  padding: 5px 14px;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
@@ -157,7 +157,7 @@
   font-weight: 700;
   justify-content: center;
   min-height: 42px;
-  padding: 0 14px;
+  padding: 5px 14px;
   text-align: center;
   text-decoration: none;
 }

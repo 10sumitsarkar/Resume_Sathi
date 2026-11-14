@@ -24,7 +24,7 @@ const SECTIONS = [
 ];
 
 export default function TermsClient() {
-  const lastUpdated = 'July 14, 2026';
+  const lastUpdated = 'November 14, 2026';
 
   return (
     <>
@@ -160,9 +160,10 @@ export default function TermsClient() {
               <div id="third-party-links" className="lp-section">
                 <h2><span className="lp-num">9</span>Third-Party Links</h2>
                 <p>
-                  ResumeSathi may contain links to third-party websites, including job
-                  listings and blog references. We do not control and are not responsible
-                  for the content, accuracy, or practices of these external sites.
+                  ResumeSathi may contain links to third-party websites, including official
+                  recruitment notifications and other external references. We do not
+                  control and are not responsible for the content, accuracy, or practices
+                  of these external sites.
                 </p>
               </div>
 

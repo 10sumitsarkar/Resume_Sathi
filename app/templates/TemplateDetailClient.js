@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
@@ -21,6 +21,7 @@ import {
   TEMPLATE_CONTENT,
   createResumeFromTemplate,
 } from "./ResumeTemplateContentClient";
+import { SEO_TEMPLATES } from "./seoTemplates";
 import "../blog/blog.css";
 import "./templates.css";
 
@@ -41,6 +42,7 @@ function DetailInner({ slug, children }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const template = TEMPLATE_CONTENT.find((item) => item.slug === slug);
+  const seoTemplate = SEO_TEMPLATES.find((item) => item.slug === slug);
 
   if (!template) return null;
 
@@ -57,7 +59,7 @@ function DetailInner({ slug, children }) {
               Back to templates
             </Link>
             <p className="template-content-eyebrow">{template.role}</p>
-            <h1 className="fs-mob-22">{template.title}</h1>
+            <h1 className="fs-mob-22">{seoTemplate?.title || template.title}</h1>
           </div>
           <p className="fs-mob-16 ms-0">{template.note}</p>
           <button
@@ -87,10 +89,12 @@ function DetailInner({ slug, children }) {
           <div className="row g-4 align-items-start">
             <div className="col-lg-8">
               <div className="template-content-preview">
-                <TemplateComponent
-                  isStatic={true}
-                  additionalClass={`font-poppins layout-${template.layout} ${template.color}`}
-                />
+                <Suspense fallback={null}>
+                  <TemplateComponent
+                    isStatic={true}
+                    additionalClass={`font-poppins layout-${template.layout} ${template.color}`}
+                  />
+                </Suspense>
               </div>
 
               <article className="template-article">
@@ -145,7 +149,7 @@ function DetailInner({ slug, children }) {
 
 export default function TemplateDetailClient({ slug, children }) {
   return (
-    <ReduxProvider>
+    <ReduxProvider gate={false}>
       <DetailInner slug={slug}>{children}</DetailInner>
     </ReduxProvider>
   );

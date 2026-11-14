@@ -115,15 +115,8 @@ function UiDesignerResumeTemplateContent() {
 
 export default function UiDesignerResumeTemplateClient() {
   return (
-    <>
-      <noscript>
-        <section className="template-noscript-article">
-          <UiDesignerResumeTemplateContent />
-        </section>
-      </noscript>
-      <TemplateDetailClient slug="ui-designer-resume-template">
-        <UiDesignerResumeTemplateContent />
-      </TemplateDetailClient>
-    </>
+    <TemplateDetailClient slug="ui-designer-resume-template">
+      <UiDesignerResumeTemplateContent />
+    </TemplateDetailClient>
   );
 }

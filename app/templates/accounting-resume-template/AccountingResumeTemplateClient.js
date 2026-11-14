@@ -65,15 +65,8 @@ function AccountingResumeTemplateContent() {
 
 export default function AccountingResumeTemplateClient() {
   return (
-    <>
-      <noscript>
-        <section className="template-noscript-article">
-          <AccountingResumeTemplateContent />
-        </section>
-      </noscript>
-      <TemplateDetailClient slug="accounting-resume-template">
-        <AccountingResumeTemplateContent />
-      </TemplateDetailClient>
-    </>
+    <TemplateDetailClient slug="accounting-resume-template">
+      <AccountingResumeTemplateContent />
+    </TemplateDetailClient>
   );
 }

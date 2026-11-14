@@ -21,7 +21,7 @@ const SECTIONS = [
 ];
 
 export default function PrivacyPolicyClient() {
-  const lastUpdated = 'November 9, 2026';
+  const lastUpdated = 'November 14, 2026';
 
   return (
     <>
@@ -72,6 +72,11 @@ export default function PrivacyPolicyClient() {
                   If you use our <strong>Contact Us</strong> page, we collect your{' '}
                   <strong>name, email address, message</strong>, and, optionally, your{' '}
                   <strong>phone number</strong>, so we can respond to your query.
+                </p>
+                <p>
+                  If you subscribe to our newsletter, we collect your email address to send you
+                  career tips, exam updates and resources. You can unsubscribe at any time using
+                  the link in our emails or by writing to support@resumesathi.com.
                 </p>
                 <p>
                   We may also collect limited technical information automatically, including
@@ -134,9 +139,9 @@ export default function PrivacyPolicyClient() {
                   ResumeSathi uses Google Analytics to measure website usage and improve
                   the site. Google Analytics may use cookies and collect information such
                   as pages visited, browser and device details, and approximate location.
-                  The Google AdSense script is also loaded for publisher review and may
-                  use cookies or similar technologies if ads are served. You can manage
-                  browser cookies in your browser settings; disabling them may affect
+                  We may use Google AdSense to show ads in the future. If ads are served,
+                  Google and its partners may use cookies or similar technologies. You can
+                  manage browser cookies in your browser settings; disabling them may affect
                   some website features.
                 </p>
               </div>
@@ -146,9 +151,9 @@ export default function PrivacyPolicyClient() {
                 <p>
                   We use Google Analytics, a service provided by Google, for website
                   analytics. Google may process usage and device information under its own
-                  privacy practices. The site also loads the Google AdSense script for
-                  publisher review. Ad delivery depends on Google approval and our ad
-                  settings; if ads are served, Google and its partners may use cookies or
+                  privacy practices. We may use Google AdSense to display ads in the future.
+                  Ad delivery depends on Google approval and our ad settings; if ads are
+                  served, Google and its partners may use cookies or
                   similar technologies to deliver, measure, and personalize ads, subject to
                   your choices and applicable consent requirements. Read the{" "}
                   <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">
@@ -189,13 +194,16 @@ export default function PrivacyPolicyClient() {
                   provided, and message) are retained only as long as necessary to respond to
                   your query and for reasonable record-keeping, after which they may be deleted.
                 </p>
+                <p>
+                  Newsletter email addresses are kept until you unsubscribe or ask us to delete them.
+                </p>
               </div>
 
               <div id="childrens-privacy" className="lp-section">
                 <h2><span className="lp-num">9</span>Age & Suitability</h2>
                 <p>
                   ResumeSathi is an education and career-focused platform intended to help
-                  people of any age build resumes and explore job opportunities. Our content
+                  people of any age build resumes and prepare for exams and applications. Our content
                   is general-audience and does not include material unsuitable for younger
                   users, so students, first-time job seekers, and professionals alike can use
                   the site.
@@ -234,9 +242,9 @@ export default function PrivacyPolicyClient() {
                 <h2><span className="lp-num">12</span>Contact Us</h2>
                 <p>
                   If you have any questions about this Privacy Policy or how your data is
-                  handled, please visit our{' '}
-                  <a href="/contact/">Contact page</a>{' '}
-                  to get in touch with our team.
+                  handled, email us at{' '}
+                  <a href="mailto:support@resumesathi.com">support@resumesathi.com</a> or visit
+                  our <a href="/contact/">Contact page</a>.
                 </p>
               </div>
             </div>

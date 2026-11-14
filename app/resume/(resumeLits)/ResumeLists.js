@@ -3,7 +3,7 @@
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { setResumes } from '../reducer/resume-reducer';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import Link from 'next/link';
 import 'react-toastify/dist/ReactToastify.css';
@@ -22,7 +22,6 @@ import ResumeTemplate9 from '../templates/ResumeTemplate9';
 
 
 import { getResumeCustomizationClasses } from '../utils/fontSize';
-import { NativeBanner } from '../../components/ads';
 
 import "./resume-list.css";
 
@@ -92,6 +91,12 @@ const safeFileName = (resume) => (resume.resume_name || `${resume.personal_infom
 
 export default function ResumeLists() {
   const dispatch = useDispatch();
+  // Saved resumes come from browser storage, so they are only known after mount/rehydration.
+  // Until then we show a small placeholder instead of the "No Resumes Yet" empty state.
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
+  const rehydrated = useSelector((state) => (state._persist ? state._persist.rehydrated : true));
+  const listReady = mounted && rehydrated;
   const [selectedResumeId, setSelectedResumeId] = useState(null);
   const [renderResumeId, setRenderResumeId] = useState(null);
 
@@ -376,7 +381,15 @@ export default function ResumeLists() {
       {/* ── Resume Cards ── */}
       <section className="resumelist-section py-custom">
         <div className="container-fluid custom-container">
-          {submittedResumeLists.length > 0 ? (
+          {!listReady ? (
+            <div className="row">
+              <div className="col-12">
+                <div className="rl-empty" style={{ minHeight: 220 }} aria-live="polite">
+                  <p className="rl-empty__sub mb-0">Loading your saved resumes...</p>
+                </div>
+              </div>
+            </div>
+          ) : submittedResumeLists.length > 0 ? (
             <div className="row g-4">
               {submittedResumeLists.map((resume) => {
                 const initials = (resume.personal_infomation?.firstName?.[0] || resume.resume_name?.[0] || 'R').toUpperCase();
@@ -559,9 +572,6 @@ export default function ResumeLists() {
                     </svg>
                     Create Your First Resume
                   </Link>
-                  <div className="d-flex justify-content-center my-4">
-                    <NativeBanner />
-                  </div>
                 </div>
               </div>
             </div>

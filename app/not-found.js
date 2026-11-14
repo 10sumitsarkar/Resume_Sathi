@@ -3,7 +3,7 @@ import Link from 'next/link';
 import NavBar from './components/NavBar';
 
 export const metadata = {
-  title: 'Page Not Found | ResumeSathi',
+  title: 'Page Not Found',
   description: 'The page you are looking for could not be found on ResumeSathi.',
 };
 

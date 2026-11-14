@@ -116,15 +116,8 @@ function ProjectCoordinatorResumeTemplateContent() {
 
 export default function ProjectCoordinatorResumeTemplateClient() {
   return (
-    <>
-      <noscript>
-        <section className="template-noscript-article">
-          <ProjectCoordinatorResumeTemplateContent />
-        </section>
-      </noscript>
-      <TemplateDetailClient slug="project-coordinator-resume-template">
-        <ProjectCoordinatorResumeTemplateContent />
-      </TemplateDetailClient>
-    </>
+    <TemplateDetailClient slug="project-coordinator-resume-template">
+      <ProjectCoordinatorResumeTemplateContent />
+    </TemplateDetailClient>
   );
 }

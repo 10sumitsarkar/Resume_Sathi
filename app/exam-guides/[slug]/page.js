@@ -54,7 +54,10 @@ function getDefaultExamGuideOgImage() {
 function truncateMeta(value = "", max = 158) {
   const normalized = String(value || "").replace(/\s+/g, " ").trim();
   if (normalized.length <= max) return normalized;
-  return `${normalized.slice(0, max - 1).replace(/\s+\S*$/, "")}.`;
+  const truncated = normalized.slice(0, max);
+  const wordBoundary = truncated.lastIndexOf(" ");
+  if (wordBoundary < 1) return normalized;
+  return truncated.slice(0, wordBoundary).replace(/[.,\s]+$/, "");
 }
 
 function getAbsoluteExamGuideUrl(slug = "") {
@@ -134,7 +137,7 @@ export async function generateMetadata({ params }) {
     "exam guides, syllabus, eligibility, exam pattern, exam preparation";
   const canonical = `${siteUrl}${withTrailingSlash(`/exam-guides/${getExamGuideSlug(slug) || ""}`)}`;
   const resolvedImage = getDefaultExamGuideOgImage();
-  const seoTitle = truncateMeta(title.replace(/\s*\|\s*ResumeSathi\s*$/i, ""), 58);
+  const seoTitle = title.replace(/\s*\|\s*ResumeSathi\s*$/i, "").trim();
   const seoDescription = description || truncateMeta(`Check ${rawTitle} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`);
 
   return {
@@ -187,12 +190,22 @@ function buildExamGuideJsonLd(article, slug) {
     article.description ||
     article.short_description ||
     "";
+  const authorName =
+    [article.user?.first_name, article.user?.last_name]
+      .filter(Boolean)
+      .join(" ")
+      .trim() ||
+    article.user?.name ||
+    "ResumeSathi Editorial Team";
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: getTitle(article),
     description,
     image: resolveImageUrl(getHeroImage(article)),
+    author: article.user
+      ? { "@type": "Person", name: authorName }
+      : { "@type": "Organization", name: authorName },
     datePublished: article.created_at,
     ...(getExamGuideLastUpdated(article)
       ? { dateModified: getExamGuideLastUpdated(article) }

@@ -40,10 +40,10 @@ export const metadata = {
   alternates: { canonical: `${siteUrl}/resume/upload-resume/` },
   robots: {
     index: false,
-    follow: true,
+    follow: false,
     googleBot: {
       index: false,
-      follow: true,
+      follow: false,
     },
   },
   openGraph: {
@@ -92,6 +92,26 @@ export default function UploadResumePage() {
           work experience, internships, skills, languages, certificates, and
           social links — so you're never staring at a blank page wondering where
           to start or what goes where.
+        </p>
+        <h3>How to Import an Existing Resume</h3>
+        <p>
+          Choose a PDF, DOC, or DOCX file up to 5 MB. ResumeSathi reads text
+          from the selected document and uses it to prefill common resume
+          sections. A clear, text-based file usually gives the best starting
+          point; scanned pages or documents made from images may not contain
+          text that can be extracted.
+        </p>
+        <ol>
+          <li>Select the resume file from your device or drag it into the upload area.</li>
+          <li>Choose Next to extract readable text and prepare an editable draft.</li>
+          <li>Review each imported field, correct anything missing or misplaced, and complete the remaining sections.</li>
+          <li>Preview the finished resume before downloading or sharing it.</li>
+        </ol>
+        <p>
+          Automatic extraction is a convenience, not a final accuracy check.
+          Document layouts vary, so dates, contact details, job titles, and
+          education information can be placed imperfectly. Read the draft
+          carefully and make sure every detail is current and accurate.
         </p>
         <p>
           You pick a resume flow that matches where you are in your career, fill

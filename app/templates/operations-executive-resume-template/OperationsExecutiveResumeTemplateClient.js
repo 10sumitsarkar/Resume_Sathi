@@ -119,15 +119,8 @@ function OperationsExecutiveResumeTemplateContent() {
 
 export default function OperationsExecutiveResumeTemplateClient() {
   return (
-    <>
-      <noscript>
-        <section className="template-noscript-article">
-          <OperationsExecutiveResumeTemplateContent />
-        </section>
-      </noscript>
-      <TemplateDetailClient slug="operations-executive-resume-template">
-        <OperationsExecutiveResumeTemplateContent />
-      </TemplateDetailClient>
-    </>
+    <TemplateDetailClient slug="operations-executive-resume-template">
+      <OperationsExecutiveResumeTemplateContent />
+    </TemplateDetailClient>
   );
 }

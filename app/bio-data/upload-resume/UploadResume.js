@@ -4,15 +4,8 @@ import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import * as pdfjsLib from 'pdfjs-dist/legacy/build/pdf.mjs';
-import mammoth from 'mammoth/mammoth.browser';
 import { NativeBanner } from '../../components/ads';
 import { setResumes } from '../reducer/resume-reducer';
-
-if (typeof window !== 'undefined') {
-  pdfjsLib.GlobalWorkerOptions.workerSrc =
-    `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
-}
 
 const sectionHeadings = [
   'summary', 'professional summary', 'objective', 'career objective', 'profile',
@@ -206,6 +199,9 @@ const extractTextFromFile = async (file) => {
   const arrayBuffer = await file.arrayBuffer();
 
   if (file.type === 'application/pdf') {
+    const pdfjsLib = await import('pdfjs-dist/legacy/build/pdf.mjs');
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.mjs`;
     const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
     const pages = await Promise.all(Array.from({ length: pdf.numPages }, async (_, index) => {
       const page = await pdf.getPage(index + 1);
@@ -216,6 +212,7 @@ const extractTextFromFile = async (file) => {
   }
 
   if (file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    const mammoth = (await import('mammoth/mammoth.browser')).default;
     const result = await mammoth.extractRawText({ arrayBuffer });
     return result.value;
   }
@@ -304,7 +301,7 @@ export default function UploadResume() {
               <ul className='features-list'>
                 <li className='fs-mob-18'><span>Supported file formats:</span> PDF, DOC, DOCX</li>
                 <li className='fs-mob-18'><span>Maximum file size:</span> 5 MB</li>
-                <li className='sub-details fs-mob-18'><span>We'll automatically extract your:</span>
+                <li className='sub-details fs-mob-18'><span>We&apos;ll automatically extract your:</span>
                   <p className='fs-mob-16'><img src="/front-assets/images/icons/list-user.svg" alt="User" />Personal Information <span>(Name, Email, Phone, Location)</span></p>
                   <p className='fs-mob-16'><img src="/front-assets/images/icons/list-experience.svg" alt="Experience" />Work Experience <span>(Job Title, Company, Dates)</span></p>
                   <p className='fs-mob-16'><img src="/front-assets/images/icons/list-education.svg" alt="Education" />Education Details <span>(Degree, College, Year)</span></p>

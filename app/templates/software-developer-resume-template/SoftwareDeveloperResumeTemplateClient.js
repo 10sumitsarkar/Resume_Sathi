@@ -138,15 +138,8 @@ function SoftwareDeveloperResumeTemplateContent() {
 
 export default function SoftwareDeveloperResumeTemplateClient() {
   return (
-    <>
-      <noscript>
-        <section className="template-noscript-article">
-          <SoftwareDeveloperResumeTemplateContent />
-        </section>
-      </noscript>
-      <TemplateDetailClient slug="software-developer-resume-template">
-        <SoftwareDeveloperResumeTemplateContent />
-      </TemplateDetailClient>
-    </>
+    <TemplateDetailClient slug="software-developer-resume-template">
+      <SoftwareDeveloperResumeTemplateContent />
+    </TemplateDetailClient>
   );
 }

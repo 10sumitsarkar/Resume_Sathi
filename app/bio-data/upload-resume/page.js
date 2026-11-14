@@ -61,15 +61,39 @@ export default function UploadResumePage() {
     <>
       <UploadResume />
       <section className="resume-content container-fluid custom-container pb-5 rk-article-text">
-        <h2>Free Bio-Data Maker</h2>
+        <h2>Upload and Update an Existing Bio-Data</h2>
         <p>
-          Upload an existing bio-data to reuse your details and quickly prepare
-          an updated version in ResumeSathi. This is useful when you already
-          have old information but want a cleaner printable format.
+          Upload an existing PDF, DOC, or DOCX bio-data to reuse its readable
+          text while preparing an updated document in ResumeSathi. The file
+          must be no larger than 5 MB. A text-based document is the best place
+          to start; a scanned image may not provide text that can be imported.
+        </p>
+        <h3>What Happens After You Choose a File?</h3>
+        <p>
+          The importer looks for details such as your name, contact
+          information, education, work history, and skills. It creates an
+          editable draft from the text it can read, so you can continue in the
+          bio-data builder instead of entering every detail from a blank page.
+        </p>
+        <ol>
+          <li>Select a PDF, DOC, or DOCX file that is 5 MB or smaller.</li>
+          <li>Choose Next to extract text and open the editable bio-data form.</li>
+          <li>Review the imported information and fill in details that were not detected.</li>
+          <li>Preview the document, then download or print it when it is ready.</li>
+        </ol>
+        <h3>Review the Imported Details</h3>
+        <p>
+          Extraction can place text in the wrong section when a document uses
+          columns, tables, unusual fonts, or scanned pages. Check spelling,
+          dates, phone numbers, addresses, education, and any family or
+          background details before using the finished bio-data. Include only
+          personal information that is appropriate for its intended purpose.
         </p>
         <p>
-          Check names, dates, contact details, education, work details, and
-          family or background information before downloading the final file.
+          If the file cannot be read, try a text-based PDF or a DOCX copy of the
+          document. You can also create a new bio-data with the
+          <a href="/bio-data/resume-type/"> guided bio-data builder</a> and
+          enter the information manually.
         </p>
         <BioDataAdPlacement name="Banner 468x60">
           <Banner468x60 />

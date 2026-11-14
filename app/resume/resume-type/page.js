@@ -37,12 +37,12 @@ export const metadata = {
     "resume templates",
   ],
   alternates: { canonical: "/resume/resume-type/" },
-   robots: {
+  robots: {
     index: false,
-    follow: false,
+    follow: true,
     googleBot: {
       index: false,
-      follow: false,
+      follow: true,
     },
   },
   openGraph: {

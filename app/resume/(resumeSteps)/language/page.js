@@ -3,7 +3,7 @@ import LanguageClient from "./LanguageClient";
 
 export const metadata = {
   title: 'Languages | ResumeSathi',
-  description: 'Create a professional resume in minutes with Logichook resume builder.',
+  description: 'Create a professional resume in minutes with ResumeSathi resume builder.',
  robots: {
     index: false,
     follow: false,

@@ -3,7 +3,7 @@ import InternshipClient from "./InternshipClient";
 
 export const metadata = {
   title: 'Internships | ResumeSathi',
-  description: 'Create a professional resume in minutes with Logichook resume builder.',
+  description: 'Create a professional resume in minutes with ResumeSathi resume builder.',
  robots: {
     index: false,
     follow: false,

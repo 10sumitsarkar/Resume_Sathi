@@ -550,7 +550,7 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
           ) : null}
         </div>
         <div className="right-part">
-          <img className='img-fluid rounded' width={396} height={207} src={resolveGuideMediaUrl(article, heroImage)} alt={categoryLabel} loading="eager" decoding="async" />
+          <img className='img-fluid rounded' width={396} height={207} src={resolveGuideMediaUrl(article, heroImage)} alt={getTitle(article)} loading="eager" decoding="async" />
         </div>
       </section>
 

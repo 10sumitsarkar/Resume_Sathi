@@ -37,6 +37,14 @@ export const metadata = {
     "resume templates",
   ],
   alternates: { canonical: "/resume/resume-type/" },
+   robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
   openGraph: {
     title: "Build Resume Instantly | ResumeSathi",
     description:

@@ -30,11 +30,12 @@ export const metadata = {
   keywords: ['bio data maker', 'bioData format', 'free bioData builder', 'printable bio data'],
   alternates: { canonical: '/bio-data/' },
   robots: {
-    index: false,
+    index: true,
     follow: true,
     googleBot: {
-      index: false,
+      index: true,
       follow: true,
+      'max-image-preview': 'large',
     },
   },
   openGraph: {

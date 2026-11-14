@@ -109,9 +109,16 @@ function getPersistenceFallback(pathname) {
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
+  // /resume has server-rendered content that does not need persisted data,
+  // so it must not wait for rehydration. Only the saved-resume cards need it,
+  // and ResumeLists shows its own placeholder until the data arrives.
+  const isResumeHome = (pathname || "").replace(/\/+$/, "") === "/resume";
 
   return (
-    <ReduxProvider loading={getPersistenceFallback(pathname)}>
+    <ReduxProvider
+      loading={getPersistenceFallback(pathname)}
+      gate={!isResumeHome}
+    >
       {pathname !== "/resume" && <NavBar />}
       <StepAccessGuard>{children}</StepAccessGuard>
     </ReduxProvider>

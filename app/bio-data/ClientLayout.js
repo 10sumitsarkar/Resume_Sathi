@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useSelector } from "react-redux";
 import ReduxProvider from "./store/reduxProvider";
@@ -14,7 +14,10 @@ import {
   resumeSteps,
 } from "./utils/stepProgress";
 
-function StepAccessGuard({ children }) {
+// Renders nothing. It is a sibling of {children} (not a wrapper) so that
+// useSearchParams() can sit in its own Suspense boundary without pulling the
+// whole page out of the server-rendered HTML.
+function StepAccessGuard() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -40,7 +43,7 @@ function StepAccessGuard({ children }) {
     }
   }, [pathname, searchParams, resumes, router]);
 
-  return children;
+  return null;
 }
 
 function getPersistenceFallback(pathname) {
@@ -68,11 +71,21 @@ function getPersistenceFallback(pathname) {
 
 export default function ClientLayout({ children }) {
   const pathname = usePathname();
+  // /bio-data has server-rendered content that does not need persisted data,
+  // so it must not wait for rehydration. Only the saved bio-data cards need it,
+  // and ResumeLists shows its own placeholder until the data arrives.
+  const isBioDataHome = (pathname || "").replace(/\/+$/, "") === "/bio-data";
 
   return (
-    <ReduxProvider loading={getPersistenceFallback(pathname)}>
+    <ReduxProvider
+      loading={getPersistenceFallback(pathname)}
+      gate={!isBioDataHome}
+    >
       {pathname !== "/bio-data" && <NavBar />}
-      <StepAccessGuard>{children}</StepAccessGuard>
+      <Suspense fallback={null}>
+        <StepAccessGuard />
+      </Suspense>
+      {children}
     </ReduxProvider>
   );
 }

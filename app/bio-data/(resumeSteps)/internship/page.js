@@ -3,7 +3,7 @@ import InternshipClient from "./InternshipClient";
 
 export const metadata = {
   title: 'Internships | ResumeSathi',
-  description: 'Create a printable bio-data in minutes with Logichook bio-data maker.',
+  description: 'Create a printable bio-data in minutes with ResumeSathi bio-data maker.',
  robots: {
     index: false,
     follow: false,

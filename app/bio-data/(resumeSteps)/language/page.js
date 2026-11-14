@@ -3,7 +3,7 @@ import LanguageClient from "./LanguageClient";
 
 export const metadata = {
   title: 'Languages | ResumeSathi',
-  description: 'Create a printable bio-data in minutes with Logichook bio-data maker.',
+  description: 'Create a printable bio-data in minutes with ResumeSathi bio-data maker.',
  robots: {
     index: false,
     follow: false,

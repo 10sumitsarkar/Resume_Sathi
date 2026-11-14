@@ -3,7 +3,7 @@ import SkillClient from "./SkillClient";
 
 export const metadata = {
   title: 'Skills | ResumeSathi',
-  description: 'Create a printable bio-data in minutes with Logichook bio-data maker.',
+  description: 'Create a printable bio-data in minutes with ResumeSathi bio-data maker.',
  robots: {
     index: false,
     follow: false,

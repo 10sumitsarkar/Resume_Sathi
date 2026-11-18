@@ -12,6 +12,10 @@ import '../exam-guides.css';
 const DEFAULT_IMAGE = '/front-assets/images/og/home-og.png';
 const SITE_URL = getSiteBase();
 
+function getHeroImage(item) {
+  return item?.hero_image || item?.image || item?.meta_image || item?.og_image;
+}
+
 function getArticleSeo(article, slug) {
   const title = article?.meta_title || article?.og_title || getTitle(article) || (slug === 'live' ? 'Exam Guides Live Updates' : 'Exam Guide');
   const description = article?.meta_description || article?.og_description || article?.description || `Check ${getTitle(article) || 'this exam guide'} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`;
@@ -23,7 +27,7 @@ function getArticleSeo(article, slug) {
     'answer key',
     'result',
   ].join(', ');
-  const image = `${SITE_URL.replace(/\/+$/, '')}/front-assets/images/og/home-og.png`;
+  const image = resolveGuideMediaUrl(article, getHeroImage(article));
   const canonical = `${SITE_URL}${withTrailingSlash(`/exam-guides/${slug || getSlug(article) || ''}`)}`;
 
   return {
@@ -466,7 +470,7 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
   const examAuthority = getExamAuthority(article);
   const location = getLocation(article);
   const { begin, lastDate } = getApplicationDates(article);
-  const heroImage = article.hero_image || article.image || article.meta_image || article.og_image;
+  const heroImage = getHeroImage(article);
   const authorName =
     [article.user?.first_name, article.user?.last_name]
       .filter(Boolean)

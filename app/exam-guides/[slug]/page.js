@@ -46,11 +46,6 @@ function getExamGuidesCache() {
   return [];
 }
 
-function getDefaultExamGuideOgImage() {
-  const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
-  return `${siteUrl}/front-assets/images/og/home-og.png`;
-}
-
 function truncateMeta(value = "", max = 158) {
   const normalized = String(value || "").replace(/\s+/g, " ").trim();
   if (normalized.length <= max) return normalized;
@@ -136,7 +131,7 @@ export async function generateMetadata({ params }) {
     article?.keywords ||
     "exam guides, syllabus, eligibility, exam pattern, exam preparation";
   const canonical = `${siteUrl}${withTrailingSlash(`/exam-guides/${getExamGuideSlug(slug) || ""}`)}`;
-  const resolvedImage = getDefaultExamGuideOgImage();
+  const resolvedImage = resolveImageUrl(getHeroImage(article));
   const seoTitle = title.replace(/\s*\|\s*ResumeSathi\s*$/i, "").trim();
   const seoDescription = description || truncateMeta(`Check ${rawTitle} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`);
 
@@ -153,7 +148,7 @@ export async function generateMetadata({ params }) {
       url: canonical,
       siteName: "ResumeSathi",
       section: "Exam Guides",
-      images: [{ url: resolvedImage, width: 1200, height: 630, alt: "ResumeSathi Exam Guides" }],
+      images: [{ url: resolvedImage, width: 1200, height: 630, alt: seoTitle }],
     },
     twitter: {
       card: "summary_large_image",

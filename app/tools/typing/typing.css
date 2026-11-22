@@ -13,6 +13,34 @@
   --rk-radius: 14px;
 }
 
+.tf-breadcrumb {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+.tf-breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  color: #6b7280;
+  font-size: 13px;
+  list-style: none;
+}
+
+.tf-breadcrumb li:not(:last-child)::after {
+  content: "/";
+  margin-left: 8px;
+  color: #9ca3af;
+}
+
+.tf-breadcrumb a,
+.tf-breadcrumb [aria-current="page"] {
+  color: #b3141a;
+  text-decoration: none;
+}
+
 .typing-navbar {
   position: static !important;
 }
@@ -236,32 +264,6 @@
 /* ---------- shared typing pages ---------- */
 .tf-page {
   padding: 15px 0 15px;
-}
-
-.tf-ad-placement {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-width: 760px;
-  min-height: 50px;
-  margin: 24px auto;
-  padding: 0 12px;
-  overflow: hidden;
-}
-
-.tf-ad-placement-top {
-  min-height: 50px;
-  margin: 16px auto;
-}
-
-.tf-ad-placement .resume-sathi-ad-slot {
-  max-width: 100%;
-}
-
-@media (min-width: 768px) {
-  .tf-ad-placement-top {
-    min-height: 90px;
-  }
 }
 
 .tf-page-intro {

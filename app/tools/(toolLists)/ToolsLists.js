@@ -3,12 +3,6 @@ import NavBar from "../../components/NavBar";
 import Footer from "../../components/Footer";
 import FooterNav from "../../components/FooterNav";
 import ToolsSidebar from "../components/ToolsSidebar";
-import {
-  Banner468x60,
-  Banner300x250,
-  Banner728x90,
-  NativeBanner,
-} from "../../components/ads";
 import "./tools-lists.css";
 
 // ── SVG Icons ──────────────────────────────────
@@ -511,16 +505,6 @@ export default function ToolsLists() {
                   ),
                 )}
               </div>
-              {group.key === "pdf" && (
-                <div className="d-flex justify-content-center my-4">
-                  <Banner728x90 />
-                </div>
-              )}
-              {group.key === "utility" && (
-                <div className="d-flex justify-content-center my-4">
-                  <NativeBanner />
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -655,9 +639,6 @@ export default function ToolsLists() {
 </ol>
 
 <p>Done in this order, the whole thing often takes less than an hour, and you aren't panicking when the deadline is close.</p>
-        <div className="d-flex justify-content-center my-4">
-          <Banner300x250 />
-        </div>
 
       <h3>When These Tools Make Sense, and When They Don't</h3>
 
@@ -680,9 +661,6 @@ export default function ToolsLists() {
 <blockquote>Write your resume in the Resume Builder and keep this Tools page open for everything else. Used together, they take most of the stress out of applying.</blockquote>
 
 <p>New tools will be added over time, based on the problems people actually run into while applying for jobs. If you feel something important is missing, send a message through the Contact page and it will be looked at.</p>
-        <div className="d-flex justify-content-center my-4">
-          <Banner468x60 />
-        </div>
       </section>
       <Footer />
       <FooterNav />

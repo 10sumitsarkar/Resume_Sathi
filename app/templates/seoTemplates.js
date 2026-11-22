@@ -5,51 +5,61 @@ export const SEO_TEMPLATES = [
     slug: "software-developer-resume-template",
     title: "Software Developer Resume Template",
     description: "Read a software developer resume template with a clean two-column layout for skills, projects, experience, and contact details.",
+    previewImage: "/front-assets/images/templates/software-developer-resume-template.png",
   },
   {
     slug: "fresh-graduate-resume-template",
     title: "Fresh Graduate Resume Template",
     description: "Read a fresh graduate resume template made for education, internships, college projects, and entry-level skills.",
+    previewImage: "/front-assets/images/templates/fresh-graduate-resume-template.png",
   },
   {
     slug: "operations-executive-resume-template",
     title: "Operations Executive Resume Template",
     description: "Read an operations executive resume template for daily operations, reporting, vendor follow-ups, and team coordination.",
+    previewImage: "/front-assets/images/templates/operations-executive-resume-template.png",
   },
   {
     slug: "sales-resume-template",
     title: "Sales Resume Template",
     description: "Read a sales resume template for business development, client calls, lead follow-up, CRM work, and target-based roles.",
+    previewImage: "/front-assets/images/templates/sales-resume-template.png",
   },
   {
     slug: "teacher-resume-template",
     title: "Teacher Resume Template",
     description: "Read a teacher resume template for classroom experience, lesson planning, student support, education, and certificates.",
+    previewImage: "/front-assets/images/templates/teacher-resume-template.png",
   },
   {
     slug: "ui-designer-resume-template",
     title: "UI Designer Resume Template",
     description: "Read a UI designer resume template for portfolio links, design tools, wireframes, user flows, and project work.",
+    previewImage: "/front-assets/images/templates/ui-designer-resume-template.png",
   },
   {
     slug: "accounting-resume-template",
     title: "Accounting Resume Template",
     description: "Read an accounting resume template for billing, ledger work, reconciliation, Tally, Excel, and finance support roles.",
+    previewImage: "/front-assets/images/templates/accounting-resume-template.png",
   },
   {
     slug: "hr-coordinator-resume-template",
     title: "HR Coordinator Resume Template",
     description: "Read an HR coordinator resume template for hiring support, onboarding, employee records, HRMS, and daily HR admin work.",
+    previewImage: "/front-assets/images/templates/hr-coordinator-resume-template.png",
   },
   {
     slug: "project-coordinator-resume-template",
     title: "Project Coordinator Resume Template",
     description: "Read a project coordinator resume template for planning, status calls, reports, delivery tracking, and team updates.",
+    previewImage: "/front-assets/images/templates/project-coordinator-resume-template.png",
   },
 ];
 
 export function buildTemplateMetadata(slug) {
   const template = SEO_TEMPLATES.find((item) => item.slug === slug);
+  if (!template) return {};
 
   return {
     title: template.title,
@@ -64,7 +74,7 @@ export function buildTemplateMetadata(slug) {
       type: "article",
       images: [
         {
-          url: "/front-assets/images/og/home-og.png",
+          url: template.previewImage,
           width: 1200,
           height: 630,
           alt: template.title,
@@ -75,7 +85,7 @@ export function buildTemplateMetadata(slug) {
       card: "summary_large_image",
       title: `${template.title} | ResumeSathi`,
       description: template.description,
-      images: ["/front-assets/images/og/home-og.png"],
+      images: [template.previewImage],
     },
     robots: {
       index: true,
@@ -97,7 +107,7 @@ export function buildTemplateJsonLd(slug) {
     description: template.description,
     url,
     mainEntityOfPage: url,
-    image: getSiteCanonical("/front-assets/images/og/home-og.png"),
+    image: getSiteCanonical(template.previewImage),
     author: {
       "@type": "Organization",
       name: "ResumeSathi",
@@ -108,7 +118,7 @@ export function buildTemplateJsonLd(slug) {
       name: "ResumeSathi",
       logo: {
         "@type": "ImageObject",
-        url: getSiteCanonical("/front-assets/images/logo.svg"),
+        url: getSiteCanonical("/front-assets/images/logo/logo-512.png"),
       },
     },
   };

@@ -4,7 +4,6 @@ import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { NativeBanner } from '../../components/ads';
 import { setResumes } from '../reducer/resume-reducer';
 
 const sectionHeadings = [
@@ -370,9 +369,6 @@ export default function UploadResume() {
           </div>
         </div>
       </section>
-      <div className="d-flex justify-content-center my-4">
-        <NativeBanner />
-      </div>
     </>
   );
 }

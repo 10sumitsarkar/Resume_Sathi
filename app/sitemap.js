@@ -1,73 +1,65 @@
 import fs from 'fs';
 import path from 'path';
-import { DEFAULT_SITE_BASE, getApiBase } from './lib/apiConfig';
+import { DEFAULT_SITE_BASE } from './lib/apiConfig';
 import { SEO_TEMPLATES } from './templates/seoTemplates';
-import { isExamGuide } from './exam-guides/examGuideData';
+import { getExamGuideLastUpdated, isExamGuide } from './exam-guides/examGuideData';
+import { getArticleLastUpdatedAt } from './blog/articleMetadata';
+import {
+  getArticleSlug as getBlogArticleSlug,
+  getArticlesInCategory,
+  getBlogArticles,
+  getBlogCategories,
+  getBlogPageCount,
+} from './blog/blogData';
+import { BLOG_PAGE_SIZE, getBlogCategorySlug } from './blog/blogRoutes';
 
-const siteUrl = DEFAULT_SITE_BASE;
+const baseUrl = DEFAULT_SITE_BASE.replace(/\/+$/, '');
 const examGuidesCachePath = path.join(process.cwd(), 'data', 'exam-guides-cache.json');
 
-function getSlug(item) {
-  const raw = item?.slug || item?.url_name || item?.canonical_tag || item?.id?.toString() || '';
-  const lastSegment = String(raw).split('/').filter(Boolean).pop() || raw;
-
-  return lastSegment
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-function normalizeItems(payload) {
-  if (Array.isArray(payload)) return payload;
-  if (!payload) return [];
-  if (Array.isArray(payload.data)) return payload.data;
-  if (Array.isArray(payload.items)) return payload.items;
-  if (Array.isArray(payload.results)) return payload.results;
-  return [];
-}
-
-function readCache(filename) {
-  try {
-    const raw = fs.readFileSync(path.join(process.cwd(), 'data', filename), 'utf-8');
-    return normalizeItems(JSON.parse(raw));
-  } catch (error) {
-    return [];
-  }
-}
+export const dynamic = 'force-static';
 
 function readExamGuides() {
+  const guides = JSON.parse(fs.readFileSync(examGuidesCachePath, 'utf-8'));
+  if (!Array.isArray(guides)) {
+    throw new TypeError('Expected data/exam-guides-cache.json to contain an array.');
+  }
+  return guides.filter(isExamGuide);
+}
+
+function getExamGuideSlug(guide) {
+  const raw = guide?.slug || guide?.url_name || guide?.canonical_tag || '';
+  const lastSegment = String(raw).split('/').filter(Boolean).pop() || '';
+
   try {
-    const guides = JSON.parse(fs.readFileSync(examGuidesCachePath, 'utf-8'));
-    return Array.isArray(guides)
-      ? guides.filter(isExamGuide)
-      : [];
-  } catch (error) {
-    console.error('FATAL: could not read data/exam-guides-cache.json for sitemap.');
-    return [];
+    return decodeURIComponent(lastSegment)
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/^-+|-+$/g, '');
+  } catch {
+    return lastSegment.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
   }
 }
 
-async function fetchLiveItems(endpoint, fallbackFile) {
-  try {
-    const response = await fetch(`${getApiBase()}${endpoint}`, {
-      next: { revalidate: 60 },
-    });
+function getLatestDate(items, getDate) {
+  const dates = items
+    .map(getDate)
+    .filter((value) => value && !Number.isNaN(Date.parse(value)))
+    .map((value) => new Date(value));
 
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    return normalizeItems(await response.json());
-  } catch (error) {
-    return readCache(fallbackFile);
-  }
+  return dates.length
+    ? dates.reduce((latest, date) => (date > latest ? date : latest))
+    : undefined;
 }
 
-export const revalidate = 60;
+function addLastModified(entry, date) {
+  return date ? { ...entry, lastModified: date } : entry;
+}
 
-export default async function sitemap() {
-  const baseUrl = siteUrl.replace(/\/$/, '');
+export default function sitemap() {
+  const articles = getBlogArticles();
+  const guides = readExamGuides();
+  const latestArticleDate = getLatestDate(articles, getArticleLastUpdatedAt);
+  const latestGuideDate = getLatestDate(guides, getExamGuideLastUpdated);
   const toolPaths = [
     '/tools/',
     '/tools/age-calculator/',
@@ -86,71 +78,81 @@ export default async function sitemap() {
     '/tools/typing/practice/',
   ];
 
-  const routes = [
-    { url: `${baseUrl}/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${baseUrl}/blog/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.95 },
-    { url: `${baseUrl}/exam-guides/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/resume/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.85 },
-    { url: `${baseUrl}/bio-data/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/templates/`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-    ...SEO_TEMPLATES.map((template) => ({
-      url: `${baseUrl}/templates/${encodeURIComponent(template.slug)}/`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.82,
-    })),
-{ url: `${baseUrl}/about/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-{ url: `${baseUrl}/editorial-policy/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
-{ url: `${baseUrl}/contact/`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.65 },
-{ url: `${baseUrl}/privacy-policy/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
-{ url: `${baseUrl}/terms-and-conditions/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
-{ url: `${baseUrl}/disclaimer/`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.5 },
-    ...toolPaths.map((path) => ({
-      url: `${baseUrl}${path}`,
-      lastModified: new Date(),
-      changeFrequency: path.includes('/lesson/') ? 'monthly' : 'weekly',
-      priority: path === '/tools/' ? 0.8 : 0.7,
-    })),
-];
-
-  const articles = await fetchLiveItems('/articles?limit=500', 'articles-cache.json');
+  const staticPaths = [
+    '/',
+    '/blog/',
+    '/exam-guides/',
+    '/resume/',
+    '/bio-data/',
+    '/templates/',
+    ...SEO_TEMPLATES.map((template) => `/templates/${encodeURIComponent(template.slug)}/`),
+    '/about/',
+    '/authors/',
+    '/authors/nitu-dey/',
+    '/authors/sumit-sarkar/',
+    '/editorial-policy/',
+    '/contact/',
+    '/privacy-policy/',
+    '/terms-and-conditions/',
+    '/disclaimer/',
+    ...toolPaths,
+  ];
+  const routes = staticPaths.map((route) => ({ url: `${baseUrl}${route}` }));
   const seenUrls = new Set(routes.map((route) => route.url));
-  articles.forEach((article) => {
-    const slug = getSlug(article);
-    if (slug) {
-      const url = `${baseUrl}/blog/${encodeURIComponent(slug)}/`;
-      if (!seenUrls.has(url)) {
-        seenUrls.add(url);
-        routes.push({
-          url,
-          lastModified: new Date(article.updated_at || article.created_at || Date.now()),
-          changeFrequency: 'monthly',
-          priority: 0.8,
-        });
-      }
-    }
+  const addRoute = (route, date) => {
+    const url = `${baseUrl}${route}`;
+    if (seenUrls.has(url)) return;
+    seenUrls.add(url);
+    routes.push(addLastModified({ url }, date));
+  };
+
+  const blogIndex = routes.find((route) => route.url === `${baseUrl}/blog/`);
+  if (latestArticleDate) blogIndex.lastModified = latestArticleDate;
+  const examIndex = routes.find((route) => route.url === `${baseUrl}/exam-guides/`);
+  if (latestGuideDate) examIndex.lastModified = latestGuideDate;
+
+  for (let pageNumber = 2; pageNumber <= getBlogPageCount(articles); pageNumber += 1) {
+    const pageArticles = articles.slice(
+      (pageNumber - 1) * BLOG_PAGE_SIZE,
+      pageNumber * BLOG_PAGE_SIZE,
+    );
+    addRoute(
+      `/blog/page/${pageNumber}/`,
+      getLatestDate(pageArticles, getArticleLastUpdatedAt),
+    );
+  }
+
+  const categories = getBlogCategories();
+  categories.forEach((category) => {
+    const categorySlug = getBlogCategorySlug(category);
+    if (!categorySlug || getArticlesInCategory(category, articles).length === 0) return;
+
+    addRoute(
+      `/blog/category/${encodeURIComponent(categorySlug)}/`,
+      getLatestDate(
+        getArticlesInCategory(category, articles),
+        getArticleLastUpdatedAt,
+      ),
+    );
   });
 
-  readExamGuides().forEach((guide) => {
-    const rawSlug = guide.slug || guide.url_name || guide.canonical_tag || '';
-    const slug = String(rawSlug)
-      .split('/')
-      .filter(Boolean)
-      .pop()
-      ?.toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/^-+|-+$/g, '');
+  articles.forEach((article) => {
+    const slug = getBlogArticleSlug(article);
+    if (!slug) return;
+    addRoute(
+      `/blog/${encodeURIComponent(slug)}/`,
+      getLatestDate([article], getArticleLastUpdatedAt),
+    );
+  });
+
+  guides.forEach((guide) => {
+    const slug = getExamGuideSlug(guide);
     if (!slug) return;
 
     const url = `${baseUrl}/exam-guides/${encodeURIComponent(slug)}/`;
     if (seenUrls.has(url)) return;
     seenUrls.add(url);
-    routes.push({
-      url,
-      lastModified: new Date(guide.updated_at || guide.created_at || Date.now()),
-      changeFrequency: 'monthly',
-      priority: 0.82,
-    });
+    routes.push(addLastModified({ url }, getLatestDate([guide], getExamGuideLastUpdated)));
   });
 
   return routes;

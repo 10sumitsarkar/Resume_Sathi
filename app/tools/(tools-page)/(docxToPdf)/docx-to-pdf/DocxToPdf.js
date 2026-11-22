@@ -7,7 +7,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/merge-pdf.css";
 import "../../../tools-css/docx-to-pdf.css";
-import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 export default function DocxToPdf() {
   const inputRef = useRef(null);
@@ -93,7 +92,6 @@ export default function DocxToPdf() {
             <span>Best for text-based documents</span>
           </p>
         </div>
-        <ToolsPageAd format="728x90" />
         {!file ? (
           <div
             className={`drop-zone${dropZoneDragOver ? " drag-over" : ""}`}
@@ -208,7 +206,6 @@ export default function DocxToPdf() {
         </div>
       )}
 
-      <ToolsPageAd native />
       <section className="docx-to-pdf-info">
         <div className="info-block">
           <h2>
@@ -263,7 +260,6 @@ export default function DocxToPdf() {
           the recruiter's screen than it did on yours.
         </blockquote>
 
-        <ToolsPageAd format="300x250" />
 
         <div className="info-block">
           <h3>How To Use It</h3>
@@ -315,7 +311,6 @@ export default function DocxToPdf() {
           </p>
         </div>
 
-        <ToolsPageAd format="468x60" />
 
         <div className="info-block">
           <h3>What Works Well and What Might Not</h3>
@@ -378,7 +373,6 @@ export default function DocxToPdf() {
           </p>
         </div>
 
-        <ToolsPageAd format="300x250" />
 
         <div className="info-block">
           <h3>Questions</h3>

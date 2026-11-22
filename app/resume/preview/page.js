@@ -4,7 +4,6 @@ import ShowResume from './ShowResumeClient';
 export const metadata = {
   title: 'Resume Preview | ResumeSathi',
   description: 'Preview your resume before download and fine-tune the layout, formatting, and content with ResumeSathi’s resume preview tool.',
-  keywords: ['resume preview', 'resume template preview', 'download resume preview'],
   alternates: { canonical: '/resume/preview/' },
   robots: {
     index: false,
@@ -20,13 +19,13 @@ export const metadata = {
     url: '/resume/preview/',
     type: 'website',
     siteName: 'ResumeSathi',
-    images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'Resume preview before download' }],
+    images: [{ url: '/front-assets/images/og/home-og.webp', width: 1200, height: 630, alt: 'Resume preview before download' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Resume Preview | ResumeSathi',
     description: 'Preview your resume before download and fine-tune the layout, formatting, and content with ResumeSathi’s resume preview tool.',
-    images: ['/front-assets/images/og/home-og.png'],
+    images: ['/front-assets/images/og/home-og.webp'],
   },
 };
 

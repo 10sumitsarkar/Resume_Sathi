@@ -5,6 +5,11 @@ import { usePathname } from 'next/navigation';
 import { getApiBase, resolveApiMediaUrl, withTrailingSlash } from '../lib/apiConfig';
 import { latestFirst } from './articleSort';
 import {
+  BLOG_PAGE_SIZE,
+  getBlogCategoryHref,
+  getBlogPageHref,
+} from './blogRoutes';
+import {
   getArticleAuthorName,
   getArticleAuthorProfile,
   getArticleLastUpdatedAt,
@@ -17,9 +22,7 @@ const IconBlog = () => (
   </svg>
 );
 
-const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.png';
-const MOBILE_PAGE_SIZE = 10;
-const DESKTOP_PAGE_SIZE = 12;
+const DEFAULT_IMAGE = '/front-assets/images/og/blog-og.webp';
 const SUGGESTION_LIMIT = 6;
 
 function resolveMediaUrl(url) {
@@ -318,7 +321,12 @@ function Sidebar({
   );
 }
 
-function Pagination({ currentPage, totalPages, onPageChange }) {
+function Pagination({
+  currentPage,
+  totalPages,
+  onPageChange,
+  staticBase,
+}) {
   const pages = [];
   const start = Math.max(1, currentPage - 2);
   const end = Math.min(totalPages, currentPage + 2);
@@ -331,16 +339,38 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
 
   if (totalPages <= 1) return null;
 
+  const renderPageLink = (pageNumber, label = pageNumber) => (
+    <Link
+      prefetch={false}
+      href={getBlogPageHref(pageNumber, staticBase)}
+      className={pageNumber === currentPage ? 'active' : ''}
+      aria-current={pageNumber === currentPage ? 'page' : undefined}
+    >
+      {label}
+    </Link>
+  );
+
   return (
     <nav className="rk-pagination" aria-label="Blog pagination">
-      <button
-        type="button"
-        className="rk-page-arrow"
-        disabled={currentPage === 1}
-        onClick={() => onPageChange(currentPage - 1)}
-      >
-        <i className="bi bi-chevron-left"></i> Prev
-      </button>
+      {staticBase ? (
+        <Link
+          prefetch={false}
+          href={getBlogPageHref(currentPage > 1 ? currentPage - 1 : 1, staticBase)}
+          className={`rk-page-arrow${currentPage === 1 ? ' disabled' : ''}`}
+          aria-disabled={currentPage === 1}
+        >
+          <i className="bi bi-chevron-left"></i> Prev
+        </Link>
+      ) : (
+        <button
+          type="button"
+          className="rk-page-arrow"
+          disabled={currentPage === 1}
+          onClick={() => onPageChange(currentPage - 1)}
+        >
+          <i className="bi bi-chevron-left"></i> Prev
+        </button>
+      )}
 
       <ul>
         {pages.map((p, idx) =>
@@ -348,31 +378,59 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
             <li key={`dots-${idx}`} className="rk-page-dots">…¦</li>
           ) : (
             <li key={p}>
-              <button
-                type="button"
-                className={p === currentPage ? 'active' : ''}
-                onClick={() => onPageChange(p)}
-              >
-                {p}
-              </button>
+              {staticBase
+                ? renderPageLink(p)
+                : (
+                  <button
+                    type="button"
+                    className={p === currentPage ? 'active' : ''}
+                    onClick={() => onPageChange(p)}
+                  >
+                    {p}
+                  </button>
+                )}
             </li>
           )
         )}
       </ul>
 
-      <button
-        type="button"
-        className="rk-page-arrow"
-        disabled={currentPage >= totalPages}
-        onClick={() => onPageChange(currentPage + 1)}
-      >
-        Next <i className="bi bi-chevron-right"></i>
-      </button>
+      {staticBase ? (
+        <Link
+          prefetch={false}
+          href={getBlogPageHref(
+            currentPage < totalPages ? currentPage + 1 : totalPages,
+            staticBase,
+          )}
+          className={`rk-page-arrow${currentPage >= totalPages ? ' disabled' : ''}`}
+          aria-disabled={currentPage >= totalPages}
+        >
+          Next <i className="bi bi-chevron-right"></i>
+        </Link>
+      ) : (
+        <button
+          type="button"
+          className="rk-page-arrow"
+          disabled={currentPage >= totalPages}
+          onClick={() => onPageChange(currentPage + 1)}
+        >
+          Next <i className="bi bi-chevron-right"></i>
+        </button>
+      )}
     </nav>
   );
 }
 
-function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
+function BlogPageContent({
+  initialArticles = [],
+  initialCategories = [],
+  initialPage = 1,
+  initialPageSize = BLOG_PAGE_SIZE,
+  initialCategoryId = null,
+  paginationBase = '/blog/',
+  heroEyebrow = 'Career Blog',
+  heroTitle = 'Tips, Guides & Career Insights',
+  heroDescription = 'Browse the latest articles, learn new tips, and explore career insights curated for job seekers like you.',
+}) {
   // 📌 SSR se aaye hue initial data se state seed karo — pehla render
   // (jo Googlebot dekhta hai) already articles se bhara hoga.
   const [allArticles] = useState(() => latestFirst(initialArticles));
@@ -389,6 +447,10 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   // karte hain, sirf client-side, taaki main content kabhi block na ho.
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [categoryId, setCategoryId] = useState(initialCategoryId);
+  const [page, setPage] = useState(initialPage);
+  const pageSize = Math.max(1, Number(initialPageSize) || BLOG_PAGE_SIZE);
+  const searchDebounce = useRef(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -404,26 +466,8 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const [categoryId, setCategoryId] = useState(null);
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(MOBILE_PAGE_SIZE);
-  const searchDebounce = useRef(null);
   const pathname = usePathname();
   const previousPathname = useRef(pathname);
-
-  useEffect(() => {
-    const updatePageSize = () => {
-      setPageSize(
-        window.matchMedia('(min-width: 992px)').matches
-          ? DESKTOP_PAGE_SIZE
-          : MOBILE_PAGE_SIZE
-      );
-    };
-
-    updatePageSize();
-    window.addEventListener('resize', updatePageSize);
-    return () => window.removeEventListener('resize', updatePageSize);
-  }, []);
 
   // Search-suggestion dropdown state (offcanvas search only)
   const [suggestions, setSuggestions] = useState([]);
@@ -440,7 +484,12 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
     [allArticles, search, categoryId]
   );
   const totalPages = Math.ceil(filteredArticles.length / pageSize);
-  const articles = filteredArticles.slice((page - 1) * pageSize, page * pageSize);
+  const routePage = !search && !categoryId ? initialPage : page;
+  const currentPage = Math.max(1, Math.min(routePage, Math.max(totalPages, 1)));
+  const articles = filteredArticles.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize,
+  );
 
   useEffect(() => {
     if (page > Math.max(totalPages, 1)) {
@@ -514,19 +563,28 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   }, []);
 
   useEffect(() => {
+    if (previousPathname.current !== pathname) {
+      setPage(initialPage);
+      setCategoryId(initialCategoryId);
+    }
+
     // If we navigated away from /blog, clear transient UI state.
     if (previousPathname.current === '/blog' && pathname !== '/blog') {
       setSearch('');
       setSearchInput('');
-      setCategoryId(null);
       setSuggestions([]);
       setShowSuggestions(false);
     }
 
     previousPathname.current = pathname;
-  }, [pathname]);
+  }, [pathname, initialPage, initialCategoryId]);
 
+  const skippedInitialPageReset = useRef(false);
   useEffect(() => {
+    if (!skippedInitialPageReset.current) {
+      skippedInitialPageReset.current = true;
+      return;
+    }
     setPage(1);
   }, [search, categoryId]);
 
@@ -615,11 +673,11 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
         <div className='left-part'>
           <div>
             <label className="tl-eyebrow">
-              <IconBlog />Career Blog
+              <IconBlog />{heroEyebrow}
             </label>
-            <h1 className="fs-mob-22">Tips, Guides & Career Insights</h1>
+            <h1 className="fs-mob-22">{heroTitle}</h1>
           </div>
-          <p className='fs-mob-16'>Browse the latest articles, learn new tips, and explore career insights curated for job seekers like you.</p>
+          <p className='fs-mob-16'>{heroDescription}</p>
         </div>
         <div className='right-part'>
           <img
@@ -633,6 +691,32 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
           />
         </div>
       </section>
+
+      {categories.length > 0 && (
+        <nav className="rk-category-links container-fluid custom-container" aria-label="Browse blog categories">
+          <span>Browse categories</span>
+          <ul>
+            {categories.map((category) => {
+              const href = getBlogCategoryHref(category);
+              const isSelected =
+                categoryId != null &&
+                Number(category.id) === Number(categoryId);
+              return (
+                <li key={category.id || href}>
+                  <Link
+                    prefetch={false}
+                    href={href}
+                    className={isSelected ? 'active' : ''}
+                    aria-current={isSelected ? 'page' : undefined}
+                  >
+                    {category.article_name || category.name || category.title}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      )}
 
       {clientCategoriesReady ? (
         <CategorySlider
@@ -667,7 +751,12 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
                       <BlogCard key={article.id} article={article} />
                     ))}
                   </div>
-                  <Pagination currentPage={page} totalPages={totalPages} onPageChange={handlePageChange} />
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    onPageChange={handlePageChange}
+                    staticBase={!search && !categoryId ? paginationBase : null}
+                  />
                 </>
               )}
             </div>
@@ -774,8 +863,8 @@ function BlogPageContent({ initialArticles = [], initialCategories = [] }) {
   );
 }
 
-export default function BlogPageClient({ initialArticles = [], initialCategories = [] }) {
+export default function BlogPageClient(props) {
   return (
-    <BlogPageContent initialArticles={initialArticles} initialCategories={initialCategories} />
+    <BlogPageContent {...props} />
   );
 }

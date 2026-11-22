@@ -5,6 +5,7 @@ import NavBar from './components/NavBar';
 export const metadata = {
   title: 'Page Not Found',
   description: 'The page you are looking for could not be found on ResumeSathi.',
+  robots: { index: false, follow: true },
 };
 
 export default function Error404() {
@@ -23,7 +24,12 @@ export default function Error404() {
                 <div className="contant-box-404">
                   <h3 className="h2">Looks like you are lost</h3>
                   <p>The page you are looking for is not available.</p>
-                  <Link prefetch={false} href="/" className="link-404" aria-label="Go to Home Page">Go to Home</Link>
+                  <nav className="d-flex flex-wrap justify-content-center gap-3 mt-4" aria-label="Helpful links">
+                    <Link prefetch={false} href="/" className="link-404">Home</Link>
+                    <Link prefetch={false} href="/blog/" className="link-404">Blog</Link>
+                    <Link prefetch={false} href="/tools/" className="link-404">Tools</Link>
+                    <Link prefetch={false} href="/templates/" className="link-404">Templates</Link>
+                  </nav>
                 </div>
               </div>
             </div>

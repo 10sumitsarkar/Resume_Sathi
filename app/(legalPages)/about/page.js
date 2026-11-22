@@ -86,19 +86,6 @@ export const metadata = {
   title: 'About: Resume Builder, Tools & Exam Guides',
   description:
     'Learn about ResumeSathi, a free career platform with resume builder, bio-data maker, PDF tools, typing practice, exam guides, and career blogs.',
-  keywords: [
-    'about ResumeSathi',
-    'ResumeSathi mission',
-    'free resume builder online',
-    'free bio data maker',
-    'printable bio data maker',
-    'bio data format online',
-    'ATS resume builder',
-    'career tools for job seekers',
-    'typing practice for exams',
-    'exam guides',
-    'career blog India',
-  ],
   alternates: {
     canonical: `${siteUrl}/about/`,
   },
@@ -113,14 +100,14 @@ export const metadata = {
     url: `${siteUrl}/about/`,
     siteName: 'ResumeSathi',
     type: 'website',
-    images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'ResumeSathi resume builder' }],
+    images: [{ url: '/front-assets/images/og/home-og.webp', width: 1200, height: 630, alt: 'ResumeSathi resume builder' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'About ResumeSathi | Free Resume & Bio-Data Maker',
     description:
       'Build resumes and bio-data, use free tools, practice typing, and explore exam guides and career blogs on ResumeSathi.',
-    images: ['/front-assets/images/og/home-og.png'],
+    images: ['/front-assets/images/og/home-og.webp'],
   },
 };
 

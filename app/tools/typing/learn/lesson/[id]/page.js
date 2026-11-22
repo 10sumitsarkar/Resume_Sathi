@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import LessonRunner from "../../../_components/LessonRunner";
 import { LESSONS, getLesson } from "../../../_lib/lessons";
 import { DEFAULT_SITE_BASE, withTrailingSlash } from "../../../../../lib/apiConfig";
+import { TypingJsonLd } from "../../../_lib/seo";
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
@@ -25,13 +26,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-    keywords: [
-      "typing lesson",
-      "touch typing practice",
-      "free typing tutor",
-      lesson.title,
-      ...lesson.newKeys,
-    ],
     alternates: {
       canonical: `${SITE_URL}${path}`,
     },
@@ -43,7 +37,7 @@ export async function generateMetadata({ params }) {
       siteName: "ResumeSathi",
       images: [
         {
-          url: `${SITE_URL}/front-assets/images/og/home-og.png`,
+          url: `${SITE_URL}/front-assets/images/og/home-og.webp`,
           width: 1200,
           height: 630,
           alt: "ResumeSathi typing lesson practice",
@@ -54,7 +48,7 @@ export async function generateMetadata({ params }) {
       card: "summary_large_image",
       title,
       description,
-      images: [`${SITE_URL}/front-assets/images/og/home-og.png`],
+      images: [`${SITE_URL}/front-assets/images/og/home-og.webp`],
     },
     robots: {
       index: false,
@@ -77,9 +71,17 @@ export default async function LessonDetailPage({ params }) {
 
   const idx = LESSONS.findIndex((item) => item.id === lesson.id);
   const next = LESSONS[idx + 1] ?? null;
+  const path = withTrailingSlash(`/tools/typing/learn/lesson/${lesson.id}`);
+  const description = `${lesson.goal} Practice this free touch typing lesson on ResumeSathi.`;
 
   return (
     <>
+      <TypingJsonLd
+        name={`${lesson.title} Typing Lesson`}
+        description={description}
+        path={path}
+        breadcrumbName={lesson.title}
+      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

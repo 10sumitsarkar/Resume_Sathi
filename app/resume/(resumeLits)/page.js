@@ -1,20 +1,11 @@
 import ResumeLists from "./ResumeLists";
 import Footer from "../../components/Footer";
 import FooterNav from "../../components/FooterNav";
-import {
-  Banner468x60,
-  Banner300x250,
-  Banner160x300,
-  Banner160x600,
-  Banner320x50,
-  Banner728x90,
-} from "../../components/ads";
 import '../(resumeLits)/resume-list.css'
 
 export const metadata = {
   title: 'Free Resume Builder | ResumeSathi',
   description: 'Create a professional resume in minutes with ResumeSathi free resume builder using ATS-friendly templates and smart editing tools.',
-  keywords: ['resume builder', 'free resume maker', 'ATS resume templates', 'professional resume'],
   alternates: { canonical: '/resume/' },
   robots: {
     index: true,
@@ -31,29 +22,16 @@ export const metadata = {
     url: '/resume/',
     type: 'website',
     siteName: 'ResumeSathi',
-    images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'ResumeSathi resume builder' }],
+    images: [{ url: '/front-assets/images/og/home-og.webp', width: 1200, height: 630, alt: 'ResumeSathi resume builder' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Free Resume Builder | ResumeSathi',
     description: 'Create a professional resume in minutes with ResumeSathi’s free resume builder using ATS-friendly templates and smart editing tools.',
-    images: ['/front-assets/images/og/home-og.png'],
+    images: ['/front-assets/images/og/home-og.webp'],
   },
 };
 
-function ResumeAdPlacement({ name, children }) {
-  return (
-    <div
-      className="d-flex flex-column align-items-center gap-2 my-4"
-      role="region"
-      aria-label={`${name} ad placement`}
-      style={{ display: "none" }}
-      aria-hidden="true"
-    >
-      {children}
-    </div>
-  );
-}
 
 export default function ResumeTypeClientWrapper() {
   return (
@@ -82,9 +60,6 @@ export default function ResumeTypeClientWrapper() {
     trouble.
   </p>
 
-  <ResumeAdPlacement name="Banner 468x60">
-    <Banner468x60 />
-  </ResumeAdPlacement>
 
   <p>
     A fresher usually has no old resume to copy from, and that blank
@@ -102,9 +77,6 @@ export default function ResumeTypeClientWrapper() {
     stranger within the first ten seconds.
   </blockquote>
 
-  <ResumeAdPlacement name="Banner 300x250">
-    <Banner300x250 />
-  </ResumeAdPlacement>
 
   <h3>What the Builder Asks You to Fill In</h3>
 
@@ -181,9 +153,6 @@ export default function ResumeTypeClientWrapper() {
     stronger than "handled customer complaints."
   </p>
 
-  <ResumeAdPlacement name="Banner 728x90">
-    <Banner728x90 />
-  </ResumeAdPlacement>
 
   <h3>What to Include and What to Leave Out</h3>
 
@@ -206,9 +175,6 @@ export default function ResumeTypeClientWrapper() {
     better.
   </p>
 
-  <ResumeAdPlacement name="Banner 320x50">
-    <Banner320x50 />
-  </ResumeAdPlacement>
 
   <h3>Work Through It in Small Steps</h3>
 
@@ -230,9 +196,6 @@ export default function ResumeTypeClientWrapper() {
     as you do.
   </p>
 
-  <ResumeAdPlacement name="Banner 160x300">
-    <Banner160x300 />
-  </ResumeAdPlacement>
 
   <h3>Make the Top of the Page Do the Heavy Lifting</h3>
 
@@ -332,9 +295,6 @@ export default function ResumeTypeClientWrapper() {
     person on the other side can quickly see why you are worth a call.
   </p>
 
-  <ResumeAdPlacement name="Banner 160x600">
-    <Banner160x600 />
-  </ResumeAdPlacement>
 
 </section>
       <Footer />

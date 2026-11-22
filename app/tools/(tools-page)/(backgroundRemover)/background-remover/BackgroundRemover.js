@@ -7,7 +7,6 @@ import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/background-remover.css";
-import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 export default function BackgroundRemover() {
   const inputRef = useRef(null);
@@ -262,7 +261,6 @@ export default function BackgroundRemover() {
             <span>Perfect for portraits, products, and profile photos.</span>
           </p>
         </div>
-        <ToolsPageAd format="728x90" />
 
         {!source ? (
           processing ? (
@@ -483,7 +481,6 @@ export default function BackgroundRemover() {
         <ToastContainer position="top-right" />
       </section>
 
-      <ToolsPageAd native />
       <section className="bg-remover-info">
         <div className="info-block">
           <h2>Cut the Background Out of a Photo in a Few Clicks</h2>
@@ -579,7 +576,6 @@ export default function BackgroundRemover() {
           </p>
         </div>
 
-        <ToolsPageAd format="300x250" />
 
         <div className="info-block">
           <h3>Transparent or a Solid Colour Behind</h3>
@@ -625,7 +621,6 @@ export default function BackgroundRemover() {
           </p>
         </div>
 
-        <ToolsPageAd format="468x60" />
 
         <div className="info-block">
           <h3>Which Photos Give the Best Result</h3>
@@ -694,7 +689,6 @@ export default function BackgroundRemover() {
           </p>
         </div>
 
-        <ToolsPageAd format="300x250" />
 
         <div className="info-block">
           <h3>Questions</h3>

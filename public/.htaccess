@@ -2,67 +2,45 @@ Options -MultiViews
 ErrorDocument 404 /404.html
 RewriteEngine On
 
-# Force HTTPS unless the proxy already confirms a secure request.
-RewriteCond %{HTTPS} !=on
-RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
-RewriteRule ^ https://www.resumesathi.com%{REQUEST_URI} [R=301,L]
+# Retired jobs pages have no replacement; report them as permanently gone.
+RewriteRule ^jobs(?:/.*)?$ - [G,L,NC]
 
-# Redirect retired jobs pages and their sub-pages to the WWW homepage.
-RewriteRule ^jobs(?:/.*)?$ https://www.resumesathi.com [R=301,L,NC]
-
-# Return 410 for obsolete placeholder live routes.
+# Removed placeholder live routes.
 RewriteRule ^(blog|exam-guides)/live/?$ - [G,L,NC]
 
-# Use one canonical host so Google does not see www and non-www as duplicates.
-RewriteCond %{HTTP_HOST} ^resumesathi\.com$ [NC]
-RewriteRule ^ https://www.resumesathi.com%{REQUEST_URI} [R=301,L]
-
-# Redirect the empty typing lesson index to the lessons overview.
-RewriteRule ^tools/typing/learn/lesson/?$ /tools/typing/learn/ [R=301,L]
-
-# Canonicalize page URLs to slash format: /about/ not /about.
-RewriteCond %{REQUEST_URI} !^/$
-RewriteCond %{REQUEST_URI} !/$ [NC]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_URI} !^/api/ [NC]
-RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]{2,5}($|/) [NC]
-RewriteRule ^(.+?)/?$ /$1/ [R=301,L]
-
-# Replace query-string typing lesson URLs with clean canonical lesson URLs.
+# Canonicalize legacy typing lesson URLs directly to their final HTTPS URL.
 RewriteCond %{QUERY_STRING} ^id=(home-row|top-row|bottom-row|numbers|punctuation|capitals|common-words|combined)$ [NC]
-RewriteRule ^(?:typing/learn/lesson|tools/typing/learn/lesson)/?$ /tools/typing/learn/lesson/%1/? [R=301,L]
+RewriteRule ^(?:typing/learn/lesson|tools/typing/learn/lesson)/?$ https://www.resumesathi.com/tools/typing/learn/lesson/%1/? [R=301,L,NE]
+RewriteRule ^tools/typing/learn/lesson/?$ https://www.resumesathi.com/tools/typing/learn/ [R=301,L,NE]
 
 # SearchAction placeholder URLs are templates, not real searchable pages.
 RewriteCond %{QUERY_STRING} (^|&)(q|search)=(%7B|\{)?search_term_string(%7D|\})?(&|$) [NC]
-RewriteRule ^blog/?$ /blog/? [R=301,L]
+RewriteRule ^blog/?$ https://www.resumesathi.com/blog/? [R=301,L,NE]
 
-# Legacy job category query URLs -> clean static category pages.
-RewriteCond %{QUERY_STRING} (^|&)category_id=9(&|$) [NC]
-RewriteRule ^jobs/?$ /jobs/railway/? [R=301,L]
-RewriteCond %{QUERY_STRING} (^|&)category_id=10(&|$) [NC]
-RewriteRule ^jobs/?$ /jobs/state-psc/? [R=301,L]
-RewriteCond %{QUERY_STRING} (^|&)category_id=11(&|$) [NC]
-RewriteRule ^jobs/?$ /jobs/judiciary/? [R=301,L]
-RewriteCond %{QUERY_STRING} (^|&)category_id=12(&|$) [NC]
-RewriteRule ^jobs/?$ /jobs/defence/? [R=301,L]
-RewriteCond %{QUERY_STRING} (^|&)category_id=13(&|$) [NC]
-RewriteRule ^jobs/?$ /jobs/psu/? [R=301,L]
-RewriteCond %{QUERY_STRING} (^|&)category_id=14(&|$) [NC]
-RewriteRule ^jobs/?$ /jobs/university/? [R=301,L]
-RewriteCond %{QUERY_STRING} (^|&)category_id=15(&|$) [NC]
-RewriteRule ^jobs/?$ /jobs/teaching/? [R=301,L]
-RewriteCond %{QUERY_STRING} (^|&)category_id=16(&|$) [NC]
-RewriteRule ^jobs/?$ /jobs/banking/? [R=301,L]
+# A slashless page redirects straight to its canonical HTTPS, WWW URL.
+RewriteCond %{REQUEST_URI} !^/$
+RewriteCond %{REQUEST_URI} !/$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !\.[A-Za-z0-9]{2,5}($|/) [NC]
+RewriteCond %{REQUEST_URI} !^/api/ [NC]
+RewriteRule ^(.+?)/?$ https://www.resumesathi.com/$1/ [R=301,L,NE]
 
-# Legacy category suffix URLs -> clean canonical category URLs.
-RewriteRule ^jobs/railway-jobs/?$ /jobs/railway/ [R=301,L]
-RewriteRule ^jobs/banking-jobs/?$ /jobs/banking/ [R=301,L]
-RewriteRule ^jobs/state-psc-jobs/?$ /jobs/state-psc/ [R=301,L]
-RewriteRule ^jobs/judiciary-jobs/?$ /jobs/judiciary/ [R=301,L]
-RewriteRule ^jobs/defence-jobs/?$ /jobs/defence/ [R=301,L]
-RewriteRule ^jobs/psu-jobs/?$ /jobs/psu/ [R=301,L]
-RewriteRule ^jobs/university-jobs/?$ /jobs/university/ [R=301,L]
-RewriteRule ^jobs/teaching-jobs/?$ /jobs/teaching/ [R=301,L]
+# Force HTTPS unless the proxy already confirms a secure request. The target
+# also canonicalizes the host, preventing a second redirect for non-WWW hosts.
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+RewriteRule ^ https://www.resumesathi.com%{REQUEST_URI} [R=301,L,NE]
+
+RewriteCond %{HTTP_HOST} !^www\.resumesathi\.com$ [NC]
+RewriteRule ^ https://www.resumesathi.com%{REQUEST_URI} [R=301,L,NE]
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml application/xml text/xml
+</IfModule>
+
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/javascript application/javascript application/json image/svg+xml application/xml text/xml
+</IfModule>
 
 <IfModule mod_expires.c>
   ExpiresActive On
@@ -101,8 +79,3 @@ RewriteRule ^jobs/teaching-jobs/?$ /jobs/teaching/ [R=301,L]
   Header unset X-Robots-Tag env=is_templates_page
   Header set X-Robots-Tag "index, follow" env=is_templates_page
 </IfModule>
-
-# Mark unknown paths as gone while allowing every exported file and directory.
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^ - [R=410,L]

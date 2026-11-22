@@ -1,33 +1,11 @@
 import ResumeLists from "./ResumeLists";
 import Footer from "../../components/Footer";
 import FooterNav from "../../components/FooterNav";
-import {
-  Banner468x60,
-  Banner300x250,
-  Banner160x300,
-  Banner160x600,
-  Banner320x50,
-  Banner728x90,
-} from "../../components/ads";
 
-function BioDataAdPlacement({ name, children }) {
-  return (
-    <div
-      className="d-flex flex-column align-items-center gap-2 my-4"
-      role="region"
-      aria-label={`${name} ad placement`}
-      style={{ display: "none" }}
-      aria-hidden="true"
-    >
-      {children}
-    </div>
-  );
-}
 
 export const metadata = {
   title: 'Free Bio-Data Maker | ResumeSathi',
   description: 'Create a clean printable bio-data with personal details, education, extra qualification, and work details.',
-  keywords: ['bio data maker', 'bioData format', 'free bioData builder', 'printable bio data'],
   alternates: { canonical: '/bio-data/' },
   robots: {
     index: true,
@@ -44,13 +22,13 @@ export const metadata = {
     url: '/bio-data/',
     type: 'website',
     siteName: 'ResumeSathi',
-    images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'ResumeSathi bio-data maker' }],
+    images: [{ url: '/front-assets/images/og/home-og.webp', width: 1200, height: 630, alt: 'ResumeSathi bio-data maker' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Free Bio-Data Maker | ResumeSathi',
     description: 'Create a clean printable bio-data with personal details, education, extra qualification, and work details.',
-    images: ['/front-assets/images/og/home-og.png'],
+    images: ['/front-assets/images/og/home-og.webp'],
   },
 };
 
@@ -88,16 +66,10 @@ export default function ResumeTypeClientWrapper() {
         the requested sections and format instead of guessing. Use a supplied
         template when available; otherwise, keep the document clear and concise.
       </p>
-      <BioDataAdPlacement name="Banner 468x60">
-        <Banner468x60 />
-      </BioDataAdPlacement>
       <blockquote className="ps-3 my-4 fst-italic">
         A bio-data should say the right things in the right order without
         making the reader search for them.
       </blockquote>
-      <BioDataAdPlacement name="Banner 300x250">
-        <Banner300x250 />
-      </BioDataAdPlacement>
       <p>
         A useful bio-data is simple, accurate, and easy to scan. Clear sections
         make the document look complete without making it crowded.
@@ -178,9 +150,6 @@ export default function ResumeTypeClientWrapper() {
         digital sharing, use a clear filename and follow file-format
         instructions.
       </p>
-        <BioDataAdPlacement name="Banner 728x90">
-          <Banner728x90 />
-        </BioDataAdPlacement>
       <h3>Pre-Download Checklist</h3>
       <p>
         Confirm that your name, contact details, dates, and qualifications are
@@ -220,15 +189,6 @@ export default function ResumeTypeClientWrapper() {
         Complete the requested fields in order. Ask the requesting
         organization or person if an instruction is unclear.
       </p>
-        <BioDataAdPlacement name="Banner 320x50">
-          <Banner320x50 />
-        </BioDataAdPlacement>
-        <BioDataAdPlacement name="Banner 160x300">
-          <Banner160x300 />
-        </BioDataAdPlacement>
-        <BioDataAdPlacement name="Banner 160x600">
-          <Banner160x600 />
-        </BioDataAdPlacement>
     </section>
       <Footer />
       <FooterNav />

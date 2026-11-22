@@ -6,10 +6,13 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getSiteBase, withTrailingSlash } from '../../lib/apiConfig';
 import { getExamGuideApiBase, getExamGuideBackendBase, getExamGuideLastUpdated, isExamGuide, resolveExamGuideMediaUrl } from '../examGuideData';
-import { Banner160x600, Banner300x250, Banner468x60, Banner728x90, NativeBanner } from '../../components/ads';
+import { getArticleAuthorProfile, getArticleAuthorSlug } from '../../blog/articleMetadata';
+import { getSeoDescription, getSeoTitle } from '../../lib/seoMetadata';
+import AdSlot, { ADS_ENABLED } from '../../components/AdSlot';
+import { findArticleAdPlacement } from '../../lib/adPlacement';
 import '../exam-guides.css';
 
-const DEFAULT_IMAGE = '/front-assets/images/og/home-og.png';
+const DEFAULT_IMAGE = '/front-assets/images/og/home-og.webp';
 const SITE_URL = getSiteBase();
 
 function getHeroImage(item) {
@@ -17,23 +20,18 @@ function getHeroImage(item) {
 }
 
 function getArticleSeo(article, slug) {
-  const title = article?.meta_title || article?.og_title || getTitle(article) || (slug === 'live' ? 'Exam Guides Live Updates' : 'Exam Guide');
-  const description = article?.meta_description || article?.og_description || article?.description || `Check ${getTitle(article) || 'this exam guide'} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`;
-  const keywords = article?.meta_keywords || article?.keywords || [
-    'exam guides',
-    'exam preparation resources',
-    'hiring',
-    'admit card',
-    'answer key',
-    'result',
-  ].join(', ');
+  const rawTitle = article?.meta_title || article?.og_title || getTitle(article) || (slug === 'live' ? 'Exam Guides Live Updates' : 'Exam Guide');
+  const title = `${getSeoTitle(rawTitle.replace(/\s*\|\s*ResumeSathi\s*$/i, ''))} | ResumeSathi`;
+  const description = getSeoDescription(
+    article?.meta_description || article?.og_description || article?.description,
+    `Check ${getTitle(article) || 'this exam guide'} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`,
+  );
   const image = resolveGuideMediaUrl(article, getHeroImage(article));
   const canonical = `${SITE_URL}${withTrailingSlash(`/exam-guides/${slug || getSlug(article) || ''}`)}`;
 
   return {
-    title: title.includes('ResumeSathi') ? title : `${title} | ResumeSathi`,
+    title,
     description,
-    keywords,
     image,
     canonical,
   };
@@ -64,6 +62,32 @@ function normalizeHtmlContent(html) {
       const path = pathRaw.replace(/^(?:\.\.\/)+/, '').replace(/^(?:\.\/)+/, '').replace(/^\/+/, '');
       return `${attr}=${quote}${base}/${path}${closing}`;
     });
+}
+
+function getOfficialSourceLink(contentSections) {
+  const links = contentSections.flatMap((html) =>
+    Array.from(
+      html.matchAll(/<a\b[^>]*href=(["'])(https?:\/\/[^"']+)\1[^>]*>([\s\S]*?)<\/a>/gi),
+      (match) => ({
+        href: match[2],
+        label: match[3].replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim(),
+      }),
+    ),
+  );
+  const officialLinks = links.filter(({ href }) => {
+    try {
+      return new URL(href).hostname.toLowerCase().endsWith('.gov.in');
+    } catch {
+      return false;
+    }
+  });
+
+  return (
+    officialLinks.find(({ label }) => /notification/i.test(label)) ||
+    officialLinks.find(({ label }) => /official|portal/i.test(label)) ||
+    officialLinks[0] ||
+    null
+  );
 }
 
 function formatDate(dateString) {
@@ -131,11 +155,6 @@ function applyDocumentMeta(meta) {
   const descriptionTag = document.querySelector('meta[name="description"]');
   if (descriptionTag) {
     descriptionTag.setAttribute('content', meta.description || '');
-  }
-
-  const keywordsTag = document.querySelector('meta[name="keywords"]');
-  if (keywordsTag) {
-    keywordsTag.setAttribute('content', meta.keywords || '');
   }
 
   const canonicalTag = document.querySelector('link[rel="canonical"]');
@@ -442,7 +461,7 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
 
   useEffect(() => {
     applyDocumentMeta(seo);
-  }, [seo.title, seo.description, seo.keywords, seo.canonical, seo.image]);
+  }, [seo.title, seo.description, seo.canonical, seo.image]);
 
   if (loading) {
     return (
@@ -478,24 +497,24 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
       .trim() ||
     article.user?.name ||
     'ResumeSathi Editorial Team';
-  const authorDetails = {
-    nitu: {
-      title: 'CEO & Career Guidance Expert',
-      bio: 'Nitu Dey is the CEO of ResumeSathi and a career guidance expert. She helps job seekers build strong resumes, prepare for interviews, and make confident career decisions.',
-      image: 'https://api.resumesathi.com/front-assets/images/nitu-dey.webp',
-    },
-    sumit: {
-      title: 'Content Writer & Full-Stack Web Developer',
-      bio: 'Sumit Sarkar is a content writer and full-stack web developer at ResumeSathi. He creates practical career resources and builds user-friendly web experiences for job seekers.',
-      image: 'https://api.resumesathi.com/front-assets/images/sumit-sarkar.webp',
-    },
-  }[article.user?.first_name?.trim().toLowerCase()] || {
+  const authorSlug = getArticleAuthorSlug(article);
+  const authorDetails = getArticleAuthorProfile(article) || {
     title: article.user?.title || 'Exam Guide Author',
     bio: article.user?.bio || '',
     image: article.user?.profile_image
       ? resolveMediaUrl(article.user.profile_image)
       : '',
   };
+  const contentSections = (article.contents || []).map((contentItem) =>
+    normalizeHtmlContent(contentItem.content),
+  );
+  const officialSource = getOfficialSourceLink(contentSections);
+  const affiliateSections = contentSections.map((html) =>
+    /href\s*=\s*["']https?:\/\/(?:link\.amazon|amzn\.to|(?:www\.)?amazon\.[^/"']+)/i.test(html),
+  );
+  const adPlacement = ADS_ENABLED
+    ? findArticleAdPlacement(contentSections)
+    : null;
 
 
   return (
@@ -527,8 +546,33 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
               {examAuthority ? <span>{examAuthority}</span> : null}
             </span>
             {location ? <span>{location}</span> : null}
-            <span>Author: {authorName}</span>
+            <span>
+              Author:{" "}
+              {authorSlug ? (
+                <Link href={`/authors/${authorSlug}/`}>{authorName}</Link>
+              ) : (
+                authorName
+              )}
+            </span>
           </div>
+          <aside className="rk-editorial-note">
+            <p>
+              <strong>Source: </strong>
+              {officialSource ? (
+                <a href={officialSource.href} target="_blank" rel="noopener noreferrer">
+                  {/notification/i.test(officialSource.label)
+                    ? "official notification"
+                    : "official website"}
+                </a>
+              ) : (
+                <span>{"{{OFFICIAL_NOTIFICATION_URL}}"}</span>
+              )}
+            </p>
+            <p>
+              Verify eligibility, dates, fees, vacancies, and other details on
+              the official source before applying, as notifications can change.
+            </p>
+          </aside>
           {(begin || lastDate) ? (
   <div className="job-dates mt-2">
   {begin && (
@@ -558,9 +602,6 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
         </div>
       </section>
 
-      <div className="rk-article-hero-ad">
-        <Banner728x90 />
-      </div>
 
       <section className="rk-blog-page">
         <div className="container-fluid custom-container">
@@ -568,13 +609,46 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
             <div className="col-md-8 col-lg-9">
               <article className="rk-article-content">
                 <div className="rk-article-text">
-                  {article.contents?.length > 0 && article.contents.map((contentItem) => (
-                    <div
-                      key={contentItem.id}
-                      className="rk-article-section"
-                      dangerouslySetInnerHTML={{ __html: normalizeHtmlContent(contentItem.content) }}
-                    />
-                  ))}
+                  {article.contents?.length > 0 && article.contents.map((contentItem, index) => {
+                    const html = contentSections[index];
+
+                    if (adPlacement?.sectionIndex !== index) {
+                      return (
+                        <div
+                          key={contentItem.id}
+                          className="rk-article-section"
+                        >
+                          {affiliateSections[index] ? (
+                            <p className="rk-affiliate-disclosure">
+                              This page contains affiliate links.
+                            </p>
+                          ) : null}
+                          <div dangerouslySetInnerHTML={{ __html: html }} />
+                        </div>
+                      );
+                    }
+
+                    return (
+                      <div key={contentItem.id} className="rk-article-section">
+                        {affiliateSections[index] ? (
+                          <p className="rk-affiliate-disclosure">
+                            This page contains affiliate links.
+                          </p>
+                        ) : null}
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: html.slice(0, adPlacement.offset),
+                          }}
+                        />
+                        <AdSlot />
+                        <div
+                          dangerouslySetInnerHTML={{
+                            __html: html.slice(adPlacement.offset),
+                          }}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
                 <aside className="rk-editorial-note">
                   <strong>Editorial note</strong>
@@ -604,7 +678,13 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
                       <span className="rk-article-author-eyebrow">
                         About the author
                       </span>
-                      <h2>{authorName}</h2>
+                      <h2>
+                        {authorSlug ? (
+                          <Link href={`/authors/${authorSlug}/`}>{authorName}</Link>
+                        ) : (
+                          authorName
+                        )}
+                      </h2>
                       <p className="rk-article-author-title">
                         {authorDetails.title}
                       </p>
@@ -673,9 +753,6 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
                   </div>
                 </div>
               </article>
-              <div className="rk-article-bottom-native">
-                <NativeBanner />
-              </div>
             </div>
 
             <div className="col-md-4 col-lg-3">
@@ -697,9 +774,6 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
                   </ul>
                 </div>
 
-                <div className="rk-widget-ad">
-                  <Banner300x250 />
-                </div>
 
                 <div className="rk-widget rk-widget-cta">
                   <h4>Build Your Resume</h4>
@@ -709,9 +783,6 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
                   </Link>
                 </div>
 
-                <div className="rk-widget-ad">
-                  <Banner160x600 />
-                </div>
               </aside>
             </div>
           </div>
@@ -772,9 +843,6 @@ export default function GuideDetailClient({ article: initialArticle, slug: initi
         </div>
       </div>
 
-      <div className="rk-article-fixed-ad">
-        <Banner468x60 />
-      </div>
       <ToastContainer position="top-right" />
     </div>
   );

@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/merge-pdf.css";
 import "../../../tools-css/signature-cropper.css";
-import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 const PRESETS = [
   { label: "Govt Default", width: 140, height: 60 },
@@ -193,7 +192,6 @@ export default function SignatureCropper() {
             <span>Drag image inside the frame, then download exact size</span>
           </p>
         </div>
-        <ToolsPageAd format="728x90" />
         {!image ? (
           <div
             className={`drop-zone${dropZoneDragOver ? " drag-over" : ""} mb-3 mb-md-5`}
@@ -378,7 +376,6 @@ export default function SignatureCropper() {
         </div>
       )}
 
-      <ToolsPageAd native />
       <section className="signature-cropper-info">
         <div className="info-block">
           <h2>Get Your Signature Into the Exact Size a Form Asks For</h2>
@@ -455,7 +452,6 @@ export default function SignatureCropper() {
           </p>
         </div>
 
-        <ToolsPageAd format="300x250" />
 
         <div className="info-block">
           <h3>Zoom, Rotate and Position</h3>
@@ -499,7 +495,6 @@ export default function SignatureCropper() {
           </p>
         </div>
 
-        <ToolsPageAd format="468x60" />
 
         <div className="info-block">
           <h3>Taking a Better Photo of Your Signature</h3>
@@ -566,7 +561,6 @@ export default function SignatureCropper() {
           </p>
         </div>
 
-        <ToolsPageAd format="300x250" />
 
         <div className="info-block">
           <h3>Questions</h3>

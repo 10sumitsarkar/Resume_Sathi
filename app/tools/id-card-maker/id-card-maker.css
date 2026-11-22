@@ -644,43 +644,8 @@
    overflow: auto
 }
 
-.id-canvas-ad {
-   display: flex;
-   flex: 0 0 auto;
-   justify-content: center;
-   width: min(100%, 320px);
-   margin: 0 auto 12px;
-}
-
-.id-canvas-ad .resume-sathi-ad-slot {
-   max-width: 100%;
-}
-
-.id-editor-fixed-ad {
-   display: none;
-}
-
 body:has(.id-maker-app) .rk-fixed-typing-link {
    display: none !important;
-}
-
-@media (min-width: 992px) {
-   .id-editor-fixed-ad {
-      position: fixed;
-      z-index: 20;
-      top: 50%;
-      right: 10px;
-      display: flex;
-      justify-content: center;
-      width: 160px;
-      height: 600px;
-      transform: translateY(-50%);
-   }
-
-   .id-editor-fixed-ad .resume-sathi-ad-slot {
-      max-width: 100%;
-   }
-
 }
 
 .canvas-tools {
@@ -973,24 +938,11 @@ body:has(.id-maker-app) .rk-fixed-typing-link {
    overflow: hidden
 }
 
-.id-canvas-left-ad {
-   display: none;
-}
-
 @media (min-width: 992px) {
    .id-editor-layout {
       width: 100%;
       margin-left: 0;
       grid-template-columns: 384px minmax(0, 1fr);
-   }
-
-   .id-canvas-left-ad {
-      display: none !important;
-   }
-
-   .id-canvas-left-ad .resume-sathi-ad-slot {
-      width: 0;
-      max-width: 0;
    }
 }
 

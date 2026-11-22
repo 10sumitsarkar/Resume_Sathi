@@ -373,6 +373,65 @@ export default function AboutClient({ initialBlogs = [], faqs = [] }) {
             </div>
           </div>
 
+          <section className="ab-story ab-who-runs" aria-labelledby="who-runs-heading">
+            <div className="ab-who-runs__content">
+              <p className="ab-kicker">People &amp; process</p>
+              <h2 id="who-runs-heading">Who Runs ResumeSathi</h2>
+              <dl className="ab-who-runs__details">
+                <div>
+                  <dt>Business name</dt>
+                  <dd>ResumeSathi</dd>
+                </div>
+                <div>
+                  <dt>Run by</dt>
+                  <dd>Nitu Dey, CEO of ResumeSathi</dd>
+                </div>
+                <div>
+                  <dt>Location</dt>
+                  <dd>Dwarka, New Delhi, India</dd>
+                </div>
+                <div>
+                  <dt>Started</dt>
+                  <dd>2026</dd>
+                </div>
+              </dl>
+              <p>
+                Each author researches their assigned topics individually. Our
+                content is written without AI assistance. Exam guides link to
+                the relevant official source so readers can verify
+                time-sensitive details. Correction reports are reviewed after
+                publication; see our{" "}
+                <Link href="/editorial-policy/">Editorial Policy</Link>.
+              </p>
+              <p>
+                For editorial corrections, email{" "}
+                <a href="mailto:support@resumesathi.com">support@resumesathi.com</a>.
+              </p>
+            </div>
+            <div className="ab-mv">
+              <div className="ab-mv-card ab-who-runs__sources">
+                <h3>Official exam sources</h3>
+                <ul className="ab-who-runs__source-list">
+                  <li>
+                    <a href="https://upsssc.gov.in/AllNotifications.aspx" target="_blank" rel="noopener noreferrer">
+                      UPSSSC notifications
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://www.rrbapply.gov.in/assets/forms/CEN_07_2026_NTPC_UG.pdf" target="_blank" rel="noopener noreferrer">
+                      RRB NTPC CEN 07/2026 notification
+                    </a>
+                  </li>
+                  <li>
+                    <a href="https://psc.wb.gov.in/" target="_blank" rel="noopener noreferrer">
+                      WBPSC official website
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
           <section className="ab-typing-promo" id="bio-data-maker">
             <div className="ab-typing-promo-card">
               <div className="ab-typing-copy">

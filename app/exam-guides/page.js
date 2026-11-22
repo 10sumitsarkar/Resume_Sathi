@@ -23,7 +23,6 @@ const guides = readCache('exam-guides-cache.json').filter(isExamGuide);
 export const metadata = {
   title: 'Exam Guides, Syllabus & Results',
   description: 'Explore exam guides with syllabus, eligibility, important dates, admit cards, answer keys, and results.',
-  keywords: 'exam guides, syllabus, eligibility, exam pattern, admit card, answer key, result, exam preparation',
   alternates: { canonical: `${SITE_URL}/exam-guides/` },
   robots: { index: true, follow: true },
   openGraph: {
@@ -32,13 +31,13 @@ export const metadata = {
     type: 'website',
     url: `${SITE_URL}/exam-guides/`,
     siteName: 'ResumeSathi',
-    images: [{ url: `${SITE_URL}/front-assets/images/og/home-og.png`, width: 1200, height: 630, alt: 'ResumeSathi Exam Guides' }],
+    images: [{ url: `${SITE_URL}/front-assets/images/og/home-og.webp`, width: 1200, height: 630, alt: 'ResumeSathi Exam Guides' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Exam Guides, Syllabus & Results | ResumeSathi',
     description: 'Explore exam guides with syllabus, eligibility, important dates, admit cards, answer keys, and results.',
-    images: [`${SITE_URL}/front-assets/images/og/home-og.png`],
+    images: [`${SITE_URL}/front-assets/images/og/home-og.webp`],
   },
 };
 

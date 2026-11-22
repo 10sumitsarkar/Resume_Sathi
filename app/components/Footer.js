@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import NewsletterSignup from "./NewsletterSignup";
+import CookiePreferencesLink from "./CookiePreferencesLink";
 
 export default function Footer() {
   return (
@@ -108,11 +109,13 @@ export default function Footer() {
             <div className="rk-footer-col-title">Company</div>
 
             <Link prefetch={false} href="/about/">About</Link>
+            <Link prefetch={false} href="/authors/">Authors</Link>
             <Link prefetch={false} href="/editorial-policy/">Editorial Policy</Link>
             <Link prefetch={false} href="/terms-and-conditions/">Terms & Conditions</Link>
             <Link prefetch={false} href="/privacy-policy/">Privacy Policy</Link>
             <Link prefetch={false} href="/disclaimer/">Disclaimer</Link>
             <Link prefetch={false} href="/contact/">Contact</Link>
+            <CookiePreferencesLink />
           </div>
         </div>
       </div>

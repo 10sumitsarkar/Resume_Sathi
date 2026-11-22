@@ -287,7 +287,7 @@ const [captcha, setCaptcha] = useState({ a: 0, b: 0, answer: 0 });
                         name="email"
                         value={form.email}
                         onChange={handleChange}
-                        placeholder="you@example.com"
+                        placeholder="Enter your email address"
                       />
                       {errors.email && <p className="ct-error">{errors.email}</p>}
                     </div>
@@ -375,6 +375,49 @@ const [captcha, setCaptcha] = useState({ a: 0, b: 0, answer: 0 });
               </div>
             </div>
           </div>
+          <section className="ct-contact-guidance" aria-labelledby="contact-guidance-heading">
+            <h2 id="contact-guidance-heading">How to contact ResumeSathi</h2>
+            <p>
+              Use the form above for questions about the website, feedback on a
+              published article or exam guide, or a problem using one of the
+              available tools. The form asks for your name, email address, and
+              message so the team can understand your request and reply. A phone
+              number is optional. The quick arithmetic check helps limit
+              automated submissions; after verifying it, complete the required
+              fields and select Send Message.
+            </p>
+            <h3>Help us understand your request</h3>
+            <p>
+              For a website or tool issue, describe what you were trying to do,
+              the page or tool you were using, and what happened instead. For
+              feedback about an article or guide, include its page address and
+              explain which detail you would like us to review. Avoid including
+              passwords, payment information, or other sensitive details in a
+              message. Resume or bio-data information is not needed to report a
+              general issue.
+            </p>
+            <p>
+              You can also write directly to{" "}
+              <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. The
+              contact details shown on this page include the team&rsquo;s
+              location in Dwarka, New Delhi, and a stated response window of
+              24&ndash;48 hours. If a reply does not appear, check the address
+              entered in the form and your email&rsquo;s spam folder before
+              sending the request again.
+            </p>
+            <h3>What happens to contact messages</h3>
+            <p>
+              Information submitted through this form is used to respond to the
+              query and is retained only as long as needed for that response and
+              reasonable record-keeping. The phone field is optional. For more
+              detail about contact submissions, browser-stored resume data,
+              cookies, and your choices, read the{" "}
+              <a href="/privacy-policy/">Privacy Policy</a>. If your question
+              concerns a correction to published content, the{" "}
+              <a href="/editorial-policy/">Editorial Policy</a> explains how
+              readers can report an error or outdated detail.
+            </p>
+          </section>
         </div>
       </section>
       <Footer/>

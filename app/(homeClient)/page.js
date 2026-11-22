@@ -1,8 +1,10 @@
 ﻿import fs from 'fs';
 import path from 'path';
 import ResumeListClient from "./homeClient";
+import AdSenseAutoAds from "../components/AdSenseAutoAds";
 import { DEFAULT_SITE_BASE } from "../lib/apiConfig";
 import { isExamGuide } from "../exam-guides/examGuideData";
+import { latestFirst } from "../blog/articleSort";
 
 // Blog preview content build-time cache se aata hai.
 function readCache(filename) {
@@ -20,14 +22,6 @@ export const metadata = {
   title: "Free Resume Builder and Career Tools",
   description:
     "Create a resume with guided sections and role-based templates, then prepare application files with free browser-based career tools.",
-  keywords: [
-    "resume builder",
-    "free resume builder",
-    "ats friendly resume builder",
-    "resume builder no signup",
-    "free resume templates",
-    "career tools",
-  ],
   alternates: { canonical: "/" }, 
   openGraph: {
     title: "Free Resume Builder and Career Tools | ResumeSathi",
@@ -36,42 +30,30 @@ export const metadata = {
     url: "/",
     type: "website",
     siteName: "ResumeSathi",
-    images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],
+    images: [{ url: "/front-assets/images/og/home-og.webp", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Free Resume Builder and Career Tools | ResumeSathi",
     description:
       "Create a resume with guided sections and role-based templates, then prepare application files with free browser-based career tools.",
-    images: ["/front-assets/images/og/home-og.png"],
+    images: ["/front-assets/images/og/home-og.webp"],
   },
 };
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
 const HOME_BLOG_LIMIT = 6;
-const initialBlogs = readCache('articles-cache.json').slice(0, HOME_BLOG_LIMIT);
+const initialBlogs = latestFirst(readCache('articles-cache.json')).slice(
+  0,
+  HOME_BLOG_LIMIT,
+);
 const HOME_EXAM_GUIDE_LIMIT = 6;
 const initialExamGuides = readCache('exam-guides-cache.json')
   .filter(isExamGuide)
   .slice(0, HOME_EXAM_GUIDE_LIMIT);
 
 const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    name: "ResumeSathi",
-    url: SITE_URL,
-    logo: `${SITE_URL}/front-assets/images/logo/logo.svg`,
-    description:
-      "ResumeSathi provides a browser-based resume builder, role-based templates, career articles, exam guides, and application tools.",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: "ResumeSathi",
-    url: SITE_URL,
-  },
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -138,6 +120,7 @@ const jsonLd = [
 export default function Page() {
   return (
     <>
+      <AdSenseAutoAds />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

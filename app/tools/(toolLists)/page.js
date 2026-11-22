@@ -3,25 +3,11 @@ import ToolsLists from "./ToolsLists";
 const TITLE = "Free Online Tools for Resume, PDF & Documents | ResumeSathi";
 const DESCRIPTION =
   "Free tools for job applications: ATS checker, merge, split and compress PDF, DOCX to PDF, signature cropper, background remover, age calculator. No signup.";
-const OG_IMAGE = "/front-assets/images/og/home-og.png";
+const OG_IMAGE = "/front-assets/images/og/home-og.webp";
 
 export const metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
-  keywords: [
-    "free online tools",
-    "ATS resume checker",
-    "merge PDF online",
-    "compress PDF",
-    "split PDF",
-    "DOCX to PDF",
-    "image to PDF",
-    "signature cropper",
-    "background remover",
-    "age calculator",
-    "typing practice",
-    "ID card maker",
-  ],
   alternates: { canonical: "/tools/" },
   robots: {
     index: true,

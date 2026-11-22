@@ -11,7 +11,7 @@ const IconBlog = () => (
   </svg>
 );
 
-const DEFAULT_IMAGE = '/front-assets/images/og/home-og.png';
+const DEFAULT_IMAGE = '/front-assets/images/og/home-og.webp';
 const EXAM_GUIDE_HERO_IMAGE = '/front-assets/images/blog-hero.webp';
 const PAGE_SIZE = 12;
 const SUGGESTION_LIMIT = 6;
@@ -298,6 +298,7 @@ function Pagination({ currentPage, totalPages, onPageChange }) {
               <button
                 type="button"
                 className={p === currentPage ? 'active' : ''}
+                aria-current={p === currentPage ? 'page' : undefined}
                 aria-label={`Go to page ${p}`}
                 onClick={() => onPageChange(p)}
               >
@@ -331,6 +332,7 @@ function ExamGuidesPageContent({ initialArticles = [], pageTitle = 'Explore exam
   // jisse main content kabhi kisi fallback ke peeche block nahi hota.
   const [search, setSearch] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     let active = true;
@@ -369,13 +371,16 @@ function ExamGuidesPageContent({ initialArticles = [], pageTitle = 'Explore exam
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
     const q = params.get('search') || params.get('q') || '';
+    const requestedPage = Number(params.get('page'));
     if (q) {
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setSearch(q);
       setSearchInput(q);
     }
+    if (Number.isInteger(requestedPage) && requestedPage > 0) {
+      setPage(requestedPage);
+    }
   }, []);
-  const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(PAGE_SIZE);
   const searchDebounce = useRef(null);
 
@@ -405,11 +410,40 @@ function ExamGuidesPageContent({ initialArticles = [], pageTitle = 'Explore exam
 
     params.delete('type');
     params.delete('q');
+    params.delete('page');
 
     const query = params.toString();
     const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}`;
     window.history.replaceState(null, '', nextUrl);
   };
+
+  const syncPageToUrl = (nextPage) => {
+    if (typeof window === 'undefined') return;
+
+    const params = new URLSearchParams(window.location.search);
+    if (nextPage > 1) params.set('page', String(nextPage));
+    else params.delete('page');
+
+    const query = params.toString();
+    const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}`;
+    window.history.pushState(null, '', nextUrl);
+  };
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const requestedPage = Number(
+        new URLSearchParams(window.location.search).get('page'),
+      );
+      setPage(
+        Number.isInteger(requestedPage) && requestedPage > 0
+          ? requestedPage
+          : 1,
+      );
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     const updatePageSize = () => {
@@ -552,7 +586,9 @@ function ExamGuidesPageContent({ initialArticles = [], pageTitle = 'Explore exam
   };
 
   const handlePageChange = (nextPage) => {
-    setPage(Math.max(1, Math.min(nextPage, totalPages)));
+    const safePage = Math.max(1, Math.min(nextPage, totalPages));
+    setPage(safePage);
+    syncPageToUrl(safePage);
     if (typeof window !== 'undefined') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
@@ -615,6 +651,39 @@ function ExamGuidesPageContent({ initialArticles = [], pageTitle = 'Explore exam
                   <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
                 </>
               )}
+              <section className="exam-guide-intro">
+                <h2>Find and use an exam guide</h2>
+                <p>
+                  Search by exam name, recruiting authority, or location. The list shows
+                  12 guides at a time; use the page controls to see the rest. If a search
+                  brings up nothing, try a shorter exam name or the authority&rsquo;s
+                  name. Open a guide card to read the full page rather than relying on
+                  its short summary.
+                </p>
+                <p>
+                  The guides do not all cover the same details. Depending on the exam,
+                  a page may include eligibility, syllabus, exam pattern, salary
+                  information, dates, or preparation material. Check the guide title
+                  and recruiting body first so you are reading about the right exam and
+                  level.
+                </p>
+                <h3>Check the latest official notice before applying</h3>
+                <p>
+                  Recruitment rules can change between exam cycles. Before you apply,
+                  confirm the current eligibility criteria, dates, fees, vacancies, and
+                  selection process in the recruiting authority&rsquo;s latest notice.
+                  If a guide and a newer notice differ, follow the official notice.
+                  Use the guide to help you find the relevant topics, not as a substitute
+                  for the current announcement.
+                </p>
+                <p>
+                  For preparation, compare the syllabus and exam pattern in the guide
+                  with the official syllabus for your cycle. Mark any topics you still
+                  need to check, and verify that linked books or other materials match
+                  the exam you plan to take. This extra check matters when a recruitment
+                  body runs more than one exam level or updates its process.
+                </p>
+              </section>
             </div>
 
             <div className="col-md-4 col-lg-3 d-none d-md-block">

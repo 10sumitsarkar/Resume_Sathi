@@ -6,7 +6,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/pdf-compressor.css";
 import { getApiBase } from "../../../../lib/apiConfig";
-import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 const PdfPreviewClient = dynamic(
   () => import("../../(pdfMerge)/merge-pdf/PdfPreviewClient"),
@@ -229,7 +228,6 @@ export default function PdfCompressor() {
             <br /> <span>Fast, secure, and hassle-free</span>
           </p>
         </div>
-        <ToolsPageAd format="728x90" />
 
         {/* Drop zone — hidden once a file is added */}
         {!file && (
@@ -605,7 +603,6 @@ export default function PdfCompressor() {
         </div>
       )}
 
-      <ToolsPageAd native />
       <section className="pdf-compress-info">
         <div className="info-block">
           <h2>Compress PDF Without Losing Quality</h2>
@@ -655,7 +652,6 @@ export default function PdfCompressor() {
           </ul>
         </div>
 
-        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Compression Levels</h3>
           <p>
@@ -709,7 +705,6 @@ export default function PdfCompressor() {
           </p>
         </div>
 
-        <ToolsPageAd format="468x60" />
         <div className="info-block">
           <h3>Choosing the Right Level for Your Situation</h3>
           <p>
@@ -748,7 +743,6 @@ export default function PdfCompressor() {
           </ul>
         </div>
 
-        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Frequently Asked Questions</h3>
 

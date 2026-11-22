@@ -1,8 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
+import {
+  COOKIE_CONSENT_CHANGED_EVENT,
+  readCookiePreferences,
+} from "../lib/cookieConsent";
 
 const GA_MEASUREMENT_ID = "G-GMDRJBQDWL";
+let analyticsConsentGranted = false;
 
 function addScript(src, async = false) {
   if (typeof document === "undefined") return;
@@ -17,21 +22,29 @@ function addScript(src, async = false) {
 
 function loadGoogleAnalytics() {
   if (typeof window === "undefined") return;
-  if (window.dataLayer) return;
+
+  const scriptSrc = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  if (document.querySelector(`script[src="${scriptSrc}"]`)) return;
 
   window.dataLayer = window.dataLayer || [];
-  function gtag() {
-    window.dataLayer.push(arguments);
-  }
-  window.gtag = gtag;
+  window.gtag =
+    window.gtag ||
+    function gtag() {
+      window.dataLayer.push(arguments);
+    };
 
   const script = document.createElement("script");
   script.async = true;
   script.defer = true;
-  script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+  script.src = scriptSrc;
   script.onload = () => {
-    window.gtag("js", new Date());
-    window.gtag("config", GA_MEASUREMENT_ID);
+    if (analyticsConsentGranted) {
+      window.gtag("js", new Date());
+      window.gtag("config", GA_MEASUREMENT_ID);
+    }
+  };
+  script.onerror = (error) => {
+    console.error("Failed to load Google Analytics.", error);
   };
   document.head.appendChild(script);
 }
@@ -74,11 +87,29 @@ function suppressInjectedPerformanceError() {
 export default function ClientScripts() {
   useEffect(() => {
     const cleanupInjectedErrorFilter = suppressInjectedPerformanceError();
-    loadGoogleAnalytics();
+    const existingPreferences = readCookiePreferences();
+    analyticsConsentGranted = existingPreferences?.analytics === true;
+    if (analyticsConsentGranted) loadGoogleAnalytics();
+
+    const handleConsentChange = (event) => {
+      analyticsConsentGranted = event.detail?.analytics === true;
+      if (analyticsConsentGranted) loadGoogleAnalytics();
+    };
+    window.addEventListener(
+      COOKIE_CONSENT_CHANGED_EVENT,
+      handleConsentChange,
+    );
+
     addScript("/api-config.js");
     addScript("/front-assets/js/bootstrap.bundle.min.js");
 
-    return cleanupInjectedErrorFilter;
+    return () => {
+      cleanupInjectedErrorFilter?.();
+      window.removeEventListener(
+        COOKIE_CONSENT_CHANGED_EVENT,
+        handleConsentChange,
+      );
+    };
   }, []);
 
   return null;

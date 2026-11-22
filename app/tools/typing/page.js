@@ -1,14 +1,12 @@
 import Link from "next/link";
 import HeroDemo from "./_components/HeroDemo";
-import TypingContentAd, { TypingTopAd } from "./_components/TypingAd";
 import TypingHomeArticle from "./_components/TypingHomeArticle";
-import { typingMetadata } from "./_lib/seo";
+import { typingMetadata, TypingJsonLd } from "./_lib/seo";
 
 export const metadata = typingMetadata({
   title: "Free Typing Practice: Improve Speed & Accuracy",
   description: "Practice typing for free with guided touch-typing lessons, timed speed tests, code typing, quotes, and private WPM tracking.",
   path: "/tools/typing/",
-  keywords: ["online typing practice", "typing speed practice", "WPM test"],
 });
 
 const FEATURES = [
@@ -38,6 +36,12 @@ const FEATURES = [
 export default function TypingHome() {
   return (
     <>
+      <TypingJsonLd
+        name="ResumeSathi Typing Practice"
+        description="A free web-based typing tutor with guided touch-typing lessons, timed tests, and private progress tracking."
+        path="/tools/typing/"
+        breadcrumbName="Typing Practice"
+      />
       <div className="tf-scope tf-typing-home">
         <div className="tf-animate-rise">
         <div className="container-fluid custom-container">
@@ -84,7 +88,6 @@ export default function TypingHome() {
             ))}
           </div>
         </div>
-        <TypingTopAd />
         <div className="container-fluid custom-container">
           <div className="tf-card tf-py-10 mt-5 p-4 p-sm-5">
             <div className="row g-4 text-center text-sm-start">
@@ -102,7 +105,6 @@ export default function TypingHome() {
             </div>
           </div>
         </div>
-        <TypingContentAd />
         <section className="container-fluid custom-container mt-5">
           <div className="tf-card p-4 p-sm-5">
             <h2 className="tf-font-display tf-display-3">Practice typing with lessons, tests, and progress tracking</h2>

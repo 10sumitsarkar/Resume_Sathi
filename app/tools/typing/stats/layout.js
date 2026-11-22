@@ -5,7 +5,6 @@ export const metadata = {
     title: "Typing Speed & Accuracy Progress Tracker",
     description: "Track typing speed, accuracy, streaks, and commonly missed keys privately in your browser with ResumeSathi Typing.",
     path: "/tools/typing/stats",
-    keywords: ["typing progress tracker", "typing accuracy tracker", "WPM tracker"],
   }),
   robots: {
     index: false,
@@ -18,5 +17,5 @@ export const metadata = {
 };
 
 export default function StatsLayout({ children }) {
-  return <><TypingJsonLd name="ResumeSathi Typing Progress Tracker" description="A private browser-based dashboard for tracking typing speed, accuracy, practice streaks, and missed keys." path="/tools/typing/stats" /><h1 className="visually-hidden">Typing Speed and Accuracy Progress Tracker</h1>{children}</>;
+  return <><TypingJsonLd name="ResumeSathi Typing Progress Tracker" description="A private browser-based dashboard for tracking typing speed, accuracy, practice streaks, and missed keys." path="/tools/typing/stats" breadcrumbName="Stats" /><h1 className="visually-hidden">Typing Speed and Accuracy Progress Tracker</h1>{children}</>;
 }

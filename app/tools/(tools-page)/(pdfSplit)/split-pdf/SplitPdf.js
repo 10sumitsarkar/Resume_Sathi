@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../../tools-css/merge-pdf.css";
 import "../../../tools-css/split-pdf.css";
-import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 const PdfPreviewClient = dynamic(
   () => import("../../(pdfMerge)/merge-pdf/PdfPreviewClient"),
@@ -122,7 +121,6 @@ export default function SplitPdf() {
             <span>Delete pages you do not want before downloading ZIP</span>
           </p>
         </div>
-        <ToolsPageAd format="728x90" />
 
         {!file ? (
           <div
@@ -235,7 +233,6 @@ export default function SplitPdf() {
         </div>
       )}
 
-      <ToolsPageAd native />
       <section className="pdf-split-info">
         <div className="info-block">
           <h2>Split One PDF Into Multiple Files</h2>
@@ -277,7 +274,6 @@ export default function SplitPdf() {
           </p>
         </div>
 
-        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>One File Or Several?</h3>
           <p>
@@ -304,7 +300,6 @@ export default function SplitPdf() {
           </p>
         </div>
 
-        <ToolsPageAd format="468x60" />
         <div className="info-block">
           <h3>Notes</h3>
           <p>
@@ -316,7 +311,6 @@ export default function SplitPdf() {
           </p>
         </div>
 
-        <ToolsPageAd format="300x250" />
         <div className="info-block">
           <h3>Questions</h3>
           <div className="faq-list">

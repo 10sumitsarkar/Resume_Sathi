@@ -14,42 +14,31 @@ import {
 import {
   getArticleAuthorName,
   getArticleAuthorProfile,
+  getArticleAuthorSlug,
   getArticleLastUpdatedAt,
 } from "../articleMetadata";
-import {
-  Banner160x600,
-  Banner300x250,
-  Banner468x60,
-  Banner728x90,
-  NativeBanner,
-} from "../../components/ads";
+import { getSeoDescription, getSeoTitle } from "../../lib/seoMetadata";
+import { getBlogCategoryHref } from "../blogRoutes";
+import AdSlot, { ADS_ENABLED } from "../../components/AdSlot";
+import { findArticleAdPlacement } from "../../lib/adPlacement";
 import "../blog.css";
 
-const DEFAULT_IMAGE = "/front-assets/images/og/blog-og.png";
+const DEFAULT_IMAGE = "/front-assets/images/og/blog-og.webp";
 const SITE_URL = getSiteBase();
 
 function getArticleSeo(article, slug) {
-  const title =
+  const rawTitle =
     article?.meta_title ||
     article?.og_title ||
     getTitle(article) ||
     "Blog Article";
-  const description =
+  const title = `${getSeoTitle(rawTitle)} | ResumeSathi`;
+  const description = getSeoDescription(
     article?.meta_description ||
-    article?.og_description ||
-    article?.description ||
-    "Read this helpful article from our blog.";
-  const keywords =
-    article?.meta_keywords ||
-    article?.keywords ||
-    [
-      article?.category?.article_name ||
-        article?.category?.name ||
-        article?.category?.title ||
-        "blog",
-      "resume tips",
-      "career advice",
-    ].join(", ");
+      article?.og_description ||
+      article?.description,
+    "Read this helpful article from ResumeSathi about resumes, interviews, career growth, and job searches.",
+  );
   const image = resolveMediaUrl(
     article?.og_image ||
       article?.meta_image ||
@@ -61,7 +50,6 @@ function getArticleSeo(article, slug) {
   return {
     title,
     description,
-    keywords,
     image,
     canonical,
   };
@@ -88,6 +76,33 @@ function normalizeHtmlContent(html) {
         return `${attr}=${quote}${base}/${path}${closing}`;
       },
     );
+}
+
+function escapeHtml(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function insertContextualLinks(html, links) {
+  if (!html || !Array.isArray(links) || links.length === 0) return html;
+
+  const linkItems = links
+    .map(
+      ({ href, label }) =>
+        `<li><a href="${escapeHtml(href)}">${escapeHtml(label)}</a></li>`,
+    )
+    .join("");
+  const block = `<aside class="rk-contextual-links" aria-label="Helpful tools and resources"><strong>Useful next steps</strong><ul>${linkItems}</ul></aside>`;
+  const firstParagraphEnd = /<\/p\s*>/i.exec(html);
+
+  if (!firstParagraphEnd) return `${html}${block}`;
+
+  const insertionPoint = firstParagraphEnd.index + firstParagraphEnd[0].length;
+  return `${html.slice(0, insertionPoint)}${block}${html.slice(insertionPoint)}`;
 }
 
 function formatDate(dateString) {
@@ -170,11 +185,6 @@ function applyDocumentMeta(meta) {
   const descriptionTag = document.querySelector('meta[name="description"]');
   if (descriptionTag) {
     descriptionTag.setAttribute("content", meta.description || "");
-  }
-
-  const keywordsTag = document.querySelector('meta[name="keywords"]');
-  if (keywordsTag) {
-    keywordsTag.setAttribute("content", meta.keywords || "");
   }
 
   const canonicalTag = document.querySelector('link[rel="canonical"]');
@@ -329,6 +339,8 @@ export default function ArticleDetailPageClient({
   articleIndex = [],
   initialLatest = [],
   initialCategories = [],
+  initialRelated = [],
+  contextualLinks = [],
 }) {
   const params = useParams();
   const pathname = usePathname();
@@ -558,7 +570,7 @@ export default function ArticleDetailPageClient({
 
   useEffect(() => {
     applyDocumentMeta(seo);
-  }, [seo.title, seo.description, seo.keywords, seo.canonical, seo.image]);
+  }, [seo.title, seo.description, seo.canonical, seo.image]);
 
   if (loading) {
     return (
@@ -591,15 +603,39 @@ export default function ArticleDetailPageClient({
     article.category?.id || article.category_id || null;
   const authorName = getArticleAuthorName(article);
   const authorProfile = getArticleAuthorProfile(article);
+  const authorSlug = getArticleAuthorSlug(article);
   const heroImage =
     article.hero_image ||
     article.image ||
     article.meta_image ||
     article.og_image;
   const contentSections = getArticleContentSections(article);
+  const normalizedContentSections = contentSections.map((contentItem) =>
+    normalizeHtmlContent(contentItem.html),
+  );
+  const contentSectionsWithLinks = normalizedContentSections.map((html, index) =>
+    index === 0 ? insertContextualLinks(html, contextualLinks) : html,
+  );
+  const categoryHref = getBlogCategoryHref(article.category);
+  const breadcrumbTitle =
+    article.article_title || article.title || article.meta_title || "Blog Article";
+  const adPlacement = ADS_ENABLED
+    ? findArticleAdPlacement(contentSectionsWithLinks)
+    : null;
 
   return (
     <div className="rk-blog-scope">
+      <nav
+        className="rk-article-breadcrumb container-fluid custom-container"
+        aria-label="Breadcrumb"
+      >
+        <ol>
+          <li><Link href="/">Home</Link></li>
+          <li><Link href="/blog/">Blog</Link></li>
+          <li><Link href={categoryHref}>{categoryLabel}</Link></li>
+          <li aria-current="page"><span>{breadcrumbTitle}</span></li>
+        </ol>
+      </nav>
       <section className="container-fluid custom-container small-hero-area rk-article-hero">
         <div className="left-part">
           <div>
@@ -670,7 +706,14 @@ export default function ArticleDetailPageClient({
                   fill="#6B7280"
                 />
               </svg>
-              <span>Author: {authorName}</span>
+              <span>
+                Author:{" "}
+                {authorSlug ? (
+                  <Link href={`/authors/${authorSlug}/`}>{authorName}</Link>
+                ) : (
+                  authorName
+                )}
+              </span>
             </span>
           </div>
         </div>
@@ -687,9 +730,6 @@ export default function ArticleDetailPageClient({
         </div>
       </section>
 
-      <div className="rk-article-hero-ad">
-        <Banner728x90 />
-      </div>
 
       <section className="rk-blog-page">
         <div className="container-fluid custom-container">
@@ -698,15 +738,35 @@ export default function ArticleDetailPageClient({
               <article className="rk-article-content">
                 <div className="rk-article-text">
                   {contentSections.length > 0 ? (
-                    contentSections.map((contentItem) => (
-                      <div
-                        key={contentItem.id}
-                        className="rk-article-section"
-                        dangerouslySetInnerHTML={{
-                          __html: normalizeHtmlContent(contentItem.html),
-                        }}
-                      />
-                    ))
+                    contentSections.map((contentItem, index) => {
+                      const html = contentSectionsWithLinks[index];
+
+                      if (adPlacement?.sectionIndex !== index) {
+                        return (
+                          <div
+                            key={contentItem.id}
+                            className="rk-article-section"
+                            dangerouslySetInnerHTML={{ __html: html }}
+                          />
+                        );
+                      }
+
+                      return (
+                        <div key={contentItem.id} className="rk-article-section">
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: html.slice(0, adPlacement.offset),
+                            }}
+                          />
+                          <AdSlot />
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: html.slice(adPlacement.offset),
+                            }}
+                          />
+                        </div>
+                      );
+                    })
                   ) : (
                     <p className="rk-comments-empty">
                       Article content is not available right now.
@@ -724,6 +784,25 @@ export default function ArticleDetailPageClient({
                     <Link href="/contact/">contact us</Link> to suggest a correction.
                   </p>
                 </aside>
+
+                {initialRelated.length > 0 && (
+                  <section
+                    className="rk-related-articles"
+                    aria-labelledby="rk-related-articles-title"
+                  >
+                    <h2 id="rk-related-articles-title">Related articles</h2>
+                    <ul>
+                      {initialRelated.map((related) => (
+                        <li key={related.slug}>
+                          <Link prefetch={false} href={`/blog/${related.slug}/`}>
+                            <span>{related.title}</span>
+                            {related.category && <small>{related.category}</small>}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </section>
+                )}
 
                 {authorProfile && (
                   <section
@@ -743,7 +822,9 @@ export default function ArticleDetailPageClient({
                       <span className="rk-article-author-eyebrow">
                         About the author
                       </span>
-                      <h2>{authorName}</h2>
+                      <h2>
+                        <Link href={`/authors/${authorSlug}/`}>{authorName}</Link>
+                      </h2>
                       <p className="rk-article-author-title">
                         {authorProfile.title}
                       </p>
@@ -833,9 +914,6 @@ export default function ArticleDetailPageClient({
                   </div>
                 </div>
               </article>
-              <div className="rk-article-bottom-native">
-                <NativeBanner />
-              </div>
             </div>
 
             <div className="col-md-4 col-lg-3">
@@ -874,9 +952,6 @@ export default function ArticleDetailPageClient({
                   </ul>
                 </div>
 
-                <div className="rk-widget-ad">
-                  <Banner300x250 />
-                </div>
 
                 <div className="rk-widget rk-widget-cta">
                   <h4>Build Your Resume</h4>
@@ -886,9 +961,6 @@ export default function ArticleDetailPageClient({
                   </Link>
                 </div>
 
-                <div className="rk-widget-ad">
-                  <Banner160x600 />
-                </div>
               </aside>
             </div>
           </div>
@@ -1007,9 +1079,6 @@ export default function ArticleDetailPageClient({
         </div>
       </div>
 
-      <div className="rk-article-fixed-ad">
-        <Banner468x60 />
-      </div>
       <ToastContainer position="top-right" />
     </div>
   );

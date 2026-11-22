@@ -1,4 +1,3 @@
-import { NativeBanner } from "../../../components/ads";
 
 export default function TypingHomeArticle() {
   return (
@@ -119,9 +118,6 @@ export default function TypingHomeArticle() {
         Typing is one of those skills where slow, steady repetition wins over
         forced effort almost every single time.
       </p>
-      <div className="tf-ad-placement">
-        <NativeBanner />
-      </div>
     </section>
   );
 }

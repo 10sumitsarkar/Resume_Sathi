@@ -6,6 +6,13 @@ import ArticleDetailPageClient from "./ArticleDetailPageClient";
 import JsonLd from "../../components/JsonLd";
 import { DEFAULT_BACKEND_BASE, DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
 import { latestFirst } from "../articleSort";
+import {
+  getContextualArticleLinks,
+  getRelatedBlogArticles,
+} from "../blogData";
+import { getBlogCategorySlug } from "../blogRoutes";
+import { getArticleAuthorSlug } from "../articleMetadata";
+import { getSeoDescription, getSeoTitle } from "../../lib/seoMetadata";
 
 export const dynamicParams = false;
 
@@ -13,10 +20,11 @@ function resolveImageUrl(url) {
   const backendBase = DEFAULT_BACKEND_BASE.replace(/\/+$/, "");
   const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
 
-  const fallbackImage = `${siteUrl}/front-assets/images/og/blog-og.png`;
+  const fallbackImage = `${siteUrl}/front-assets/images/og/blog-og.webp`;
 
   if (!url) return fallbackImage;
-  if (/^https?:\/\//i.test(url) || url.startsWith("//")) return url;
+  if (/^https?:\/\//i.test(url)) return url;
+  if (url.startsWith("//")) return `https:${url}`;
 
   const normalized = String(url).replace(/^\/+/, "");
   return `${backendBase}/${normalized}`;
@@ -106,6 +114,7 @@ function getArticleIndex(items) {
       article_name: item.category.article_name,
       name: item.category.name,
       title: item.category.title,
+      url_name: item.category.url_name,
     } : null,
     category_id: item.category_id,
     article_type: item.article_type,
@@ -125,15 +134,6 @@ function getArticleCategories() {
     console.error("FATAL: could not read data/article-categories-cache.json", error);
     return [];
   }
-}
-
-function truncateMeta(value = "", max = 50) {
-  const normalized = String(value || "").replace(/\s+/g, " ").trim();
-  if (normalized.length <= max) return normalized;
-  const truncated = normalized.slice(0, max);
-  const wordBoundary = truncated.lastIndexOf(" ");
-  if (wordBoundary < 1) return normalized;
-  return truncated.slice(0, wordBoundary).replace(/[.,\s]+$/, "");
 }
 
 export async function generateStaticParams() {
@@ -170,20 +170,16 @@ export async function generateMetadata({ params }) {
     article?.title ||
     "Blog Article";
 
-  const title = String(rawTitle).replace(/\s*\|\s*ResumeSathi\s*$/i, "").trim();
+  const title = getSeoTitle(
+    String(rawTitle).replace(/\s*\|\s*ResumeSathi\s*$/i, "").trim(),
+  );
 
-  const description = truncateMeta(
+  const description = getSeoDescription(
     article?.meta_description ||
       article?.og_description ||
       article?.description ||
       "Read this helpful article from ResumeSathi about resume writing, interviews, career growth, and job search success.",
-    160,
   );
-
-  const keywords =
-    article?.meta_keywords ||
-    article?.keywords ||
-    "resume tips, interview tips, career advice, job search";
 
   const image =
     article?.og_image ||
@@ -198,7 +194,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-    keywords,
     alternates: {
       canonical,
     },
@@ -237,34 +232,49 @@ export default async function ArticleDetailPage({ params }) {
   const { slug } = await params;
 
   const article = await getArticleData(slug);
-  const articleIndex = getArticleIndex(await getAllArticles());
 
   if (!article) {
     notFound();
   }
 
+  const articleIndex = getArticleIndex(await getAllArticles());
+  const relatedArticles = getRelatedBlogArticles(article, articleIndex);
+  const contextualLinks = getContextualArticleLinks(article);
   const latestArticles = latestFirst(articleIndex)
     .filter((item) => getArticleSlug(item) !== getArticleSlug(slug))
     .slice(0, 5);
 
-  const canonical = `${DEFAULT_SITE_BASE.replace(/\/+$/, "")}${withTrailingSlash(`/blog/${slug}`)}`;
+  const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
+  const canonical = `${siteUrl}${withTrailingSlash(`/blog/${slug}`)}`;
   const articleTitle =
-    article.meta_title ||
-    article.og_title ||
     article.article_title ||
     article.title ||
+    article.meta_title ||
+    article.og_title ||
     "Blog Article";
-  const articleDescription = truncateMeta(
+  const articleDescription = getSeoDescription(
     article.meta_description ||
       article.og_description ||
       article.description ||
       "Read this helpful article from ResumeSathi about resume writing, interviews, career growth, and job search success.",
-    160,
   );
-  const authorName = [article.user?.first_name, article.user?.last_name]
-    .filter(Boolean)
-    .join(" ")
-    .trim();
+  const breadcrumbTitle =
+    article.article_title || article.title || article.meta_title || "Blog Article";
+  const categoryName =
+    article.category?.article_name ||
+    article.category?.name ||
+    article.category?.title ||
+    "General";
+  const categorySlug = getBlogCategorySlug(article.category) || "general";
+  const categoryUrl = `${siteUrl}/blog/category/${encodeURIComponent(categorySlug)}/`;
+  const authorName =
+    [article.user?.first_name, article.user?.last_name]
+      .filter(Boolean)
+      .join(" ")
+      .trim() ||
+    article.user?.name ||
+    "";
+  const authorSlug = getArticleAuthorSlug(article);
 
   return (
     <>
@@ -280,7 +290,17 @@ export default async function ArticleDetailPage({ params }) {
             ? { dateModified: getArticleLastUpdatedAt(article) }
             : {}),
           ...(authorName
-            ? { author: { "@type": "Person", name: authorName } }
+            ? {
+                author: {
+                  "@type": "Person",
+                  name: authorName,
+                  ...(authorSlug
+                    ? {
+                        url: `${DEFAULT_SITE_BASE.replace(/\/+$/, "")}/authors/${authorSlug}/`,
+                      }
+                    : {}),
+                },
+              }
             : {}),
           ...(article.category?.article_name
             ? { articleSection: article.category.article_name }
@@ -294,9 +314,41 @@ export default async function ArticleDetailPage({ params }) {
             name: "ResumeSathi",
             logo: {
               "@type": "ImageObject",
-              url: `${DEFAULT_SITE_BASE.replace(/\/+$/, "")}/front-assets/images/logo/logo.svg`,
+              url: `${DEFAULT_SITE_BASE.replace(/\/+$/, "")}/front-assets/images/logo/logo-512.png`,
             },
           },
+        }}
+      />
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            {
+              "@type": "ListItem",
+              position: 1,
+              name: "Home",
+              item: `${siteUrl}/`,
+            },
+            {
+              "@type": "ListItem",
+              position: 2,
+              name: "Blog",
+              item: `${siteUrl}/blog/`,
+            },
+            {
+              "@type": "ListItem",
+              position: 3,
+              name: categoryName,
+              item: categoryUrl,
+            },
+            {
+              "@type": "ListItem",
+              position: 4,
+              name: breadcrumbTitle,
+              item: canonical,
+            },
+          ],
         }}
       />
       <ArticleDetailPageClient
@@ -305,6 +357,8 @@ export default async function ArticleDetailPage({ params }) {
         articleIndex={articleIndex}
         initialLatest={latestArticles}
         initialCategories={getArticleCategories()}
+        initialRelated={relatedArticles}
+        contextualLinks={contextualLinks}
       />
     </>
   );

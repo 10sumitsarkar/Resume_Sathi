@@ -21,7 +21,7 @@ const SECTIONS = [
 ];
 
 export default function PrivacyPolicyClient() {
-  const lastUpdated = 'November 14, 2026';
+  const lastUpdated = 'November 22, 2026';
 
   return (
     <>
@@ -136,37 +136,62 @@ export default function PrivacyPolicyClient() {
               <div id="cookies" className="lp-section">
                 <h2><span className="lp-num">5</span>Cookies & Tracking</h2>
                 <p>
-                  ResumeSathi uses Google Analytics to measure website usage and improve
-                  the site. Google Analytics may use cookies and collect information such
-                  as pages visited, browser and device details, and approximate location.
-                  We may use Google AdSense to show ads in the future. If ads are served,
-                  Google and its partners may use cookies or similar technologies. You can
-                  manage browser cookies in your browser settings; disabling them may affect
-                  some website features.
+                  Google Analytics 4 (measurement ID G-GMDRJBQDWL) is loaded only
+                  after you allow analytics in the cookie preferences. When enabled,
+                  it may collect page views and interactions, page addresses and
+                  referrers, browser and device details, operating system, language,
+                  screen resolution, and approximate location derived from an IP
+                  address. Optional analytics and advertising storage are denied by
+                  default until you make a choice.
+                </p>
+                <p>
+                  Use the “Manage cookie choices” link in the footer to accept,
+                  reject, or change optional analytics and advertising preferences.
+                  Your selection is saved in this browser and you can revisit it at
+                  any time. If browser storage is unavailable, the selection applies
+                  only for the current visit. You can also clear saved site data in
+                  your browser settings.
                 </p>
               </div>
 
               <div id="third-party-services" className="lp-section">
                 <h2><span className="lp-num">6</span>Third-Party Services</h2>
                 <p>
-                  We use Google Analytics, a service provided by Google, for website
-                  analytics. Google may process usage and device information under its own
-                  privacy practices. We may use Google AdSense to display ads in the future.
-                  Ad delivery depends on Google approval and our ad settings; if ads are
-                  served, Google and its partners may use cookies or
-                  similar technologies to deliver, measure, and personalize ads, subject to
-                  your choices and applicable consent requirements. Read the{" "}
+                  Google Analytics is provided by Google and processes usage and device
+                  information as described in its{" "}
                   <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">
                     Google Privacy Policy
-                  </a>{" "}
-                  for details. Resume and bio-data content created with our tools is stored
-                  in your browser and is not sent to Google Analytics or AdSense. You can
-                  manage Google ad personalization through{" "}
+                  </a>
+                  . If Google AdSense ads are served on this site, third-party vendors,
+                  including Google, use cookies to serve ads based on a user&apos;s prior
+                  visits to this and other websites. Google&apos;s use of advertising
+                  cookies enables it and its partners to serve ads based on visits to this
+                  site and/or other sites on the Internet. You can opt out of personalized
+                  advertising at{" "}
                   <a href="https://adssettings.google.com" target="_blank" rel="noreferrer">
                     Google Ads Settings
+                  </a>{" "}
+                  or{" "}
+                  <a href="https://www.aboutads.info" target="_blank" rel="noreferrer">
+                    aboutads.info
                   </a>
-                  . Where required, we will provide an appropriate consent mechanism before
-                  serving ads.
+                  . Learn how Google uses information from sites and apps that use its
+                  services in its{" "}
+                  <a
+                    href="https://policies.google.com/technologies/partner-sites"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    partner sites and apps policy
+                  </a>
+                  .
+                </p>
+                <p>
+                  Some pages contain Amazon affiliate links. If you make a purchase through
+                  one of these links, we may earn a commission at no extra cost to you.
+                  Amazon may use cookies or similar technologies in connection with those
+                  links. Resume and bio-data content created with our tools is stored in
+                  your browser and is not sent to Google Analytics or AdSense.
                 </p>
               </div>
 
@@ -202,18 +227,10 @@ export default function PrivacyPolicyClient() {
               <div id="childrens-privacy" className="lp-section">
                 <h2><span className="lp-num">9</span>Age & Suitability</h2>
                 <p>
-                  ResumeSathi is an education and career-focused platform intended to help
-                  people of any age build resumes and prepare for exams and applications. Our content
-                  is general-audience and does not include material unsuitable for younger
-                  users, so students, first-time job seekers, and professionals alike can use
-                  the site.
-                </p>
-                <p>
-                  As explained above, resume information is stored locally in your browser
-                  rather than on our servers. If you are a parent or guardian and believe your
-                  child has shared personal information with us through the Contact Us page,
-                  please reach out to us using the details below and we will address it
-                  promptly.
+                  ResumeSathi is a career and exam-information platform and is not directed
+                  to children under 13. If you believe a child under 13 has submitted
+                  personal information through our Contact Us page, please contact us using
+                  the details below.
                 </p>
               </div>
 

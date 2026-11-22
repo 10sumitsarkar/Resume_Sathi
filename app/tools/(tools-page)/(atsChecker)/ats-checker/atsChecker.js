@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import '../../../tools-css/ats-checker.css';
-import ToolsPageAd from "../../../../tools/components/ToolsPageAd";
 
 import {
   extractPdfText,
@@ -191,7 +190,6 @@ export default function AtsChecker() {
             keyword matching, and optimization suggestions.
           </p>
         </div>
-        <ToolsPageAd format="728x90" />
 
         {/* ── Upload Zone ── */}
         {!file && (
@@ -431,7 +429,6 @@ export default function AtsChecker() {
    Paste below the tool component's closing tag.
    ============================================================ */}
 
-<ToolsPageAd native />
 <section className="ats-checker-info">
 
   <div className="info-block">
@@ -516,7 +513,6 @@ export default function AtsChecker() {
     </p>
   </div>
 
-  <ToolsPageAd format="300x250" />
 
   <div className="info-block">
     <h3>Why Good Candidates Get Filtered Out</h3>
@@ -548,7 +544,6 @@ export default function AtsChecker() {
     </ul>
   </div>
 
-  <ToolsPageAd format="468x60" />
 
   <div className="info-block">
     <h3>Using the Missing Keyword List Sensibly</h3>
@@ -601,7 +596,6 @@ export default function AtsChecker() {
     </ul>
   </div>
 
-  <ToolsPageAd format="300x250" />
 
   <div className="info-block">
     <h3>Questions</h3>

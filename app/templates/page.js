@@ -15,7 +15,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/front-assets/images/og/home-og.png",
+        url: "/front-assets/images/og/home-og.webp",
         width: 1200,
         height: 630,
         alt: "ResumeSathi free resume templates",
@@ -26,7 +26,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Free Resume Templates for Every Career Stage | ResumeSathi",
     description: "Pick a professional resume template matching your role and create a clean, ATS-friendly CV in minutes.",
-    images: ["/front-assets/images/og/home-og.png"],
+    images: ["/front-assets/images/og/home-og.webp"],
   },
   robots: {
     index: true,

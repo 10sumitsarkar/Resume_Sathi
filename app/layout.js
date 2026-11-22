@@ -1,9 +1,8 @@
 import JsonLd from "./components/JsonLd";
 import FloatingTypingLink from "./components/FloatingTypingLink";
 import ClientScripts from "./components/ClientScripts";
-import SocialBar from "./components/ads/SocialBar";
+import CookieConsent from "./components/CookieConsent";
 import { DEFAULT_SITE_BASE } from "./lib/apiConfig";
-import Script from "next/script";
 import "./globals.css";
 
 const SITE_URL = DEFAULT_SITE_BASE.replace(/\/+$/, "");
@@ -15,20 +14,19 @@ export const metadata = {
     template: '%s | ResumeSathi',
   },
   description: 'Create ATS-friendly resumes, cover letters, and career documents for free with ResumeSathi. Explore career tools, exam guides, and expert advice.',
-  keywords: ['resume builder', 'ATS resume', 'free resume templates', 'career blog', 'exam guides', 'cover letter builder'],
   openGraph: {
     title: 'Free Resume Builder, ATS Resume Templates & Career Tools',
     description: 'Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.',
     url: '/',
     type: 'website',
     siteName: 'ResumeSathi',
-    images: [{ url: '/front-assets/images/og/home-og.png', width: 1200, height: 630, alt: 'ResumeSathi resume builder' }],
+    images: [{ url: '/front-assets/images/og/home-og.webp', width: 1200, height: 630, alt: 'ResumeSathi resume builder' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Free Resume Builder, ATS Resume Templates & Career Tools',
     description: 'Create ATS-friendly resumes, cover letters, and job-ready career documents for free with ResumeSathi.',
-    images: ['/front-assets/images/og/home-og.png'],
+    images: ['/front-assets/images/og/home-og.webp'],
   },
   icons: {
     icon: '/front-assets/images/logo/favicon.png',
@@ -43,6 +41,15 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
       <head>
         <meta charSet="utf-8" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || []; window.gtag = window.gtag || function(){window.dataLayer.push(arguments);}; window.gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied'});`,
+          }}
+        />
+        <meta
+          name="google-adsense-account"
+          content="ca-pub-2548560318125222"
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="preload" href="/front-assets/css/bootstrap.min.css" as="style" />
@@ -70,7 +77,12 @@ export default function RootLayout({ children }) {
             "@type": "Organization",
             name: "ResumeSathi",
             url: SITE_URL,
-            logo: `${SITE_URL}/front-assets/images/logo/logo.svg`,
+            logo: {
+              "@type": "ImageObject",
+              url: `${SITE_URL}/front-assets/images/logo/logo-512.png`,
+              width: 512,
+              height: 512,
+            },
             sameAs: [
               "https://www.youtube.com/@Resume_Sathi",
               "https://www.facebook.com/resumesathi",
@@ -80,13 +92,21 @@ export default function RootLayout({ children }) {
             description: "ResumeSathi helps job seekers create ATS-friendly resumes, cover letters, and career documents for free."
           }}
         />
+        <JsonLd
+          data={{
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "ResumeSathi",
+            url: SITE_URL,
+          }}
+        />
 
         <main id="main-content">
           {children}
         </main>
         <FloatingTypingLink />
         <ClientScripts />
-        <SocialBar />
+        <CookieConsent />
       </body>
     </html>
   );

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Banner300x250 } from '../../components/ads';
 
 const sidebarIconStyle = { width: 18, height: 18, flexShrink: 0 };
 
@@ -315,9 +314,6 @@ useEffect(() => {
               </Link>
             </div>
           </div>
-          <div className="tools-sidebar-ad">
-            <Banner300x250 />
-          </div>
 
         </div>
       </div>}
@@ -428,9 +424,6 @@ useEffect(() => {
                   <span>Signature Cropper</span>
                 </Link>
               </div>
-            </div>
-            <div className="tools-sidebar-ad">
-              <Banner300x250 />
             </div>
           </div>
         </div>

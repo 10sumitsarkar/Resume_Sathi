@@ -2148,13 +2148,6 @@
   font-family: inherit;
 }
 
-.rk-cta-ads-banner {
-  position: absolute;
-  left: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
 .rk-cta-content {
   position: relative;
   max-width: 680px;

@@ -4,14 +4,6 @@ export const metadata = {
   title: 'Privacy Policy | Resume & Bio-Data Maker',
   description:
     'Read how ResumeSathi collects, uses, stores, and protects your information while you build resumes and bio-data on our free platform.',
-  keywords: [
-    'ResumeSathi privacy policy',
-    'resume builder privacy',
-    'bio data maker privacy',
-    'bio data local storage',
-    'data protection resume maker',
-    'ResumeSathi data security',
-  ],
   alternates: {
     canonical: '/privacy-policy/',
   },
@@ -26,14 +18,14 @@ export const metadata = {
     url: '/privacy-policy/',
     siteName: 'ResumeSathi',
     type: 'website',
-        images: [{ url: "/front-assets/images/og/home-og.png", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],
+        images: [{ url: "/front-assets/images/og/home-og.webp", width: 1200, height: 630, alt: "ResumeSathi resume builder" }],
   },
   twitter: {
     card: 'summary',
     title: 'Privacy Policy | ResumeSathi Resume & Bio-Data Maker',
     description:
       'Learn how ResumeSathi handles resume and bio-data information, local storage, contact data, and privacy choices.',
-        images: ["/front-assets/images/og/home-og.png"],
+        images: ["/front-assets/images/og/home-og.webp"],
 
     },
 };

@@ -5,6 +5,8 @@ import { notFound } from "next/navigation";
 import GuideDetailClient from "./GuideDetailClient";
 import { DEFAULT_SITE_BASE, withTrailingSlash } from "../../lib/apiConfig";
 import { getExamGuideBackendBase, getExamGuideLastUpdated, isExamGuide } from "../examGuideData";
+import { getArticleAuthorSlug } from "../../blog/articleMetadata";
+import { getSeoDescription, getSeoTitle } from "../../lib/seoMetadata";
 export const dynamicParams = false;
 
 // Kuch fields (jaise og_image) DB me already percent-encoded save hote hain,
@@ -23,11 +25,11 @@ function safeEncodeUrl(url) {
 function resolveImageUrl(url) {
   const backendBase = getExamGuideBackendBase();
   const siteUrl = DEFAULT_SITE_BASE.replace(/\/+$/, "");
-  const fallbackImage = `${siteUrl}/front-assets/images/og/home-og.png`;
+  const fallbackImage = `${siteUrl}/front-assets/images/og/home-og.webp`;
 
   if (!url) return fallbackImage;
   if (/^https?:\/\//i.test(url) || url.startsWith("//")) {
-    return safeEncodeUrl(url);
+    return safeEncodeUrl(url.startsWith("//") ? `https:${url}` : url);
   }
 
   const normalized = String(url).replace(/^\/+/, "");
@@ -44,15 +46,6 @@ function getExamGuidesCache() {
     console.error("FATAL: could not read data/exam-guides-cache.json", err);
   }
   return [];
-}
-
-function truncateMeta(value = "", max = 158) {
-  const normalized = String(value || "").replace(/\s+/g, " ").trim();
-  if (normalized.length <= max) return normalized;
-  const truncated = normalized.slice(0, max);
-  const wordBoundary = truncated.lastIndexOf(" ");
-  if (wordBoundary < 1) return normalized;
-  return truncated.slice(0, wordBoundary).replace(/[.,\s]+$/, "");
 }
 
 function getAbsoluteExamGuideUrl(slug = "") {
@@ -119,26 +112,21 @@ export async function generateMetadata({ params }) {
     article?.title ||
     article?.topic_name ||
     "Exam Guide";
-  const title = rawTitle;
-  const description = truncateMeta(
+  const seoTitle = getSeoTitle(
+    String(rawTitle).replace(/\s*\|\s*ResumeSathi\s*$/i, ""),
+  );
+  const seoDescription = getSeoDescription(
     article?.meta_description ||
     article?.og_description ||
     article?.description ||
-    "Explore exam details, eligibility, important dates, and preparation guidance on ResumeSathi."
+    "Explore exam details, eligibility, important dates, and preparation guidance on ResumeSathi.",
   );
-  const keywords =
-    article?.meta_keywords ||
-    article?.keywords ||
-    "exam guides, syllabus, eligibility, exam pattern, exam preparation";
   const canonical = `${siteUrl}${withTrailingSlash(`/exam-guides/${getExamGuideSlug(slug) || ""}`)}`;
   const resolvedImage = resolveImageUrl(getHeroImage(article));
-  const seoTitle = title.replace(/\s*\|\s*ResumeSathi\s*$/i, "").trim();
-  const seoDescription = description || truncateMeta(`Check ${rawTitle} details, important dates, eligibility, admit card, answer key and result updates on ResumeSathi.`);
 
   return {
     title: seoTitle,
     description: seoDescription,
-    keywords,
     alternates: { canonical },
     robots: { index: true, follow: true },
     openGraph: {
@@ -192,14 +180,26 @@ function buildExamGuideJsonLd(article, slug) {
       .trim() ||
     article.user?.name ||
     "ResumeSathi Editorial Team";
+  const authorSlug = getArticleAuthorSlug(article);
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: getTitle(article),
+    description: getSeoDescription(
     description,
+    `Explore ${getTitle(article)} details, eligibility, and preparation guidance on ResumeSathi.`,
+    ),
     image: resolveImageUrl(getHeroImage(article)),
     author: article.user
-      ? { "@type": "Person", name: authorName }
+      ? {
+          "@type": "Person",
+          name: authorName,
+          ...(authorSlug
+            ? {
+                url: `${DEFAULT_SITE_BASE.replace(/\/+$/, "")}/authors/${authorSlug}/`,
+              }
+            : {}),
+        }
       : { "@type": "Organization", name: authorName },
     datePublished: article.created_at,
     ...(getExamGuideLastUpdated(article)
@@ -212,7 +212,7 @@ function buildExamGuideJsonLd(article, slug) {
       name: "ResumeSathi",
       logo: {
         "@type": "ImageObject",
-        url: `${DEFAULT_SITE_BASE.replace(/\/+$/, "")}/front-assets/images/logo/logo.svg`,
+        url: `${DEFAULT_SITE_BASE.replace(/\/+$/, "")}/front-assets/images/logo/logo-512.png`,
       },
     },
   };

@@ -18,7 +18,7 @@ const siteOrigin = new URL(option("site-origin", "https://www.resumesathi.com"))
 const lighthouseBaseUrl = option("lighthouse-base-url", "");
 const runLighthouse = args.includes("--lighthouse");
 const expectedAdsTxt =
-  "google.com, pub-2548560318125222, DIRECT, f08c47fec0942fa0";
+  "google.com, pub-7914493060795219, DIRECT, f08c47fec0942fa0";
 const siteHosts = new Set(["www.resumesathi.com", "resumesathi.com"]);
 const baselinePages = [
   { name: "Home", route: "/" },
@@ -681,7 +681,8 @@ function checkAdSenseAndPlacement() {
       getAttribute(tag, "src").startsWith(loader),
     );
     const accountMetas = getMetaTags(page.html).filter(
-      (tag) => getAttribute(tag, "name").toLowerCase() === "google-adsense-account",
+      (tag) =>
+        getAttribute(tag, "name").toLowerCase() === "google-adsense-account",
     );
     const expectedScripts = shouldLoadAdsense(page.route) ? 1 : 0;
     if (scripts.length !== expectedScripts) {
@@ -693,7 +694,7 @@ function checkAdSenseAndPlacement() {
     }
     if (
       accountMetas.length !== 1 ||
-      getAttribute(accountMetas[0] || "", "content") !== "ca-pub-2548560318125222"
+      getAttribute(accountMetas[0] || "", "content") !== "ca-pub-7914493060795219"
     ) {
       addIssue(
         "AdSense and ad network code",

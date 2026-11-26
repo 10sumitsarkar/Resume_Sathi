@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
         />
         <meta
           name="google-adsense-account"
-          content="ca-pub-2548560318125222"
+          content="ca-pub-7914493060795219"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
